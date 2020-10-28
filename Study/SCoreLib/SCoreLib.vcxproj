@@ -152,9 +152,11 @@
     <ClInclude Include="SCore.h" />
     <ClInclude Include="SCoreStd.h" />
     <ClInclude Include="SStd.h" />
+    <ClInclude Include="SWindow.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SCore.cpp" />
+    <ClCompile Include="SWindow.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
