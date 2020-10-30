@@ -30,6 +30,9 @@
     <ClInclude Include="STimer.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="SInput.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SCore.cpp">
@@ -39,6 +42,9 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="STimer.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SInput.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

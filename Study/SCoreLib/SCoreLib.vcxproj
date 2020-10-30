@@ -164,12 +164,14 @@ copy "*.h" "..\\..\\include"</Command>
   <ItemGroup>
     <ClInclude Include="SCore.h" />
     <ClInclude Include="SCoreStd.h" />
+    <ClInclude Include="SInput.h" />
     <ClInclude Include="SStd.h" />
     <ClInclude Include="STimer.h" />
     <ClInclude Include="SWindow.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SCore.cpp" />
+    <ClCompile Include="SInput.cpp" />
     <ClCompile Include="STimer.cpp" />
     <ClCompile Include="SWindow.cpp" />
   </ItemGroup>
