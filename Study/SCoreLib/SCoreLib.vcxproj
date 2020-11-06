@@ -165,15 +165,19 @@ copy "*.h" "..\\..\\include"</Command>
     <ClInclude Include="SCore.h" />
     <ClInclude Include="SCoreStd.h" />
     <ClInclude Include="SInput.h" />
+    <ClInclude Include="SSound.h" />
     <ClInclude Include="SStd.h" />
     <ClInclude Include="STimer.h" />
     <ClInclude Include="SWindow.h" />
+    <ClInclude Include="SWrite.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SCore.cpp" />
     <ClCompile Include="SInput.cpp" />
+    <ClCompile Include="SSound.cpp" />
     <ClCompile Include="STimer.cpp" />
     <ClCompile Include="SWindow.cpp" />
+    <ClCompile Include="SWrite.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

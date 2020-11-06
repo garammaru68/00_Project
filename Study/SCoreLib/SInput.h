@@ -12,7 +12,7 @@ enum KeyState
 class SInput : public SSingleton<SInput>
 {
 public:
-	friend class SSingleton<SInput>
+	friend class SSingleton<SInput>;
 private:
 	DWORD	m_dwKeyState[256];
 	POINT	m_MousePos;
@@ -25,6 +25,9 @@ public:
 public:
 	DWORD GetKey(DWORD dwKey);
 private:
-	SInput();d
+	SInput();
+public:
+	~SInput();
 };
+#define g_Input SInput:GetInstance()
 

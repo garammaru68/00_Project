@@ -6,6 +6,7 @@
 #include <list>
 #include <map>
 #include <algorithm>
+#include <assert.h>
 #pragma comment( lib, "Winmm.lib" )
 #pragma comment( lib, "SCoreLib.lib" )
 #pragma comment( lib, "fmod_vc.lib" )

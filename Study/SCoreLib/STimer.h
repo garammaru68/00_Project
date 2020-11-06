@@ -19,5 +19,5 @@ public:
 	STimer();
 	virtual ~STimer();
 };
-#define g_TImer STimer::GetInstance()
+#define g_Timer STimer::GetInstance()
 
