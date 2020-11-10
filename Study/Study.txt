@@ -1,0 +1,3 @@
+คั		sagment
+<คั>		line
+คั>		ray

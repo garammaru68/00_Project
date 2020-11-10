@@ -16,6 +16,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SCoreLib", "SCoreLib\SCoreLib.vcxproj", "{63D4C5C2-59E7-4526-A757-C1AF97C1C6D8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Practice", "Practice", "{8313BBF5-7CB0-4537-9617-97A3C435BC68}"
+	ProjectSection(SolutionItems) = preProject
+		Study.txt = Study.txt
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LinkedList", "LinkedList\LinkedList.vcxproj", "{ADF33763-D36A-4AE3-A990-DCEA2319A143}"
 EndProject
