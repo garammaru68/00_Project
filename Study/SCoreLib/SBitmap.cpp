@@ -117,3 +117,154 @@ bool SBitmap::CreateDIB(LONG iWidth, LONG iHeight, int iBitCount)
 	}
 	return true;
 }
+bool SBitmap::Frame()
+{
+	return true;
+}
+bool SBitmap::Release()
+{
+	DeleteObject(m_hBitmap);
+	ReleaseDC(g_hWnd, m_hMemDC);
+	return true;
+}
+bool SBitmap::Render()
+{
+	BitBlt( g_hOffScreenDC, 0, 0, g_rtClient.right, g_rtClient.bottom, 
+			m_hMemDC, 0, 0, SRCCOPY );
+	return true;
+}
+bool SBitmap::Draw(RECT desk, RECT src, DWORD op, int iType)
+{
+	/*BitBlt( g_hOffScreenDC, desk.left, desk.top, desk.right, desk.bottom,
+			m_hMemDC, src.left, src.top, op );*/
+
+	switch (iType)
+	{
+	case 1: {
+		StretchBlt( g_hOffScreenDC, desk.left + desk.right, desk.top, -desk.right, desk.bottom,
+					m_hMemDC, src.left, src.top, src.right, src.bottom, op );
+	}break;
+	case 2: {
+		StretchBlt( g_hOffScreenDC, desk.left, desk.top + desk.bottom, desk.right, -desk.bottom,
+					m_hMemDC, src.left, src.top, src.right, src.bottom, op );
+	}break;
+	case 3: {
+		StretchBlt( g_hOffScreenDC, desk.left + desk.right, desk.top + desk.bottom, -desk.right, -desk.bottom,
+					m_hMemDC, src.left, src.top, src.right, src.bottom, op );
+	}break;
+	default: {
+		StretchBlt( g_hOffScreenDC, desk.left, desk.top, desk.right, desk.bottom,
+					m_hMemDC, src.left, src.top, src.right, src.bottom, op );
+	}break;
+	}
+	return true;
+}
+bool SBitmap::DrawColorKey(RECT desk, RECT src, DWORD color)
+{
+	BOOL bRet = TransparentBlt( g_hOffScreenDC, desk.left, desk.top, desk.right, desk.bottom,
+								m_hMemDC, src.left, src.top, src.right, src.bottom, color );
+	return bRet;
+}
+bool SBitmap::DrawColorKey(LONG x, LONG y, DWORD color)
+{
+	RECT desk = { x, y, m_BitmapInfo.bmWidth, m_BitmapInfo.bmHeight };
+	RECT src = { 0, 0, m_BitmapInfo.bmWidth, m_BitmapInfo.bmHeight };
+
+	BOOL bRet = TransparentBlt( g_hOffScreenDC, desk.left, desk.top, desk.right, desk.bottom,
+								m_hMemDC, src.left, src.top, src.right, src.bottom, color );
+	return bRet;
+}
+bool SBitmap::DrawAlphaBlend(LONG x, LONG y, BYTE alpha)
+{
+	RECT desk = { x, y, m_BitmapInfo.bmWidth, m_BitmapInfo.bmHeight };
+	RECT src = { 0, 0, m_BitmapInfo.bmWidth, m_BitmapInfo.bmHeight };
+	m_BlendFunction.BlendOp = AC_SRC_OVER;
+	m_BlendFunction.BlendFlags = 0;
+	m_BlendFunction.SourceConstantAlpha = alpha;
+	//(cosf(g_fGameTimer) * 0.5f + 0.5f) * 255;
+	if (m_BitmapInfo.bmBitsPixel == 32)
+	{
+		m_BlendFunction.AlphaFormat = AC_SRC_ALPHA;
+	}
+	else
+	{
+		m_BlendFunction.AlphaFormat = AC_SRC_OVER;
+	}
+
+	AlphaBlend( g_hOffScreenDC, desk.left, desk.top, desk.right, desk.bottom,
+				m_hMemDC, src.left, src.top, src.right, src.bottom, m_BlendFunction );
+	return true;
+}
+bool SBitmap::DrawAlphaBlend(RECT desk, RECT src, BYTE alpha)
+{
+	m_BlendFunction.BlendOp = AC_SRC_OVER;
+	m_BlendFunction.BlendFlags = 0;
+	m_BlendFunction.SourceConstantAlpha = alpha;
+	//(cosf(g_fGameTimer)*0.5f + 0.5f) * 255;
+	if (m_BitmapInfo.bmBitsPixel == 32)
+	{
+		m_BlendFunction.AlphaFormat = AC_SRC_ALPHA;
+	}
+	else
+	{
+		m_BlendFunction.AlphaFormat = AC_SRC_OVER;
+	}
+	
+	AlphaBlend( g_hOffScreenDC, desk.left, desk.top, desk.right, desk.bottom,
+				m_hMemDC, src.left, src.top, src.right, src.bottom, m_BlendFunction );
+	return true;
+}
+bool SBitmap::DrawAlphaBlend(RECT desk, RECT src, BLENDFUNCTION bf)
+{
+	AlphaBlend( g_hOffScreenDC, desk.left, desk.top, desk.right, desk.bottom,
+				m_hMemDC, src.left, src.top, src.right, src.bottom, bf );
+	return true;
+}
+bool SBitmap::DrawAlphaBlend(LONG x, LONG y, BYTE alpha, BLENDFUNCTION bf)
+{
+	RECT desk = { x, y, m_BitmapInfo.bmWidth, m_BitmapInfo.bmHeight };
+	RECT src = { 0, 0, m_BitmapInfo.bmWidth, m_BitmapInfo.bmHeight };
+	m_BlendFunction.BlendOp = AC_SRC_OVER;
+	m_BlendFunction.BlendFlags = 0;
+	m_BlendFunction.SourceConstantAlpha = alpha;
+	//(cosf(g_fGameTimer) * 0.5f + 0.5f) * 255;
+	if (m_BitmapInfo.bmBitsPixel == 32)
+	{
+		m_BlendFunction.AlphaFormat = AC_SRC_ALPHA;
+	}
+	else
+	{
+		m_BlendFunction.AlphaFormat = AC_SRC_OVER;
+	}
+
+	AlphaBlend( g_hOffScreenDC, desk.left, desk.top, desk.right, desk.bottom,
+				m_hMemDC, src.left, src.top, src.right, src.bottom, m_BlendFunction );
+	return true;
+}
+bool SBitmap::DrawAlphaBlend(RECT desk, RECT src, BLENDFUNCTION bf)
+{
+	AlphaBlend( g_hOffScreenDC, desk.left, desk.top, desk.right, desk.bottom,
+				m_hMemDC, src.left, src.top, src.right, src.bottom, bf );
+	return true;
+}
+bool SBitmap::DrawAlphaBlend(LONG x, LONG y, BYTE alpha, BLENDFUNCTION bf)
+{
+	RECT desk = { x, y, m_BitmapInfo.bmWidth, m_BitmapInfo.bmHeight };
+	RECT src = { 0, 0, m_BitmapInfo.bmWidth, m_BitmapInfo.bmHeight };
+	m_BlendFunction.BlendOp = AC_SRC_OVER;
+	m_BlendFunction.BlendFlags = 0;
+	m_BlendFunction.SourceConstantAlpha = alpha;
+	//(cosf(g_fGameTimer) * 0.5f + 0.5f) * 255;
+	if (m_BitmapInfo.bmBitsPixel == 32)
+	{
+		m_BlendFunction.AlphaFormat = AC_SRC_ALPHA;
+	}
+	else
+	{
+		m_BlendFunction.AlphaFormat = AC_SRC_OVER;
+	}
+
+	AlphaBlend( g_hOffScreenDC, desk.left, desk.top, desk.right, desk.bottom,
+				m_hMemDC, src.left, src.top, src.right, src.bottom, bf );
+	return true;
+}

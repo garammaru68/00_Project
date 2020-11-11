@@ -163,6 +163,8 @@ copy "*.h" "..\\..\\include"</Command>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="SBitmap.h" />
+    <ClInclude Include="SBitmapManager.h" />
+    <ClInclude Include="SCollision.h" />
     <ClInclude Include="SCore.h" />
     <ClInclude Include="SCoreStd.h" />
     <ClInclude Include="SGraphicAPI.h" />
@@ -176,6 +178,8 @@ copy "*.h" "..\\..\\include"</Command>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SBitmap.cpp" />
+    <ClCompile Include="SBitmapManager.cpp" />
+    <ClCompile Include="SCollision.cpp" />
     <ClCompile Include="SCore.cpp" />
     <ClCompile Include="SGraphicAPI.cpp" />
     <ClCompile Include="SInput.cpp" />
