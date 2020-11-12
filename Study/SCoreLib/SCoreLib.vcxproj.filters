@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Object">
+      <UniqueIdentifier>{1602028a-698c-458c-89b0-f127b40cf1ed}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SStd.h">
@@ -45,13 +48,25 @@
     <ClInclude Include="SGraphicAPI.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="SBitmap.h">
+    <ClInclude Include="SCollision.h">
       <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SEffect.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SObject.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="SObjectManager.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="SBitmap.h">
+      <Filter>Object</Filter>
     </ClInclude>
     <ClInclude Include="SBitmapManager.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>Object</Filter>
     </ClInclude>
-    <ClInclude Include="SCollision.h">
+    <ClInclude Include="SProjectile.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
@@ -80,13 +95,25 @@
     <ClCompile Include="SGraphicAPI.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="SBitmap.cpp">
+    <ClCompile Include="SCollision.cpp">
       <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SEffect.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SObjectManager.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="SObject.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="SBitmap.cpp">
+      <Filter>Object</Filter>
     </ClCompile>
     <ClCompile Include="SBitmapManager.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>Object</Filter>
     </ClCompile>
-    <ClCompile Include="SCollision.cpp">
+    <ClCompile Include="SProjectile.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

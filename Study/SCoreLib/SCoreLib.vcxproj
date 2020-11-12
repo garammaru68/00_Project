@@ -167,8 +167,12 @@ copy "*.h" "..\\..\\include"</Command>
     <ClInclude Include="SCollision.h" />
     <ClInclude Include="SCore.h" />
     <ClInclude Include="SCoreStd.h" />
+    <ClInclude Include="SEffect.h" />
     <ClInclude Include="SGraphicAPI.h" />
     <ClInclude Include="SInput.h" />
+    <ClInclude Include="SObject.h" />
+    <ClInclude Include="SObjectManager.h" />
+    <ClInclude Include="SProjectile.h" />
     <ClInclude Include="SSound.h" />
     <ClInclude Include="SSoundManager.h" />
     <ClInclude Include="SStd.h" />
@@ -181,8 +185,12 @@ copy "*.h" "..\\..\\include"</Command>
     <ClCompile Include="SBitmapManager.cpp" />
     <ClCompile Include="SCollision.cpp" />
     <ClCompile Include="SCore.cpp" />
+    <ClCompile Include="SEffect.cpp" />
     <ClCompile Include="SGraphicAPI.cpp" />
     <ClCompile Include="SInput.cpp" />
+    <ClCompile Include="SObject.cpp" />
+    <ClCompile Include="SObjectManager.cpp" />
+    <ClCompile Include="SProjectile.cpp" />
     <ClCompile Include="SSound.cpp" />
     <ClCompile Include="SSoundManager.cpp" />
     <ClCompile Include="STimer.cpp" />
