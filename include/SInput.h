@@ -29,5 +29,5 @@ private:
 public:
 	~SInput();
 };
-#define g_Input SInput:GetInstance()
+#define g_Input SInput::GetInstance()
 

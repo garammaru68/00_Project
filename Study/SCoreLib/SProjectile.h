@@ -33,7 +33,7 @@ struct SEffectInfo
 			}
 			m_fTimer -= m_fStep;
 		}
-		//p = p + (TPoint(0.0f -1.0f) * g_fSecondPerFrame * 300.0f);
+		//p = p + (SPoint(0.0f -1.0f) * g_fSecondPerFrame * 300.0f);
 	}
 	SEffectInfo()
 	{

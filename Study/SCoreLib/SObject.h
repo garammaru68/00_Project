@@ -21,7 +21,7 @@ struct SObjectAttribute
 	wstring pushbitmap;
 	wstring selectbitmap;
 	wstring disbitmap;
-	SPoint	pls;
+	SPoint	pos;
 	RECT	rtSrc;
 	RECT	rtDesk;
 	bool	bColorKey;
@@ -48,7 +48,9 @@ public:
 	SPoint		m_ptDirection;
 	bool		m_bDead;
 	float		m_fLifeTime;
+	float		m_fTmpTimer;
 public:
+	virtual bool Reset();
 	virtual bool Init();
 	virtual bool Frame();
 	virtual bool Render();
@@ -62,6 +64,10 @@ public:
 						const TCHAR* mask = nullptr,
 						DWORD dwColor = RGB(255, 0, 255));
 	virtual void DrawColorKey();
+public:
+	virtual void Damage() {};
+	virtual void Dead() {};
+	virtual void Attack(SObject* pPlayer) {};
 public:
 	virtual void SetTransition(DWORD dwEvent) {};
 public:

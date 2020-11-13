@@ -18,7 +18,7 @@ public:
 	bool Init();
 	bool Frame();
 	bool Render();
-	bool Relase();
+	bool Release();
 public:
 	SWrite();
 	virtual ~SWrite();

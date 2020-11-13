@@ -1,5 +1,9 @@
 #include "SObject.h"
 
+bool SObject::Reset()
+{
+	return true;
+}
 void SObject::SetPos(SPoint p)
 {
 	m_ptPos = p;

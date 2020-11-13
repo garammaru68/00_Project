@@ -11,6 +11,7 @@ public:
 	WCHAR	m_szBuffer[256] = { 0, };
 	float	m_fBeforeTime;
 public:
+	bool	Reset();
 	bool	Init();
 	bool	Frame();
 	bool	Render();

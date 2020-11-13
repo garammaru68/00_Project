@@ -17,6 +17,13 @@ bool STimer::Init()
 	m_fBeforeTime = timeGetTime();
 	return true;
 }
+bool STimer::Reset()
+{
+	m_fSecondPerFrame = 0.0f;
+	m_iFPS = 0;
+	m_fBeforeTime = timeGetTime();
+	return true;
+}
 bool STimer::Frame()
 {
 	float fCurrentTime = timeGetTime();

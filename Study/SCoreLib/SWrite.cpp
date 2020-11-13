@@ -63,7 +63,7 @@ void SWrite::Draw(POINT pos, wstring msg, DWORD color)
 			msg.size());
 	}
 }
-bool SWrite::Relase()
+bool SWrite::Release()
 {
 	DeleteObject(m_hFont);
 	return true;
