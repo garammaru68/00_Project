@@ -140,14 +140,17 @@ bool SBitmap::Draw(RECT desk, RECT src, DWORD op, int iType)
 
 	switch (iType)
 	{
+	//ÁÂ¿ì
 	case 1: {
 		StretchBlt( g_hOffScreenDC, desk.left + desk.right, desk.top, -desk.right, desk.bottom,
 					m_hMemDC, src.left, src.top, src.right, src.bottom, op );
 	}break;
+	//»óÇÏ
 	case 2: {
 		StretchBlt( g_hOffScreenDC, desk.left, desk.top + desk.bottom, desk.right, -desk.bottom,
 					m_hMemDC, src.left, src.top, src.right, src.bottom, op );
 	}break;
+	//ÁÂ¿ì»óÇÏ
 	case 3: {
 		StretchBlt( g_hOffScreenDC, desk.left + desk.right, desk.top + desk.bottom, -desk.right, -desk.bottom,
 					m_hMemDC, src.left, src.top, src.right, src.bottom, op );
@@ -210,33 +213,6 @@ bool SBitmap::DrawAlphaBlend(RECT desk, RECT src, BYTE alpha)
 		m_BlendFunction.AlphaFormat = AC_SRC_OVER;
 	}
 	
-	AlphaBlend( g_hOffScreenDC, desk.left, desk.top, desk.right, desk.bottom,
-				m_hMemDC, src.left, src.top, src.right, src.bottom, m_BlendFunction );
-	return true;
-}
-bool SBitmap::DrawAlphaBlend(RECT desk, RECT src, BLENDFUNCTION bf)
-{
-	AlphaBlend( g_hOffScreenDC, desk.left, desk.top, desk.right, desk.bottom,
-				m_hMemDC, src.left, src.top, src.right, src.bottom, bf );
-	return true;
-}
-bool SBitmap::DrawAlphaBlend(LONG x, LONG y, BYTE alpha, BLENDFUNCTION bf)
-{
-	RECT desk = { x, y, m_BitmapInfo.bmWidth, m_BitmapInfo.bmHeight };
-	RECT src = { 0, 0, m_BitmapInfo.bmWidth, m_BitmapInfo.bmHeight };
-	m_BlendFunction.BlendOp = AC_SRC_OVER;
-	m_BlendFunction.BlendFlags = 0;
-	m_BlendFunction.SourceConstantAlpha = alpha;
-	//(cosf(g_fGameTimer) * 0.5f + 0.5f) * 255;
-	if (m_BitmapInfo.bmBitsPixel == 32)
-	{
-		m_BlendFunction.AlphaFormat = AC_SRC_ALPHA;
-	}
-	else
-	{
-		m_BlendFunction.AlphaFormat = AC_SRC_OVER;
-	}
-
 	AlphaBlend( g_hOffScreenDC, desk.left, desk.top, desk.right, desk.bottom,
 				m_hMemDC, src.left, src.top, src.right, src.bottom, m_BlendFunction );
 	return true;

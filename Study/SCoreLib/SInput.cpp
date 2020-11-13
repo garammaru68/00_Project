@@ -5,7 +5,7 @@ SInput::SInput()
 {
 	
 }
-SInput::SInput()
+SInput::~SInput()
 {
 
 }

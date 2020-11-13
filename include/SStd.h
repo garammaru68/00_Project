@@ -6,6 +6,7 @@
 #include <list>
 #include <map>
 #include <algorithm>
+#include <assert.h>
 #pragma comment( lib, "Winmm.lib" )
 #pragma comment( lib, "SCoreLib.lib" )
 #pragma comment( lib, "fmod_vc.lib" )
@@ -29,6 +30,44 @@ struct SPoint
 {
 	float x;
 	float y;
+	SPoint() = default;
+	SPoint(float x, float y)
+	{
+		this->x = x;
+		this->y = y;
+	}
+	SPoint operator * (float fValue)
+	{
+		SPoint ret;
+		ret.x = x * fValue;
+		ret.y = y * fValue;
+		return ret;
+	}
+	SPoint operator + (SPoint& p)
+	{
+		SPoint ret;
+		ret.x = x + p.x;
+		ret.y = y + p.y;
+		return ret;
+	}
+	SPoint operator - (SPoint& p)
+	{
+		SPoint ret;
+		ret.x = x - p.x;
+		ret.y = y - p.y;
+		return ret;
+	}
+	float Length()
+	{
+		return sqrt(x * x + y * y);
+	}
+	SPoint Normalize()
+	{
+		float fD = Length();
+		x /= fD;
+		y /= fD;
+		return SPoint(x, y);
+	}
 };
 extern SKeyMap	g_KeyMap;
 extern float	g_fGameTimer;
