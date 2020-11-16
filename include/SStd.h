@@ -50,6 +50,13 @@ struct SPoint
 		ret.y = y + p.y;
 		return ret;
 	}
+	SPoint operator + (SPoint p)
+	{
+		SPoint ret;
+		ret.x = x + p.x;
+		ret.y = y + p.y;
+		return ret;
+	}
 	SPoint operator - (SPoint& p)
 	{
 		SPoint ret;

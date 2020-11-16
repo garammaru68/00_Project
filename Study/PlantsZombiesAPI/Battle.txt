@@ -1,0 +1,31 @@
+3
+
+300 BACKGROUND
+../../data/API/background.bmp
+nullptr
+nullptr
+nullptr
+nullptr
+400 300
+-1 -1 -1 -1
+-1 -1
+0 255 0 255
+
+// enum TObjectType {
+BACKGROUND = 0,
+UICONTROL=100,
+USER=200,
+NPC=300,
+//}
+ 
+struct TObjAttribute
+{
+	int iObjType;
+	wstring colorbitmap;
+	wstring maskbitmap;
+	POINT  pos;
+	RECT   rtSrc;
+	RECT   rtDesk;
+	bool   bColorKey;
+	DWORD  dwColor;
+}

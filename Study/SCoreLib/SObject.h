@@ -14,13 +14,14 @@ enum SControlState {
 	SELECT,
 	DISABLE,
 };
-struct SObjectAttribute
+struct SObjAttribute
 {
 	int iObjType;
 	wstring colorbitmap;
 	wstring pushbitmap;
 	wstring selectbitmap;
 	wstring disbitmap;
+	wstring maskbitmap;
 	SPoint	pos;
 	RECT	rtSrc;
 	RECT	rtDesk;

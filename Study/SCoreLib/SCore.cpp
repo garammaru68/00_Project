@@ -12,12 +12,12 @@ bool SCore::GameInit()
 }
 bool SCore::GameRelease()
 {
+	Release();
 	g_Timer.Release();
 	g_Input.Release();
 	g_Write.Release();
 	g_SoundMgr.Release();
 	m_Graphic.Release();
-	Release();
 	return true;
 }
 bool SCore::GameFrame()
@@ -26,8 +26,8 @@ bool SCore::GameFrame()
 	g_Input.Frame();
 	m_Graphic.Frame();
 	g_SoundMgr.Frame();
-	g_Write.Frame();
 	Frame();
+	g_Write.Frame();
 	return true;
 }
 bool SCore::PreRender()

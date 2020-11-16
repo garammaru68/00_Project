@@ -162,38 +162,58 @@ copy "*.h" "..\\..\\include"</Command>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="SAttackState.h" />
     <ClInclude Include="SBitmap.h" />
     <ClInclude Include="SBitmapManager.h" />
     <ClInclude Include="SCollision.h" />
     <ClInclude Include="SCore.h" />
     <ClInclude Include="SCoreStd.h" />
     <ClInclude Include="SEffect.h" />
+    <ClInclude Include="SEnemyState.h" />
+    <ClInclude Include="SFiniteState.h" />
+    <ClInclude Include="SFiniteStateMachine.h" />
+    <ClInclude Include="SGameUser.h" />
     <ClInclude Include="SGraphicAPI.h" />
     <ClInclude Include="SInput.h" />
+    <ClInclude Include="SMoveState.h" />
+    <ClInclude Include="SNpcObject.h" />
     <ClInclude Include="SObject.h" />
     <ClInclude Include="SObjectManager.h" />
     <ClInclude Include="SProjectile.h" />
+    <ClInclude Include="SScene.h" />
     <ClInclude Include="SSound.h" />
     <ClInclude Include="SSoundManager.h" />
+    <ClInclude Include="SStandState.h" />
     <ClInclude Include="SStd.h" />
     <ClInclude Include="STimer.h" />
+    <ClInclude Include="SUserInterface.h" />
     <ClInclude Include="SWindow.h" />
     <ClInclude Include="SWrite.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="SAttackState.cpp" />
     <ClCompile Include="SBitmap.cpp" />
     <ClCompile Include="SBitmapManager.cpp" />
     <ClCompile Include="SCollision.cpp" />
     <ClCompile Include="SCore.cpp" />
     <ClCompile Include="SEffect.cpp" />
+    <ClCompile Include="SEnemyState.cpp" />
+    <ClCompile Include="SFiniteState.cpp" />
+    <ClCompile Include="SFiniteStateMachine.cpp" />
+    <ClCompile Include="SGameUser.cpp" />
     <ClCompile Include="SGraphicAPI.cpp" />
     <ClCompile Include="SInput.cpp" />
+    <ClCompile Include="SMoveState.cpp" />
+    <ClCompile Include="SNpcObject.cpp" />
     <ClCompile Include="SObject.cpp" />
     <ClCompile Include="SObjectManager.cpp" />
     <ClCompile Include="SProjectile.cpp" />
+    <ClCompile Include="SScene.cpp" />
     <ClCompile Include="SSound.cpp" />
     <ClCompile Include="SSoundManager.cpp" />
+    <ClCompile Include="SStandState.cpp" />
     <ClCompile Include="STimer.cpp" />
+    <ClCompile Include="SUserInterface.cpp" />
     <ClCompile Include="SWindow.cpp" />
     <ClCompile Include="SWrite.cpp" />
   </ItemGroup>

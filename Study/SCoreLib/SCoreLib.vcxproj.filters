@@ -16,6 +16,12 @@
     <Filter Include="Object">
       <UniqueIdentifier>{1602028a-698c-458c-89b0-f127b40cf1ed}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{f2662a86-b167-483a-86f6-67f2471f822f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FSM">
+      <UniqueIdentifier>{ed0db285-8fd2-404a-8717-6ef8e2976d67}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SStd.h">
@@ -69,6 +75,36 @@
     <ClInclude Include="SProjectile.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="SUserInterface.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SGameUser.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="SAttackState.h">
+      <Filter>FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="SEnemyState.h">
+      <Filter>FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="SFiniteState.h">
+      <Filter>FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="SFiniteStateMachine.h">
+      <Filter>FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="SMoveState.h">
+      <Filter>FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="SStandState.h">
+      <Filter>FSM</Filter>
+    </ClInclude>
+    <ClInclude Include="SNpcObject.h">
+      <Filter>Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SCore.cpp">
@@ -115,6 +151,36 @@
     </ClCompile>
     <ClCompile Include="SProjectile.cpp">
       <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SUserInterface.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SGameUser.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="SEnemyState.cpp">
+      <Filter>FSM</Filter>
+    </ClCompile>
+    <ClCompile Include="SFiniteState.cpp">
+      <Filter>FSM</Filter>
+    </ClCompile>
+    <ClCompile Include="SFiniteStateMachine.cpp">
+      <Filter>FSM</Filter>
+    </ClCompile>
+    <ClCompile Include="SMoveState.cpp">
+      <Filter>FSM</Filter>
+    </ClCompile>
+    <ClCompile Include="SAttackState.cpp">
+      <Filter>FSM</Filter>
+    </ClCompile>
+    <ClCompile Include="SStandState.cpp">
+      <Filter>FSM</Filter>
+    </ClCompile>
+    <ClCompile Include="SNpcObject.cpp">
+      <Filter>Object</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

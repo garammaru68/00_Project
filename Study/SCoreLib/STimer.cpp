@@ -42,11 +42,11 @@ bool STimer::Render()
 	if (fTimer >= 1.0f)
 	{
 		ZeroMemory(m_szBuffer, sizeof(WCHAR) * 256);
-		_stprintf_s(m_szBuffer,
-			L"게임시간=%10.2f, spf(%10.4f) fps(%d)\n",
-			m_fGameTimer,
-			m_fSecondPerFrame,
-			m_iFPS);
+		//_stprintf_s(m_szBuffer,
+		//			L"게임시간=%10.2f, spf(%10.4f) fps(%d)\n",
+		//			m_fGameTimer,
+		//			m_fSecondPerFrame,
+		//			m_iFPS);
 		OutputDebugString(m_szBuffer);
 		fTimer -= 1.0f;
 		m_iFPS = 0;

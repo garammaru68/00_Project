@@ -1,0 +1,23 @@
+2
+
+300 BACKGROUND
+../../data/API/Main.bmp
+nullptr
+nullptr
+nullptr
+nullptr
+400 300
+-1 -1 -1 -1
+-1 -1
+0 255 0 255
+
+301 BUTTON1
+../../data/API/StartBarOff.bmp
+../../data/API/StartBarOn.bmp
+nullptr
+nullptr
+nullptr
+400 300
+-1 -1 -1 -1
+-1 -1
+0 255 0 255

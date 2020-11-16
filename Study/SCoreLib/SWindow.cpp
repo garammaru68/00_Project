@@ -53,8 +53,8 @@ bool SWindow::SetWindow(HINSTANCE hInstance)
 	AdjustWindowRect(&rt, WS_OVERLAPPEDWINDOW, FALSE);
 	m_hWnd = CreateWindowEx(
 		WS_EX_APPWINDOW,
-		L"KGCAWINDOw",
-		L"MyGame2",
+		L"KGCAWINDOW",
+		L"Plants VS Zombies",
 		WS_OVERLAPPEDWINDOW,
 		0, 0,
 		rt.right - rt.left,

@@ -77,7 +77,7 @@ struct SProjectileInfo
 			}
 			m_fTimer -= m_fStep;
 		}
-		//p = p + (m_vDir * g_fSecondPerFrame * 300.0f);
+		p = p + (m_vDir * g_fSecondPerFrame * 300.0f);
 	}
 	SProjectileInfo()
 	{

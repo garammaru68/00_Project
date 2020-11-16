@@ -2,9 +2,9 @@
 bool SCollision::RectInPt(RECT rt, POINT pt)
 {
 	return (pt.x >= rt.left &&
-		pt.x <= rt.left + rt.right &&
-		pt.y >= rt.top &&
-		pt.y <= rt.top + rt.bottom);
+			pt.x <= rt.left + rt.right &&
+			pt.y >= rt.top &&
+			pt.y <= rt.top + rt.bottom);
 }
 bool SCollision::Rect2Rect(RECT rtDesk, RECT rtSrc)
 {
