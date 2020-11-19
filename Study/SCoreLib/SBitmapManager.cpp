@@ -201,7 +201,7 @@ bool SBitmapManager::Release()
 
 SBitmapManager::SBitmapManager()
 {
-	m_szDefaultPath = L"../../data/bitmap/";
+	m_szDefaultPath = L"../../data/API/";
 }
 SBitmapManager::~SBitmapManager()
 {

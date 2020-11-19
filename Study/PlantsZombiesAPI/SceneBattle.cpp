@@ -1,30 +1,35 @@
 #include "SceneBattle.h"
-bool  SceneBattle::Reset()
+#include "STimer.h"
+
+bool SceneBattle::CreateScene()
+{
+	SScene::Reset();
+	SScene::CreateScene();
+
+	return true;
+}
+bool SceneBattle::Reset()
 {
 	SScene::Reset();
 	m_bSceneChange = true;
+	m_iNextScene = 1;
 	return true;
 }
-bool	SceneBattle::Frame()
+bool SceneBattle::Render()
+{
+	SScene::Render();
+
+	return true;
+}
+bool SceneBattle::Frame()
 {
 	SScene::Frame();
-	for (auto obj : m_UIObjList)
-	{
-		if (obj->m_iObjectType != 301) continue;
-		if (SCollision::RectInPt(obj->m_rtDesk,
-			g_Input.GetPos()))
-		{
-			if (g_Input.GetKey(VK_LBUTTON) == KEY_UP)
-			{
-				Reset();
-				m_iNextScene = 2;
-			}
-		}
-	}
+
 	return true;
 }
 SceneBattle::SceneBattle()
 {
+	m_bGameFinish = false;
 	m_iSceneID = 1;
 }
 SceneBattle::~SceneBattle()

@@ -3,8 +3,10 @@
 class SceneBattle : public GameScene
 {
 public:
-	bool	Frame() override;
-	bool	Reset() override;
+	bool Frame() override;
+	bool Render() override;
+	bool Reset() override;
+	bool CreateScene() override;
 public:
 	SceneBattle();
 	virtual ~SceneBattle();

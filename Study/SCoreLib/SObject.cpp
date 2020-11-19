@@ -133,8 +133,8 @@ SObject::SObject()
 	m_ptDirection.x = 1.0f;
 	m_ptDirection.y = 1.0f;
 	m_fSpeed = 200.0f;
-	m_bColorKey = false;
-	m_dwColorKey = RGB(255, 255, 255);
+	m_bColorKey = true;
+	m_dwColorKey = RGB(255, 0, 255);
 }
 SObject::~SObject()
 {

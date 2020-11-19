@@ -98,7 +98,7 @@ bool SObjectManager::Release()
 
 SObjectManager::SObjectManager()
 {
-	m_szDefaultPath = L"../../data/bitmap/";
+	m_szDefaultPath = L"../../data/API/";
 }
 SObjectManager::~SObjectManager()
 {

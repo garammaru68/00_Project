@@ -1,7 +1,7 @@
 3
 
 300 BACKGROUND
-../../data/API/background.bmp
+../../data/API/Background24.bmp
 nullptr
 nullptr
 nullptr
