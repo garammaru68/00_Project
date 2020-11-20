@@ -1,4 +1,5 @@
 #include "SceneTitle.h"
+
 bool  SceneTitle::Reset()
 {
 	SScene::Reset();

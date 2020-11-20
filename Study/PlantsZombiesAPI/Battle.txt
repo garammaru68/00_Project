@@ -6,9 +6,41 @@ nullptr
 nullptr
 nullptr
 nullptr
-400 300
+480 300
 -1 -1 -1 -1
 -1 -1
+0 255 0 255
+
+100 USER
+../../data/API/PeaShooter.bmp
+nullptr
+nullptr
+nullptr
+100 300
+-1 -1 36 30
+36 30
+0 255 0 255
+
+200 NPC1
+../../data/API/Zombie.bmp
+nullptr
+nullptr
+nullptr
+nullptr
+500 300
+-1 -1 180 220
+180 220
+0 255 0 255
+
+201 NPC2
+../../data/API/Zombie.bmp
+nullptr
+nullptr
+nullptr
+nullptr
+500 300
+360 -1 180 220
+180 220
 0 255 0 255
 
 // enum TObjectType {
@@ -18,6 +50,7 @@ USER=200,
 NPC=300,
 //}
  
+
 struct TObjAttribute
 {
 	int iObjType;

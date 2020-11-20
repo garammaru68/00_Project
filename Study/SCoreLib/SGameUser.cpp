@@ -10,7 +10,7 @@ bool SGameUser::Reset()
 bool SGameUser::Init()
 {
 	SObject::Init();
-	m_pProjectile = (SEffect*)g_ObjectMgr.GetPtr(L"rtProjectile");
+	m_pProjectile = (SEffect*)g_ObjectMgr.GetPtr(L"rtZombies");
 	return true;
 }
 bool SGameUser::Frame()

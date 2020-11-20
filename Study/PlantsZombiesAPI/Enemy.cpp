@@ -1,4 +1,5 @@
 #include "Enemy.h"
+
 void Enemy::Attack(SObject* pPlayer)
 {
 	if (m_pProjectile)

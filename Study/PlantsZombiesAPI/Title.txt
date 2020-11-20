@@ -14,7 +14,7 @@ nullptr
 301 BUTTON1
 ../../data/API/StartBarOff.bmp
 ../../data/API/StartBarOn.bmp
-nullptr
+../../data/API/StartBarOn.bmp
 nullptr
 nullptr
 400 560

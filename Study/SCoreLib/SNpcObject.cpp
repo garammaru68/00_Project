@@ -10,7 +10,7 @@ void SNpcObject::FSM()
 	m_pAction = m_pActionList[0];
 
 	m_fTmpTimer = 1.0f;
-	m_pProjectile = (SEffect*)g_ObjectMgr.GetPtr(L"rtProjectile");
+	m_pProjectile = (SEffect*)g_ObjectMgr.GetPtr(L"rtZombies");
 
 }
 void SNpcObject::SetTransition(DWORD dwEvent)
@@ -44,7 +44,7 @@ bool SNpcObject::Frame()
 			project.m_rtCollide,
 			SScene::m_pGamePlayer->m_rtCollide))
 		{
-			SScene::m_pCurrentScene->AddEffect(L"rtExplosion", project.p);
+			SScene::m_pCurrentScene->AddEffect(L"rtZombies", project.p);
 			project.m_bDead = true;
 		}
 	}

@@ -1,4 +1,4 @@
-#SPRITE 1
+#SPRITE 4
 rtZombies 30
 0	0		0	180	220	
 1	180		0	180	220	
