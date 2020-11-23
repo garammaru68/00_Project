@@ -54,10 +54,10 @@ bool SceneBattle::Render()
 		SScene::m_iStageCounter++;
 		CreateScene();
 
-		wstring nextstage = to_wstring(m_iStageCounter);
-		nextstage += L"Next Scene Play";
-		MessageBox(g_hWnd, L"Click", nextstage.c_str(), MB_OK);
-		g_Timer.Reset();
+		//wstring nextstage = to_wstring(m_iStageCounter);
+		//nextstage += L"Next Scene Play";
+		//MessageBox(g_hWnd, L"Click", nextstage.c_str(), MB_OK);
+		//g_Timer.Reset();
 	}
 	return true;
 }

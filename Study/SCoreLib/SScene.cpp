@@ -212,7 +212,7 @@ bool  SScene::Load(const TCHAR* filename)
 		SEffect* pEffect = new SEffect;
 		pEffect->Init();
 		pEffect->m_szName = m_rtSpriteList[iEffect].szName;
-		pEffect->Load(L"../../data/API/Zombie.bmp");
+		pEffect->Load(L"../../data/API/Sprites.bmp");
 		RECT rtSrc = m_rtSpriteList[iEffect].rtArray[0];
 		SPoint p = { 0,0 };
 		pEffect->Set(p, rtSrc);
