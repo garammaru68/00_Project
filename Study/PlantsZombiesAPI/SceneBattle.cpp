@@ -87,7 +87,7 @@ bool SceneBattle::Frame()
 				if (pObj->m_bDead == false)
 				{
 					m_iNpcCounter++;
-					AddEffect(L"rtZombies", project.p);
+					AddEffect(L"rtBean", project.p);
 				}
 				pObj->m_bDead = true;
 			}

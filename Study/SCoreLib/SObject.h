@@ -66,8 +66,10 @@ public:
 						DWORD dwColor = RGB(255, 0, 255));
 	virtual void DrawColorKey();
 public:
-	virtual void Damage() {};
-	virtual void Dead() {};
+	virtual void NpcDamage() {};
+	virtual void NpcDead() {};
+	//virtual void PlayerDamage() {};
+	//virtual void PlayerDead() {};
 	virtual void Attack(SObject* pPlayer) {};
 public:
 	virtual void SetTransition(DWORD dwEvent) {};

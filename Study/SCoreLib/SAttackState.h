@@ -1,12 +1,21 @@
 #pragma once
 #include "SProjectile.h"
 #include "SEnemyState.h"
+#include "SPlayerState.h"
 
-class SAttackState :public SEnemyState
+class SEAttackState :public SEnemyState
 {
 public:
 	void Process(SObject* pPlayer);
 public:
-	SAttackState(SObject* owner);
+	SEAttackState(SObject* owner);
+};
+
+class SPAttackState : public SPlayerState
+{
+public:
+	void Process(SObject* pEnemy);
+public:
+	SPAttackState(SObject* owner);
 };
 

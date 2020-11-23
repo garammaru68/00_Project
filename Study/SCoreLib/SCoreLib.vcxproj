@@ -179,6 +179,7 @@ copy "*.h" "..\\..\\include"</Command>
     <ClInclude Include="SNpcObject.h" />
     <ClInclude Include="SObject.h" />
     <ClInclude Include="SObjectManager.h" />
+    <ClInclude Include="SPlayerState.h" />
     <ClInclude Include="SProjectile.h" />
     <ClInclude Include="SScene.h" />
     <ClInclude Include="SSound.h" />
@@ -207,6 +208,7 @@ copy "*.h" "..\\..\\include"</Command>
     <ClCompile Include="SNpcObject.cpp" />
     <ClCompile Include="SObject.cpp" />
     <ClCompile Include="SObjectManager.cpp" />
+    <ClCompile Include="SPlayerState.cpp" />
     <ClCompile Include="SProjectile.cpp" />
     <ClCompile Include="SScene.cpp" />
     <ClCompile Include="SSound.cpp" />

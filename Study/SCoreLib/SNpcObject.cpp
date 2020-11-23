@@ -4,13 +4,13 @@
 #include "SObjectManager.h"
 void SNpcObject::FSM()
 {
-	m_pActionList.push_back(new SStandState(this));
+	m_pActionList.push_back(new SEStandState(this));
 	m_pActionList.push_back(new SMoveState(this));
-	m_pActionList.push_back(new SAttackState(this));
+	m_pActionList.push_back(new SEAttackState(this));
 	m_pAction = m_pActionList[0];
 
 	m_fTmpTimer = 1.0f;
-	m_pProjectile = (SEffect*)g_ObjectMgr.GetPtr(L"rtZombies");
+	m_pProjectile = (SEffect*)g_ObjectMgr.GetPtr(L"rtBean");
 
 }
 void SNpcObject::SetTransition(DWORD dwEvent)
@@ -44,7 +44,7 @@ bool SNpcObject::Frame()
 			project.m_rtCollide,
 			SScene::m_pGamePlayer->m_rtCollide))
 		{
-			SScene::m_pCurrentScene->AddEffect(L"rtZombies", project.p);
+			SScene::m_pCurrentScene->AddEffect(L"rtBean", project.p);
 			project.m_bDead = true;
 		}
 	}
@@ -64,11 +64,11 @@ bool SNpcObject::Render()
 	return true;
 }
 
-void SNpcObject::Damage()
+void SNpcObject::NpcDamage()
 {
 
 }
-void SNpcObject::Dead()
+void SNpcObject::NpcDead()
 {
 
 }

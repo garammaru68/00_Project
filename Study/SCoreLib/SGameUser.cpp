@@ -1,36 +1,21 @@
 #include "SGameUser.h"
-#include "SInput.h"
+#include "SFiniteStateMachine.h"
+#include "SScene.h"
 #include "SObjectManager.h"
-
-bool SGameUser::Reset()
+void SGameUser::FSM()
 {
-	m_ProjectileList.clear();
-	return true;
+	m_pActionList.push_back(new SPStandState(this));
+	m_pActionList.push_back(new SPAttackState(this));
+	m_pAction = m_pActionList[0];
 }
-bool SGameUser::Init()
+void SGameUser::SetTransition(DWORD dwEvent)
 {
-	SObject::Init();
-	m_pProjectile = (SEffect*)g_ObjectMgr.GetPtr(L"rtZombies");
-	return true;
+	DWORD dwOutput = g_Fsm.GetTransition(m_pAction->m_dwState, dwEvent);
+
+	m_pAction = m_pActionList[dwOutput];
 }
 bool SGameUser::Frame()
 {
-	if (g_KeyMap.m_bRight)
-	{
-		m_ptPos.x += m_fSpeed * g_fSecondPerFrame;
-	}
-	if (g_KeyMap.m_bLeft)
-	{
-		m_ptPos.x -= m_fSpeed * g_fSecondPerFrame;
-	}
-	if (g_KeyMap.m_bFront)
-	{
-		m_ptPos.y -= m_fSpeed * g_fSecondPerFrame;
-	}
-	if (g_KeyMap.m_bBack)
-	{
-		m_ptPos.y += m_fSpeed * g_fSecondPerFrame;
-	}
 	SetPos(m_ptPos);
 
 	if (m_pProjectile &&
@@ -75,3 +60,12 @@ bool SGameUser::Render()
 	}
 	return true;
 }
+
+//void SGameUser::PlayerDamage()
+//{
+//
+//}
+//void SGameUser::PlayerDead()
+//{
+//
+//}

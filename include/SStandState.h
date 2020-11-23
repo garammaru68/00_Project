@@ -1,11 +1,17 @@
 #pragma once
 #include "SEnemyState.h"
+#include "SPlayerState.h"
 
-class SStandState :
-	public SEnemyState
+class SEStandState : public SEnemyState
 {
 public:
 	void Process(SObject* pPlayer);
-	SStandState(SObject* owner);
+	SEStandState(SObject* owner);
 };
 
+class SPStandState : public SPlayerState
+{
+public:
+	void Process(SObject* pEnemy);
+	SPStandState(SObject* owner);
+};

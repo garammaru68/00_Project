@@ -1,14 +1,22 @@
 #pragma once
-#include "SProjectile.h"
+
+#include "SStandState.h"
+#include "SAttackState.h"
 
 class SGameUser : public SObject
 {
 public:
-	SEffect*	m_pProjectile;
+	SEffect*						m_pProjectile;
 	std::vector<SProjectileInfo>	m_ProjectileList;
+	SPlayerState*					m_pAction;
+	std::vector<SPlayerState*>		m_pActionList;
 public:
-	bool Reset()	override;
-	bool Init()		override;
+	void FSM();
+	void SetTransition(DWORD dwEvent);
+public:
+	//virtual void PlayerDamage()		override;
+	//virtual void PlayerDead()		override;
+public:
 	bool Frame()	override;
 	bool Render()	override;
 	SGameUser()
