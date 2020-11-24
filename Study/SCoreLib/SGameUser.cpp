@@ -7,6 +7,9 @@ void SGameUser::FSM()
 	m_pActionList.push_back(new SPStandState(this));
 	m_pActionList.push_back(new SPAttackState(this));
 	m_pAction = m_pActionList[0];
+
+	m_fTmpTimer = 1.0f;
+	m_pProjectile = (SEffect*)g_ObjectMgr.GetPtr(L"rtBean");
 }
 void SGameUser::SetTransition(DWORD dwEvent)
 {
@@ -61,11 +64,11 @@ bool SGameUser::Render()
 	return true;
 }
 
-void SGameUser::PlayerDamage()
+void SGameUser::Damage()
 {
 
 }
-void SGameUser::PlayerDead()
+void SGameUser::Dead()
 {
 
 }

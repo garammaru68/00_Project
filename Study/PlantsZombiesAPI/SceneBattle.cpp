@@ -7,7 +7,8 @@ bool SceneBattle::CreateScene()
 	SScene::CreateScene();
 	for (SObjAttribute& info : m_ObjAttribute)
 	{
-		if (info.iObjType != 200) continue;
+		if (!(info.iObjType >= 200 && info.iObjType < 300)) continue;
+		//if (info.iObjType != 200) continue;
 
 		for (int iObj = 0; iObj < m_iStageCounter; iObj++)
 		{

@@ -5,8 +5,8 @@ class Enemy : public SNpcObject
 {
 	std::vector<SPoint> SPZombie;
 
-	virtual void NpcDamage()				override;
-	virtual void NpcDead()					override;
+	virtual void Damage()				override;
+	virtual void Dead()					override;
 	virtual void Attack(SObject* pPlayer)override;
 };
 

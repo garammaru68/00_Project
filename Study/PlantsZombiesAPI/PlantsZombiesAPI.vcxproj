@@ -153,6 +153,7 @@
     <ClCompile Include="Sample.cpp" />
     <ClCompile Include="SceneBattle.cpp" />
     <ClCompile Include="SceneTitle.cpp" />
+    <ClCompile Include="SunPoint.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Enemy.h" />
@@ -161,6 +162,7 @@
     <ClInclude Include="Sample.h" />
     <ClInclude Include="SceneBattle.h" />
     <ClInclude Include="SceneTitle.h" />
+    <ClInclude Include="SunPoint.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Battle.txt" />

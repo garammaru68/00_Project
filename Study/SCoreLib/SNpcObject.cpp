@@ -64,11 +64,11 @@ bool SNpcObject::Render()
 	return true;
 }
 
-void SNpcObject::NpcDamage()
+void SNpcObject::Damage()
 {
 
 }
-void SNpcObject::NpcDead()
+void SNpcObject::Dead()
 {
 
 }

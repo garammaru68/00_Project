@@ -175,6 +175,7 @@ copy "*.h" "..\\..\\include"</Command>
     <ClInclude Include="SGameUser.h" />
     <ClInclude Include="SGraphicAPI.h" />
     <ClInclude Include="SInput.h" />
+    <ClInclude Include="SItemObject.h" />
     <ClInclude Include="SMoveState.h" />
     <ClInclude Include="SNpcObject.h" />
     <ClInclude Include="SObject.h" />
@@ -204,6 +205,7 @@ copy "*.h" "..\\..\\include"</Command>
     <ClCompile Include="SGameUser.cpp" />
     <ClCompile Include="SGraphicAPI.cpp" />
     <ClCompile Include="SInput.cpp" />
+    <ClCompile Include="SItemObject.cpp" />
     <ClCompile Include="SMoveState.cpp" />
     <ClCompile Include="SNpcObject.cpp" />
     <ClCompile Include="SObject.cpp" />

@@ -14,8 +14,8 @@ public:
 	void FSM();
 	void SetTransition(DWORD dwEevnt);
 public:
-	virtual void NpcDamage()				override;
-	virtual void NpcDead()					override;
+	virtual void Damage()				override;
+	virtual void Dead()					override;
 public:
 	bool Frame() override;
 	bool Render() override;
