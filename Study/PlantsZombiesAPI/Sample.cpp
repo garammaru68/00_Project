@@ -1,6 +1,6 @@
 #include "Sample.h"
 #include "SObjectManager.h"
-
+//»ç¶÷
 bool Sample::Init()
 {
 	m_iCurrentScene = 0;
