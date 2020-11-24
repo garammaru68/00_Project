@@ -61,11 +61,11 @@ bool SGameUser::Render()
 	return true;
 }
 
-//void SGameUser::PlayerDamage()
-//{
-//
-//}
-//void SGameUser::PlayerDead()
-//{
-//
-//}
+void SGameUser::PlayerDamage()
+{
+
+}
+void SGameUser::PlayerDead()
+{
+
+}

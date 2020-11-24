@@ -17,11 +17,11 @@ void Enemy::Attack(SObject* pPlayer)
 	}
 }
 
-void Enemy::Damage()
+void Enemy::NpcDamage()
 {
 
 }
-void Enemy::Dead()
+void Enemy::NpcDead()
 {
 
 }

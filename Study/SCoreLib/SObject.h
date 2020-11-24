@@ -68,8 +68,8 @@ public:
 public:
 	virtual void NpcDamage() {};
 	virtual void NpcDead() {};
-	//virtual void PlayerDamage() {};
-	//virtual void PlayerDead() {};
+	virtual void PlayerDamage() {};
+	virtual void PlayerDead() {};
 	virtual void Attack(SObject* pPlayer) {};
 public:
 	virtual void SetTransition(DWORD dwEvent) {};

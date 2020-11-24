@@ -14,8 +14,8 @@ public:
 	void FSM();
 	void SetTransition(DWORD dwEvent);
 public:
-	//virtual void PlayerDamage()		override;
-	//virtual void PlayerDead()		override;
+	virtual void PlayerDamage()		override;
+	virtual void PlayerDead()		override;
 public:
 	bool Frame()	override;
 	bool Render()	override;
