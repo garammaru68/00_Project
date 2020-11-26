@@ -24,7 +24,7 @@ int main(int argc, char* argv[])
 	ZeroMemory(&sa, sizeof(sa));
 	sa.sin_family = AF_INET;
 	sa.sin_port = htons(iPort);
-	sa.sin_addr.s_addr = inet_addr(ip);
+	sa.sin_addr.s_addr = inet_addr("192.168.0.5");
 	iRet = connect(sock, (SOCKADDR*)&sa, sizeof(sa));
 	if (iRet == SOCKET_ERROR) { return 1; }
 

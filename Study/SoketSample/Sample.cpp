@@ -1,5 +1,5 @@
 #define _WINSOCK_DEPRECATED_NO_WARNINGS
-#include <winSock2.h>
+#include <WinSock2.h>
 #include <stdio.h>
 #include <tchar.h>
 #include <time.h>
@@ -17,47 +17,79 @@ void main()
 	{
 		return;
 	}
-
-	SOCKET sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-	SOCKADDR_IN sa;
-
-	USHORT jValue = 10000;
-	sa.sin_family = AF_INET;
-	sa.sin_addr.s_addr = inet_addr("192.168.0.5");
-	sa.sin_port = htons(10000);
-	int iRet = connect(sock, (SOCKADDR*)&sa, sizeof(sa));
-	if (iRet == SOCKET_ERROR)
+	while (1)
 	{
-		return;
-	}
-	int iCount = 0;
-	clock_t s = clock();
-	clock_t e = clock();
-	SMsg msg;
-	while (e - s < 1000)
-	{
-		memset(&msg, 0, sizeof(msg));
-		strcpy_s(msg.buffer, 32, "¾È³ç");
-		msg.iCnt = iCount;
-		char recvBuf[3001] = { 0, };
-		int iLen = sizeof(msg);
-		clock_t t1 = clock();
-		iRet = send(sock, (char*)&msg, iLen, 0);
-		if (iRet == 0 || iRet == SOCKET_ERROR)
+		SOCKET sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+		int optval = 1;
+		if (setsockopt(sock, SOL_SOCKET, SO_REUSEADDR,
+			(char*)&optval, sizeof(optval)) != 0)
 		{
 			break;
 		}
-		iRet = recv(sock, recvBuf, 3001, 0);
-		if (iRet == 0 || iRet == SOCKET_ERROR)
+
+		SOCKADDR_IN sa;
+		USHORT jValue = 10000;
+		sa.sin_family = AF_INET;
+		sa.sin_addr.s_addr = inet_addr("192.168.0.5");
+		sa.sin_port = htons(10000);
+		int iRet = connect(sock, (SOCKADDR*)&sa, sizeof(sa));
+		if (iRet == SOCKET_ERROR)
 		{
-			break;
+			return;
 		}
-		memcpy(&msg, recvBuf, sizeof(SMsg));
-		e = clock();
-		clock_t t = e - t1;
-		printf("%d", t);
-		iCount++;
+		int iCount = 0;
+		clock_t s = clock();
+		clock_t e = clock();
+		SMsg msg;
+
+		int iRecvSize = 0;
+		int iSendSize = 0;
+		int iPacketSize = sizeof(SMsg);
+		char recvBuf[10000] = { 0, };
+
+		bool bConnect = true;
+		while (e - s < 1 && bConnect)
+		{
+			while (iSendSize < iPacketSize)
+			{
+				memset(&msg, 0, sizeof(msg));
+				strcpy_s(msg.buffer, 32, "»ó¹Î Á¢¼Ó");
+				msg.iCnt = iCount;
+				char recvBuf[3001] = { 0, };
+				clock_t t1 = clock();
+				iSendSize += send(sock, (char*)&msg, iPacketSize - iSendSize, 0);
+				
+				if (iSendSize == 0 || iSendSize == SOCKET_ERROR)
+				{
+					bConnect = false;
+					break;
+				}
+			}
+			memset(recvBuf, 0, sizeof(char) * 10000);
+			while (iRecvSize < iPacketSize && bConnect)
+			{
+				iRecvSize += recv(sock, recvBuf, iPacketSize - iRecvSize, 0);
+				
+				if (iRecvSize == 0 || iRecvSize == SOCKET_ERROR)
+				{
+					bConnect = false;
+					break;
+				}
+				if (sizeof(SMsg) == iRecvSize)
+				{
+					memcpy(&msg, recvBuf, sizeof(SMsg));
+					//printf("\n%d:%s", msg.iCnt, msg.buffer);
+					printf("\n%s", msg.buffer);
+				}
+			}
+			//iSendSize = 0;
+			//iRecvSize = 0;
+			//e = clock();
+			//clock_t t = e - s;
+			//iCount++;
+		}
+		closesocket(sock);
+		Sleep(1000);
 	}
-	closesocket(sock);
 	WSACleanup();
 }
