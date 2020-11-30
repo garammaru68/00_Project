@@ -64,8 +64,10 @@ void main()
 
 	getsockopt(sock, SOL_SOCKET, SO_TYPE, (char*)&sockType, &sockTypeLen);
 
-	if (sockType == SOCK_STREAM) printf("%s\r\n", "SOCK_STREAM.");
-	else printf("%s\r\n", "SOCK_DGRAM");
+	if (sockType == SOCK_STREAM)
+		printf("%s\r\n", "SOCK_STREAM.");
+	else
+		printf("%s\r\n", "SOCK_DGRAM");
 
 	int iSendBuffer = 100000;
 	setsockopt(sock, SOL_SOCKET, SO_SNDBUF, (char*)&iSendBuffer, sockTypeLen);

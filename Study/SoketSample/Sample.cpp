@@ -13,7 +13,7 @@ struct SMsg
 
 void main(int argc, char* argv[])
 {
-	const char* ipAddress = "192.168.0.151";
+	const char* ipAddress = "192.168.0.5";
 	unsigned short iPort = 10000;
 
 	WSADATA wsa;
@@ -59,9 +59,40 @@ void main(int argc, char* argv[])
 				memset(&msg, 0, sizeof(msg));
 				strcpy_s(msg.buffer, 32, "¾È³ç");
 				msg.iCnt = iCount;
+				char recvBuf[3001] = { 0, };
+				clock_t t1 = clock();
+				iSendSize += send(sock, (char*)&msg, iPacketSize - iSendSize, 0);
 
+				if (iSendSize == 0 || iSendSize == SOCKET_ERROR)
+				{
+					bConnect = false;
+					break;
+				}
 			}
+			memset(recvBuf, 0, sizeof(char) * 10000);
+			while (iRecvSize < iPacketSize && bConnect)
+			{
+				iRecvSize += recv(sock, recvBuf, iPacketSize - iRecvSize, 0);
+				
+				if (iRecvSize == 0 || iRecvSize == SOCKET_ERROR)
+				{
+					bConnect = false;
+					break;
+				}
+				if (sizeof(SMsg) == iRecvSize)
+				{
+					memcpy(&msg, recvBuf, sizeof(SMsg));
+					printf("\n%d:%s", msg.iCnt, msg.buffer);
+				}
+			}
+			iSendSize = 0;
+			iRecvSize = 0;
+			e = clock();
+			clock_t t = e - s;
+			iCount++;
 		}
-
+		closesocket(sock);
+		Sleep(1000);
 	}
+	WSACleanup();
 }
