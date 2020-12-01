@@ -1,3 +1,4 @@
+/*//this Å×½ºÆ®
 #include <iostream>
 
 class Calc
@@ -9,4 +10,4 @@ public:
 	Calc& Sub(int value) { m_Value -= value; return *this; }
 	Calc& Mul(int value) { m_Value *= value; return *this; }
 	int GetValue() { return m_Value; }
-};
+};*/
