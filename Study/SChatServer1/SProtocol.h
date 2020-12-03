@@ -19,10 +19,20 @@ typedef struct
 
 struct SChatMsg
 {
-	int iCnt;
+	int  iCnt;
+	char szName[32];
 	char buffer[128];
 };
-
+struct SLogin
+{
+	char szID[16];
+	char szPS[16];
+};
+#define SLoginSize sizeof(SLogin)
+struct SLoginResult
+{
+	int iRet;
+};
 typedef struct
 {
 	uint16_t	Point;
@@ -52,8 +62,8 @@ typedef struct
 
 enum SPACKET_TYPE
 {
-	PACKET_USERNAME_REQ = 10,
-	PACKET_USERNAME_ACK,
+	PACKET_LOGIN_REQ = 10,
+	PACKET_LOGIN_ACK,
 	PACKET_CHAT_MSG = 100,
 	PACKET_SSTATUS_VARS,
 };

@@ -18,6 +18,9 @@
     <ClCompile Include="SNetwork.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="SNetworkClient.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
     <ClCompile Include="Sample.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -29,13 +32,19 @@
     <ClInclude Include="SNetwork.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="SNetworkClient.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Sample.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SUser.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
     <ClInclude Include="SNetStd.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="SProtocol.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="SUser.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

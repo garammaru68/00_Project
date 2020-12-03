@@ -1,13 +1,18 @@
 #include "SNetwork.h"
 
-int SNetwork::SendMsg(SOCKET sock, char* msg, int iLen, uint16_t type)
+bool SNetwork::MakePacket(UPACKET& packet, char* msg, int iLen, uint16_t type)
 {
-	UPACKET packet;
 	packet.ph.iotype = 0;
 	packet.ph.len = PACKET_HEADER_SIZE + iLen;
 	packet.ph.type = type;
 	packet.ph.time = time(NULL);
 	memcpy(&packet.msg, msg, iLen);
+	return true;
+}
+int SNetwork::SendMsg(SOCKET sock, char* msg, int iLen, uint16_t type)
+{
+	UPACKET packet;
+	MakePacket(packet, msg, iLen, type);
 
 	int iSendSize = 0;
 	while (iSendSize < packet.ph.len)
@@ -23,10 +28,6 @@ int SNetwork::SendMsg(SOCKET sock, char* msg, int iLen, uint16_t type)
 		}
 	}
 	return iSendSize;
-}
-void SNetwork::REQ_UserName(SOCKET sock, int type)
-{
-	SendMsg(sock, nullptr, 0, type);
 }
 bool SNetwork::RecvData(SUser& user)
 {
@@ -48,10 +49,6 @@ bool SNetwork::RecvData(SUser& user)
 		{
 			user.iRecvSize += recv( user.m_Sock, &user.recvBuf[user.iRecvSize],
 									packet->ph.len - user.iRecvSize, 0 );
-		}
-		if (packet->ph.type == PACKET_CHAT_MSG)
-		{
-
 		}
 		AddPacket(user, packet);
 		memset(user.recvBuf, 0, sizeof(char) * 10000);
@@ -103,6 +100,38 @@ bool SNetwork::RecvUserList()
 	}
 	return true;
 }
+bool SNetwork::Process()
+{
+	std::list<SUser>::iterator iter;
+	for (iter = m_UserList.begin();
+		iter != m_UserList.end();)
+	{
+		bool bDelete = false;
+		std::vector<UPACKET>::iterator senditer;
+		for (senditer = iter->m_SendPacket.begin();
+			senditer != iter->m_SendPacket.end();
+			senditer++)
+		{
+			if (SendData(*iter, *senditer) == false)
+			{
+				bDelete == true;
+				break;
+			}
+		}
+		iter->m_SendPacket.clear();
+
+		if (bDelete == true)
+		{
+			DelUser(*iter);
+			iter = m_UserList.erase(iter);
+		}
+		else
+		{
+			iter++;
+		}
+	}
+	return Broadcastting();
+}
 bool SNetwork::Broadcastting()
 {
 	std::list<SUser>::iterator iter;
@@ -126,7 +155,13 @@ bool SNetwork::Broadcastting()
 			DelUser(*iter);
 			iter = m_UserList.erase(iter);
 		}
+		else
+		{
+			iter++;
+		}
 	}
+	m_recvPacket.clear();
+	return true;
 }
 bool SNetwork::InitNetwork()
 {
@@ -211,7 +246,7 @@ bool SNetwork::AddUser(SOCKET sock, SOCKADDR_IN addr)
 	user.addr = addr;
 	m_UserList.push_back(user);
 	printf("\n접속->%s:%d", inet_ntoa(addr.sin_addr),
-							ntohs(addr.sin_port));
+								ntohs(addr.sin_port));
 	
 	return true;
 }
@@ -220,15 +255,38 @@ bool SNetwork::DelUser(SUser& user)
 	shutdown(user.m_Sock, SD_SEND);
 	closesocket(user.m_Sock);
 	printf("\n해제->%s:%d", inet_ntoa(user.addr.sin_addr),
-		ntohs(user.addr.sin_port));
+								ntohs(user.addr.sin_port));
 	
 	return true;
 }
 void SNetwork::AddPacket(SUser& user, UPACKET* packet)
 {
-	if (packet->ph.type == PACKET_USERNAME_ACK)
+	if (packet->ph.type == PACKET_CHAT_MSG)
 	{
-		user.szName = to_mw((char*)packet->msg);
+		SChatMsg* pMsg = (SChatMsg*)&packet->msg;
+		printf("\m[%s]%s:%d", pMsg->szName, pMsg->buffer, pMsg->iCnt);
+	}
+	if (packet->ph.type == PACKET_LOGIN_REQ)
+	{
+		UPACKET sendPacket;
+		T_STR szID = L"kgca";
+		T_STR szPS = L"game";
+		SLogin* login = (SLogin*)packet->msg;
+		T_STR szIDUser = to_mw(login->szID);
+		T_STR szPSUser = to_mw(login->szPS);
+		SLoginResult ret;
+		if (szID == szIDUser && szPS == szPSUser)
+		{
+			ret.iRet = 1;
+		}
+		else
+		{
+			ret.iRet = 0;
+		}
+		MakePacket(sendPacket, (char*)&ret, sizeof(SLoginResult), PACKET_LOGIN_ACK);
+		user.m_SendPacket.push_back(sendPacket);
+		user.iRecvSize = 0;
+		return;
 	}
 	m_recvPacket.push_back(*packet);
 	user.iRecvSize = 0;
@@ -238,7 +296,7 @@ bool SNetwork::Accept()
 	SOCKADDR_IN clientAddr;
 	int len = sizeof(clientAddr);
 
-	SOCKET client = accept(m_ListenSock, (SOCKADDR*)&clientAddr, &len);
+	SOCKET client = accept(m_Sock, (SOCKADDR*)&clientAddr, &len);
 	if (client == INVALID_SOCKET)
 	{
 		if (WSAGetLastError() != WSAEWOULDBLOCK)
@@ -249,7 +307,6 @@ bool SNetwork::Accept()
 	else
 	{
 		AddUser(client, clientAddr);
-		REQ_UserName(client, PACKET_USERNAME_REQ);
 	}
 	return true;
 }
