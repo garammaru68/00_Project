@@ -11,6 +11,7 @@
 #include "SProtocol.h"
 
 #pragma comment (lib, "ws2_32.lib")
+#pragma comment (lib, "SNetLib.lib")
 
 typedef std::basic_string<TCHAR>	T_STR;
 typedef std::basic_string<CHAR>		C_STR;
@@ -29,10 +30,10 @@ static std::string to_wm(const std::wstring& _src)
 static char* GetWtM(WCHAR* data)
 {
 	char retData[4096] = { 0 };
-	int iLength = WideCharToMultiByte(	CP_ACP, 0, data, -1, 
-										0, 0, NULL, NULL);
-	int iRet = WideCharToMultiByte(	CP_ACP, 0, data, -1, 
-									retData, iLength, NULL, NULL);
+	int iLength = WideCharToMultiByte(	CP_ACP, 0, data, -1, 0, 0, 
+										NULL, NULL);
+	int iRet = WideCharToMultiByte(	CP_ACP, 0, data, -1, retData, iLength, 
+									NULL, NULL);
 	return retData;
 }
 static bool GetWtM(WCHAR* src, char* pDest)
@@ -60,4 +61,39 @@ static bool GetMtW(char* pSrc, WCHAR* pDest)
 	if (iRet == 0) return false;
 
 	return true;
+}
+static void PRINT(char* fmt, ...)
+{
+	va_list arg;
+	va_start(arg, fmt);
+	char buf[256] = { 0, };
+	vsprintf_s(buf, fmt, arg);
+	printf("\n=====> %s", buf);
+	va_end(arg);
+}
+static void Error(const CHAR* msg = 0, const char* lpData = 0)
+{
+	LPVOID* lpMsg = 0;
+	FormatMessageA(	FORMAT_MESSAGE_ALLOCATE_BUFFER | 
+					FORMAT_MESSAGE_FROM_SYSTEM,
+					NULL, WSAGetLastError(), 
+					MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
+					(CHAR*)&lpMsg, 0, NULL);
+
+	std::string szBuffer = (lpData != nullptr) ? lpData : "";
+	szBuffer += "\n";
+	szBuffer += (CHAR*)lpMsg;
+
+	MessageBoxA(NULL, szBuffer.c_str(), msg, MB_ICONERROR);
+	LocalFree(lpMsg);
+}
+static void Check(int iRet, int line)
+{
+	if (iRet == SOCKET_ERROR)
+	{
+		CHAR szBuffer[256] = { 0, };
+		sprintf_s(szBuffer, "%s[%d]", __FILE__, line);
+		Error("ERROR", szBuffer);
+		exit(1);
+	}
 }
