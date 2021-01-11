@@ -1,0 +1,58 @@
+#pragma once
+#include <WinSock2.h>
+#include <Windows.h>
+#include <tchar.h>
+#include <string>
+#include <vector>
+#include <list>
+#include <map>
+#include <queue>
+#include <algorithm>
+#include <assert.h>
+#include <atlconv.h> // A2W
+#include <iostream>
+#include <process.h> // _beginthreadex
+#include "SMath.h"
+
+#pragma comment (lib, "Winmm.lib")
+#pragma comment (lib, "ws2_32.lib")
+#pragma warning (disable:4244)		// 경고 무시 warning C4244: '=': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다
+
+namespace SBASIS_CORE_LIB
+{
+	typedef std::basic_string<TCHAR>	T_STR;
+	typedef std::basic_string<CHAR>		C_STR;
+	typedef std::vector<T_STR>			T_STR_VECTOR;
+
+	template<class S>
+	class SSingleton
+	{
+	public:
+		static T& GetInstance()
+		{
+			static S theSingle;
+			return theSingle;
+		}
+	};
+	static std::wstring to_mw(const std::string& _src)
+	{
+		USES_CONVERSION;
+		return std::wstring(A2W(_src.c_str()));
+	};
+	static std::string to_wm(const std::wstring& _src)
+	{
+		USES_CONVERSION;
+		return std::string(W2A(_src.c_str()));
+	}
+	static char* GetWtM(WCHAR* data)
+	{
+		char retData[4096] = { 0 };
+		int iLength = WideCharToMultiByte(CP_ACP, 0,
+			data, -1, 0, 0,
+			NULL, NULL);
+		int iRet = WideCharToMultiByte(CP_ACP, 0,
+			data, -1, retData, iLength,
+			NULL, NULL);
+		return retData;
+	}
+}

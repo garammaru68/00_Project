@@ -1,4 +1,5 @@
 #pragma once
+#include <SBasisStd.h>
 #include <windows.h>
 #include <iostream>
 

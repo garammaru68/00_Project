@@ -150,7 +150,13 @@ cop "*.h" "..\\..\\include"</Command>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="SNetStd.h" />
+    <ClInclude Include="SNetUser.h" />
+    <ClInclude Include="SNetwork.h" />
     <ClInclude Include="SProtocol.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="SNetUser.cpp" />
+    <ClCompile Include="SNetwork.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

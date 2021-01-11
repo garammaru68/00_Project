@@ -163,6 +163,7 @@ copy "*.h" "..\\..\\include"</Command>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="SAttackState.h" />
+    <ClInclude Include="SBasisStd.h" />
     <ClInclude Include="SBitmap.h" />
     <ClInclude Include="SBitmapManager.h" />
     <ClInclude Include="SCollision.h" />
@@ -176,6 +177,7 @@ copy "*.h" "..\\..\\include"</Command>
     <ClInclude Include="SGraphicAPI.h" />
     <ClInclude Include="SInput.h" />
     <ClInclude Include="SItemObject.h" />
+    <ClInclude Include="SMath.h" />
     <ClInclude Include="SMoveState.h" />
     <ClInclude Include="SNpcObject.h" />
     <ClInclude Include="SObject.h" />
@@ -206,6 +208,7 @@ copy "*.h" "..\\..\\include"</Command>
     <ClCompile Include="SGraphicAPI.cpp" />
     <ClCompile Include="SInput.cpp" />
     <ClCompile Include="SItemObject.cpp" />
+    <ClCompile Include="SMath.cpp" />
     <ClCompile Include="SMoveState.cpp" />
     <ClCompile Include="SNpcObject.cpp" />
     <ClCompile Include="SObject.cpp" />
