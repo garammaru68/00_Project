@@ -47,12 +47,32 @@ namespace SBASIS_CORE_LIB
 	static char* GetWtM(WCHAR* data)
 	{
 		char retData[4096] = { 0 };
+		// 변형되는 문자열의 크기가 반환된다.
 		int iLength = WideCharToMultiByte(CP_ACP, 0,
-			data, -1, 0, 0,
+			data, -1,
+			0, 0,
 			NULL, NULL);
 		int iRet = WideCharToMultiByte(CP_ACP, 0,
-			data, -1, retData, iLength,
+			data, -1, // 소스
+			retData, iLength, // 대상
 			NULL, NULL);
 		return retData;
 	}
+	static bool GetWtM(WCHAR* src, char* pDest)
+	{
+		// 변형되는 문자열의 크기가 반환된다.
+		int iLength = WideCharToMultiByte(CP_ACP, 0,
+			src, -1,
+			0, 0,
+			NULL, NULL);
+		int iRet = WideCharToMultiByte(CP_ACP, 0,
+			src, -1, // 소스
+			pDest, iLength, // 대상
+			NULL, NULL);
+		if (iRet == 0) return false;
+		return true;
+	}
+
+	static void PRINT(char* fmt, ...) // 나열연산자
+	{}
 }
