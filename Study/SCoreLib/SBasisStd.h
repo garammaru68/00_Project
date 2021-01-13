@@ -48,31 +48,63 @@ namespace SBASIS_CORE_LIB
 	{
 		char retData[4096] = { 0 };
 		// 변형되는 문자열의 크기가 반환된다.
-		int iLength = WideCharToMultiByte(CP_ACP, 0,
-			data, -1,
-			0, 0,
-			NULL, NULL);
-		int iRet = WideCharToMultiByte(CP_ACP, 0,
-			data, -1, // 소스
-			retData, iLength, // 대상
-			NULL, NULL);
+		int iLength = WideCharToMultiByte( CP_ACP, 0,
+										   data, -1,
+										   0, 0,
+										   NULL, NULL );
+		int iRet = WideCharToMultiByte( CP_ACP, 0,
+										data, -1, // 소스
+										retData, iLength, // 대상
+										NULL, NULL );
 		return retData;
 	}
 	static bool GetWtM(WCHAR* src, char* pDest)
 	{
 		// 변형되는 문자열의 크기가 반환된다.
-		int iLength = WideCharToMultiByte(CP_ACP, 0,
-			src, -1,
-			0, 0,
-			NULL, NULL);
-		int iRet = WideCharToMultiByte(CP_ACP, 0,
-			src, -1, // 소스
-			pDest, iLength, // 대상
-			NULL, NULL);
+		int iLength = WideCharToMultiByte( CP_ACP, 0,
+										   src, -1,
+										   0, 0,
+										   NULL, NULL );
+		int iRet = WideCharToMultiByte( CP_ACP, 0,
+										src, -1, // 소스
+										pDest, iLength, // 대상
+										NULL, NULL );
 		if (iRet == 0) return false;
 		return true;
 	}
 
 	static void PRINT(char* fmt, ...) // 나열연산자
-	{}
+	{
+		va_list arg;
+		va_start(arg, fmt);
+		char buf[256] = { 0, };
+		vsprintf_s(buf, fmt, arg);
+		printf("\n=====> %s", buf);
+		va_end(arg);
+	}
+	static void Error(const CHAR* msg = 0, const char* lpData = 0)
+	{
+		LPVOID* lpMsg = 0;
+		FormatMessageA( FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM,
+						NULL, WSAGetLastError(),
+						MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
+						(CHAR*)&lpMsg, 0, NULL );
+
+		std::string szBuffer = (lpData != nullptr) ? lpData : "";
+		szBuffer += "\n";
+		szBuffer += (CHAR*)lpMsg;
+
+		MessageBoxA(NULL, szBuffer.c_str(), msg, MB_ICONERROR);
+		LocalFree(lpMsg);
+	}
+	static void Check(int iRet, int line)
+	{
+		if (iRet == SOCKET_ERROR)
+		{
+			CHAR szBuffer[256] = { 0, };
+			sprintf_s(szBuffer, "%s[%d", __FILE__, line);
+			Error("ERROR", szBuffer);
+			exit(1);
+		}
+	}
 }

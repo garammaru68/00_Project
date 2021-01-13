@@ -1,96 +1,39 @@
 #pragma once
-#include <Windows.h>
-#include <tchar.h>
-#include <string>
-#include <vector>
-#include <list>
-#include <map>
-#include <algorithm>
-#include <assert.h>
-#pragma comment( lib, "Winmm.lib" )
-#pragma comment( lib, "SCoreLib.lib" )
-#pragma comment( lib, "fmod_vc.lib" )
-#pragma comment( lib, "Msimg32.lib" )
+#include "SBasisStd.h"
+
+#if NDEBUG
+#pragma comment (lib, "SCoreLib_R.lib")
+#else
+#pragma comment (lib, "SCoreLib_D.lib")
+#endif
+#pragma comment( lib, "fmod_vc.lib")
+#pragma comment( lib, "Msimg32.lib")
 
 using namespace std;
 
-struct SKeyMap
+namespace SBASIS_CORE_LIB
 {
-	bool	m_bFront;
-	bool	m_bLeft;
-	bool	m_bRight;
-	bool	m_bBack;
-	bool	m_bAttack;
-	bool	m_bJump;
-	bool	m_bHangul;
-	bool	m_bCapsLock;
-	bool	m_bNumLock;
-};
-struct SPoint
-{
-	float x;
-	float y;
-	SPoint() = default;
-	SPoint(float x, float y)
+	struct SKeyMap
 	{
-		this->x = x;
-		this->y = y;
-	}
-	SPoint operator * (float fValue)
-	{
-		SPoint ret;
-		ret.x = x * fValue;
-		ret.y = y * fValue;
-		return ret;
-	}
-	SPoint operator + (SPoint& p)
-	{
-		SPoint ret;
-		ret.x = x + p.x;
-		ret.y = y + p.y;
-		return ret;
-	}
-	SPoint operator + (SPoint p)
-	{
-		SPoint ret;
-		ret.x = x + p.x;
-		ret.y = y + p.y;
-		return ret;
-	}
-	SPoint operator - (SPoint& p)
-	{
-		SPoint ret;
-		ret.x = x - p.x;
-		ret.y = y - p.y;
-		return ret;
-	}
-	float Length()
-	{
-		return sqrt(x * x + y * y);
-	}
-	SPoint Normalize()
-	{
-		float fD = Length();
-		x /= fD;
-		y /= fD;
-		return SPoint(x, y);
-	}
-};
-extern SKeyMap	g_KeyMap;
-extern float	g_fGameTimer;
-extern float	g_fSecondPerFrame;
-extern HWND		g_hWnd;
-extern HINSTANCE	g_hInstance;
-extern HDC		g_hScreenDC;
-extern HDC		g_hOffScreenDC;
-extern RECT		g_rtClient;
-template<class S>
-class SSingleton
-{
-public:
-	static S& GetInstance()
-	{
-		static S theSingle;
-		return theSingle;
-	}
-};
+		bool	m_bFront;
+		bool	m_bLeft;
+		bool	m_bRight;
+		bool	m_bBack;
+		bool	m_bAttack;
+		bool	m_bJump;
+		bool	m_bHangul;
+		bool	m_bCapsLock;
+		bool	m_bNumLock;
+	};
+
+	extern SKeyMap	g_KeyMap;
+	extern float	g_fGameTimer;
+	extern float	g_fSecondPerFrame;
+	extern HWND		g_hWnd;
+	extern HINSTANCE	g_hInstance;
+	extern HDC		g_hScreenDC;
+	extern HDC		g_hOffScreenDC;
+	extern RECT		g_rtClient;
+	extern bool		g_bActive;
+}
+using namespace SBASIS_CORE_LIB;
