@@ -1,0 +1,16 @@
+../../output/Debug/
+../../output/Debug/TBasis3DLib/
+
+../../include/dx;%(AdditionalIncludeDirectories)
+
+TBasisLib64d.lib
+추가 종속성 - %(AdditionalDependencies)
+../../lib/dx/x64;%(AdditionalLibraryDirectories)
+대상 컴퓨터 - MachineX64(/MACHINE:X64)
+
+copy ".\\TBasisLib64d.lib" "..\\..\\lib"
+md "..\\..\\include\\Inc"
+md "..\\..\\include\\Inc\\map""
+copy "*.h" "..\\..\\include\\Inc"
+copy ".\\map\\*.h" "..\\..\\include\\Inc\\map"
+copy ".\\shader\\*.*" "..\\..\\data\\Shader"

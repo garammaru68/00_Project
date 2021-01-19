@@ -1,0 +1,5 @@
+Dx 기능 분리
+TStd.h
+s붙은 함수 -> GetAddressOf()
+Attach -	기존 데이터 release 후
+	새로운 데이터를 넣는다

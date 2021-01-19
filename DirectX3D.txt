@@ -1,0 +1,10 @@
+directX sdk 구글에서 다운
+
+sdk 폴더 -> Include,Lib 폴더 복사후 -> project에 dx폴더 생성후 넣기
+
+SampleDevice1 프로젝트 속성 - 추가 포함 디렉터리 확인
+
+GetBuffer - 쓰면 무조건 Release
+
+되도록 생선된 역순으로 Release
+
