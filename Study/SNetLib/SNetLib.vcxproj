@@ -72,8 +72,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>../../output/</OutDir>
-    <IntDir>../../output/SNetLib</IntDir>
+    <OutDir>../../output/Debug</OutDir>
+    <IntDir>../../output/Debug/SNetLib</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
@@ -91,19 +91,19 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>../../include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../include/SBasis2D</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>copy "..\\..\\output\\SNetLib.lib" "..\\..\\lib"
-cop "*.h" "..\\..\\include"</Command>
+      <Command>copy "..\\..\\output\\Debug\\SNetLib.lib" "..\\..\\lib\\SNetLib_D.lib"
+copy "*.h" "..\\..\\include\\SNetLib"</Command>
     </PostBuildEvent>
     <PreBuildEvent>
-      <Command>rmdir /s/q "..\\..\\include\\NetLib"
-md "..\\..\\include\\NetLib"</Command>
+      <Command>rmdir /s/q "..\\..\\include\\SNetLib"
+md "..\\..\\include\\SNetLib"</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

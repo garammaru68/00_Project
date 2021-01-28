@@ -8,6 +8,7 @@
 #include <map>
 #include <queue>
 #include <algorithm>
+#include <functional>
 #include <assert.h>
 #include <atlconv.h> // A2W
 #include <iostream>
@@ -16,6 +17,8 @@
 
 #pragma comment (lib, "Winmm.lib")
 #pragma comment (lib, "ws2_32.lib")
+#pragma comment (lib, "fmod_vc.lib")
+
 #pragma warning (disable:4244)		// 경고 무시 warning C4244: '=': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다
 
 namespace SBASIS_CORE_LIB
@@ -28,7 +31,7 @@ namespace SBASIS_CORE_LIB
 	class SSingleton
 	{
 	public:
-		static T& GetInstance()
+		static S& GetInstance()
 		{
 			static S theSingle;
 			return theSingle;
@@ -105,6 +108,16 @@ namespace SBASIS_CORE_LIB
 			sprintf_s(szBuffer, "%s[%d", __FILE__, line);
 			Error("ERROR", szBuffer);
 			exit(1);
+		}
+	}
+
+	template <typename S>
+	inline void SafeRelease(S *&p)
+	{
+		if (NULL != p)
+		{
+			p->Release();
+			p = NULL;
 		}
 	}
 }

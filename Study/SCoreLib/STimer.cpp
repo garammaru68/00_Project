@@ -1,6 +1,9 @@
 #include "STimer.h"
-float	g_fGameTimer = 0.0f;
-float	g_fSecondPerFrame = 0.0f;
+namespace SBASIS_CORE_LIB
+{
+	float	g_fGameTimer = 0.0f;
+	float	g_fSecondPerFrame = 0.0f;
+}
 
 STimer::STimer()
 {

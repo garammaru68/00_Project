@@ -1,6 +1,9 @@
 #include "SGraphicAPI.h"
-HDC		g_hScreenDC;
-HDC		g_hOffScreenDC;
+namespace SBASIS_CORE_LIB
+{
+	HDC		g_hScreenDC;
+	HDC		g_hOffScreenDC;
+}
 bool SGraphicAPI::Init()
 {
 	m_hScreenDC = GetDC(g_hWnd);

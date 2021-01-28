@@ -2,12 +2,10 @@
 #include "SBasisStd.h"
 
 #if NDEBUG
-#pragma comment (lib, "SCoreLib_R.lib")
+#pragma comment (lib, "SBasis2DLib_R.lib")
 #else
-#pragma comment (lib, "SCoreLib_D.lib")
+#pragma comment (lib, "SBasis2DLib_D.lib")
 #endif
-#pragma comment( lib, "fmod_vc.lib")
-#pragma comment( lib, "Msimg32.lib")
 
 using namespace std;
 

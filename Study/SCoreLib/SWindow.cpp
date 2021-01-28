@@ -1,8 +1,13 @@
 #include "SWindow.h"
 
-HINSTANCE	g_hInstance;
-HWND		g_hWnd = 0;
-RECT		g_rtClient;
+namespace SBASIS_CORE_LIB
+{
+	HINSTANCE	g_hInstance;
+	HWND		g_hWnd = 0;
+	bool		g_bActive = false;
+	RECT		g_rtClient;
+	SWindow*	g_pWindow;
+}
 LRESULT CALLBACK WndProc(
 	HWND hWnd,
 	UINT message,

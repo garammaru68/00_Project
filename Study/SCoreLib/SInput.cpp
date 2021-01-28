@@ -1,5 +1,8 @@
 #include "SInput.h"
-SKeyMap g_KeyMap;
+namespace SBASIS_CORE_LIB
+{
+	SKeyMap g_KeyMap;
+}
 
 SInput::SInput()
 {
@@ -13,13 +16,11 @@ DWORD SInput::GetKey(DWORD dwKey)
 {
 	return m_dwKeyState[dwKey];
 }
-
 bool SInput::Init()
 {
 	ZeroMemory(&m_dwKeyState, sizeof(DWORD) * 256);
 	return true;
 }
-
 bool SInput::Frame()
 {
 	GetCursorPos(&m_MousePos);
