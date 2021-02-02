@@ -1,4 +1,9 @@
 #include "SWindow.h"
+#include "SInput.h"
+//rmdir /s/q "..\\..\\include"
+//rmdir /s/q "..\\..\\lib"
+//md "..\\..\\include"
+//md "..\\..\\lib"
 
 namespace SBASIS_CORE_LIB
 {
@@ -8,22 +13,94 @@ namespace SBASIS_CORE_LIB
 	RECT		g_rtClient;
 	SWindow*	g_pWindow;
 }
+
+static bool		m_bDrag = false;
+static POINT	m_ptClick;
 LRESULT CALLBACK WndProc(
 	HWND hWnd,
 	UINT message,
 	WPARAM wParam,
 	LPARAM lParam)
 {
+	int iRet = g_pWindow->MsgProc(hWnd, message, wParam, lParam);
+	if (iRet > -1)
+	{
+		return iRet;
+	}
 	switch (message)
 	{
+	case WM_SIZE:
+	{
+		//if (SIZE_MAXHIDE)// 다른윈도우가 최대화 되어 가려지면
+		//if (SIZE_MAXSHOW) // 최대화 되어 가려진 후 다시 복구될 때
+		//if (SIZE_MAXIMIZED)// 최대화		
+		//if (SIZE_RESTORED) // 크기가 변경되었을 때
+		if (SIZE_MINIMIZED != wParam) // 최소화
+		{
+			UINT w = LOWORD(lParam);
+			UINT h = HIWORD(lParam);
+			g_pWindow->m_rtClient.right = w;
+			g_pWindow->m_rtClient.bottom = h;
+			g_rtClient = g_pWindow->m_rtClient;
+			g_pWindow->ResizeDevice(w, h);
+		}
+	}break;
+	case WM_MBUTTONDOWN:
+	{
+		m_bDrag = true;
+		m_ptClick.x = LOWORD(lParam);
+		m_ptClick.y = HIWORD(lParam);
+	}return 0;
+	case WM_MOUSEMOVE:
+	{
+		if (m_bDrag)
+		{
+			RECT rtWindow;
+			GetWindowRect(hWnd, &rtWindow);
+			rtWindow.left -= m_ptClick.x - LOWORD(lParam);
+			rtWindow.top -= m_ptClick.y - HIWORD(lParam);
+#if NDEBUG
+			SetWindowPos(hWnd, HWND_TOPMOST, rtWindow.left, rtWindow.top, 0, 0, SWP_NOSIZE);//HWND_TOP
+#else
+			SetWindowPos(hWnd, HWND_NOTOPMOST, rtWindow.left, rtWindow.top, 0, 0, SWP_NOSIZE);
+#endif
+		}
+	}return 0;
+	case WM_MBUTTONUP:
+	{
+		m_bDrag = false;
+	}return 0;
+	case WM_ACTIVATE:
+	{
+		if (LOWORD(wParam) == WA_INACTIVE)
+		{
+			g_bActive = false;
+			m_bDrag = false;
+			SetWindowText(g_hWnd, L"INACTIVE");
+		}
+		else
+		{
+			::SetFocus(g_hWnd);
+			g_bActive = true;
+			SetWindowText(g_hWnd, L"ACTIVE");
+		}
+
+	}break;
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		break;
-	default:
-		return DefWindowProc(hWnd, message, wParam, lParam);
 	}
-	return 0;
+		return DefWindowProc(hWnd, message, wParam, lParam);
 }
+void SWindow::ResizeDevice(UINT w, UINT h)
+{
+
+}
+LRESULT	 SWindow::MsgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	return -1;
+}
+
 bool SWindow::MsgProcess()
 {
 	while (PeekMessage(&m_msg, NULL, 0, 0, PM_REMOVE))
@@ -34,10 +111,14 @@ bool SWindow::MsgProcess()
 		{
 			return false;
 		}
+		MsgEvent(m_msg);
 	}
 	return true;
 }
-bool SWindow::SetWindow(HINSTANCE hInstance)
+void SWindow::MsgEvent(MSG msg)
+{
+}
+bool SWindow::SetWindow(HINSTANCE hInstance, const  TCHAR* pTitleName, int iWidth, int iHeight)
 {
 	g_hInstance = hInstance;
 	m_hInstance = hInstance;
@@ -45,7 +126,8 @@ bool SWindow::SetWindow(HINSTANCE hInstance)
 	ZeroMemory(&wc, sizeof(wc));
 	wc.cbSize = sizeof(WNDCLASSEX);
 	wc.style = CS_HREDRAW | CS_VREDRAW;
-	wc.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);
+	wc.hbrBackground = (HBRUSH)GetStockObject(GRAY_BRUSH);
+	wc.hCursor = LoadCursor(NULL, IDC_ARROW);
 	wc.lpfnWndProc = WndProc;
 	wc.hInstance = m_hInstance;
 	wc.lpszClassName = L"KGCAWINDOW";
@@ -53,14 +135,13 @@ bool SWindow::SetWindow(HINSTANCE hInstance)
 	{
 		return false;
 	}
-
+	//2. 윈도우 생성
 	RECT rt{ 0, 0, 800, 600 };
-	AdjustWindowRect(&rt, WS_OVERLAPPEDWINDOW, FALSE);
+	AdjustWindowRectEx(&rt, m_dwStyle, FALSE, m_dwExStyle);
 	m_hWnd = CreateWindowEx(
-		WS_EX_APPWINDOW,
-		L"KGCAWINDOW",
-		L"Plants VS Zombies",
-		WS_OVERLAPPEDWINDOW,
+		m_dwExStyle,
+		m_szClassName.c_str(), m_szWindowName.c_str(),
+		m_dwStyle,
 		0, 0,
 		rt.right - rt.left,
 		rt.bottom - rt.top,
@@ -74,13 +155,25 @@ bool SWindow::SetWindow(HINSTANCE hInstance)
 	g_hWnd = m_hWnd;
 	GetClientRect(m_hWnd, &m_rtClient);
 	g_rtClient = m_rtClient;
-	ShowWindow(m_hWnd, SW_SHOW);
+	GetWindowRect(m_hWnd, &m_rtWindow);
 	return true;
 }
 
 SWindow::SWindow()
 {
+	g_pWindow = this;
 	ZeroMemory(&m_msg, sizeof(MSG));
+	m_bDrag = false;
+	m_szClassName = L"KGCAWINDOW";
+#if NDEBUG
+	m_dwExStyle = WS_EX_TOPMOST;
+	m_szWindowName = L"Sample Project(Release)";
+	m_dwStyle = WS_POPUPWINDOW;// WS_OVERLAPPEDWINDOW,,;
+#else
+	m_dwExStyle = WS_EX_APPWINDOW;
+	m_szWindowName = L"Sample Project(Debug)";
+	m_dwStyle = WS_OVERLAPPEDWINDOW;
+#endif
 }
 SWindow::~SWindow()
 {

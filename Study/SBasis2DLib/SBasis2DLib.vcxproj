@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\SCoreLib\SAttackState.h" />
+    <ClInclude Include="..\SCoreLib\SBasisStd.h" />
+    <ClInclude Include="..\SCoreLib\SBitmap.h" />
+    <ClInclude Include="..\SCoreLib\SBitmapManager.h" />
+    <ClInclude Include="..\SCoreLib\SCollision.h" />
+    <ClInclude Include="..\SCoreLib\SCore.h" />
+    <ClInclude Include="..\SCoreLib\SCoreStd.h" />
+    <ClInclude Include="..\SCoreLib\SEffect.h" />
+    <ClInclude Include="..\SCoreLib\SEnemyState.h" />
+    <ClInclude Include="..\SCoreLib\SFiniteState.h" />
+    <ClInclude Include="..\SCoreLib\SFiniteStateMachine.h" />
+    <ClInclude Include="..\SCoreLib\SGameUser.h" />
+    <ClInclude Include="..\SCoreLib\SGraphicAPI.h" />
+    <ClInclude Include="..\SCoreLib\SInput.h" />
+    <ClInclude Include="..\SCoreLib\SItemObject.h" />
+    <ClInclude Include="..\SCoreLib\SMath.h" />
+    <ClInclude Include="..\SCoreLib\SMoveState.h" />
+    <ClInclude Include="..\SCoreLib\SNpcObject.h" />
+    <ClInclude Include="..\SCoreLib\SObject.h" />
+    <ClInclude Include="..\SCoreLib\SObjectManager.h" />
+    <ClInclude Include="..\SCoreLib\SPlayerState.h" />
+    <ClInclude Include="..\SCoreLib\SProjectile.h" />
+    <ClInclude Include="..\SCoreLib\SScene.h" />
+    <ClInclude Include="..\SCoreLib\SSound.h" />
+    <ClInclude Include="..\SCoreLib\SSoundManager.h" />
+    <ClInclude Include="..\SCoreLib\SStandState.h" />
+    <ClInclude Include="..\SCoreLib\SStd.h" />
+    <ClInclude Include="..\SCoreLib\STimer.h" />
+    <ClInclude Include="..\SCoreLib\SUserInterface.h" />
+    <ClInclude Include="..\SCoreLib\SWindow.h" />
+    <ClInclude Include="..\SCoreLib\SWrite.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\SCoreLib\SAttackState.cpp" />
+    <ClCompile Include="..\SCoreLib\SBitmap.cpp" />
+    <ClCompile Include="..\SCoreLib\SBitmapManager.cpp" />
+    <ClCompile Include="..\SCoreLib\SCollision.cpp" />
+    <ClCompile Include="..\SCoreLib\SCore.cpp" />
+    <ClCompile Include="..\SCoreLib\SEffect.cpp" />
+    <ClCompile Include="..\SCoreLib\SEnemyState.cpp" />
+    <ClCompile Include="..\SCoreLib\SFiniteState.cpp" />
+    <ClCompile Include="..\SCoreLib\SFiniteStateMachine.cpp" />
+    <ClCompile Include="..\SCoreLib\SGameUser.cpp" />
+    <ClCompile Include="..\SCoreLib\SGraphicAPI.cpp" />
+    <ClCompile Include="..\SCoreLib\SInput.cpp" />
+    <ClCompile Include="..\SCoreLib\SItemObject.cpp" />
+    <ClCompile Include="..\SCoreLib\SMath.cpp" />
+    <ClCompile Include="..\SCoreLib\SMoveState.cpp" />
+    <ClCompile Include="..\SCoreLib\SNpcObject.cpp" />
+    <ClCompile Include="..\SCoreLib\SObject.cpp" />
+    <ClCompile Include="..\SCoreLib\SObjectManager.cpp" />
+    <ClCompile Include="..\SCoreLib\SPlayerState.cpp" />
+    <ClCompile Include="..\SCoreLib\SProjectile.cpp" />
+    <ClCompile Include="..\SCoreLib\SScene.cpp" />
+    <ClCompile Include="..\SCoreLib\SSound.cpp" />
+    <ClCompile Include="..\SCoreLib\SSoundManager.cpp" />
+    <ClCompile Include="..\SCoreLib\SStandState.cpp" />
+    <ClCompile Include="..\SCoreLib\STimer.cpp" />
+    <ClCompile Include="..\SCoreLib\SUserInterface.cpp" />
+    <ClCompile Include="..\SCoreLib\SWindow.cpp" />
+    <ClCompile Include="..\SCoreLib\SWrite.cpp" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
+    <ProjectGuid>{CF57D3D8-DEDE-47B5-B208-83F64D030F83}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>SBasis2DLib</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>../../output/Debug/</OutDir>
+    <IntDir>../../output/Debug/SBasis2DLib</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>../../fmod/inc;</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <PreBuildEvent>
+      <Command>copy "..\\..\\fmod\\lib\\x64\\*.dll" "..\\..\\output\\Debug"
+rmdir  /s/q "..\\..\\include\\SBasis2D"
+md "..\\..\\include\\SBasis2D"</Command>
+    </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>copy  "..\\..\\output\\Debug\\SBasis2DLib.lib" "..\\..\\lib\\SBasis2DLib_D.lib"
+copy "*.h" "..\\..\\include\SBasis2D"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
