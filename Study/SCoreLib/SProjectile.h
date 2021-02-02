@@ -1,11 +1,11 @@
 #pragma once
 #include "SEffect.h"
 
-typedef std::vector<RECT> RECT_ARRAY;
 struct SEffectInfo
 {
-	wstring		m_csName;
+	wstring     m_csName;
 	SPoint		p;
+	SPoint		d;
 	int			id;
 	int			iMaxCount;
 	bool		m_bDead;
@@ -15,7 +15,7 @@ struct SEffectInfo
 	int			m_iRectIndex;
 	RECT		m_rtSrc;
 	RECT		m_rtDesk;
-	void Frame()
+	void		Frame()
 	{
 		m_fLifeTime -= g_fSecondPerFrame;
 		if (m_fLifeTime <= 0.0f)
@@ -29,11 +29,12 @@ struct SEffectInfo
 			m_iRectIndex++;
 			if (iMaxCount <= m_iRectIndex)
 			{
-				m_iRectIndex = 0.0f;
+				m_iRectIndex = 0;
 			}
 			m_fTimer -= m_fStep;
 		}
-		//p = p + (SPoint(0.0f -1.0f) * g_fSecondPerFrame * 300.0f);
+		//p = p + (SPoint(0.0f, -1.0f) * g_fSecondPerFrame * 300.0f);
+
 	}
 	SEffectInfo()
 	{
@@ -46,9 +47,11 @@ struct SEffectInfo
 };
 struct SProjectileInfo
 {
-	wstring		m_csName;
+	static int  g_iCount;
+	int		    m_iIndex;
+	wstring     m_csName;
 	SPoint		p;
-	SPoint		m_vDir;
+	SPoint      m_vDir;
 	int			id;
 	int			iMaxCount;
 	bool		m_bDead;
@@ -78,6 +81,7 @@ struct SProjectileInfo
 			m_fTimer -= m_fStep;
 		}
 		p = p + (m_vDir * g_fSecondPerFrame * 300.0f);
+
 	}
 	SProjectileInfo()
 	{
@@ -93,3 +97,4 @@ class SProjectile : public SEffect
 {
 public:
 };
+

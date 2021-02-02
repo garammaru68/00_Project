@@ -1,4 +1,5 @@
 #pragma once
+
 #include "SStandState.h"
 #include "SMoveState.h"
 #include "SAttackState.h"
@@ -11,16 +12,19 @@ public:
 	SEnemyState*					m_pAction;
 	std::vector<SEnemyState*>  m_pActionList;
 public:
-	void FSM();
-	void SetTransition(DWORD dwEevnt);
+	virtual void FSM();
+	virtual void SetTransition(DWORD dwEevnt);
 public:
-	virtual void Damage()				override;
-	virtual void Dead()					override;
+	virtual bool Damage()				override;
+	virtual bool Dead()					override;
 public:
-	bool Frame() override;
-	bool Render() override;
+	virtual SObject* Clone() override;
+	virtual bool Frame() override;
+	virtual bool Render() override;
+	virtual bool Release() override;
 	SNpcObject()
 	{
 		m_iObjectType = 200;
 	}
 };
+

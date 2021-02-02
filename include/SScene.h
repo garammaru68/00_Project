@@ -8,34 +8,57 @@ struct SEnum
 {
 	enum  SGameType
 	{
-		S_BACKGROUND = 0,
-		S_PLAYER = 100,
+		S_MAP = 0,
+		S_USER = 100,
 		S_NPC = 200,
 		S_INTERFACE = 300,
 		S_BUTTON,
+		S_EDIT,
+		S_DIALOGBOX,
 		S_EFFECT = 400,
+		S_OBJECT = 500,
 	};
 };
 
-struct SSpriteInfo
-{
-	RECT_ARRAY rtArray;
-	wstring    szName;
-};
+
 class SScene
 {
 public:
-	static SScene*				m_pCurrentScene;
+	enum SSceneID
+	{
+		SSCENE_LOADING = 0,
+		SSCENE_LOBBY = 1,
+		SSCENE_ZONE = 2,
+	};
+public:
+	static SScene*				m_pCurrenSScene;
 	std::vector<SObjAttribute>  m_ObjAttribute;
-	std::vector<SObject*>		m_UIObjList;
-	std::vector<SObject*>		m_ItemObjList;
-	std::vector<SObject*>		m_ObjList;
 	static SGameUser*			m_pGamePlayer;
 	std::vector<SSpriteInfo>	m_rtSpriteList;
+
+	std::map<wstring, SObject*>				m_UIObjList;
+	std::map<wstring, SObject*>				m_ItemObjList;
+	std::map<wstring, SObject*>				m_ObjList;
+	std::map<wstring, SObject*>				m_CharacterList;
+	std::map<wstring, SObject*>				m_MapList;
+	std::map<wstring, SObject*>::iterator	m_iter;
+
+	std::vector<std::pair<wstring, SObject*>>	m_UIDrawObjList;
+public:
+	virtual SObject*	FindUI(std::wstring szName);
+	virtual SObject*	FindItem(std::wstring szName);
+	virtual SObject*	FindObject(std::wstring szName);
+	virtual SObject*	FindMap(std::wstring szName);
+	virtual SObject*	FindNpc(int iIndex);
+	virtual SObject*	FindParent(std::wstring szName);
+	virtual bool		DelNpc(int iIndex);
+public:
+	std::map<int, SGameUser*>			m_UserList;
+	std::map<int, SObject*>				m_NpcList;
 public:
 	static int	m_iStageCounter;
 	SPoint		m_ptInitHeroPos;
-	int			m_iNextScene;
+	int			m_iNexSScene;
 	int			m_iNpcCounter;
 	int			m_iMaxCounter;
 	bool		m_bGameFinish;
@@ -43,20 +66,31 @@ public:
 	bool		m_bSceneChange;
 public:
 	std::vector<SEffectInfo>	m_EffectList;
-	void  AddEffect(wstring name, SPoint pos);
-	bool  GameDataLoad(const TCHAR* pszLoad);
+	virtual void  AddEffect(wstring name, SPoint pos, SPoint dir);
+	virtual void  AddNpc(wstring name, SPoint pos, SPoint dir, int index);
 	virtual bool  Reset();
+	virtual void  SortZValue(std::map<wstring, SObject*>& srcList,
+		std::vector<std::pair<wstring, SObject*>>& destList);
 public:
-	void  GetBitmapLoad(FILE* fp, wstring& ret);
-	bool  Load(const TCHAR* filename);
+	virtual LRESULT	 MsgProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+	virtual bool  Load(const TCHAR* filename);
 	virtual bool  Init();
+	virtual bool  PreFrame();
 	virtual bool  Frame();
+	virtual bool  PostFrame();
+	virtual bool  PreRender();
 	virtual bool  Render();
+	virtual bool  PostRender();
+	virtual bool  RenderMap();
+	virtual bool  RenderObject();
+	virtual bool  RenderCharacter();
+	virtual bool  RenderEffect();
+	virtual bool  RenderUI();
 	virtual bool  Release();
 public:
-	virtual SObject*  NewObj(int iType);
-	virtual bool  LoadScript(const TCHAR* filename);
+	virtual SObject*  NewObj(SObjAttribute& info);
 	virtual bool  CreateScene();
+	virtual bool  SeSObject(SObjAttribute& iType, SObject* pObj);
 public:
 	SScene();
 	virtual ~SScene();

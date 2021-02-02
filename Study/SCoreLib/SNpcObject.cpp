@@ -2,15 +2,19 @@
 #include "SFiniteStateMachine.h"
 #include "SScene.h"
 #include "SObjectManager.h"
+SObject* SNpcObject::Clone()
+{
+	return new SNpcObject(*this);
+}
 void SNpcObject::FSM()
 {
-	m_pActionList.push_back(new SEStandState(this));
+	m_pActionList.push_back(new SStandState(this));
 	m_pActionList.push_back(new SMoveState(this));
-	m_pActionList.push_back(new SEAttackState(this));
+	m_pActionList.push_back(new SAttackState(this));
 	m_pAction = m_pActionList[0];
 
-	m_fTmpTimer = 1.0f;
-	m_pProjectile = (SEffect*)g_ObjectMgr.GetPtr(L"rtBean");
+	m_fAttackTimer = 1.0f;
+	m_pProjectile = (SEffect*)g_ObjectMgr.GetPtr(L"rSProjectile");
 
 }
 void SNpcObject::SetTransition(DWORD dwEvent)
@@ -23,52 +27,29 @@ bool SNpcObject::Frame()
 {
 	if (m_bDead == true) return true;
 	m_pAction->Process(SScene::m_pGamePlayer);
-	for (std::vector<SProjectileInfo>::iterator iter = m_ProjectileList.begin();
-		iter != m_ProjectileList.end();
-		)
-	{
-		iter->Frame();
-		if (iter->m_bDead == true)
-		{
-			iter = m_ProjectileList.erase(iter);
-			continue;
-		}
-		else
-		{
-			iter++;
-		}
-	}
-	for (SProjectileInfo& project : m_ProjectileList)
-	{
-		if (SCollision::Rect2Rect(
-			project.m_rtCollide,
-			SScene::m_pGamePlayer->m_rtCollide))
-		{
-			SScene::m_pCurrentScene->AddEffect(L"rtBean", project.p);
-			project.m_bDead = true;
-		}
-	}
-
 	return true;
 }
 bool SNpcObject::Render()
 {
 	SObject::Render();
-	for (auto& pInfo : m_ProjectileList)
-	{
-		m_pProjectile->Set(pInfo.p,
-			m_pProjectile->m_rtList[pInfo.m_iRectIndex]);
-		pInfo.m_rtCollide = m_pProjectile->m_rtCollide;
-		m_pProjectile->Render();
-	}
 	return true;
 }
 
-void SNpcObject::Damage()
+bool SNpcObject::Damage()
 {
-
+	return false;
 }
-void SNpcObject::Dead()
+bool SNpcObject::Dead()
 {
-
+	return true;
+}
+bool SNpcObject::Release()
+{
+	SObject::Release();
+	for (int iAction = 0; iAction < m_pActionList.size(); iAction++)
+	{
+		delete m_pActionList[iAction];
+	}
+	m_pActionList.clear();
+	return true;
 }

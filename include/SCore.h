@@ -1,23 +1,28 @@
 #pragma once
-#include "SWindow.h"
+#include "SDevice.h"
 #include "STimer.h"
 #include "SInput.h"
-#include "SGraphicAPI.h"
 #include "SWrite.h"
 #include "SSoundManager.h"
 
-class SCore : public SWindow
+class SCore : public SDevice
 {
 public:
 	bool		m_bGameRun;
-	SGraphicAPI	m_Graphic;
 public:
-	virtual bool Init() { return true; }
-	virtual bool Frame() { return true; }
-	virtual bool Render() { return true; }
-	virtual bool PreRender();
-	virtual bool PostRender();
-	virtual bool Release() { return true; }
+	virtual bool	PreInit();
+	virtual bool	Init();
+	virtual bool	PostInit();
+
+	virtual bool	PreFrame() {return true;};
+	virtual bool	Frame() {return true;};
+	virtual bool	PostFrame() {return true;};
+	virtual bool	Render() {return true;};
+	virtual bool	PreRender();
+	virtual bool	PostRender();
+	virtual bool	Release() {return true;};
+	virtual HRESULT DeleteDXResource();
+	virtual HRESULT CreateDXResource(UINT w, UINT h);
 private:
 	bool GameInit();
 	bool GameFrame();

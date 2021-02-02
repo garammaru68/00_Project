@@ -72,7 +72,7 @@ public:
 	int			m_iCollisionObjectID;/// 오브젝트 메니져에 등록 된 충돌 인덱스
 	int			m_iSelecSObjectID;	 /// 오브젝트 메니져에 등록된 마우스 선택 인덱스
 	bool		m_bCollisionEnabled; /// 충돌처리여부 판단(마우스 선택은 처리된다.)
-	int			m_iCollisionType;	 /// TCollisionType에 따라 처리한다.
+	int			m_iCollisionType;	 /// SCollisionType에 따라 처리한다.
 	DWORD		m_dwOverlapState;	 /// 오버랩 상태
 	DWORD		m_dwSelectState;	 /// 마우스 선택 상태
 	int			m_iImageState;

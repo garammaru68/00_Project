@@ -1,6 +1,6 @@
 #include "SStandState.h"
 
-void SEStandState::Process(SObject* pPlayer)
+void SStandState::Process(SObject* pPlayer)
 {
 	if (rand() % 10000 < 3)
 	{
@@ -14,26 +14,8 @@ void SEStandState::Process(SObject* pPlayer)
 		m_pOwner->SetTransition(EVENT_FINDTARGET);
 	}
 }
-SEStandState::SEStandState(SObject* owner) : SEnemyState(owner)
-{
-	m_dwState = STATE_STAND;
-}
-
-void SPStandState::Process(SObject* pEnemy)
-{
-	if (rand() % 10000 < 3)
-	{
-		m_pOwner->SetTransition(EVENT_TIMEMOVE);
-	}
-
-	SPoint ptDist = pEnemy->m_ptPos - m_pOwner->m_ptPos;
-	float fDistance = ptDist.Length();
-	if (fDistance < 500)
-	{
-		m_pOwner->SetTransition(EVENT_FINDTARGET);
-	}
-}
-SPStandState::SPStandState(SObject* owner) : SPlayerState(owner)
+SStandState::SStandState(SObject* owner)
+	: SEnemyState(owner)
 {
 	m_dwState = STATE_STAND;
 }

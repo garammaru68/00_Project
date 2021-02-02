@@ -123,6 +123,6 @@ bool SSound::Render()
 	msg.rt = g_rtClient;
 	msg.rt.top = 50;
 	msg.msg = m_szBuffer;
-	g_Write.Push(msg);
+	//g_Write.Push(msg);
 	return true;
 }

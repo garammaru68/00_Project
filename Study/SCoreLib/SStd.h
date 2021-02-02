@@ -2,9 +2,9 @@
 #include "SBasisStd.h"
 
 #if NDEBUG
-#pragma comment (lib, "SBasis2DLib_R.lib")
+#pragma comment (lib, "SCoreLib_R.lib")
 #else
-#pragma comment (lib, "SBasis2DLib_D.lib")
+#pragma comment (lib, "SCoreLib_D.lib")
 #endif
 
 using namespace std;

@@ -1,27 +1,32 @@
 #pragma once
-
-#include "SStandState.h"
-#include "SAttackState.h"
+#include "SProjectile.h"
 
 class SGameUser : public SObject
 {
 public:
-	SEffect*						m_pProjectile;
+	bool		m_bAttack;
+	float		m_fKeyTimer;
+	SPoint		m_tTargetPos;
+	DWORD		m_dwMove;
+	DWORD		m_dwPreMove;
+	SEffect*    m_pProjectile;
 	std::vector<SProjectileInfo>	m_ProjectileList;
-	SPlayerState*					m_pAction;
-	std::vector<SPlayerState*>		m_pActionList;
 public:
-	void FSM();
-	void SetTransition(DWORD dwEvent);
+	bool Reset() override;
+	bool Init() override;
+	bool Frame() override;
+	bool Render() override;
 public:
-	virtual void Damage()		override;
-	virtual void Dead()		override;
-public:
-	bool Frame()	override;
-	bool Render()	override;
+	virtual SObject* Clone() override;
+	virtual bool Damage();
+	virtual bool Dead();
+	virtual bool Hit(SPoint p, int iIndex);
+	virtual bool ProjectileTick();
 	SGameUser()
 	{
+		m_dwSvrID = 0;
 		m_iObjectType = 100;
+		m_fSpeed = 300.0f;
 	}
 };
 

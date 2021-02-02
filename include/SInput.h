@@ -16,8 +16,12 @@ public:
 private:
 	DWORD	m_dwKeyState[256];
 	POINT	m_MousePos;
+	bool	m_bEnable;
 public:
+	void	SetEnable(bool bEnable = true);
+	bool	GetEnable();
 	POINT	GetPos() { return m_MousePos; }
+	bool	Reset();
 	bool Init();
 	bool Frame();
 	bool Render();

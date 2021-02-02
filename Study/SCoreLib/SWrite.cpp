@@ -126,7 +126,7 @@ bool SDxWrite::Render()
 			m_TextList[iMsg].rt.top = 25 + iMsg * 25;
 			D2D1_MATRIX_3X2_F matWorld = D2D1::IdentityMatrix();
 			m_pd2dRT->SetTransform(matWorld);
-			D2D1_RECT_F layoutRect =
+			D2D1_RECT_F layouSRect =
 			{
 				m_TextList[iMsg].rt.left,
 				m_TextList[iMsg].rt.top,
@@ -139,7 +139,7 @@ bool SDxWrite::Render()
 				m_TextList[iMsg].msg.c_str(),
 				m_TextList[iMsg].msg.size(),
 				m_pTextFormat,
-				&layoutRect,
+				&layouSRect,
 				m_pBrush);
 		}
 	}
@@ -177,7 +177,7 @@ void SDxWrite::Draw(POINT pos, wstring msg, DWORD color)
 	if (m_pd2dRT == nullptr) return;
 	m_pd2dRT->BeginDraw();
 	{
-		D2D1_RECT_F layoutRect =
+		D2D1_RECT_F layouSRect =
 		{
 			pos.x,pos.y, g_rtClient.right, g_rtClient.bottom
 		};
@@ -189,7 +189,7 @@ void SDxWrite::Draw(POINT pos, wstring msg, DWORD color)
 			msg.c_str(),
 			msg.size(),
 			m_pTextFormat,
-			&layoutRect,
+			&layouSRect,
 			m_pBrush);
 	}
 	m_pd2dRT->EndDraw();

@@ -14,17 +14,39 @@ SInput::~SInput()
 }
 DWORD SInput::GetKey(DWORD dwKey)
 {
+	if (GetEnable() == false) return 0;
 	return m_dwKeyState[dwKey];
 }
-bool SInput::Init()
+bool SInput::Reset()
 {
 	ZeroMemory(&m_dwKeyState, sizeof(DWORD) * 256);
+	ZeroMemory(&g_KeyMap, sizeof(SKeyMap));
+	return true;
+}
+void	SInput::SetEnable(bool bEnable)
+{
+	m_bEnable = bEnable;
+	if (m_bEnable == false)
+	{
+		ZeroMemory(&m_dwKeyState, sizeof(DWORD) * 256);
+		ZeroMemory(&g_KeyMap, sizeof(SKeyMap));
+	}
+}
+bool	SInput::GetEnable()
+{
+	return m_bEnable;
+}
+bool	SInput::Init()
+{
+	Reset();
+	m_bEnable = true;
 	return true;
 }
 bool SInput::Frame()
 {
-	GetCursorPos(&m_MousePos);
+	GetCursorPos(&m_MousePos); // È­¸éÁÂÇ¥°è
 	ScreenToClient(g_hWnd, &m_MousePos);
+
 	for (int iKey = 0; iKey < 256; iKey++)
 	{
 		SHORT sKey = GetAsyncKeyState(iKey);
@@ -63,27 +85,27 @@ bool SInput::Frame()
 	g_KeyMap.m_bBack = false;
 	g_KeyMap.m_bJump = false;
 	g_KeyMap.m_bAttack = false;
-	if (m_dwKeyState[VK_UP] || m_dwKeyState['W'])
+	if (m_dwKeyState[VK_UP] > KEY_UP || m_dwKeyState['W'] > KEY_UP)
 	{
 		g_KeyMap.m_bFront = true;
 	}
-	if (m_dwKeyState[VK_LEFT] || m_dwKeyState['A'])
+	if (m_dwKeyState[VK_LEFT] > KEY_UP || m_dwKeyState['A'] > KEY_UP)
 	{
 		g_KeyMap.m_bLeft = true;
 	}
-	if (m_dwKeyState[VK_RIGHT] || m_dwKeyState['D'])
+	if (m_dwKeyState[VK_RIGHT] > KEY_UP || m_dwKeyState['D'] > KEY_UP)
 	{
 		g_KeyMap.m_bRight = true;
 	}
-	if (m_dwKeyState[VK_BACK] || m_dwKeyState['S'])
+	if (m_dwKeyState[VK_DOWN] > KEY_UP || m_dwKeyState['S'] > KEY_UP)
 	{
 		g_KeyMap.m_bBack = true;
 	}
-	if (m_dwKeyState[VK_RETURN] || m_dwKeyState[VK_MBUTTON])
+	if (m_dwKeyState[VK_RETURN] > KEY_UP || m_dwKeyState[VK_MBUTTON] > KEY_UP)
 	{
 		g_KeyMap.m_bAttack = true;
 	}
-	if (m_dwKeyState[VK_SPACE] || m_dwKeyState[VK_RBUTTON])
+	if (m_dwKeyState[VK_SPACE] > KEY_UP || m_dwKeyState[VK_RBUTTON] > KEY_UP)
 	{
 		g_KeyMap.m_bJump = true;
 	}

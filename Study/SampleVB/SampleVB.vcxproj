@@ -96,7 +96,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>../../lib;../../fmod/lb/x64;</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>../../lib;../../fmod/lib/x64;</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -153,6 +153,9 @@
   <ItemGroup>
     <ClInclude Include="Sample.h" />
     <ClInclude Include="SVertex.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="VS.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

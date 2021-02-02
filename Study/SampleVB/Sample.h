@@ -20,5 +20,15 @@ class Sample : public SCore
 	std::vector<P_VERTEX>	m_VertexList;
 	std::vector<DWORD>		m_IndexList;
 	ID3D11Buffer*			m_pVertexBuffer;
+	ID3D11Buffer*			m_pIndexBuffer;
+	ID3D11InputLayout*		m_pInputLayout;
+	ID3D11VertexShader*		m_pVertexShader;
+	ID3D11PixelShader*		m_pPixelShader;
+public:
+	bool Init() override;
+	bool Render() override;
+	bool Release() override;
+public:
+	void CompilerCheck(ID3DBlob* pErrorMsgs);
 };
-
+SGAME_RUN;

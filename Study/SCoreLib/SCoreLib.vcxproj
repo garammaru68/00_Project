@@ -178,7 +178,6 @@ copy "*.h" "..\\..\\include"</Command>
     <ClInclude Include="SGameUser.h" />
     <ClInclude Include="SGraphicAPI.h" />
     <ClInclude Include="SInput.h" />
-    <ClInclude Include="SItemObject.h" />
     <ClInclude Include="SMath.h" />
     <ClInclude Include="SMoveState.h" />
     <ClInclude Include="SNpcObject.h" />
@@ -209,7 +208,6 @@ copy "*.h" "..\\..\\include"</Command>
     <ClCompile Include="SFiniteStateMachine.cpp" />
     <ClCompile Include="SGameUser.cpp" />
     <ClCompile Include="SInput.cpp" />
-    <ClCompile Include="SItemObject.cpp" />
     <ClCompile Include="SMath.cpp" />
     <ClCompile Include="SMoveState.cpp" />
     <ClCompile Include="SNpcObject.cpp" />
