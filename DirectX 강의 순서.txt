@@ -13,6 +13,8 @@
 				3.원근평행 4)Z 값의 계산 공식		344p
 7일차 -	제 32강 뷰 및 투영 변환	3.원근평행 2)수평시야 및 수직시야		342p ~ 343p
 10일차 -	제 08강 DirectWrite / Font	All					88p
-
+12일차 -	제 15강 ConstantBuffer	All					172p
+	제 16강 Primitive Type	All					176p
+	제 17강 GeometryShader	All					188p
 275p 표 수정
 309p 표 수정
