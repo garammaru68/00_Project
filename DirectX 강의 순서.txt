@@ -16,5 +16,8 @@
 12일차 -	제 15강 ConstantBuffer	All					172p
 	제 16강 Primitive Type	All					176p
 	제 17강 GeometryShader	All					188p
+13일차 -	제 18강 Texture -1-	All					195p
+	제 21강 Access Image	All					208p
+	제 22강 Texture -2-	All					215p
 275p 표 수정
 309p 표 수정

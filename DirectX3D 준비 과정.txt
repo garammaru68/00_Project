@@ -1,0 +1,8 @@
+1.
+DXSDK_Jun10 다운
+
+2.
+구글 directxtk github 검색 다운 (https://github.com/microsoft/DirectXTK)
+Bin 폴더 lib 파일 복사후 붙여넣기
+Inc 폴더 파일들 복사후 붙여넣기
+WICTextureLoader.h
