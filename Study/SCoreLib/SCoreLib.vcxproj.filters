@@ -22,6 +22,9 @@
     <Filter Include="FSM">
       <UniqueIdentifier>{ed0db285-8fd2-404a-8717-6ef8e2976d67}</UniqueIdentifier>
     </Filter>
+    <Filter Include="dxtk">
+      <UniqueIdentifier>{0df6551e-00a9-4327-9ba4-f899710a1261}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SStd.h">
@@ -117,6 +120,27 @@
     <ClInclude Include="SDevice.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="dxtk\DDS.h">
+      <Filter>dxtk</Filter>
+    </ClInclude>
+    <ClInclude Include="dxtk\DDSTextureLoader.h">
+      <Filter>dxtk</Filter>
+    </ClInclude>
+    <ClInclude Include="dxtk\DirectXHelpers.h">
+      <Filter>dxtk</Filter>
+    </ClInclude>
+    <ClInclude Include="dxtk\LoaderHelpers.h">
+      <Filter>dxtk</Filter>
+    </ClInclude>
+    <ClInclude Include="dxtk\pch.h">
+      <Filter>dxtk</Filter>
+    </ClInclude>
+    <ClInclude Include="dxtk\PlatformHelpers.h">
+      <Filter>dxtk</Filter>
+    </ClInclude>
+    <ClInclude Include="dxtk\WICTextureLoader.h">
+      <Filter>dxtk</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SCore.cpp">
@@ -199,6 +223,12 @@
     </ClCompile>
     <ClCompile Include="SDevice.cpp">
       <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="dxtk\DDSTextureLoader.cpp">
+      <Filter>dxtk</Filter>
+    </ClCompile>
+    <ClCompile Include="dxtk\WICTextureLoader.cpp">
+      <Filter>dxtk</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -1,8 +1,31 @@
-1.
+<DirectSDK>
 DXSDK_Jun10 다운
 
-2.
-구글 directxtk github 검색 다운 (https://github.com/microsoft/DirectXTK)
-Bin 폴더 lib 파일 복사후 붙여넣기
-Inc 폴더 파일들 복사후 붙여넣기
-WICTextureLoader.h
+<DirectXTK>
+1. 구글 directxtk github 검색 다운 (https://github.com/microsoft/DirectXTK)
+
+2. 
+-(1) 솔루션에 DirectXTK-master / DirectXTK_Desktop_2017.vcxproj 프로젝트 추가 후 빌드
+-(2) Bin 폴더 DirectXTK.lib 파일 복사 -> lib 폴더 붙여넣기
+
+3. DirectXTK-master / Inc 폴더 파일들 복사 ->  include / DirectXTK 붙여넣기
+
+4. 
+-(1) DirectXTK-master / Inc / DDSTextureLoader.h
+			DirectXHelpers.h
+			WICTextureLoader.h 복사 -> Library 프로젝트 폴더 / dxtk 붙여넣기
+-(2) DirectXTK-master / Src / DDS.h
+			DDSTextureLoader.cpp
+			LoaderHelpers.h
+			pch.h
+			PlatformHelpers.h
+			WICTextureLoader.cpp 복사 -> Library 프로젝트 폴더 / dxtk 붙여넣기
+5.
+Library 설정 빌드 후 이벤트 -> copy "dxtk\\*.h" "..\\..\\include\\dxtk"
+DDS.h
+DDSTextureLoader.h
+DirectXHelpers.h
+LoaderHelpers.h
+pch.h
+PlatformHelpers.h
+WICTextureLoader.h 

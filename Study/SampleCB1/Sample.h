@@ -34,7 +34,7 @@ class Sample : public SCore
 	std::vector<P_VERTEX>	m_VertexList;
 	std::vector<DWORD>		m_IndexList;
 	ID3D11Buffer*			m_pVertexBuffer;
-	ID3D11Buffer*			m_pIndeBuffer;
+	ID3D11Buffer*			m_pIndexBuffer;
 	ID3D11Buffer*			m_pConstantBuffer;
 	ID3D11InputLayout*		m_pInputLayout;
 	ID3D11VertexShader*		m_pVertexShader;
@@ -47,12 +47,17 @@ class Sample : public SCore
 	D3D11_FILL_MODE			m_FillMode;
 	D3D11_CULL_MODE			m_CullMode;
 public:
+	ID3D11DepthStencilView*  m_pDSV;
+	ID3D11DepthStencilState* m_pDSS;
+public:
 	bool Init() override;
 	bool Frame() override;
 	bool Render() override;
+	bool PreRender() override;
 	bool Release() override;
 public:
 	void CompilerCheck(ID3DBlob* pErrorMsgs);
 	void SetRasterizerState();
 };
 
+SGAME_RUN;

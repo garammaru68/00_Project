@@ -1,4 +1,5 @@
 #pragma once
+#include "SStd.h"
 struct SVertex2
 {
 	float x;

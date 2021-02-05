@@ -121,11 +121,13 @@
       <AdditionalLibraryDirectories>../../fmod/lib/x64;</AdditionalLibraryDirectories>
     </Lib>
     <PreBuildEvent>
-      <Command>copy "..\\..\\fmod\\lib\\x64\\*.dll" "..\\..\\output\\Debug"</Command>
+      <Command>md "..\\..\\include\\dxtk"
+copy "..\\..\\fmod\\lib\\x64\\*.dll" "..\\..\\output\\Debug"</Command>
     </PreBuildEvent>
     <PostBuildEvent>
       <Command>copy  "..\\..\\output\\Debug\\SCoreLib.lib" "..\\..\\lib\\SCoreLib_D.lib"
-copy "*.h" "..\\..\\include"</Command>
+copy "*.h" "..\\..\\include"
+copy "dxtk\\*.h" "..\\..\\include\\dxtk"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -163,6 +165,13 @@ copy "*.h" "..\\..\\include"</Command>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="dxtk\DDS.h" />
+    <ClInclude Include="dxtk\DDSTextureLoader.h" />
+    <ClInclude Include="dxtk\DirectXHelpers.h" />
+    <ClInclude Include="dxtk\LoaderHelpers.h" />
+    <ClInclude Include="dxtk\pch.h" />
+    <ClInclude Include="dxtk\PlatformHelpers.h" />
+    <ClInclude Include="dxtk\WICTextureLoader.h" />
     <ClInclude Include="SAttackState.h" />
     <ClInclude Include="SBasisStd.h" />
     <ClInclude Include="SBitmap.h" />
@@ -196,6 +205,8 @@ copy "*.h" "..\\..\\include"</Command>
     <ClInclude Include="SWrite.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="dxtk\DDSTextureLoader.cpp" />
+    <ClCompile Include="dxtk\WICTextureLoader.cpp" />
     <ClCompile Include="SAttackState.cpp" />
     <ClCompile Include="SBitmap.cpp" />
     <ClCompile Include="SBitmapManager.cpp" />
