@@ -13,8 +13,11 @@
 #include <atlconv.h> // A2W
 #include <iostream>
 #include <process.h> // _beginthreadex
+#include <d3dcompiler.h>
 #include "SMath.h"
 
+#pragma comment(lib, "d3dcompiler.lib")
+//#pragma comment(lib, "directxtk.lib")
 #pragma comment (lib, "Winmm.lib")
 #pragma comment (lib, "ws2_32.lib")
 #pragma comment (lib, "fmod_vc.lib")

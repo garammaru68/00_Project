@@ -121,22 +121,22 @@ bool Sample::Init()
 	// Vertex Data
 	m_VertexList.resize(4);
 	m_VertexList[0] = {
-		SVertex3(-1.0f, 1.0f, 0.5f),
+		SVertex3(-1.0f, 1.0f, -1.0f),
 		SVertex3(0, 0, 0),
 		SVertex4(1, 0, 0, 1),
 		SVertex2(0, 0) };
 	m_VertexList[1] = {
-		SVertex3(1.0f, 1.0f, 0.5f),
+		SVertex3(1.0f, 1.0f, -1.0f),
 		SVertex3(0, 0, 0),
 		SVertex4(0, 1, 0, 1),
 		SVertex2(3, 0) };
 	m_VertexList[2] = {
-		SVertex3(-1.0f, -1.0f, 0.5f),
+		SVertex3(-1.0f, -1.0f, -1.0f),
 		SVertex3(0, 0, 0),
 		SVertex4(0, 0, 1, 1),
 		SVertex2(0, 3) };
 	m_VertexList[3] = {
-		SVertex3(1.0f, -1.0f, 0.5f),
+		SVertex3(1.0f, -1.0f, -1.0f),
 		SVertex3(0, 0, 0),
 		SVertex4(1, 1, 1, 1),
 		SVertex2(3, 3) };
@@ -209,5 +209,108 @@ bool Sample::Init()
 	}
 	hr = m_pd3dDevice->CreateVertexShader(pVSObj->GetBufferPointer(), pVSObj->GetBufferSize(), NULL, &m_pVertexShader);
 	hr = D3DCompileFromFile(L"PS.txt", NULL, NULL, "PS", "ps_5_0", 0, 0, &pPSObj, &pErrorMsgs);
+
+	if (FAILED(hr))
+	{
+		CompilerCheck(pErrorMsgs);
+		return false;
+	}
+	hr = m_pd3dDevice->CreatePixelShader(pPSObj->GetBufferPointer(), pPSObj->GetBufferSize(), NULL, &m_pPixelShader);
+
+	const D3D11_INPUT_ELEMENT_DESC layout[] =
+	{
+		{ "POSITION",  0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0,  D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "NORMAL",  0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 12,  D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "COLOR",  0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 24,  D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "TEXTURE",  0, DXGI_FORMAT_R32G32_FLOAT, 0, 40,  D3D11_INPUT_PER_VERTEX_DATA, 0 },
+	};
+	UINT iNumElement = sizeof(layout) / sizeof(layout[0]);
+	hr = m_pd3dDevice->CreateInputLayout(
+		layout,
+		iNumElement,
+		pVSObj->GetBufferPointer(),
+		pVSObj->GetBufferSize(),
+		&m_pInputLayout
+	);
+	return true;
+}
+bool Sample::Frame()
+{
+	if (g_Input.GetKey('0') == KEY_PUSH)
+	{
+		m_FillMode = D3D11_FILL_WIREFRAME;
+		SetRasterizerState();
+		//m_pd3dContext->RSSetState(m_pRSWireBack);
+	}
+	if (g_Input.GetKey('9') == KEY_PUSH)
+	{
+		m_FillMode = D3D11_FILL_SOLID;
+		SetRasterizerState();
+		//m_pd3dContext->RSSetState(m_pRSSolidBack);
+	}
+	if (g_Input.GetKey('8') == KEY_PUSH)
+	{
+		m_CullMode = D3D11_CULL_BACK;
+		SetRasterizerState();
+		//m_pd3dContext->RSSetState(m_pRSWireBack);
+	}
+	if (g_Input.GetKey('7') == KEY_PUSH)
+	{
+		m_CullMode = D3D11_CULL_FRONT;
+		SetRasterizerState();
+		//m_pd3dContext->RSSetState(m_pRSSolidBack);
+	}
+	D3D11_MAPPED_SUBRESOURCE mr;
+	HRESULT hr = m_pd3dContext->Map(m_pConstantBuffer, 0,
+		D3D11_MAP_WRITE_DISCARD, 0, &mr);
+	if (SUCCEEDED(hr))
+	{
+		SDataCB* pData = (SDataCB*)mr.pData;
+		pData->vColor[0] = cosf(g_fGameTimer);
+		pData->vColor[1] = sinf(g_fGameTimer);
+		pData->vColor[2] = 1.0f - cosf(g_fGameTimer);
+		pData->vColor[3] = 1;
+		pData->vTime[0] = cosf(g_fGameTimer)*0.5f + 0.5f;
+		pData->vTime[1] = g_fGameTimer;
+		m_pd3dContext->Unmap(m_pConstantBuffer, 0);
+	}
+	return true;
+}
+bool Sample::Render()
+{
+	UINT iStride = sizeof(P_VERTEX);
+	UINT iOffset = 0;
+	m_pd3dContext->IASetVertexBuffers(0, 1, &m_pVertexBuffer, &iStride, &iOffset);
+	m_pd3dContext->IASetIndexBuffer(m_pIndexBuffer, DXGI_FORMAT_R32_UINT, 0);
+	m_pd3dContext->IASetInputLayout(m_pInputLayout);
+	m_pd3dContext->VSSetConstantBuffers(0, 1, &m_pConstantBuffer);
+	m_pd3dContext->PSSetConstantBuffers(0, 1, &m_pConstantBuffer);
+	m_pd3dContext->VSSetShader(m_pVertexShader, NULL, 0);
+	m_pd3dContext->PSSetShader(m_pPixelShader, NULL, 0);
+	m_pd3dContext->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	m_pd3dContext->RSSetState(m_pRS);
+	m_pd3dContext->PSSetShaderResources(0, 1, &m_pTextureSRV);
+	m_pd3dContext->PSSetSamplers(0, 1, &m_pWrapLinear);
+	m_pd3dContext->OMSetDepthStencilState(m_pDSS, 0);
+	//m_pd3dContext->Draw(m_VertexList.size(), 0);
+	m_pd3dContext->DrawIndexed(m_IndexList.size(), 0, 0);
+	return true;
+}
+bool Sample::Release()
+{
+	m_pDSV->Release();
+	m_pDSS->Release();
+	m_pWrapLinear->Release();
+	m_pTextureSRV->Release();
+	m_pRS->Release();
+	m_pRSSolidBack->Release();
+	m_pRSWireBack->Release();
+	m_pConstantBuffer->Release();
+	m_pVertexBuffer->Release();
+	m_pIndexBuffer->Release();
+	m_pInputLayout->Release();
+	m_pVertexShader->Release();
+	m_pPixelShader->Release();
+	return true;
 
 }
