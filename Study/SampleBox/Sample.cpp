@@ -131,12 +131,12 @@ bool Sample::Init()
 		return false;
 	}
 	if (!m_Box.Create(m_pd3dDevice, L"vs.txt", L"ps.txt",
-		L"../../data/tileA.jpg"))
+		L"../../data/PeaShooterOn.bmp"))
 	{
 		return false;
 	}
 	if (!m_Plane.Create(m_pd3dDevice, L"vs.txt", L"ps.txt",
-		L"../../data/tileA.jpg"))
+		L"../../data/SunFlowerOn.bmp"))
 	{
 		return false;
 	}

@@ -63,10 +63,18 @@ namespace SBASIS_VECTOR {
 	{
 	public:
 		Vector4();
-		Vector4
+		Vector4(const Vector4& v0);
+		Vector4(float fX, float fY, float fZ, float fW);
+		bool	operator == (Vector4 const &v0);
+	};
+
+	class Vector2 : public float2
+	{
+	public:
+		Vector2();
+		Vector2(const Vector2& v0);
+		Vector2(float fX, float fY);
+		bool	operator == (Vector2 const &v0);
 	};
 }
-class SVector
-{
-};
-
+using namespace SBASIS_VECTOR;

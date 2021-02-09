@@ -24,5 +24,9 @@
 	제 35강 Depth Buffer -2-	All					363p
 	제 36강 행렬 -3-		All					371p
 15일차 -	제 41강 DrawShape -0-	All					407p
+16일차 -	제 35강 Depth Buffer -2-	All (복습)					363p
+	제 36강 행렬 -3-		All (복습)					371p
+	제 38강 변환		All					387p
+	제 39강 Stencil Buffer	All					393p
 275p 표 수정
 309p 표 수정
