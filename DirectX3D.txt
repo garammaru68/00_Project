@@ -4,7 +4,6 @@ sdk 폴더 -> Include,Lib 폴더 복사후 -> project에 dx폴더 생성후 넣�
 
 SampleDevice1 프로젝트 속성 - 추가 포함 디렉터리 확인
 
-GetBuffer - 쓰면 무조건 Release
+DircetXTK project - Inc - Shared  기본수학
 
-되도록 생선된 역순으로 Release
-
+D3DXMath - https://docs.microsoft.com/en-us/windows/win32/dxmath/pg-xnamath-migration-d3dx

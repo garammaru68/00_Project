@@ -3,3 +3,7 @@ TStd.h
 s붙은 함수 -> GetAddressOf()
 Attach -	기존 데이터 release 후
 	새로운 데이터를 넣는다
+
+GetBuffer - 쓰면 무조건 Release
+
+되도록 생선된 역순으로 Release

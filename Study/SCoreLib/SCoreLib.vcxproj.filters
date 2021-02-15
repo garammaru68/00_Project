@@ -25,6 +25,12 @@
     <Filter Include="dxtk">
       <UniqueIdentifier>{0df6551e-00a9-4327-9ba4-f899710a1261}</UniqueIdentifier>
     </Filter>
+    <Filter Include="math">
+      <UniqueIdentifier>{c247d455-bd75-4f28-8573-450897f85247}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dx">
+      <UniqueIdentifier>{0091bcf2-e9e2-4bff-9fed-1de707b5a785}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SStd.h">
@@ -141,6 +147,18 @@
     <ClInclude Include="dxtk\WICTextureLoader.h">
       <Filter>dxtk</Filter>
     </ClInclude>
+    <ClInclude Include="SMatrix.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="SVector.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="SShape.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="SDxState.h">
+      <Filter>dx</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SCore.cpp">
@@ -229,6 +247,18 @@
     </ClCompile>
     <ClCompile Include="dxtk\WICTextureLoader.cpp">
       <Filter>dxtk</Filter>
+    </ClCompile>
+    <ClCompile Include="SMatrix.cpp">
+      <Filter>math</Filter>
+    </ClCompile>
+    <ClCompile Include="SVector.cpp">
+      <Filter>math</Filter>
+    </ClCompile>
+    <ClCompile Include="SShape.cpp">
+      <Filter>math</Filter>
+    </ClCompile>
+    <ClCompile Include="SDxState.cpp">
+      <Filter>dx</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

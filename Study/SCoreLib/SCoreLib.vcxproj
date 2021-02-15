@@ -180,6 +180,7 @@ copy "dxtk\\*.h" "..\\..\\include\\dxtk"</Command>
     <ClInclude Include="SCore.h" />
     <ClInclude Include="SCoreStd.h" />
     <ClInclude Include="SDevice.h" />
+    <ClInclude Include="SDxState.h" />
     <ClInclude Include="SEffect.h" />
     <ClInclude Include="SEnemyState.h" />
     <ClInclude Include="SFiniteState.h" />
@@ -188,6 +189,7 @@ copy "dxtk\\*.h" "..\\..\\include\\dxtk"</Command>
     <ClInclude Include="SGraphicAPI.h" />
     <ClInclude Include="SInput.h" />
     <ClInclude Include="SMath.h" />
+    <ClInclude Include="SMatrix.h" />
     <ClInclude Include="SMoveState.h" />
     <ClInclude Include="SNpcObject.h" />
     <ClInclude Include="SObject.h" />
@@ -195,12 +197,14 @@ copy "dxtk\\*.h" "..\\..\\include\\dxtk"</Command>
     <ClInclude Include="SPlayerState.h" />
     <ClInclude Include="SProjectile.h" />
     <ClInclude Include="SScene.h" />
+    <ClInclude Include="SShape.h" />
     <ClInclude Include="SSound.h" />
     <ClInclude Include="SSoundManager.h" />
     <ClInclude Include="SStandState.h" />
     <ClInclude Include="SStd.h" />
     <ClInclude Include="STimer.h" />
     <ClInclude Include="SUserInterface.h" />
+    <ClInclude Include="SVector.h" />
     <ClInclude Include="SWindow.h" />
     <ClInclude Include="SWrite.h" />
   </ItemGroup>
@@ -213,6 +217,7 @@ copy "dxtk\\*.h" "..\\..\\include\\dxtk"</Command>
     <ClCompile Include="SCollision.cpp" />
     <ClCompile Include="SCore.cpp" />
     <ClCompile Include="SDevice.cpp" />
+    <ClCompile Include="SDxState.cpp" />
     <ClCompile Include="SEffect.cpp" />
     <ClCompile Include="SEnemyState.cpp" />
     <ClCompile Include="SFiniteState.cpp" />
@@ -220,6 +225,7 @@ copy "dxtk\\*.h" "..\\..\\include\\dxtk"</Command>
     <ClCompile Include="SGameUser.cpp" />
     <ClCompile Include="SInput.cpp" />
     <ClCompile Include="SMath.cpp" />
+    <ClCompile Include="SMatrix.cpp" />
     <ClCompile Include="SMoveState.cpp" />
     <ClCompile Include="SNpcObject.cpp" />
     <ClCompile Include="SObject.cpp" />
@@ -227,11 +233,13 @@ copy "dxtk\\*.h" "..\\..\\include\\dxtk"</Command>
     <ClCompile Include="SPlayerState.cpp" />
     <ClCompile Include="SProjectile.cpp" />
     <ClCompile Include="SScene.cpp" />
+    <ClCompile Include="SShape.cpp" />
     <ClCompile Include="SSound.cpp" />
     <ClCompile Include="SSoundManager.cpp" />
     <ClCompile Include="SStandState.cpp" />
     <ClCompile Include="STimer.cpp" />
     <ClCompile Include="SUserInterface.cpp" />
+    <ClCompile Include="SVector.cpp" />
     <ClCompile Include="SWindow.cpp" />
     <ClCompile Include="SWrite.cpp" />
   </ItemGroup>

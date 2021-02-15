@@ -2,14 +2,15 @@
 #include <Windows.h>
 #include <math.h>
 
-#define SBASIS_EPSILON	((FLOAT) 0.001f)
-#define SBASIS_PI		((FLOAT) 3.141592654f)
+#define SBASIS_EPSILON		((FLOAT)  0.001f)
+#define SBASIS_PI			((FLOAT)  3.141592654f)
 #define DegreeToRadian( degree ) ((degree) * (SBASIS_PI / 180.0f))
 #define RadianToDegree( radian ) ((radian) * (180.0f / SBASIS_PI))
-#define MAKECOLOR_ARGB(a, r, g, b)	(( (a)&9xff ) << 24 ) | (( (r)&0xff ) << 16 ) | (( (g)&0xff ) << 8 ) | ( (b)&0xff )
-#define IS_IN_RANGE(value, r0, r1)	((( (r0) <= (value) ) && ( (value) <= (r1) )) ? 1 : 0 )
+#define MAKECOLOR_ARGB(a, r, g, b)			(((a)&0xff)<<24)|(((r)&0xff)<<16)|(((g)&0xff)<<8)|((b)&0xff)
+#define IS_IN_RANGE(value,r0,r1) (( ((r0) <= (value)) && ((value) <= (r1)) ) ? 1 : 0)
 
 namespace SBASIS_VECTOR {
+
 	struct float2
 	{
 		union
@@ -41,7 +42,7 @@ namespace SBASIS_VECTOR {
 		Vector3();
 		Vector3(const Vector3& v0);
 		Vector3(float fX, float fY, float fZ);
-		// 연산자 재정의
+		// 연산자 재정의 
 		Vector3 operator + (Vector3 const &v0);
 		Vector3 operator - (Vector3 const &v0);
 		Vector3 operator * (float const &fScala);
@@ -54,7 +55,7 @@ namespace SBASIS_VECTOR {
 		bool	operator == (Vector3 const &v0);
 		// 제곱
 		float LengthSquared();
-		// 원점으로부터의 거리
+		// 원점으로 부터의 거리
 		float Length();
 		Vector3 Normal();
 		float Angle(Vector3& v0);

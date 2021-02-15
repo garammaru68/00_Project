@@ -1,15 +1,15 @@
 // HLSL
-Texture2D	g_txDiffuse; // : register(t0);
-SamplerState	g_Sample; // : register(s0);
+Texture2D g_txDiffuse;// : register(t0);
+SamplerState g_Sample;// : register(s0);
 
 cbuffer SDataCB
 {
-	float4x4	g_matWorld : packoffset(c0);
-	float4x4	g_matView : packoffset(c4);
-	float4x4	g_matProj : packoffset(c8);
-	float4	vColor : packoffset(c12.x);
-	float	fTime : packoffset(c13.x);
-	float	fGameTime : packoffset(c13.y);
+	float4x4  g_matWorld: packoffset(c0);
+	float4x4  g_matView: packoffset(c4);
+	float4x4  g_matProj: packoffset(c8);
+	float4 vColor : packoffset(c12.x);
+	float  fTime  : packoffset(c13.x);
+	float  fGameTime  : packoffset(c13.y);
 };
 struct VS_OUTPUT
 {
@@ -26,7 +26,7 @@ PS_OUTPUT PS( VS_OUTPUT vIn)
 {
 	PS_OUTPUT vOut;
 	float4 vTexture = g_txDiffuse.Sample( g_Sample, vIn.t);
-	vOut.c = vTexture * vIn.c;
+	vOut.c = vTexture*vIn.c;
 	return vOut;
 }
 PS_OUTPUT PSLine( VS_OUTPUT vIn)
