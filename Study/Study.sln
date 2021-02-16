@@ -100,6 +100,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SCamera", "SCamera\SCamera.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestCamera", "TestCamera\TestCamera.vcxproj", "{FB857D15-7965-4870-AAF3-F6562E24BAD0}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CameraView", "CameraView\CameraView.vcxproj", "{E75385A2-9734-4F27-8E93-EF1B565DBA14}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -356,6 +358,14 @@ Global
 		{FB857D15-7965-4870-AAF3-F6562E24BAD0}.Release|x64.Build.0 = Release|x64
 		{FB857D15-7965-4870-AAF3-F6562E24BAD0}.Release|x86.ActiveCfg = Release|Win32
 		{FB857D15-7965-4870-AAF3-F6562E24BAD0}.Release|x86.Build.0 = Release|Win32
+		{E75385A2-9734-4F27-8E93-EF1B565DBA14}.Debug|x64.ActiveCfg = Debug|x64
+		{E75385A2-9734-4F27-8E93-EF1B565DBA14}.Debug|x64.Build.0 = Debug|x64
+		{E75385A2-9734-4F27-8E93-EF1B565DBA14}.Debug|x86.ActiveCfg = Debug|Win32
+		{E75385A2-9734-4F27-8E93-EF1B565DBA14}.Debug|x86.Build.0 = Debug|Win32
+		{E75385A2-9734-4F27-8E93-EF1B565DBA14}.Release|x64.ActiveCfg = Release|x64
+		{E75385A2-9734-4F27-8E93-EF1B565DBA14}.Release|x64.Build.0 = Release|x64
+		{E75385A2-9734-4F27-8E93-EF1B565DBA14}.Release|x86.ActiveCfg = Release|Win32
+		{E75385A2-9734-4F27-8E93-EF1B565DBA14}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -399,6 +409,7 @@ Global
 		{FB857D15-7965-4870-AAF3-F6562E24BAD0} = {3D96494E-817C-4CEE-9DB2-0769F15DE7A7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
+		VisualSVNWorkingCopyRoot = .
 		SolutionGuid = {8CA5F4F3-F11A-4339-87C9-38CD6690C71A}
 	EndGlobalSection
 EndGlobal

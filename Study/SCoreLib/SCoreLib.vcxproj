@@ -165,6 +165,7 @@ copy "dxtk\\*.h" "..\\..\\include\\dxtk"</Command>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\DirectXTK\SimpleMath.h" />
     <ClInclude Include="dxtk\DDS.h" />
     <ClInclude Include="dxtk\DDSTextureLoader.h" />
     <ClInclude Include="dxtk\DirectXHelpers.h" />
@@ -209,6 +210,7 @@ copy "dxtk\\*.h" "..\\..\\include\\dxtk"</Command>
     <ClInclude Include="SWrite.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\DirectXTK-master\Src\SimpleMath.cpp" />
     <ClCompile Include="dxtk\DDSTextureLoader.cpp" />
     <ClCompile Include="dxtk\WICTextureLoader.cpp" />
     <ClCompile Include="SAttackState.cpp" />
@@ -242,6 +244,9 @@ copy "dxtk\\*.h" "..\\..\\include\\dxtk"</Command>
     <ClCompile Include="SVector.cpp" />
     <ClCompile Include="SWindow.cpp" />
     <ClCompile Include="SWrite.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\include\DirectXTK\SimpleMath.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
