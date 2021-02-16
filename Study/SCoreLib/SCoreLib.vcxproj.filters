@@ -159,7 +159,7 @@
     <ClInclude Include="SDxState.h">
       <Filter>dx</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\DirectXTK\SimpleMath.h">
+    <ClInclude Include="SimpleMath.h">
       <Filter>math</Filter>
     </ClInclude>
   </ItemGroup>
@@ -263,12 +263,12 @@
     <ClCompile Include="SDxState.cpp">
       <Filter>dx</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\DirectXTK-master\Src\SimpleMath.cpp">
+    <ClCompile Include="SimpleMath.cpp">
       <Filter>math</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\include\DirectXTK\SimpleMath.inl">
+    <None Include="SimpleMath.inl">
       <Filter>math</Filter>
     </None>
   </ItemGroup>
