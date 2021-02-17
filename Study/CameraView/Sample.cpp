@@ -1,5 +1,5 @@
 #include "Sample.h"
-Matrix* TD3DXMatrixShadow(Matrix *pout,
+Matrix* SD3DXMatrixShadow(Matrix *pout,
 	Vector4 *plight,
 	Vector4 *pplane)
 {
@@ -60,11 +60,11 @@ bool Sample::Init()
 	m_vDirValue = { 0,0,0,0 };
 	m_Camera.CreateViewMatrix({ 0,10,-10 }, { 0,0,0 });
 	float fAspect = g_rtClient.right / (float)g_rtClient.bottom;
-	m_Camera.CreateProjMatrix(1, 1000, TBASIS_PI / 4.0f, fAspect);
+	m_Camera.CreateProjMatrix(1, 1000, SBASIS_PI / 4.0f, fAspect);
 
 	Matrix matScale, matRotation;
-	matScale = Matrix::CreateScale(100, 100, 100);
-	matRotation = Matrix::CreateRotationX(TBASIS_PI*0.5f);
+	matScale = Matrix::CreateScale(1000, 1000, 1000);
+	matRotation = Matrix::CreateRotationX(SBASIS_PI*0.5f);
 	m_matPlaneWorld = matScale * matRotation;
 
 	if (!m_Box.Create(m_pd3dDevice, L"vs.txt", L"ps.txt",
@@ -82,6 +82,7 @@ bool Sample::Init()
 	{
 		return false;
 	}
+	m_Camera.Init();
 	return true;
 }
 bool Sample::Frame()
@@ -96,25 +97,24 @@ bool Sample::Frame()
 
 	if (g_Input.GetKey('0') == KEY_PUSH)
 	{
-		TDxState::m_FillMode = D3D11_FILL_WIREFRAME;
-		TDxState::SetRasterizerState(m_pd3dDevice);
+		SDxState::m_FillMode = D3D11_FILL_WIREFRAME;
+		SDxState::SetRasterizerState(m_pd3dDevice);
 	}
 	if (g_Input.GetKey('9') == KEY_PUSH)
 	{
-		TDxState::m_FillMode = D3D11_FILL_SOLID;
-		TDxState::SetRasterizerState(m_pd3dDevice);
+		SDxState::m_FillMode = D3D11_FILL_SOLID;
+		SDxState::SetRasterizerState(m_pd3dDevice);
 	}
 	if (g_Input.GetKey('8') == KEY_PUSH)
 	{
-		TDxState::m_CullMode = D3D11_CULL_BACK;
-		TDxState::SetRasterizerState(m_pd3dDevice);
+		SDxState::m_CullMode = D3D11_CULL_BACK;
+		SDxState::SetRasterizerState(m_pd3dDevice);
 	}
 	if (g_Input.GetKey('7') == KEY_PUSH)
 	{
-		TDxState::m_CullMode = D3D11_CULL_FRONT;
-		TDxState::SetRasterizerState(m_pd3dDevice);
+		SDxState::m_CullMode = D3D11_CULL_FRONT;
+		SDxState::SetRasterizerState(m_pd3dDevice);
 	}
-
 	if (g_Input.GetKey('W') == KEY_HOLD)
 	{
 		m_Camera.FrontMovement(1.0f);
@@ -139,20 +139,20 @@ bool Sample::Frame()
 	{
 		m_Camera.UpMovement(-1.0f);
 	}
+
 	m_Camera.Frame();
 	return true;
 }
 bool Sample::Render()
 {
 	m_pd3dContext->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	m_pd3dContext->RSSetState(TDxState::m_pRS);
-	m_pd3dContext->PSSetSamplers(0, 1, &TDxState::m_pWrapLinear);
-	m_pd3dContext->OMSetDepthStencilState(TDxState::m_pDSS, 0);
+	m_pd3dContext->RSSetState(SDxState::m_pRS);
+	m_pd3dContext->PSSetSamplers(0, 1, &SDxState::m_pWrapLinear);
+	m_pd3dContext->OMSetDepthStencilState(SDxState::m_pDSS, 0);
 	m_Box.SetMatrix(&m_matBoxWorld,
 		&m_Camera.m_matView,
 		&m_Camera.m_matProj);
 	m_Box.Render(m_pd3dContext);
-
 	Matrix matShadow;
 	Vector4 PLANE = Vector4(0, 1, 0, -0.1f);
 	//Vector4 vLightDir = Vector4(-10, 10, 0, 1);
@@ -161,15 +161,13 @@ bool Sample::Render()
 	vLightDir.Normalize();
 	matShadow = Matrix::CreateShadow(vLightDir, PLANE);
 	matShadow = m_matBoxWorld * matShadow;
-	m_Box.SetMatrix(&matShadow, &m_Camera.m_matView,
-		&m_Camera.m_matProj);
+	m_Box.SetMatrix(&matShadow, &m_Camera.m_matView, &m_Camera.m_matProj);
 	m_Box.Render(m_pd3dContext);
 
 	m_Plane.SetMatrix(&m_matPlaneWorld,
 		&m_Camera.m_matView,
 		&m_Camera.m_matProj);
 	m_Plane.Render(m_pd3dContext);
-
 	m_Line.SetMatrix(NULL, &m_Camera.m_matView,
 		&m_Camera.m_matProj);
 	m_Line.Draw(m_pd3dContext,

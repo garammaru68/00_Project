@@ -113,7 +113,20 @@ namespace SBASIS_CORE_LIB
 			exit(1);
 		}
 	}
+	inline void OutputDebug(const char* format, ...)
+	{
+#ifdef _DEBUG
+		va_list args;
+		va_start(args, format);
 
+		char buff[1024] = {};
+		vsprintf_s(buff, format, args);
+		OutputDebugStringA(buff);
+		va_end(args);
+#else
+		UNREFERENCED_PARAMETER(format);
+#endif
+	}
 	template <typename S>
 	inline void SafeRelease(S *&p)
 	{

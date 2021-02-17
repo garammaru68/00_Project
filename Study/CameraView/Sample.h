@@ -26,4 +26,4 @@ public:
 	LRESULT	 MsgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 };
 
-TGAME_RUN;
+SGAME_RUN;

@@ -2,7 +2,7 @@
 Texture2D g_txDiffuse;// : register(t0);
 SamplerState g_Sample;// : register(s0);
 
-cbuffer TDataCB
+cbuffer SDataCB
 {
 	float4x4  g_matWorld: packoffset(c0);
 	float4x4  g_matView: packoffset(c4);

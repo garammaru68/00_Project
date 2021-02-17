@@ -1,5 +1,4 @@
 #include "SCamera.h"
-#include "SCamera.h"
 #include "SInput.h"
 bool SCamera::CreateViewMatrix(
 	Vector3 p,

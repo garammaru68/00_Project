@@ -31,9 +31,10 @@
 17일차 -	제 44강 Camera -1-	All					433p
 	제 45강 Camera -2-	All					441p
 18일차 -	제 47강 Camera -3-	All					453p
-	제 49강 Camera -4-	All					474p
-	제 50강 Camera -5-	All					487p
 	제 51강 Create Frustum	All					494p
 	제 52강 Frustum Culling	All					506p
+19일차 -	제 48강 사원수		All					459p
+20일차 -	제 49강 Camera -4-	All					474p
+
 275p 표 수정
 309p 표 수정

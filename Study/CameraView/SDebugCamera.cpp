@@ -1,4 +1,11 @@
 #include "SDebugCamera.h"
+#include "SInput.h"
+bool SDebugCamera::Init()
+{
+	SCamera::Init();
+	m_ptPrePosition = g_Input.GetPos();
+	return true;
+}
 void SDebugCamera::Update(Vector4 data)
 {
 	Matrix matRoation;
@@ -6,20 +13,39 @@ void SDebugCamera::Update(Vector4 data)
 		data.y, data.x, data.z);
 	//D3DXMatrixAffineTransformation
 	// matRotation = quaternion * pos * scale;
-	m_vCameraPos += m_vLook * data.w;
+	//m_vCameraPos += m_vLook * data.w;
+	m_vCameraPos += m_vLook * m_fWheelDelta;
+	SBASIS_CORE_LIB::OutputDebug("%10.4f\n", m_fWheelDelta);
 	matRoation._41 = m_vCameraPos.x;
 	matRoation._42 = m_vCameraPos.y;
 	matRoation._43 = m_vCameraPos.z;
 
 	m_matView = matRoation.Invert();
+	m_fWheelDelta = 0;
 }
 
 bool SDebugCamera::Frame()
 {
 	m_vDirValue.y -= m_rtOffset.left * g_fSecondPerFrame * 0.1f;
 	m_vDirValue.x -= m_rtOffset.bottom* g_fSecondPerFrame* 0.1f;
+	POINT point;
+	GetCursorPos(&point);
+	HWND hWnd = WindowFromPoint(point);
+	ScreenToClient(g_hWnd, &point);
+
+	if (hWnd == g_hWnd && g_Input.GetKey(VK_LBUTTON))
+	{
+		float fAngleX = (point.x - m_ptPrePosition.x);
+		float fAngleY = (point.y - m_ptPrePosition.y);
+		m_vDirValue.y += XMConvertToRadians(fAngleX / 2.0f);
+		m_vDirValue.x += XMConvertToRadians(fAngleY / 2.0f);
+		//SBASIS_CORE_LIB::OutputDebug("%10.4f\n",fAngleX);
+	}
+	m_ptPrePosition = point;
+
 	Update(m_vDirValue);
 	UpdateVector();
+
 	return true;
 }
 
@@ -29,6 +55,7 @@ SDebugCamera::SDebugCamera()
 	m_vDirValue.y = 0.0f;
 	m_vDirValue.z = 0.0f;
 	m_vDirValue.w = 0.0f;
+
 }
 SDebugCamera::~SDebugCamera()
 {

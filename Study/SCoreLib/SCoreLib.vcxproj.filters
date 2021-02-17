@@ -264,7 +264,7 @@
       <Filter>dx</Filter>
     </ClCompile>
     <ClCompile Include="SimpleMath.cpp">
-      <Filter>math</Filter>
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

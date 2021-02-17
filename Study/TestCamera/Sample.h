@@ -22,4 +22,3 @@ public:
 	xMatrix CreateMatrixShadow(Vector4* plane, Vector4* Light);
 };
 SGAME_RUN;
-

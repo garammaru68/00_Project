@@ -7,17 +7,17 @@ void SShape::CompilerCheck(ID3DBlob* pErrorMsgs)
 }
 bool	SShape::Init()
 {
-	m_matWorld.Identity();
-	m_matView.Identity();
-	m_matProj.Identity();
+	m_matWorld = Matrix::Identity;
+	m_matView = Matrix::Identity;
+	m_matProj = Matrix::Identity;
 	return true;
 }
 bool	SShape::Frame() {
 	return true;
 }
-bool	SShape::SetMatrix(xMatrix* pWorld,
-	xMatrix* pView,
-	xMatrix* pProj)
+bool	SShape::SetMatrix(Matrix* pWorld,
+	Matrix* pView,
+	Matrix* pProj)
 {
 	if (pWorld != nullptr)
 	{

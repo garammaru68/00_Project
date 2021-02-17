@@ -1,8 +1,11 @@
 #pragma once
 #include "SStd.h"
 #include "dxtk/WICTextureLoader.h"//../../include/DirectXTK
-#include "SMatrix.h"
+#include "SimpleMath.h"
 #include "SDxState.h"
+using namespace DirectX;
+using namespace SimpleMath;
+
 struct P_VERTEX
 {
 	Vector3 p;
@@ -48,9 +51,9 @@ struct PNCT_VERTEX
 
 struct SDataCB
 {
-	xMatrix  matWorld;
-	xMatrix  matView;
-	xMatrix  matProject;
+	Matrix  matWorld;
+	Matrix  matView;
+	Matrix  matProject;
 	float vColor[4];
 	float vTime[4];
 };
@@ -64,9 +67,9 @@ public:
 	C_STR		  m_szVertexShader;
 	C_STR		  m_szPixelShader;
 public:
-	xMatrix    m_matWorld;
-	xMatrix    m_matView;
-	xMatrix    m_matProj;
+	Matrix    m_matWorld;
+	Matrix    m_matView;
+	Matrix    m_matProj;
 public:
 	SDataCB					m_cbData;
 	std::vector<PNCT_VERTEX>	m_VertexList;
@@ -81,9 +84,9 @@ public:
 public:
 	virtual bool	Init();
 	virtual bool	Frame();
-	virtual bool	SetMatrix(xMatrix* pWorld,
-		xMatrix* pView,
-		xMatrix* pProj);
+	virtual bool	SetMatrix(Matrix* pWorld,
+		Matrix* pView,
+		Matrix* pProj);
 	virtual bool    Update(ID3D11DeviceContext*	pd3dContext);
 	virtual bool	Render(ID3D11DeviceContext*	pd3dContext);
 	virtual bool	Relase();
