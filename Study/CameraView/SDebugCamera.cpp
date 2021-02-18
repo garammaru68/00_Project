@@ -55,7 +55,6 @@ SDebugCamera::SDebugCamera()
 	m_vDirValue.y = 0.0f;
 	m_vDirValue.z = 0.0f;
 	m_vDirValue.w = 0.0f;
-
 }
 SDebugCamera::~SDebugCamera()
 {

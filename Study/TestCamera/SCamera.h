@@ -1,6 +1,6 @@
 #pragma once
-#include "SStd.h"
-#include "SMatrix.h"
+#include "SShape.h"
+
 
 class SCamera
 {

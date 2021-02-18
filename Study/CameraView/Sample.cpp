@@ -60,10 +60,10 @@ bool Sample::Init()
 	m_vDirValue = { 0,0,0,0 };
 	m_Camera.CreateViewMatrix({ 0,10,-10 }, { 0,0,0 });
 	float fAspect = g_rtClient.right / (float)g_rtClient.bottom;
-	m_Camera.CreateProjMatrix(1, 1000, SBASIS_PI / 4.0f, fAspect);
+	m_Camera.CreateProjMatrix(1, 100, SBASIS_PI / 4.0f, fAspect);
 
 	Matrix matScale, matRotation;
-	matScale = Matrix::CreateScale(1000, 1000, 1000);
+	matScale = Matrix::CreateScale(100, 100, 100);
 	matRotation = Matrix::CreateRotationX(SBASIS_PI*0.5f);
 	m_matPlaneWorld = matScale * matRotation;
 

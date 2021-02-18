@@ -31,6 +31,9 @@
     <Filter Include="dx">
       <UniqueIdentifier>{0091bcf2-e9e2-4bff-9fed-1de707b5a785}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Camera">
+      <UniqueIdentifier>{a7cabd15-5a4b-47c4-93fe-1d2eb35492fc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SStd.h">
@@ -153,14 +156,23 @@
     <ClInclude Include="SVector.h">
       <Filter>math</Filter>
     </ClInclude>
-    <ClInclude Include="SShape.h">
-      <Filter>math</Filter>
-    </ClInclude>
     <ClInclude Include="SDxState.h">
       <Filter>dx</Filter>
     </ClInclude>
     <ClInclude Include="SimpleMath.h">
       <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="SShape.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="STexture.h">
+      <Filter>dx</Filter>
+    </ClInclude>
+    <ClInclude Include="STextureManager.h">
+      <Filter>dx</Filter>
+    </ClInclude>
+    <ClInclude Include="SDxObject.h">
+      <Filter>dx</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -257,14 +269,23 @@
     <ClCompile Include="SVector.cpp">
       <Filter>math</Filter>
     </ClCompile>
-    <ClCompile Include="SShape.cpp">
-      <Filter>math</Filter>
-    </ClCompile>
     <ClCompile Include="SDxState.cpp">
       <Filter>dx</Filter>
     </ClCompile>
     <ClCompile Include="SimpleMath.cpp">
       <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SShape.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
+    <ClCompile Include="STexture.cpp">
+      <Filter>dx</Filter>
+    </ClCompile>
+    <ClCompile Include="STextureManager.cpp">
+      <Filter>dx</Filter>
+    </ClCompile>
+    <ClCompile Include="SDxObject.cpp">
+      <Filter>dx</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

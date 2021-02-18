@@ -149,10 +149,12 @@
   <ItemGroup>
     <ClCompile Include="Sample.cpp" />
     <ClCompile Include="SCamera.cpp" />
+    <ClCompile Include="SShape.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sample.h" />
     <ClInclude Include="SCamera.h" />
+    <ClInclude Include="SShape.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="PS.txt" />

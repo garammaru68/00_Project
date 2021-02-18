@@ -1,0 +1,1 @@
+#include "SModelViewCamera.h"

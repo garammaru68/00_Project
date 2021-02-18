@@ -35,6 +35,8 @@
 	제 52강 Frustum Culling	All					506p
 19일차 -	제 48강 사원수		All					459p
 20일차 -	제 49강 Camera -4-	All					474p
-
+21일차 -	제 73강 Customize Map	All					695p
+	제 74강 Height Map	All					705p
+	제 75강 VertexNormalsFastLookup	All				720p
 275p 표 수정
 309p 표 수정

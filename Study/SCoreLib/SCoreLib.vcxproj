@@ -180,6 +180,7 @@ copy "dxtk\\*.h" "..\\..\\include\\dxtk"</Command>
     <ClInclude Include="SCore.h" />
     <ClInclude Include="SCoreStd.h" />
     <ClInclude Include="SDevice.h" />
+    <ClInclude Include="SDxObject.h" />
     <ClInclude Include="SDxState.h" />
     <ClInclude Include="SEffect.h" />
     <ClInclude Include="SEnemyState.h" />
@@ -203,6 +204,8 @@ copy "dxtk\\*.h" "..\\..\\include\\dxtk"</Command>
     <ClInclude Include="SSoundManager.h" />
     <ClInclude Include="SStandState.h" />
     <ClInclude Include="SStd.h" />
+    <ClInclude Include="STexture.h" />
+    <ClInclude Include="STextureManager.h" />
     <ClInclude Include="STimer.h" />
     <ClInclude Include="SUserInterface.h" />
     <ClInclude Include="SVector.h" />
@@ -218,6 +221,7 @@ copy "dxtk\\*.h" "..\\..\\include\\dxtk"</Command>
     <ClCompile Include="SCollision.cpp" />
     <ClCompile Include="SCore.cpp" />
     <ClCompile Include="SDevice.cpp" />
+    <ClCompile Include="SDxObject.cpp" />
     <ClCompile Include="SDxState.cpp" />
     <ClCompile Include="SEffect.cpp" />
     <ClCompile Include="SEnemyState.cpp" />
@@ -239,6 +243,8 @@ copy "dxtk\\*.h" "..\\..\\include\\dxtk"</Command>
     <ClCompile Include="SSound.cpp" />
     <ClCompile Include="SSoundManager.cpp" />
     <ClCompile Include="SStandState.cpp" />
+    <ClCompile Include="STexture.cpp" />
+    <ClCompile Include="STextureManager.cpp" />
     <ClCompile Include="STimer.cpp" />
     <ClCompile Include="SUserInterface.cpp" />
     <ClCompile Include="SVector.cpp" />
