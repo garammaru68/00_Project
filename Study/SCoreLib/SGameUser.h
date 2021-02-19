@@ -15,7 +15,7 @@ public:
 	bool Reset() override;
 	bool Init() override;
 	bool Frame() override;
-	bool Render() override;
+	bool Render(ID3D11DeviceContext*	pd3dContext) override;
 public:
 	virtual SObject* Clone() override;
 	virtual bool Damage();

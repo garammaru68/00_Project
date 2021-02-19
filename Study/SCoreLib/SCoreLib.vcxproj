@@ -176,9 +176,11 @@ copy "dxtk\\*.h" "..\\..\\include\\dxtk"</Command>
     <ClInclude Include="SBasisStd.h" />
     <ClInclude Include="SBitmap.h" />
     <ClInclude Include="SBitmapManager.h" />
+    <ClInclude Include="SCamera.h" />
     <ClInclude Include="SCollision.h" />
     <ClInclude Include="SCore.h" />
     <ClInclude Include="SCoreStd.h" />
+    <ClInclude Include="SDebugCamera.h" />
     <ClInclude Include="SDevice.h" />
     <ClInclude Include="SDxObject.h" />
     <ClInclude Include="SDxState.h" />
@@ -218,8 +220,10 @@ copy "dxtk\\*.h" "..\\..\\include\\dxtk"</Command>
     <ClCompile Include="SAttackState.cpp" />
     <ClCompile Include="SBitmap.cpp" />
     <ClCompile Include="SBitmapManager.cpp" />
+    <ClCompile Include="SCamera.cpp" />
     <ClCompile Include="SCollision.cpp" />
     <ClCompile Include="SCore.cpp" />
+    <ClCompile Include="SDebugCamera.cpp" />
     <ClCompile Include="SDevice.cpp" />
     <ClCompile Include="SDxObject.cpp" />
     <ClCompile Include="SDxState.cpp" />

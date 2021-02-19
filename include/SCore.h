@@ -4,17 +4,21 @@
 #include "SInput.h"
 #include "SWrite.h"
 #include "SSoundManager.h"
+#include "SDebugCamera.h"
 
 class SCore : public SDevice
 {
 public:
 	bool		m_bGameRun;
+	SDebugCamera	    m_Camera;
+	SCamera*		    m_pMainCamera;
 public:
 	virtual bool	PreInit();
 	virtual bool	Init();
 	virtual bool	PostInit();
 
 	virtual bool	PreFrame() {return true;};
+	virtual void    CameraFrame();
 	virtual bool	Frame() {return true;};
 	virtual bool	PostFrame() {return true;};
 	virtual bool	Render() {return true;};
@@ -31,5 +35,8 @@ private:
 	bool GameRun();
 public:
 	bool Run();
+public:
+	SCore();
+	virtual ~SCore();
 };
 

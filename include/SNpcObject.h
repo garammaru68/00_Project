@@ -20,7 +20,7 @@ public:
 public:
 	virtual SObject* Clone() override;
 	virtual bool Frame() override;
-	virtual bool Render() override;
+	virtual bool Render(ID3D11DeviceContext*	pd3dContext) override;
 	virtual bool Release() override;
 	SNpcObject()
 	{

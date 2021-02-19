@@ -52,15 +52,15 @@ STexture* STextureManager::GetPtr(wstring filename)
 
 bool STextureManager::Init()
 {
-
+	return true;
 }
 bool STextureManager::Frame()
 {
-
+	return true;
 }
 bool STextureManager::Render()
 {
-
+	return true;
 }
 bool STextureManager::Release()
 {

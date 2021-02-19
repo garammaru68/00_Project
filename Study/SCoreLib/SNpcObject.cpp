@@ -29,9 +29,9 @@ bool SNpcObject::Frame()
 	m_pAction->Process(SScene::m_pGamePlayer);
 	return true;
 }
-bool SNpcObject::Render()
+bool SNpcObject::Render(ID3D11DeviceContext*	pd3dContext)
 {
-	SObject::Render();
+	SObject::Render(pd3dContext);
 	return true;
 }
 

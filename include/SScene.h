@@ -78,14 +78,14 @@ public:
 	virtual bool  PreFrame();
 	virtual bool  Frame();
 	virtual bool  PostFrame();
-	virtual bool  PreRender();
-	virtual bool  Render();
-	virtual bool  PostRender();
-	virtual bool  RenderMap();
-	virtual bool  RenderObject();
-	virtual bool  RenderCharacter();
-	virtual bool  RenderEffect();
-	virtual bool  RenderUI();
+	virtual bool  PreRender(ID3D11DeviceContext*	pd3dContext);
+	virtual bool  Render(ID3D11DeviceContext*	pd3dContext);
+	virtual bool  PostRender(ID3D11DeviceContext*	pd3dContext);
+	virtual bool  RenderMap(ID3D11DeviceContext*	pd3dContext);
+	virtual bool  RenderObject(ID3D11DeviceContext*	pd3dContext);
+	virtual bool  RenderCharacter(ID3D11DeviceContext*	pd3dContext);
+	virtual bool  RenderEffect(ID3D11DeviceContext*	pd3dContext);
+	virtual bool  RenderUI(ID3D11DeviceContext*	pd3dContext);
 	virtual bool  Release();
 public:
 	virtual SObject*  NewObj(SObjAttribute& info);

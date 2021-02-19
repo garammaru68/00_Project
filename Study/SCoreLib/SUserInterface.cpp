@@ -259,7 +259,7 @@ void  SDialogBox::Set(SPoint p, RECT rtSrc)
 		0.2f, 0.2f,		// 원본 좌우 소스 스케일  00, 02
 		0.33f, 0.33f);  // 원본 상하 소스 스케일  00, 20
 }
-bool  SDialogBox::Render()
+bool  SDialogBox::Render(ID3D11DeviceContext*	pd3dContext)
 {
 	//for (int iRect = 0; iRect < 9; iRect++)
 	//{
@@ -295,7 +295,7 @@ bool  SDialogBox::Render()
 	//		Rectangle(g_hOffScreenDC,rtDesk.left, rtDesk.top, rtDesk.left + rtDesk.right, rtDesk.top + rtDesk.bottom);
 	//	}
 	//}
-	PostRender();
+	PostRender(pd3dContext);
 	return true;
 }
 SObject* SButton::Clone()
@@ -306,7 +306,7 @@ bool   SButton::Frame()
 {
 	return true;
 }
-bool   SButton::Render()
+bool   SButton::Render(ID3D11DeviceContext*	pd3dContext)
 {
 	/*RECT rtDraw = m_rtDesk;
 	if (m_pParenSObject != nullptr)
@@ -371,7 +371,7 @@ bool   SButton::Render()
 		}
 
 	}*/
-	return PostRender();
+	return PostRender(pd3dContext);
 }
 LRESULT	 SEdit::MsgProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
@@ -460,7 +460,7 @@ bool   SEdit::Frame()
 	return true;
 }
 
-bool   SEdit::Render()
+bool   SEdit::Render(ID3D11DeviceContext*	pd3dContext)
 {
 	RECT rtDraw = m_rtDesk;
 	if (m_pParenSObject != nullptr)
@@ -526,5 +526,5 @@ bool   SEdit::Render()
 
 		g_Write.Draw({ m_rtWndCtrl.left, m_rtWndCtrl.top }, m_szEdit);
 		*/
-	return PostRender();
+	return PostRender(pd3dContext);
 }

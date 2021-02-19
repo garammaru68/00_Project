@@ -50,6 +50,11 @@ bool SCore::GameInit()
 		g_rtClient.bottom, pBackBuffer);
 	if (pBackBuffer) pBackBuffer->Release();
 
+	m_Camera.CreateViewMatrix({ 0,10,-10 }, { 0,0,0 });
+	float fAspect = g_rtClient.right / (float)g_rtClient.bottom;
+	m_Camera.CreateProjMatrix(1, 1000, SBASIS_PI / 4.0f, fAspect);
+	m_Camera.Init();
+	m_pMainCamera = &m_Camera;
 	Init();
 	PostInit();
 	ShowWindow(m_hWnd, SW_SHOWNORMAL);
@@ -74,8 +79,37 @@ bool	SCore::GameFrame()
 	g_SoundMgr.Frame();
 	Frame();
 	g_ObjectMgr.Frame();
+	CameraFrame();
 	PostFrame();
 	return true;
+}
+void    SCore::CameraFrame()
+{
+	if (g_Input.GetKey('W') == KEY_HOLD)
+	{
+		m_pMainCamera->FrontMovement(1.0f);
+	}
+	if (g_Input.GetKey('S') == KEY_HOLD)
+	{
+		m_pMainCamera->FrontMovement(-1.0f);
+	}
+	if (g_Input.GetKey('A') == KEY_HOLD)
+	{
+		m_pMainCamera->RightMovement(1.0f);
+	}
+	if (g_Input.GetKey('D') == KEY_HOLD)
+	{
+		m_pMainCamera->RightMovement(-1.0f);
+	}
+	if (g_Input.GetKey('Q') == KEY_HOLD)
+	{
+		m_pMainCamera->UpMovement(1.0f);
+	}
+	if (g_Input.GetKey('E') == KEY_HOLD)
+	{
+		m_pMainCamera->UpMovement(-1.0f);
+	}
+	m_pMainCamera->Frame();
 }
 bool	SCore::PreRender()
 {
@@ -132,4 +166,13 @@ bool SCore::Run()
 	GameRelease();
 	CoUninitialize();
 	return true;
+}
+
+SCore::SCore()
+{
+	m_pMainCamera = nullptr;
+}
+SCore::~SCore()
+{
+
 }

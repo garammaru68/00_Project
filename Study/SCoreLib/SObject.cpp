@@ -238,53 +238,21 @@ bool  SObject::Release()
 	m_pChildObjects.clear();
 	return true;
 }
-bool SObject::PreRender()
+bool SObject::PreRender(ID3D11DeviceContext*	pd3dContext)
 {
 	return true;
 }
-bool  SObject::Render()
+bool  SObject::Render(ID3D11DeviceContext*	pd3dContext)
 {
-	// 부모의 위치에서 상대적으로 위치하게 된다. 
-	//m_rtDraw = m_rtDesk;
-	//if (m_pParenSObject != nullptr)
-	//{
-	//	m_rtDraw.left += m_pParenSObject->m_rtDesk.left;
-	//	m_rtDraw.top += m_pParenSObject->m_rtDesk.top;
-	//}
-	//if (m_pColorBmp)
-	//{
-	//	if (m_bColorKey == true)
-	//	{
-	//		DrawColorKey();
-	//	}
-	//	else
-	//	{
-	//		if (m_pColorBmp->m_BitmapInfo.bmBitsPixel == 32 && m_pMaskBmp == nullptr)
-	//		{
-	//			m_pColorBmp->DrawAlphaBlend(m_rtDraw, m_rtSrc);
-	//		}
-	//		else
-	//		{
-	//			if (m_pMaskBmp != nullptr)
-	//			{
-	//				m_pMaskBmp->Draw(m_rtDraw, m_rtSrc, SRCAND, 0);
-	//				m_pColorBmp->Draw(m_rtDraw, m_rtSrc, SRCINVERT, 0);
-	//				m_pMaskBmp->Draw(m_rtDraw, m_rtSrc, SRCINVERT, 0);
-	//			}
-	//			else
-	//			{
-	//				m_pColorBmp->Draw(m_rtDraw, m_rtSrc, SRCCOPY, 0);
-	//			}
-	//		}
-	//	}
-	//}
-	return PostRender();
+	PreRender(pd3dContext);
+	SDxObject::Render(pd3dContext);
+	return PostRender(pd3dContext);
 }
-bool SObject::PostRender()
+bool SObject::PostRender(ID3D11DeviceContext*	pd3dContext)
 {
 	for (int iChild = 0; iChild < m_pChildObjects.size(); iChild++)
 	{
-		m_pChildObjects[iChild]->Render();
+		m_pChildObjects[iChild]->Render(pd3dContext);
 	}
 	return true;
 }
