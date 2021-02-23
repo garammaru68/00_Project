@@ -161,7 +161,7 @@ bool Sample::Render()
 	matShadow = m_matBoxWorld * matShadow;
 	m_BoxShape.SetMatrix(&matShadow, &m_pMainCamera->m_matView, &m_pMainCamera->m_matProj);
 	m_BoxShape.Render(m_pd3dContext);
-
+	
 	m_PlaneShape.SetMatrix(&m_matPlaneWorld,
 		&m_pMainCamera->m_matView,
 		&m_pMainCamera->m_matProj);

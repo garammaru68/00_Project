@@ -89,8 +89,10 @@ public:
 		Matrix* pView,
 		Matrix* pProj);
 	virtual bool    Update(ID3D11DeviceContext*	pd3dContext);
+	virtual bool	PreRender(ID3D11DeviceContext* pd3dContext);
 	virtual bool	Render(ID3D11DeviceContext*	pd3dContext);
-	virtual bool	Relase();
+	virtual bool	PostRender(ID3D11DeviceContext* pd3dContext);
+	virtual bool	Release();
 	virtual bool    CreateVertexData();
 	virtual bool    CreateIndexData();
 	virtual bool    CreateVertexBuffer();

@@ -236,7 +236,7 @@ bool  SObject::Release()
 		delete m_pChildObjects[iChild];
 	}
 	m_pChildObjects.clear();
-	return true;
+	return SDxObject::Release();
 }
 bool SObject::PreRender(ID3D11DeviceContext*	pd3dContext)
 {
@@ -244,9 +244,7 @@ bool SObject::PreRender(ID3D11DeviceContext*	pd3dContext)
 }
 bool  SObject::Render(ID3D11DeviceContext*	pd3dContext)
 {
-	PreRender(pd3dContext);
-	SDxObject::Render(pd3dContext);
-	return PostRender(pd3dContext);
+	return SDxObject::Render(pd3dContext);
 }
 bool SObject::PostRender(ID3D11DeviceContext*	pd3dContext)
 {
@@ -254,7 +252,7 @@ bool SObject::PostRender(ID3D11DeviceContext*	pd3dContext)
 	{
 		m_pChildObjects[iChild]->Render(pd3dContext);
 	}
-	return true;
+	return SDxObject::PostRender(pd3dContext);
 }
 void  SObject::DrawColorKey()
 {

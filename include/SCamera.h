@@ -42,6 +42,10 @@ public:
 		float fFov,
 		float fAspect
 	);
+	virtual bool		CreateOrthographic(
+		float width, float height,
+		float zNearPlane, float zFarPlane);
+
 	void FrontMovement(float fDir = 1.0f);
 	void RightMovement(float fDir = 1.0f);
 	void UpMovement(float fDir = 1.0f);
@@ -54,6 +58,8 @@ public:
 		return true;
 	};
 	virtual bool Frame();
+	virtual bool DrawFrustum(ID3D11DeviceContext*	pd3dContext,
+		Matrix* pmatView, Matrix* pmatProj);
 public:
 	SCamera();
 	virtual ~SCamera();

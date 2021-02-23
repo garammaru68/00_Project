@@ -72,6 +72,16 @@ bool		SCamera::CreateProjMatrix(
 		fFov, fAspect, fN, fF);
 	return true;
 }
+bool		SCamera::CreateOrthographic(
+	float width, float height,
+	float zNearPlane, float zFarPlane)
+{
+	m_matProj = Matrix::CreateOrthographic(
+		width, height,
+		zNearPlane, zFarPlane);
+	return true;
+}
+
 void SCamera::SetPos(Vector3 p)
 {
 	m_vCameraPos = p;
@@ -148,6 +158,11 @@ bool SCamera::Frame()
 		m_vCameraTarget,
 		vUp);
 	UpdateVector();
+	return true;
+}
+bool SCamera::DrawFrustum(ID3D11DeviceContext*	pd3dContext,
+	Matrix* pmatView, Matrix* pmatProj)
+{
 	return true;
 }
 SCamera::SCamera()

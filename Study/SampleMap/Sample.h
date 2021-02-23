@@ -4,7 +4,7 @@
 #include "SObject.h"
 #include "SModelViewCamera.h"
 #include "SMap.h"
-
+#include "SMiniMap.h"
 class SBoxUser : public SShapeBox
 {
 public:
@@ -72,6 +72,7 @@ public:
 class Sample : public SCore
 {
 public:
+	SMiniMap		m_MiniMap;
 	SMap			m_Map;
 	Vector4			m_vDirValue;
 	std::vector<SObject*> m_ObjList;
@@ -79,6 +80,7 @@ public:
 	SShapePlane		m_PlaneShape;
 	SShapeLine		m_LineShape;
 	SModelViewCamera  m_ModelCamera;
+	SCamera			m_TopCamera;
 public:
 	Matrix			m_matBoxWorld;
 	Matrix			m_matPlaneWorld;
@@ -86,6 +88,7 @@ public:
 	bool Init() override;
 	bool Frame() override;
 	bool Render() override;
+	bool PostRender() override;
 	bool Release() override;
 	Matrix CreateMatrixShadow(
 		Vector4* plane,
@@ -93,4 +96,4 @@ public:
 	LRESULT	 MsgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 };
 
-SGAME_RUN;
+TGAME_RUN;

@@ -54,6 +54,10 @@ LRESULT	 Sample::MsgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 bool Sample::Init()
 {
 	HRESULT hr;
+
+	m_MiniMap.Create(m_pd3dDevice, L"vs.txt", L"ps.txt",
+		L"../../data/tileA.jpg");
+
 	m_vDirValue = { 0,0,0,0 };
 
 	Matrix matScale, matRotation;
@@ -62,7 +66,7 @@ bool Sample::Init()
 	m_matPlaneWorld = matScale * matRotation;
 
 	if (!m_BoxShape.Create(m_pd3dDevice, L"vs.txt", L"ps.txt",
-		L"../../data/tileA.jpg"))
+		L"../../data/1KGCABK.bmp"))
 	{
 		return false;
 	}
@@ -81,6 +85,13 @@ bool Sample::Init()
 	m_ModelCamera.CreateProjMatrix(1, 1000, SBASIS_PI / 4.0f, fAspect);
 	m_ModelCamera.Init();
 	m_pMainCamera = &m_ModelCamera;
+
+	m_TopCamera.CreateViewMatrix({ 0,30,-0.1f }, { 0,0,0 });
+	fAspect = g_rtClient.right / (float)g_rtClient.bottom;
+	m_TopCamera.CreateOrthographic(
+		500, 500, 1.0f, 1000);
+	m_TopCamera.Init();
+
 	SMapDesc desc;
 	desc.iNumCols = 513;
 	desc.iNumRows = 513;
@@ -148,27 +159,35 @@ bool Sample::Render()
 	m_pd3dContext->RSSetState(SDxState::m_pRS);
 	m_pd3dContext->PSSetSamplers(0, 1, &SDxState::m_pWrapLinear);
 	m_pd3dContext->OMSetDepthStencilState(SDxState::m_pDSS, 0);
+
+	if (m_MiniMap.Begin(m_pd3dContext))
+	{
+		m_Map.SetMatrix(NULL,
+			&m_TopCamera.m_matView,
+			&m_TopCamera.m_matProj);
+		m_Map.Render(m_pd3dContext);
+		m_BoxShape.SetMatrix(NULL,
+			&m_TopCamera.m_matView,
+			&m_TopCamera.m_matProj);
+		m_BoxShape.Render(m_pd3dContext);
+		m_MiniMap.End(m_pd3dContext);
+	}
+
+
 	m_BoxShape.SetMatrix(NULL,
 		&m_pMainCamera->m_matView,
 		&m_pMainCamera->m_matProj);
 	m_BoxShape.Render(m_pd3dContext);
 
-	//Matrix matShadow;
-	//Vector4 PLANE = Vector4(0, 1, 0, -0.1f);
-	////Vector4 vLightDir = Vector4(-10, 10, 0, 1);
-	////matShadow = CreateMatrixShadow(&PLANE, &vLightDir);
-	//Vector3 vLightDir = Vector3(-10, 10, 0);
-	//vLightDir.Normalize();
-	//matShadow = Matrix::CreateShadow(vLightDir, PLANE);
-	//matShadow = m_matBoxWorld * matShadow;
-	//m_BoxShape.SetMatrix(&matShadow, &m_pMainCamera->m_matView,&m_pMainCamera->m_matProj);
-	//m_BoxShape.Render(m_pd3dContext);
-
 	m_Map.SetMatrix(NULL,
 		&m_pMainCamera->m_matView,
 		&m_pMainCamera->m_matProj);
-	//m_PlaneShape.Render(m_pd3dContext);
 	m_Map.Render(m_pd3dContext);
+
+	m_MiniMap.SetMatrix(NULL,
+		NULL, //&m_pMainCamera->m_matView,
+		NULL); //&m_pMainCamera->m_matProj);
+	m_MiniMap.Render(m_pd3dContext);
 
 	m_LineShape.SetMatrix(NULL, &m_pMainCamera->m_matView,
 		&m_pMainCamera->m_matProj);
@@ -180,11 +199,17 @@ bool Sample::Render()
 		Vector3(0, 0, 0), Vector3(0, 0, 100), Vector4(0, 0, 1, 1));
 	return true;
 }
+bool Sample::PostRender()
+{
+	SCore::PostRender();
+	return true;
+}
 bool Sample::Release()
 {
-	m_Map.Relase();
-	m_BoxShape.Relase();
-	m_PlaneShape.Relase();
-	m_LineShape.Relase();
+	m_MiniMap.Release();
+	m_Map.Release();
+	m_BoxShape.Release();
+	m_PlaneShape.Release();
+	m_LineShape.Release();
 	return true;
 }
