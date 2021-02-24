@@ -183,17 +183,32 @@ copy "dxtk\\*.h" "..\\..\\include\\dxtk"</Command>
     <ClInclude Include="SDebugCamera.h" />
     <ClInclude Include="SDevice.h" />
     <ClInclude Include="SDxObject.h" />
+    <ClInclude Include="SDxRT.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="SDxState.h" />
     <ClInclude Include="SEffect.h" />
     <ClInclude Include="SEnemyState.h" />
     <ClInclude Include="SFiniteState.h" />
     <ClInclude Include="SFiniteStateMachine.h" />
+    <ClInclude Include="SFrustum.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="SGameUser.h" />
     <ClInclude Include="SGraphicAPI.h" />
     <ClInclude Include="SimpleMath.h" />
     <ClInclude Include="SInput.h" />
+    <ClInclude Include="SMap.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="SMath.h" />
     <ClInclude Include="SMatrix.h" />
+    <ClInclude Include="SMiniMap.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="SModelViewCamera.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="SMoveState.h" />
     <ClInclude Include="SNpcObject.h" />
     <ClInclude Include="SObject.h" />
@@ -226,16 +241,31 @@ copy "dxtk\\*.h" "..\\..\\include\\dxtk"</Command>
     <ClCompile Include="SDebugCamera.cpp" />
     <ClCompile Include="SDevice.cpp" />
     <ClCompile Include="SDxObject.cpp" />
+    <ClCompile Include="SDxRT.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="SDxState.cpp" />
     <ClCompile Include="SEffect.cpp" />
     <ClCompile Include="SEnemyState.cpp" />
     <ClCompile Include="SFiniteState.cpp" />
     <ClCompile Include="SFiniteStateMachine.cpp" />
+    <ClCompile Include="SFrustum.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="SGameUser.cpp" />
     <ClCompile Include="SimpleMath.cpp" />
     <ClCompile Include="SInput.cpp" />
+    <ClCompile Include="SMap.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="SMath.cpp" />
     <ClCompile Include="SMatrix.cpp" />
+    <ClCompile Include="SMiniMap.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="SModelViewCamera.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="SMoveState.cpp" />
     <ClCompile Include="SNpcObject.cpp" />
     <ClCompile Include="SObject.cpp" />

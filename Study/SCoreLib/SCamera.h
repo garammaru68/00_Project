@@ -58,6 +58,10 @@ public:
 		return true;
 	};
 	virtual bool Frame();
+	virtual bool FrameFrustum(ID3D11DeviceContext*	pd3dContext)
+	{
+		return true;
+	};
 	virtual bool DrawFrustum(ID3D11DeviceContext*	pd3dContext,
 		Matrix* pmatView, Matrix* pmatProj);
 public:

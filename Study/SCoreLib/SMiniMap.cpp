@@ -1,0 +1,1 @@
+#include "SMiniMap.h"

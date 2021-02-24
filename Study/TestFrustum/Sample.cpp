@@ -1,5 +1,5 @@
 #include "Sample.h"
-Matrix* TD3DXMatrixShadow(Matrix *pout,
+Matrix* SD3DXMatrixShadow(Matrix *pout,
 	Vector4 *plight,
 	Vector4 *pplane)
 {

@@ -34,6 +34,9 @@
     <Filter Include="Camera">
       <UniqueIdentifier>{a7cabd15-5a4b-47c4-93fe-1d2eb35492fc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="map">
+      <UniqueIdentifier>{8b753cc0-7b1a-4f1f-8f3d-67fce53a90ad}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SStd.h">
@@ -180,6 +183,21 @@
     <ClInclude Include="SDebugCamera.h">
       <Filter>Camera</Filter>
     </ClInclude>
+    <ClInclude Include="SMap.h">
+      <Filter>map</Filter>
+    </ClInclude>
+    <ClInclude Include="SDxRT.h">
+      <Filter>map</Filter>
+    </ClInclude>
+    <ClInclude Include="SFrustum.h">
+      <Filter>map</Filter>
+    </ClInclude>
+    <ClInclude Include="SMiniMap.h">
+      <Filter>map</Filter>
+    </ClInclude>
+    <ClInclude Include="SModelViewCamera.h">
+      <Filter>map</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SCore.cpp">
@@ -298,6 +316,21 @@
     </ClCompile>
     <ClCompile Include="SCamera.cpp">
       <Filter>Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="SMap.cpp">
+      <Filter>map</Filter>
+    </ClCompile>
+    <ClCompile Include="SDxRT.cpp">
+      <Filter>map</Filter>
+    </ClCompile>
+    <ClCompile Include="SFrustum.cpp">
+      <Filter>map</Filter>
+    </ClCompile>
+    <ClCompile Include="SMiniMap.cpp">
+      <Filter>map</Filter>
+    </ClCompile>
+    <ClCompile Include="SModelViewCamera.cpp">
+      <Filter>map</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

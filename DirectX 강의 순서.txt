@@ -38,5 +38,9 @@
 21일차 -	제 73강 Customize Map	All					695p
 	제 74강 Height Map	All					705p
 	제 75강 VertexNormalsFastLookup	All				720p
+25일차 -	제 51강 Create Frustum	All (복습)					494p
+	제 52강 Frustum Culling	All (복습)					506p
+	제 78강 PointLight		3.지형 높이값 얻기				751p
+
 275p 표 수정
 309p 표 수정

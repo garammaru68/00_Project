@@ -162,6 +162,10 @@
     <ClInclude Include="SMiniMap.h" />
     <ClInclude Include="SModelViewCamera.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="PS.txt" />
+    <Text Include="VS.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
