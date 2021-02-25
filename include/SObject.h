@@ -94,12 +94,6 @@ public:
 	DWORD		m_dwColorKey;	/// 컬러키 컬러 값
 	int			m_iSortValue;	/// Z값 정렬됨
 public:
-	Vector3		m_vLook;
-	Vector3		m_vUp;
-	Vector3		m_vRight;
-	Vector3		m_vPos = { 0,0,0 };
-	Vector3		m_vTarget = { 0,0,0 };
-public:
 	SPoint		m_ptPos;
 	float		m_fSpeed;
 	SPoint		m_ptDirection;

@@ -12,6 +12,7 @@ public:
 	bool		m_bGameRun;
 	SDebugCamera	    m_Camera;
 	SCamera*		    m_pMainCamera;
+	SShapeLine			m_LineShape;
 public:
 	virtual bool	PreInit();
 	virtual bool	Init();

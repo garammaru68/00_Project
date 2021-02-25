@@ -23,6 +23,13 @@ bool	SDxObject::SetMatrix(Matrix* pWorld,
 	{
 		m_matWorld = *pWorld;
 	}
+	else
+	{
+		m_matWorld = m_matScale * m_matRotation;
+		m_matWorld._41 = m_vPos.x;
+		m_matWorld._42 = m_vPos.y;
+		m_matWorld._43 = m_vPos.z;
+	}
 	if (pView != nullptr)
 	{
 		m_matView = *pView;
@@ -31,6 +38,21 @@ bool	SDxObject::SetMatrix(Matrix* pWorld,
 	{
 		m_matProj = *pProj;
 	}
+
+	m_vLook.x = m_matWorld._31;
+	m_vLook.y = m_matWorld._32;
+	m_vLook.z = m_matWorld._33;
+	m_vUp.x = m_matWorld._21;
+	m_vUp.y = m_matWorld._22;
+	m_vUp.z = m_matWorld._23;
+	m_vRight.x = m_matWorld._11;
+	m_vRight.y = m_matWorld._12;
+	m_vRight.z = m_matWorld._13;
+
+	m_vLook.Normalize();
+	m_vUp.Normalize();
+	m_vRight.Normalize();
+
 	return true;
 }
 bool    SDxObject::Update(ID3D11DeviceContext*	pd3dContext)
@@ -90,12 +112,18 @@ bool	SDxObject::PostRender(ID3D11DeviceContext*	pd3dContext)
 }
 bool	SDxObject::Release()
 {
-	m_pConstantBuffer->Release();
-	m_pVertexBuffer->Release();
-	m_pIndexBuffer->Release();
-	m_pInputLayout->Release();
-	m_pVertexShader->Release();
-	m_pPixelShader->Release();
+	if (m_pConstantBuffer != nullptr)
+		m_pConstantBuffer->Release();
+	if (m_pVertexBuffer != nullptr)
+		m_pVertexBuffer->Release();
+	if (m_pIndexBuffer != nullptr)
+		m_pIndexBuffer->Release();
+	if (m_pInputLayout != nullptr)
+		m_pInputLayout->Release();
+	if (m_pVertexShader != nullptr)
+		m_pVertexShader->Release();
+	if (m_pPixelShader != nullptr)
+		m_pPixelShader->Release();
 	return true;
 }
 
