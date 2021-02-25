@@ -1,7 +1,7 @@
 #include "SMap.h"
 float SMap::GetHeightmap(int row, int col)
 {
-	return m_VertexList[row * m_iNumRows + col].p.y;// *1m_MapDesc.fScaleHeight;
+	return m_VertexList[row * m_iNumRows + col].p.y;// * m_MapDesc.fScaleHeight;
 }
 float SMap::Lerp(float fStart, float fEnd, float fTangent)
 {
@@ -123,6 +123,15 @@ bool	SMap::PostRender(ID3D11DeviceContext*	pd3dContext)
 {
 	pd3dContext->DrawIndexed(m_iNumFaces * 3, 0, 0);
 	return true;
+}
+
+bool SMap::Release()
+{
+	if (m_pFaceNormals != NULL)
+	{
+		delete m_pFaceNormals;
+		m_pFaceNormals = NULL;
+	}
 }
 bool SMap::CreateMap(ID3D11Device* pDevice,
 	ID3D11DeviceContext* pContext, SMapDesc  desc)
