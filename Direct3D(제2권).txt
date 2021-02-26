@@ -1,0 +1,4 @@
+Microsoft::WRL::ComPtr<IDXGIFactory> - 팩토리와 관련된 작업
+GetAddressOf() - 포인터 주소값 리턴
+Detach()
+Attach()

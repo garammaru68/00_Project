@@ -3,12 +3,29 @@ float SMap::GetHeightmap(int row, int col)
 {
 	return m_VertexList[row * m_iNumRows + col].p.y;// * m_MapDesc.fScaleHeight;
 }
+float SMap::GetHeightOfVertex(UINT Index)
+{
+	return 0.0f;
+};
+Vector3 SMap::GetNormalOfVertex(UINT Index)
+{
+	return Vector3(0.0f, 1.0f, 0.0f);
+};
+Vector4 SMap::GetColorOfVertex(UINT Index)
+{
+	return Vector4(1, 1, 1, 1.0f);
+};
+Vector2 SMap::GetTextureOfVertex(float fOffsetX, float fOffsetY)
+{
+	return Vector2(fOffsetX, fOffsetY);
+};
+
 float SMap::Lerp(float fStart, float fEnd, float fTangent)
 {
 	return fStart - (fStart*fTangent) + (fEnd*fTangent);
 }
 
-float SMap::GetHeightMap(float fPosX, float fPosZ)
+float SMap::GetHeight(float fPosX, float fPosZ)
 {
 	// fPosX/fPosZ의 위치에 해당하는 높이맵셀을 찾는다.
 	// m_iNumCols와m_iNumRows은 가로/세로의 실제 크기값임.
@@ -64,10 +81,6 @@ float SMap::GetHeightMap(float fPosX, float fPosZ)
 	}
 	return fHeight;
 }
-float   SMap::GetHeight(UINT index)
-{
-	return 0.0f;
-}
 bool    SMap::CreateVertexData()
 {
 	// 정점 가로 및 세수 = 2N승+1
@@ -82,7 +95,7 @@ bool    SMap::CreateVertexData()
 		{
 			int iIndex = iRow * m_iNumCols + iCol;
 			m_VertexList[iIndex].p.x = (iCol - fHalfCols)*m_fCellDistance;
-			m_VertexList[iIndex].p.y = GetHeight(iIndex);
+			m_VertexList[iIndex].p.y = GetHeightOfVertex(iIndex);
 			m_VertexList[iIndex].p.z = (iRow - fHalfRows)*m_fCellDistance*-1.f;
 			m_VertexList[iIndex].t.x = iCol * fOffsetU * 1;
 			m_VertexList[iIndex].t.y = iRow * fOffsetV * 1;
@@ -113,6 +126,9 @@ bool    SMap::CreateIndexData()
 		}
 	}
 	m_iNumFaces = m_IndexList.size() / 3;
+
+	GetVertexNormal();
+
 	return true;
 }
 bool	SMap::Frame()
@@ -127,6 +143,12 @@ bool	SMap::PostRender(ID3D11DeviceContext*	pd3dContext)
 
 bool SMap::Release()
 {
+	if (m_pNormalLookupTable)
+	{
+		free(m_pNormalLookupTable);
+		m_pNormalLookupTable = NULL;
+	}
+
 	if (m_pFaceNormals != NULL)
 	{
 		delete m_pFaceNormals;
@@ -151,9 +173,134 @@ bool SMap::CreateMap(ID3D11Device* pDevice,
 		desc.szTexFile);
 	return true;
 }
+bool SMap::GetVertexNormal()
+{
+	InitFaceNormals();
+	GetNormalLookupTable();
+	CalcPerVertexNormalsFastLookup();
+	return true;
+}
+void SMap::CalcVertexColor(Vector3 vLightDir)
+{
+	for (int iRow = 0; iRow < m_iNumRows; iRow++)
+	{
+		for (int iCol = 0; iCol < m_iNumCols; iCol++)
+		{
+			// <vLightDir = 0, -1.0f, 0>
+			int iVertexIndex = iRow * m_iNumCols + iCol;
+			// D3DVec3Normalize(&m_VertexList[iVertexIndex].n,
+			//					&m_VertexList[iVertexIndex].n);
+			float fDot =
+			XMVector3Dot(-vLightDir, m_VertexList[iVertexIndex].n);
+			m_VertexList[iVertexIndex].c *= fDot;
+			m_VertexList[iVertexIndex].c.w = 1.0f;
+		}
+	}
+}
+void SMap::InitFaceNormals()
+{
+	m_pFaceNormals = new Vector3[m_iNumFace];
+
+	for (int i = 0; i < m_iNumFace; i++)
+	{
+		m_pFaceNormals[i] = Vector3(0.0f, 0.0f, 0.0f);
+	}
+}
+void SMap::CalcFaceNormals()
+{
+	// Loop over how many faces there are
+	int j = 0;
+	for (int i = 0; i < m_iNumFace * 3; i += 3)
+	{
+		DWORD i0 = m_IndexList[i];
+		DWORD i1 = m_IndexList[i + 1];
+		DWORD i2 = m_IndexList[i + 2];
+		m_pFaceNormals[j] = ComputeFaceNormal(i0, i1, i2);
+		j++;
+	}
+}
+Vector3 SMap::ComputeFaceNormal(DWORD dwIndex0, DWORD dwIndex1, DWORD dwIndex2)
+{
+	Vector3 vNormal;
+	Vector3 v0 = m_VertexList[dwIndex1].p - m_VertexList[dwIndex0].p;
+	Vector3 v1 = m_VertexList[dwIndex2].p - m_VertexList[dwIndex0].p;
+
+	vNormal = v0.Cross(v1);
+	vNormal.Normalize();
+	Matrix matScale;
+
+	return vNormal;
+}
+void SMap::GetNormalLookupTable()
+{
+	if (m_pNormalLookupTable != NULL)
+	{
+		free(m_pNormalLookupTable);
+		m_pNormalLookupTable = NULL;
+	}
+
+	int buffersize = m_iNumRows * m_iNumCols * 6;
+
+	m_pNormalLookupTable = (int *)malloc(sizeof(void *) * buffersize);
+	for (int i = 0; i < buffersize; i++)
+		m_pNormalLookupTable[i] = -1;
+
+	for (int i = 0; i < m_iNumFace; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			for (int k = 0; k < 6; k++)
+			{
+				int vertex = m_IndexList[i * 3 + j];
+				if (m_pNormalLookupTable[vertex * 6 + k] == -1)
+				{
+					m_pNormalLookupTable[vertex * 6 + k] = i;
+					break;
+				}
+			}
+		}
+	}
+}
+void SMap::CalcPerVertexNormalsFastLookup()
+{
+	CalcFaceNormals();
+
+	int j = 0;
+	for (int i = 0; i < m_iNumVertices; i++)
+	{
+		Vector3 avgNormal;
+		avgNormal = Vector3(0.0f, 0.0f, 0.0f);
+
+		for (j = 0; j < 6; j++)
+		{
+			int triIndex;
+			triIndex = m_pNormalLookupTable[i * 6 + j];
+
+			if (triIndex != -1)
+			{
+				avgNormal += m_pFaceNormals[triIndex];
+			}
+			else
+				break;
+		}
+
+		_ASSERT(j > 0);
+		avgNormal.x /= (float)j;
+		avgNormal.y /= (float)j;
+		avgNormal.z /= (float)j;
+		avgNormal.Normalize();
+
+		m_VertexList[i].n.x = avgNormal.x;
+		m_VertexList[i].n.y = avgNormal.y;
+		m_VertexList[i].n.z = avgNormal.z;
+
+	}
+
+	if (m_bStaticLight) CalcVertexColor(m_vLightDir);
+}
 SMap::SMap()
 {
-
+	m_pFaceNormals = nullptr;
 }
 SMap::~SMap()
 {

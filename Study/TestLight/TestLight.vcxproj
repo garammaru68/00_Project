@@ -148,9 +148,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Sample.cpp" />
+    <ClCompile Include="SHeightMap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sample.h" />
+    <ClInclude Include="SHeightMap.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="PS.txt" />
+    <Text Include="VS.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
