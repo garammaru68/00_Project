@@ -256,6 +256,7 @@ namespace DirectX
             float LengthSquared() const noexcept;
 
             float Dot(const Vector3& V) const noexcept;
+			//Vector3 DotGetAll(const Vector3& V) const noexcept;
             void Cross(const Vector3& V, Vector3& result) const noexcept;
             Vector3 Cross(const Vector3& V) const noexcept;
 

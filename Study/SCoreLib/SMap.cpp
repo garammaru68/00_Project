@@ -154,6 +154,7 @@ bool SMap::Release()
 		delete m_pFaceNormals;
 		m_pFaceNormals = NULL;
 	}
+	return true;
 }
 bool SMap::CreateMap(ID3D11Device* pDevice,
 	ID3D11DeviceContext* pContext, SMapDesc  desc)
@@ -180,18 +181,16 @@ bool SMap::GetVertexNormal()
 	CalcPerVertexNormalsFastLookup();
 	return true;
 }
-void SMap::CalcVertexColor(Vector3 vLightDir)
+void SMap::CalcVertexColor(Vector3  vLightDir)
 {
 	for (int iRow = 0; iRow < m_iNumRows; iRow++)
 	{
 		for (int iCol = 0; iCol < m_iNumCols; iCol++)
 		{
-			// <vLightDir = 0, -1.0f, 0>
 			int iVertexIndex = iRow * m_iNumCols + iCol;
-			// D3DVec3Normalize(&m_VertexList[iVertexIndex].n,
-			//					&m_VertexList[iVertexIndex].n);
+
 			float fDot =
-			XMVector3Dot(-vLightDir, m_VertexList[iVertexIndex].n);
+			-(vLightDir.Dot(m_VertexList[iVertexIndex].n));
 			m_VertexList[iVertexIndex].c *= fDot;
 			m_VertexList[iVertexIndex].c.w = 1.0f;
 		}
@@ -284,7 +283,7 @@ void SMap::CalcPerVertexNormalsFastLookup()
 				break;
 		}
 
-		_ASSERT(j > 0);
+		//_ASSERT(j > 0);
 		avgNormal.x /= (float)j;
 		avgNormal.y /= (float)j;
 		avgNormal.z /= (float)j;

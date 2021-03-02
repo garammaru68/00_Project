@@ -7,4 +7,3 @@ public:
 	bool	CreateHeightMap(ID3D11Device* pDevice,
 		ID3D11DeviceContext* pContext, const TCHAR* pszFileName);
 };
-

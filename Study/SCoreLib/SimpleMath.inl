@@ -924,6 +924,18 @@ inline float Vector3::Dot(const Vector3& V) const noexcept
     return XMVectorGetX(X);
 }
 
+//inline Vector3 Vector3::DotGetAll(const Vector3& V) const noexcept
+//{
+//	using namespace DirectX;
+//	XMVECTOR v1 = XMLoadFloat3(this);
+//	XMVECTOR v2 = XMLoadFloat3(&V);
+//	XMVECTOR R = XMVector3Dot(v1, v2);
+//
+//	Vector3 result;
+//	XMStoreFloat3(&result, R);
+//	return result;
+//}
+
 inline void Vector3::Cross(const Vector3& V, Vector3& result) const noexcept
 {
     using namespace DirectX;

@@ -28,7 +28,7 @@ struct P_VERTEX
 struct PNCT_VERTEX
 {
 	Vector3		p;
-	Vector3		n;
+	Vector3 	n;
 	Vector4		c;
 	Vector2     t;
 	bool operator == (const PNCT_VERTEX & Vertex)
