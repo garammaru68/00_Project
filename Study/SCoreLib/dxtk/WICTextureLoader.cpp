@@ -592,7 +592,7 @@ namespace
                     return E_UNEXPECTED;
                 }
 
-                hr = FC->Initialize(scaler.Get(), convertGUID, WICBITMAPDitherTypeErrorDiffusion, nullptr, 0, WICBITMAPPaletteTypeMedianCut);
+                hr = FC->Initialize(scaler.Get(), convertGUID, WICBitmapDitherTypeErrorDiffusion, nullptr, 0, WICBitmapPaletteTypeMedianCut);
                 if (FAILED(hr))
                     return hr;
 
@@ -620,7 +620,7 @@ namespace
                 return E_UNEXPECTED;
             }
 
-            hr = FC->Initialize(frame, convertGUID, WICBITMAPDitherTypeErrorDiffusion, nullptr, 0, WICBITMAPPaletteTypeMedianCut);
+            hr = FC->Initialize(frame, convertGUID, WICBitmapDitherTypeErrorDiffusion, nullptr, 0, WICBitmapPaletteTypeMedianCut);
             if (FAILED(hr))
                 return hr;
 
@@ -902,7 +902,7 @@ HRESULT DirectX::CreateWICTextureFromMemoryEx(
         return hr;
 
     // Initialize WIC
-    ComPtr<IWICBITMAPDecoder> decoder;
+    ComPtr<IWICBitmapDecoder> decoder;
     hr = pWIC->CreateDecoderFromStream(stream.Get(), nullptr, WICDecodeMetadataCacheOnDemand, decoder.GetAddressOf());
     if (FAILED(hr))
         return hr;
@@ -997,7 +997,7 @@ _Use_decl_annotations_
         return hr;
 
     // Initialize WIC
-    ComPtr<IWICBITMAPDecoder> decoder;
+    ComPtr<IWICBitmapDecoder> decoder;
     hr = pWIC->CreateDecoderFromStream(stream.Get(), nullptr, WICDecodeMetadataCacheOnDemand, decoder.GetAddressOf());
     if (FAILED(hr))
         return hr;
@@ -1109,7 +1109,7 @@ HRESULT DirectX::CreateWICTextureFromFileEx(
         return E_NOINTERFACE;
 
     // Initialize WIC
-    ComPtr<IWICBITMAPDecoder> decoder;
+    ComPtr<IWICBitmapDecoder> decoder;
     HRESULT hr = pWIC->CreateDecoderFromFilename(fileName,
         nullptr,
         GENERIC_READ,
@@ -1185,7 +1185,7 @@ _Use_decl_annotations_
         return E_NOINTERFACE;
 
     // Initialize WIC
-    ComPtr<IWICBITMAPDecoder> decoder;
+    ComPtr<IWICBitmapDecoder> decoder;
     HRESULT hr = pWIC->CreateDecoderFromFilename(fileName,
         nullptr,
         GENERIC_READ,

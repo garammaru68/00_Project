@@ -141,9 +141,6 @@
     <ClInclude Include="dxtk\LoaderHelpers.h">
       <Filter>dxtk</Filter>
     </ClInclude>
-    <ClInclude Include="dxtk\pch.h">
-      <Filter>dxtk</Filter>
-    </ClInclude>
     <ClInclude Include="dxtk\PlatformHelpers.h">
       <Filter>dxtk</Filter>
     </ClInclude>
@@ -194,6 +191,9 @@
     </ClInclude>
     <ClInclude Include="SModelViewCamera.h">
       <Filter>map</Filter>
+    </ClInclude>
+    <ClInclude Include="dxtk\pch.h">
+      <Filter>dxtk</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -281,9 +281,6 @@
     <ClCompile Include="dxtk\DDSTextureLoader.cpp">
       <Filter>dxtk</Filter>
     </ClCompile>
-    <ClCompile Include="dxtk\WICTextureLoader.cpp">
-      <Filter>dxtk</Filter>
-    </ClCompile>
     <ClCompile Include="SMatrix.cpp">
       <Filter>math</Filter>
     </ClCompile>
@@ -328,6 +325,9 @@
     </ClCompile>
     <ClCompile Include="SModelViewCamera.cpp">
       <Filter>map</Filter>
+    </ClCompile>
+    <ClCompile Include="dxtk\WICTextureLoader.cpp">
+      <Filter>dxtk</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
