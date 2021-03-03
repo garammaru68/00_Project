@@ -12,6 +12,7 @@
 #include <assert.h>
 #include <atlconv.h> // A2W
 #include <iostream>
+#include <memory>
 #include <process.h> // _beginthreadex
 #include <d3dcompiler.h>
 #include "SMath.h"

@@ -79,7 +79,7 @@ public:
 public:
 	wstring     m_szName;
 	wstring		m_szParentName;
-	SObject*	m_pParenSObject;
+	SObject*	m_pParentObject;
 	SObjAttribute m_Attribute;
 	std::vector<SObject*>	m_pChildObjects;
 public:

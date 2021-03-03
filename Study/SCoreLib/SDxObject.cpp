@@ -157,7 +157,7 @@ bool    SDxObject::CreateConstantBuffer()
 	D3D11_SUBRESOURCE_DATA sd;
 	ZeroMemory(&sd, sizeof(D3D11_SUBRESOURCE_DATA));
 	sd.pSysMem = &m_cbData;
-	HRESULT hr = m_pd3dDevice->CreateBuffer(&bd, NULL, &m_pConstantBuffer);
+	HRESULT hr = g_pd3dDevice->CreateBuffer(&bd, NULL, &m_pConstantBuffer);
 	if (FAILED(hr))
 	{
 		return false;
@@ -175,7 +175,7 @@ bool	SDxObject::CreateVertexBuffer()
 	D3D11_SUBRESOURCE_DATA sd;
 	ZeroMemory(&sd, sizeof(D3D11_SUBRESOURCE_DATA));
 	sd.pSysMem = &m_VertexList.at(0);
-	HRESULT hr = m_pd3dDevice->CreateBuffer(&bd, &sd, &m_pVertexBuffer);
+	HRESULT hr = g_pd3dDevice->CreateBuffer(&bd, &sd, &m_pVertexBuffer);
 	if (FAILED(hr))
 	{
 		return false;
@@ -193,7 +193,7 @@ bool	SDxObject::CreateIndexBuffer()
 	D3D11_SUBRESOURCE_DATA sd;
 	ZeroMemory(&sd, sizeof(D3D11_SUBRESOURCE_DATA));
 	sd.pSysMem = &m_IndexList.at(0);
-	HRESULT hr = m_pd3dDevice->CreateBuffer(&bd, &sd, &m_pIndexBuffer);
+	HRESULT hr = g_pd3dDevice->CreateBuffer(&bd, &sd, &m_pIndexBuffer);
 	if (FAILED(hr))
 	{
 		return false;
@@ -211,7 +211,7 @@ bool SDxObject::LoadShader(T_STR szVS, T_STR szPS)
 		CompilerCheck(pErrorMsgs);
 		return false;
 	}
-	hr = m_pd3dDevice->CreateVertexShader(m_pVSObj->GetBufferPointer(), m_pVSObj->GetBufferSize(), NULL, &m_pVertexShader);
+	hr = g_pd3dDevice->CreateVertexShader(m_pVSObj->GetBufferPointer(), m_pVSObj->GetBufferSize(), NULL, &m_pVertexShader);
 	if (FAILED(hr)) return false;
 
 	hr = D3DCompileFromFile(szPS.c_str(), NULL, NULL,
@@ -221,7 +221,7 @@ bool SDxObject::LoadShader(T_STR szVS, T_STR szPS)
 		CompilerCheck(pErrorMsgs);
 		return false;
 	}
-	hr = m_pd3dDevice->CreatePixelShader(pPSObj->GetBufferPointer(), pPSObj->GetBufferSize(), NULL, &m_pPixelShader);
+	hr = g_pd3dDevice->CreatePixelShader(pPSObj->GetBufferPointer(), pPSObj->GetBufferSize(), NULL, &m_pPixelShader);
 	if (FAILED(hr)) return false;
 
 	if (pPSObj)	pPSObj->Release();
@@ -229,7 +229,7 @@ bool SDxObject::LoadShader(T_STR szVS, T_STR szPS)
 }
 bool	SDxObject::LoadTexture(T_STR szTex)
 {
-	m_pTexture = g_TexMgr.Load(m_pd3dDevice, szTex.c_str());
+	m_pTexture = g_TexMgr.Load(g_pd3dDevice, szTex.c_str());
 	if (m_pTexture == nullptr) return false;
 	return true;
 }
@@ -243,7 +243,7 @@ bool	SDxObject::CreateInputLayout()
 		{ "TEXTURE",  0, DXGI_FORMAT_R32G32_FLOAT, 0, 40,  D3D11_INPUT_PER_VERTEX_DATA, 0 },
 	};
 	UINT iNumElement = sizeof(layout) / sizeof(layout[0]);
-	HRESULT hr = m_pd3dDevice->CreateInputLayout(
+	HRESULT hr = g_pd3dDevice->CreateInputLayout(
 		layout,
 		iNumElement,
 		m_pVSObj->GetBufferPointer(),
@@ -257,7 +257,7 @@ bool	SDxObject::Create(ID3D11Device* pDevice,
 	T_STR szVS, T_STR szPS,
 	T_STR	szTex)
 {
-	m_pd3dDevice = pDevice;
+	g_pd3dDevice = pDevice;
 
 	CreateVertexData();
 	CreateConstantBuffer();

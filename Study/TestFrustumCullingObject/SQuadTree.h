@@ -9,7 +9,6 @@ public:
 	ID3D11Device*			m_pd3dDevice;
 	enum QUADTREECORNER { tTL = 0, tTR = 1, tBL = 2, tBR = 3, };
 	int				m_iRenderDepth;
-	void			SetRenderDepth(DWORD dwDepth);
 	SNode*					m_pRooSNode;
 	queue<SNode*>			m_QuadTreeQueue;
 	vector<SBaseObj*>		m_DrawObjList;
@@ -37,13 +36,9 @@ public:
 	SNode*			FindNode(SNode* pNode, SBaseObj* pObj);
 	int				CheckRect(SNode* pNode, SBaseObj* pObj);
 
-	void			VisibleNode(SNode* pNode);
-	void			VisibleObject(SNode* pNode);
-	virtual void	DrawFindNode(SNode* pNode);
 
 	DWORD			CheckSize(DWORD dwSize);
 	void			SetNeighborNode(SNode* pNode);
-	void			FindNeighborNode(SNode* pNode);
 public:
 	SQuadTree(void);
 	virtual ~SQuadTree(void);

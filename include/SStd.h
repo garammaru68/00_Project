@@ -34,13 +34,15 @@ namespace SBASIS_CORE_LIB
 		bool	m_bNumLock;
 	};
 
-	extern SKeyMap	g_KeyMap;
-	extern float	g_fGameTimer;
-	extern float	g_fSecondPerFrame;
-	extern HWND		g_hWnd;
-	extern HINSTANCE	g_hInstance;
-	extern RECT		g_rtClient;
-	extern bool		g_bActive;
+	extern ID3D11Device*		g_pd3dDevice;
+	extern ID3D11DeviceContext*	g_pImmediateContext;
+	extern SKeyMap				g_KeyMap;
+	extern float				g_fGameTimer;
+	extern float				g_fSecondPerFrame;
+	extern HWND					g_hWnd;
+	extern HINSTANCE			g_hInstance;
+	extern RECT					g_rtClient;
+	extern bool					g_bActive;
 }
 
 /////////////////////////////////////////  반환하지 않는다. ////////////////////////////////////////////////////////

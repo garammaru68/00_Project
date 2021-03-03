@@ -4,13 +4,13 @@
 class SDevice : public SWindow
 {
 public:
-	IDXGIFactory*			m_pGIFactory;
-	ID3D11Device*			m_pd3dDevice;
-	ID3D11DeviceContext*	m_pd3dContext;
-	IDXGISwapChain*			m_pSwapChain;
-	ID3D11RenderTargetView* m_pRenderTargetView;
-	ID3D11DepthStencilView*  m_pDSV;
-	D3D11_VIEWPORT			m_ViewPort;
+	Microsoft::WRL::ComPtr<IDXGIFactory>	m_pGIFactory;
+	Microsoft::WRL::ComPtr<ID3D11Device>	m_pd3dDevice;
+	ComPtr<ID3D11DeviceContext>				m_pImmediateContext;
+	ComPtr<IDXGISwapChain>					m_pSwapChain;
+	ComPtr<ID3D11RenderTargetView>			m_pRenderTargetView;
+	ComPtr<ID3D11DepthStencilView>			m_pDSV;
+	D3D11_VIEWPORT							m_ViewPort;
 public:
 	HRESULT		CreateGIFactory();
 	HRESULT		CreateDevice();

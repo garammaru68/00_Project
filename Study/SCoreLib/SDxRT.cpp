@@ -1,7 +1,7 @@
 #include "SDxRT.h"
 void		SDxRT::Set(ID3D11Device*	pd3dDevice)
 {
-	m_pd3dDevice = pd3dDevice;
+	g_pd3dDevice = pd3dDevice;
 }
 HRESULT		SDxRT::SetRenderTargetView()
 {
@@ -19,17 +19,17 @@ HRESULT		SDxRT::SetRenderTargetView()
 	texDesc.Usage = D3D11_USAGE_DEFAULT;
 	texDesc.BindFlags = D3D11_BIND_RENDER_TARGET |
 		D3D11_BIND_SHADER_RESOURCE;
-	hr = m_pd3dDevice->CreateTexture2D(&texDesc, NULL, &pTexture);
+	hr = g_pd3dDevice->CreateTexture2D(&texDesc, NULL, &pTexture);
 	if (FAILED(hr))
 	{
 		return false;
 	}
 
-	hr = m_pd3dDevice->CreateRenderTargetView(
+	hr = g_pd3dDevice->CreateRenderTargetView(
 		pTexture, NULL,
 		&m_pRTV);
 
-	hr = m_pd3dDevice->CreateShaderResourceView(pTexture,
+	hr = g_pd3dDevice->CreateShaderResourceView(pTexture,
 		NULL,
 		&m_pSRV);
 
@@ -58,7 +58,7 @@ HRESULT SDxRT::SetDepthStencilView()
 	texDesc.SampleDesc.Quality = 0;
 	texDesc.Usage = D3D11_USAGE_DEFAULT;
 	texDesc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
-	HRESULT hr = m_pd3dDevice->CreateTexture2D(&texDesc, NULL, &pTexture);
+	HRESULT hr = g_pd3dDevice->CreateTexture2D(&texDesc, NULL, &pTexture);
 	if (FAILED(hr))
 	{
 		return false;
@@ -68,7 +68,7 @@ HRESULT SDxRT::SetDepthStencilView()
 	dsvDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
 	dsvDesc.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
 	dsvDesc.Texture2D.MipSlice = 0;
-	hr = m_pd3dDevice->CreateDepthStencilView(
+	hr = g_pd3dDevice->CreateDepthStencilView(
 		pTexture,
 		&dsvDesc,
 		&m_pDSV);

@@ -148,7 +148,7 @@ bool Sample::Init()
 
 	Matrix matScale, matRotation;
 	matScale = Matrix::CreateScale(1000, 1000, 1000);
-	matRotation = Matrix::CreateRotationX(TBASIS_PI*0.5f);
+	matRotation = Matrix::CreateRotationX(SBASIS_PI*0.5f);
 	m_matPlaneWorld = matScale * matRotation;
 
 	if (!m_BoxShape.Create(g_pd3dDevice, L"vs.txt", L"ps.txt",
@@ -170,7 +170,7 @@ bool Sample::Init()
 
 	m_ModelCamera.CreateViewMatrix({ 0,10,-10 }, { 0,0,0 });
 	float fAspect = g_rtClient.right / (float)g_rtClient.bottom;
-	m_ModelCamera.CreateProjMatrix(1, 1000, TBASIS_PI / 4.0f, fAspect);
+	m_ModelCamera.CreateProjMatrix(1, 1000, SBASIS_PI / 4.0f, fAspect);
 	m_ModelCamera.Init();
 	m_ModelCamera.CreateFrustum(g_pd3dDevice, g_pImmediateContext);
 	m_pMainCamera = &m_ModelCamera;
@@ -187,23 +187,23 @@ bool Sample::Frame()
 {
 	if (g_Input.GetKey('0') == KEY_PUSH)
 	{
-		TDxState::m_FillMode = D3D11_FILL_WIREFRAME;
-		TDxState::SetRasterizerState(g_pd3dDevice);
+		SDxState::m_FillMode = D3D11_FILL_WIREFRAME;
+		SDxState::SetRasterizerState(g_pd3dDevice);
 	}
 	if (g_Input.GetKey('9') == KEY_PUSH)
 	{
-		TDxState::m_FillMode = D3D11_FILL_SOLID;
-		TDxState::SetRasterizerState(g_pd3dDevice);
+		SDxState::m_FillMode = D3D11_FILL_SOLID;
+		SDxState::SetRasterizerState(g_pd3dDevice);
 	}
 	if (g_Input.GetKey('8') == KEY_PUSH)
 	{
-		TDxState::m_CullMode = D3D11_CULL_BACK;
-		TDxState::SetRasterizerState(g_pd3dDevice);
+		SDxState::m_CullMode = D3D11_CULL_BACK;
+		SDxState::SetRasterizerState(g_pd3dDevice);
 	}
 	if (g_Input.GetKey('7') == KEY_PUSH)
 	{
-		TDxState::m_CullMode = D3D11_CULL_FRONT;
-		TDxState::SetRasterizerState(g_pd3dDevice);
+		SDxState::m_CullMode = D3D11_CULL_FRONT;
+		SDxState::SetRasterizerState(g_pd3dDevice);
 	}
 
 	if (g_Input.GetKey('W') == KEY_HOLD)
@@ -246,9 +246,9 @@ bool Sample::Frame()
 bool Sample::Render()
 {
 	g_pImmediateContext->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	g_pImmediateContext->RSSetState(TDxState::m_pRS);
-	g_pImmediateContext->PSSetSamplers(0, 1, &TDxState::m_pWrapLinear);
-	g_pImmediateContext->OMSetDepthStencilState(TDxState::m_pDSS, 0);
+	g_pImmediateContext->RSSetState(SDxState::m_pRS);
+	g_pImmediateContext->PSSetSamplers(0, 1, &SDxState::m_pWrapLinear);
+	g_pImmediateContext->OMSetDepthStencilState(SDxState::m_pDSS, 0);
 
 	// CULLING
 	//std::vector<DWORD> visibleIB;

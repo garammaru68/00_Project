@@ -56,7 +56,7 @@ bool SCore::GameInit()
 	m_Camera.Init();
 	m_pMainCamera = &m_Camera;
 
-	if (!m_LineShape.Create(m_pd3dDevice, L"vs.txt", L"ps.txt",
+	if (!m_LineShape.Create(g_pd3dDevice, L"vs.txt", L"ps.txt",
 		L"../../data/tileA.jpg"))
 	{
 		return false;
@@ -128,11 +128,11 @@ bool	SCore::PostRender()
 {
 	m_LineShape.SetMatrix(NULL, &m_pMainCamera->m_matView,
 		&m_pMainCamera->m_matProj);
-	m_LineShape.Draw(m_pd3dContext,
+	m_LineShape.Draw(g_pImmediateContext,
 		Vector3(0, 0, 0), Vector3(100, 0, 0), Vector4(1, 0, 0, 1));
-	m_LineShape.Draw(m_pd3dContext,
+	m_LineShape.Draw(g_pImmediateContext,
 		Vector3(0, 0, 0), Vector3(0, 100, 0), Vector4(0, 1, 0, 1));
-	m_LineShape.Draw(m_pd3dContext,
+	m_LineShape.Draw(g_pImmediateContext,
 		Vector3(0, 0, 0), Vector3(0, 0, 100), Vector4(0, 0, 1, 1));
 
 	g_Timer.Render();
