@@ -276,10 +276,10 @@ bool  SDialogBox::Render(ID3D11DeviceContext*	pd3dContext)
 
 	//	// 부모의 위치에서 상대적으로 위치하게 된다. 		
 	//	RECT rtDraw = { m_Actor[iRect].m_rtInit.left,m_Actor[iRect].m_rtInit.top };
-	//	if (m_pParenSObject != nullptr)
+	//	if (m_pParentObject != nullptr)
 	//	{
-	//		rtDraw.left += m_pParenSObject->m_rtDesk.left;
-	//		rtDraw.top += m_pParenSObject->m_rtDesk.top;
+	//		rtDraw.left += m_pParentObject->m_rtDesk.left;
+	//		rtDraw.top += m_pParentObject->m_rtDesk.top;
 	//	}
 	//	m_Actor[iRect].m_rtDraw = rtDraw;
 	//	m_Actor[iRect].m_rtCollide = rtDraw;
@@ -309,10 +309,10 @@ bool   SButton::Frame()
 bool   SButton::Render(ID3D11DeviceContext*	pd3dContext)
 {
 	/*RECT rtDraw = m_rtDesk;
-	if (m_pParenSObject != nullptr)
+	if (m_pParentObject != nullptr)
 	{
-		rtDraw.left += m_pParenSObject->m_rtDesk.left;
-		rtDraw.top += m_pParenSObject->m_rtDesk.top;
+		rtDraw.left += m_pParentObject->m_rtDesk.left;
+		rtDraw.top += m_pParentObject->m_rtDesk.top;
 		m_rtCollide = rtDraw;
 		m_rtCollide.right += m_rtCollide.left;
 		m_rtCollide.bottom += m_rtCollide.top;
@@ -320,15 +320,15 @@ bool   SButton::Render(ID3D11DeviceContext*	pd3dContext)
 	if (m_pColorBmp == nullptr) return true;
 
 	int iCurrentState = m_iImageState;
-	if (m_StateBitmap[iCurrentState] == nullptr)
+	if (m_StateBitMap[iCurrentState] == nullptr)
 	{
 		iCurrentState = 0;
 	}
 	if (m_bColorKey == true)
 	{
-		TBitmap* pCurrent = m_pColorBmp;
-		(m_StateBitmap[iCurrentState] != nullptr) ?
-			pCurrent = m_StateBitmap[iCurrentState] :
+		TBitMap* pCurrent = m_pColorBmp;
+		(m_StateBitMap[iCurrentState] != nullptr) ?
+			pCurrent = m_StateBitMap[iCurrentState] :
 			pCurrent = nullptr;
 		if (pCurrent != nullptr)
 		{
@@ -340,17 +340,17 @@ bool   SButton::Render(ID3D11DeviceContext*	pd3dContext)
 		return PostRender();
 	}
 	if (m_pColorBmp &&
-		m_pColorBmp->m_BitmapInfo.bmBitsPixel == 32)
+		m_pColorBmp->m_BitMapInfo.bmBitsPixel == 32)
 	{
 		switch (iCurrentState)
 		{
 		case 0: {m_pColorBmp->DrawAlphaBlend(rtDraw, m_rtSrc); }break;
 		case 1: {
-			m_StateBitmap[1]->DrawAlphaBlend(rtDraw, m_rtSrc); }break;
+			m_StateBitMap[1]->DrawAlphaBlend(rtDraw, m_rtSrc); }break;
 		case 2: {
-			m_StateBitmap[2]->DrawAlphaBlend(rtDraw, m_rtSrc); }break;
+			m_StateBitMap[2]->DrawAlphaBlend(rtDraw, m_rtSrc); }break;
 		case 3: {
-			m_StateBitmap[3]->DrawAlphaBlend(rtDraw, m_rtSrc); }break;
+			m_StateBitMap[3]->DrawAlphaBlend(rtDraw, m_rtSrc); }break;
 		}
 		return true;
 	}
@@ -365,9 +365,9 @@ bool   SButton::Render(ID3D11DeviceContext*	pd3dContext)
 		switch (iCurrentState)
 		{
 		case 0: {m_pColorBmp->Draw(rtDraw, m_rtSrc, SRCCOPY, 0); }break;
-		case 1: {m_StateBitmap[1]->Draw(rtDraw, m_rtSrc, SRCCOPY, 0); }break;
-		case 2: {m_StateBitmap[2]->Draw(rtDraw, m_rtSrc, SRCCOPY, 0); }break;
-		case 3: {m_StateBitmap[3]->Draw(rtDraw, m_rtSrc, SRCCOPY, 0); }break;
+		case 1: {m_StateBitMap[1]->Draw(rtDraw, m_rtSrc, SRCCOPY, 0); }break;
+		case 2: {m_StateBitMap[2]->Draw(rtDraw, m_rtSrc, SRCCOPY, 0); }break;
+		case 3: {m_StateBitMap[3]->Draw(rtDraw, m_rtSrc, SRCCOPY, 0); }break;
 		}
 
 	}*/
@@ -463,25 +463,25 @@ bool   SEdit::Frame()
 bool   SEdit::Render(ID3D11DeviceContext*	pd3dContext)
 {
 	RECT rtDraw = m_rtDesk;
-	if (m_pParenSObject != nullptr)
+	if (m_pParentObject != nullptr)
 	{
-		rtDraw.left += m_pParenSObject->m_rtDesk.left;
-		rtDraw.top += m_pParenSObject->m_rtDesk.top;
+		rtDraw.left += m_pParentObject->m_rtDesk.left;
+		rtDraw.top += m_pParentObject->m_rtDesk.top;
 		m_rtCollide = rtDraw;
 		m_rtCollide.right += m_rtCollide.left;
 		m_rtCollide.bottom += m_rtCollide.top;
 	}
 	/*	int iCurrentState = m_iImageState;
-		if (m_StateBitmap[iCurrentState] == nullptr )
+		if (m_StateBitMap[iCurrentState] == nullptr )
 		{
 			iCurrentState = 0;
 		}
 		if (m_bColorKey == true)
 		{
-			TBitmap* pCurrent = m_pColorBmp;
+			TBitMap* pCurrent = m_pColorBmp;
 
-			(m_StateBitmap[iCurrentState] != nullptr) ?
-				pCurrent = m_StateBitmap[iCurrentState] :
+			(m_StateBitMap[iCurrentState] != nullptr) ?
+				pCurrent = m_StateBitMap[iCurrentState] :
 				pCurrent = nullptr;
 			if (pCurrent != nullptr)
 			{
@@ -491,17 +491,17 @@ bool   SEdit::Render(ID3D11DeviceContext*	pd3dContext)
 			return PostRender();
 		}
 		if (m_pColorBmp &&
-			m_pColorBmp->m_BitmapInfo.bmBitsPixel == 32)
+			m_pColorBmp->m_BitMapInfo.bmBitsPixel == 32)
 		{
 			switch (iCurrentState)
 			{
 			case 0: {m_pColorBmp->DrawAlphaBlend(rtDraw, m_rtSrc); }break;
 			case 1: {
-				m_StateBitmap[1]->DrawAlphaBlend(rtDraw, m_rtSrc); }break;
+				m_StateBitMap[1]->DrawAlphaBlend(rtDraw, m_rtSrc); }break;
 			case 2: {
-				m_StateBitmap[2]->DrawAlphaBlend(rtDraw, m_rtSrc); }break;
+				m_StateBitMap[2]->DrawAlphaBlend(rtDraw, m_rtSrc); }break;
 			case 3: {
-				m_StateBitmap[3]->DrawAlphaBlend(rtDraw, m_rtSrc); }break;
+				m_StateBitMap[3]->DrawAlphaBlend(rtDraw, m_rtSrc); }break;
 			}
 		}
 		else
@@ -517,9 +517,9 @@ bool   SEdit::Render(ID3D11DeviceContext*	pd3dContext)
 				switch (iCurrentState)
 				{
 				case 0: {m_pColorBmp->Draw(rtDraw, m_rtSrc, SRCCOPY, 0); }break;
-				case 1: {m_StateBitmap[1]->Draw(rtDraw, m_rtSrc, SRCCOPY, 0); }break;
-				case 2: {m_StateBitmap[2]->Draw(rtDraw, m_rtSrc, SRCCOPY, 0); }break;
-				case 3: {m_StateBitmap[3]->Draw(rtDraw, m_rtSrc, SRCCOPY, 0); }break;
+				case 1: {m_StateBitMap[1]->Draw(rtDraw, m_rtSrc, SRCCOPY, 0); }break;
+				case 2: {m_StateBitMap[2]->Draw(rtDraw, m_rtSrc, SRCCOPY, 0); }break;
+				case 3: {m_StateBitMap[3]->Draw(rtDraw, m_rtSrc, SRCCOPY, 0); }break;
 				}
 			}
 		}

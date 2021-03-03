@@ -272,7 +272,7 @@ namespace
         _In_opt_ ID3D11DeviceX* d3dDeviceX,
         _In_opt_ ID3D11DeviceContextX* d3dContextX,
 #endif
-        _In_ IWICBitmapFrameDecode *frame,
+        _In_ IWICBitMapFrameDecode *frame,
         _In_ size_t maxsize,
         _In_ D3D11_USAGE usage,
         _In_ unsigned int bindFlags,
@@ -557,12 +557,12 @@ namespace
             if (!pWIC)
                 return E_NOINTERFACE;
 
-            ComPtr<IWICBitmapScaler> scaler;
-            hr = pWIC->CreateBitmapScaler(scaler.GetAddressOf());
+            ComPtr<IWICBitMapScaler> scaler;
+            hr = pWIC->CreateBitMapScaler(scaler.GetAddressOf());
             if (FAILED(hr))
                 return hr;
 
-            hr = scaler->Initialize(frame, twidth, theight, WICBitmapInterpolationModeFant);
+            hr = scaler->Initialize(frame, twidth, theight, WICBitMapInterpolationModeFant);
             if (FAILED(hr))
                 return hr;
 
@@ -592,7 +592,7 @@ namespace
                     return E_UNEXPECTED;
                 }
 
-                hr = FC->Initialize(scaler.Get(), convertGUID, WICBitmapDitherTypeErrorDiffusion, nullptr, 0, WICBitmapPaletteTypeMedianCut);
+                hr = FC->Initialize(scaler.Get(), convertGUID, WICBitMapDitherTypeErrorDiffusion, nullptr, 0, WICBitMapPaletteTypeMedianCut);
                 if (FAILED(hr))
                     return hr;
 
@@ -620,7 +620,7 @@ namespace
                 return E_UNEXPECTED;
             }
 
-            hr = FC->Initialize(frame, convertGUID, WICBitmapDitherTypeErrorDiffusion, nullptr, 0, WICBitmapPaletteTypeMedianCut);
+            hr = FC->Initialize(frame, convertGUID, WICBitMapDitherTypeErrorDiffusion, nullptr, 0, WICBitMapPaletteTypeMedianCut);
             if (FAILED(hr))
                 return hr;
 
@@ -902,12 +902,12 @@ HRESULT DirectX::CreateWICTextureFromMemoryEx(
         return hr;
 
     // Initialize WIC
-    ComPtr<IWICBitmapDecoder> decoder;
+    ComPtr<IWICBitMapDecoder> decoder;
     hr = pWIC->CreateDecoderFromStream(stream.Get(), nullptr, WICDecodeMetadataCacheOnDemand, decoder.GetAddressOf());
     if (FAILED(hr))
         return hr;
 
-    ComPtr<IWICBitmapFrameDecode> frame;
+    ComPtr<IWICBitMapFrameDecode> frame;
     hr = decoder->GetFrame(0, frame.GetAddressOf());
     if (FAILED(hr))
         return hr;
@@ -997,12 +997,12 @@ _Use_decl_annotations_
         return hr;
 
     // Initialize WIC
-    ComPtr<IWICBitmapDecoder> decoder;
+    ComPtr<IWICBitMapDecoder> decoder;
     hr = pWIC->CreateDecoderFromStream(stream.Get(), nullptr, WICDecodeMetadataCacheOnDemand, decoder.GetAddressOf());
     if (FAILED(hr))
         return hr;
 
-    ComPtr<IWICBitmapFrameDecode> frame;
+    ComPtr<IWICBitMapFrameDecode> frame;
     hr = decoder->GetFrame(0, frame.GetAddressOf());
     if (FAILED(hr))
         return hr;
@@ -1109,7 +1109,7 @@ HRESULT DirectX::CreateWICTextureFromFileEx(
         return E_NOINTERFACE;
 
     // Initialize WIC
-    ComPtr<IWICBitmapDecoder> decoder;
+    ComPtr<IWICBitMapDecoder> decoder;
     HRESULT hr = pWIC->CreateDecoderFromFilename(fileName,
         nullptr,
         GENERIC_READ,
@@ -1118,7 +1118,7 @@ HRESULT DirectX::CreateWICTextureFromFileEx(
     if (FAILED(hr))
         return hr;
 
-    ComPtr<IWICBitmapFrameDecode> frame;
+    ComPtr<IWICBitMapFrameDecode> frame;
     hr = decoder->GetFrame(0, frame.GetAddressOf());
     if (FAILED(hr))
         return hr;
@@ -1185,7 +1185,7 @@ _Use_decl_annotations_
         return E_NOINTERFACE;
 
     // Initialize WIC
-    ComPtr<IWICBitmapDecoder> decoder;
+    ComPtr<IWICBitMapDecoder> decoder;
     HRESULT hr = pWIC->CreateDecoderFromFilename(fileName,
         nullptr,
         GENERIC_READ,
@@ -1194,7 +1194,7 @@ _Use_decl_annotations_
     if (FAILED(hr))
         return hr;
 
-    ComPtr<IWICBitmapFrameDecode> frame;
+    ComPtr<IWICBitMapFrameDecode> frame;
     hr = decoder->GetFrame(0, frame.GetAddressOf());
     if (FAILED(hr))
         return hr;

@@ -56,7 +56,7 @@ bool SHeightMap::CreateHeightMap(ID3D11Device* pDevice,
 	pTexture->Release();
 	return true;
 }
-float   SHeightMap::GetHeightmap(int row, int col)
+float   SHeightMap::GetHeightMap(int row, int col)
 {
 	//return 0;
 	return m_fHeightList[row * m_iNumRows + col] * m_MapDesc.fScaleHeight;

@@ -191,7 +191,6 @@ copy "dxtk\\*.h" "..\\..\\include\\dxtk"</Command>
     <ClInclude Include="SFiniteStateMachine.h" />
     <ClInclude Include="SFrustum.h" />
     <ClInclude Include="SGameUser.h" />
-    <ClInclude Include="SGraphicAPI.h" />
     <ClInclude Include="SimpleMath.h" />
     <ClInclude Include="SInput.h" />
     <ClInclude Include="SMap.h" />

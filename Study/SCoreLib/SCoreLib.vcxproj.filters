@@ -66,9 +66,6 @@
     <ClInclude Include="SSoundManager.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="SGraphicAPI.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="SCollision.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>

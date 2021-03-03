@@ -1,13 +1,13 @@
 //#pragma once
 //#include "SStd.h"
 //
-//class SBitmap
+//class SBitMap
 //{
 //public:
-//	HBITMAP			m_hBitmap;
+//	HBitMap			m_hBitMap;
 //	HDC				m_hMemDC;
 //	LPBYTE			m_pRaster;
-//	BITMAP			m_BitmapInfo;
+//	BitMap			m_BitMapInfo;
 //	BLENDFUNCTION	m_BlendFunction;
 //public:
 //	bool Init();
@@ -15,7 +15,7 @@
 //	bool Render();
 //	bool Release();
 //public:
-//	HBITMAP LoadDIB(wstring filename);
+//	HBitMap LoadDIB(wstring filename);
 //	bool CreateDIB(LONG iWidth, LONG iHeight, int iBitCount = 24);
 //	bool Load(wstring filename);
 //

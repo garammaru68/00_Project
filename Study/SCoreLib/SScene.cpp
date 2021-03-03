@@ -63,26 +63,26 @@ bool  SScene::CreateScene()
 
 		if (info.bColorKey == false)
 		{
-			pObj->Load(info.colorbitmap.c_str(), info.maskbitmap.c_str());
+			pObj->Load(info.colorbitMap.c_str(), info.maskbitMap.c_str());
 		}
 		else
 		{
-			pObj->Load(info.colorbitmap.c_str(), nullptr, info.dwColor);
+			pObj->Load(info.colorbitMap.c_str(), nullptr, info.dwColor);
 		}
 		//// state
-		//pObj->m_StateBitmap.resize(4);
-		//pObj->m_StateBitmap[DEFAULT] =	pObj->m_pColorBmp;
-		//if (!info.pushbitmap.empty())
+		//pObj->m_StateBitMap.resize(4);
+		//pObj->m_StateBitMap[DEFAULT] =	pObj->m_pColorBmp;
+		//if (!info.pushbitMap.empty())
 		//{
-		//	pObj->m_StateBitmap[PUSH] =	g_BitmapMgr.Load(info.pushbitmap.c_str());
+		//	pObj->m_StateBitMap[PUSH] =	g_BitMapMgr.Load(info.pushbitMap.c_str());
 		//}
-		//if (!info.selectbitmap.empty())
+		//if (!info.selectbitMap.empty())
 		//{
-		//	pObj->m_StateBitmap[SELECT] =g_BitmapMgr.Load(info.selectbitmap.c_str());
+		//	pObj->m_StateBitMap[SELECT] =g_BitMapMgr.Load(info.selectbitMap.c_str());
 		//}
-		//if (!info.disbitmap.empty())
+		//if (!info.disbitMap.empty())
 		//{
-		//	pObj->m_StateBitmap[DISABLE] =	g_BitmapMgr.Load(info.disbitmap.c_str());
+		//	pObj->m_StateBitMap[DISABLE] =	g_BitMapMgr.Load(info.disbitMap.c_str());
 		//}
 
 		SeSObject(info, pObj);
@@ -94,10 +94,10 @@ bool  SScene::CreateScene()
 		{
 			SEdit* pEdit = (SEdit*)pObj;
 			pEdit->m_rtWndCtrl = pObj->m_rtDesk;
-			if (pObj->m_pParenSObject != nullptr)
+			if (pObj->m_pParentObject != nullptr)
 			{
-				pEdit->m_rtWndCtrl.left = pObj->m_pParenSObject->m_rtCollide.left + pObj->m_rtDesk.left;
-				pEdit->m_rtWndCtrl.top = pObj->m_pParenSObject->m_rtCollide.top + pObj->m_rtDesk.top;
+				pEdit->m_rtWndCtrl.left = pObj->m_pParentObject->m_rtCollide.left + pObj->m_rtDesk.left;
+				pEdit->m_rtWndCtrl.top = pObj->m_pParentObject->m_rtCollide.top + pObj->m_rtDesk.top;
 			}
 			pEdit->CreateEdit();
 		}
@@ -123,10 +123,10 @@ bool  SScene::SeSObject(SObjAttribute& info, SObject* pObj)
 
 	if (pObj && !(info.szParentName == L"nullptr" || info.szParentName == L"NULL"))
 	{
-		pObj->m_pParenSObject = FindParent(info.szParentName);
-		if (pObj->m_pParenSObject != nullptr)
+		pObj->m_pParentObject = FindParent(info.szParentName);
+		if (pObj->m_pParentObject != nullptr)
 		{
-			pObj->m_pParenSObject->m_pChildObjects.push_back(pObj);
+			pObj->m_pParentObject->m_pChildObjects.push_back(pObj);
 		}
 	}
 
@@ -141,7 +141,7 @@ bool  SScene::SeSObject(SObjAttribute& info, SObject* pObj)
 	case SEnum::S_NPC:
 	{
 		pObj->Set(info.pos, info.rtSrc);
-		if (pObj->m_pParenSObject == nullptr)
+		if (pObj->m_pParentObject == nullptr)
 		{
 			m_CharacterList.insert(make_pair(pObj->m_szName, pObj));
 		}
@@ -150,7 +150,7 @@ bool  SScene::SeSObject(SObjAttribute& info, SObject* pObj)
 	case SEnum::S_OBJECT:
 	{
 		pObj->Set(info.pos, info.rtSrc);
-		if (pObj->m_pParenSObject == nullptr)
+		if (pObj->m_pParentObject == nullptr)
 		{
 			m_ObjList.insert(make_pair(pObj->m_szName, pObj));
 		}
@@ -159,7 +159,7 @@ bool  SScene::SeSObject(SObjAttribute& info, SObject* pObj)
 	case SEnum::S_EDIT:
 	{
 		pObj->Set(info.rtSrc, info.rtDesk);
-		if (pObj->m_pParenSObject == nullptr)
+		if (pObj->m_pParentObject == nullptr)
 		{
 			m_UIObjList.insert(make_pair(pObj->m_szName, pObj));
 		}
@@ -171,7 +171,7 @@ bool  SScene::SeSObject(SObjAttribute& info, SObject* pObj)
 	{
 		pObj->Set(info.rtSrc, info.rtDesk);
 		pObj->Update();
-		if (pObj->m_pParenSObject == nullptr)
+		if (pObj->m_pParentObject == nullptr)
 		{
 			m_UIObjList.insert(make_pair(pObj->m_szName, pObj));
 		}
@@ -180,7 +180,7 @@ bool  SScene::SeSObject(SObjAttribute& info, SObject* pObj)
 	case SEnum::S_MAP:
 	{
 		pObj->Set(info.rtSrc, info.rtDesk);
-		if (pObj->m_pParenSObject == nullptr)
+		if (pObj->m_pParentObject == nullptr)
 		{
 			m_MapList.insert(make_pair(pObj->m_szName, pObj));
 		}

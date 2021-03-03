@@ -6,7 +6,7 @@
 
 
 Texture2D<float4>   Texture             : register(t0);
-TextureCube<float4> EnvironmentMap      : register(t1);
+TextureCube<float4> EnvironmenSMap      : register(t1);
 Texture2D<float4>   SphereMap           : register(t1);
 Texture2DArray<float4> DualParabolaMap  : register(t1);
 
@@ -16,8 +16,8 @@ sampler EnvMapSampler : register(s1);
 
 cbuffer Parameters : register(b0)
 {
-    float3 EnvironmentMapSpecular   : packoffset(c0);
-    float  EnvironmentMapAmount     : packoffset(c1.x);
+    float3 EnvironmenSMapSpecular   : packoffset(c0);
+    float  EnvironmenSMapAmount     : packoffset(c1.x);
     float  FresnelFactor            : packoffset(c1.y);
 
     float4 DiffuseColor             : packoffset(c2);
@@ -53,7 +53,7 @@ float ComputeFresnelFactor(float3 eyeVector, float3 worldNormal)
 {
     float viewAngle = dot(eyeVector, worldNormal);
 
-    return pow(max(1 - abs(viewAngle), 0), FresnelFactor) * EnvironmentMapAmount;
+    return pow(max(1 - abs(viewAngle), 0), FresnelFactor) * EnvironmenSMapAmount;
 }
 
 
@@ -73,7 +73,7 @@ VSOutputTxEnvMap ComputeEnvMapVSOutput(VSInputNmTx vin, float3 normal, uniform b
     if (useFresnel)
         vout.Specular.rgb = ComputeFresnelFactor(eyeVector, worldNormal);
     else
-        vout.Specular.rgb = EnvironmentMapAmount;
+        vout.Specular.rgb = EnvironmenSMapAmount;
 
     vout.Specular.a = ComputeFogFactor(vin.Position);
     vout.TexCoord = vin.TexCoord;
@@ -98,16 +98,16 @@ float4 ComputeEnvMapPSOutput(PSInputPixelLightingTx pin, uniform bool useFresnel
 
     float3 envcoord = reflect(-eyeVector, worldNormal);
 
-    float4 envmap = EnvironmentMap.Sample(EnvMapSampler, envcoord) * color.a;
+    float4 envmap = EnvironmenSMap.Sample(EnvMapSampler, envcoord) * color.a;
 
     float3 amount;
     if (useFresnel)
         amount = ComputeFresnelFactor(eyeVector, worldNormal);
     else
-        amount = EnvironmentMapAmount;
+        amount = EnvironmenSMapAmount;
 
     color.rgb = lerp(color.rgb, envmap.rgb, amount.rgb);
-    color.rgb += EnvironmentMapSpecular * envmap.a;
+    color.rgb += EnvironmenSMapSpecular * envmap.a;
 
     return color;
 }
@@ -136,10 +136,10 @@ float4 ComputeEnvMapSpherePSOutput(PSInputPixelLightingTx pin, uniform bool useF
     if (useFresnel)
         amount = ComputeFresnelFactor(eyeVector, worldNormal);
     else
-        amount = EnvironmentMapAmount;
+        amount = EnvironmenSMapAmount;
 
     color.rgb = lerp(color.rgb, envmap.rgb, amount.rgb);
-    color.rgb += EnvironmentMapSpecular * envmap.a;
+    color.rgb += EnvironmenSMapSpecular * envmap.a;
 
     return color;
 }
@@ -168,10 +168,10 @@ float4 ComputeEnvMapDualParabolaPSOutput(PSInputPixelLightingTx pin, uniform boo
     if (useFresnel)
         amount = ComputeFresnelFactor(eyeVector, worldNormal);
     else
-        amount = EnvironmentMapAmount;
+        amount = EnvironmenSMapAmount;
 
     color.rgb = lerp(color.rgb, envmap.rgb, amount.rgb);
-    color.rgb += EnvironmentMapSpecular * envmap.a;
+    color.rgb += EnvironmenSMapSpecular * envmap.a;
 
     return color;
 }
@@ -277,7 +277,7 @@ VSOutputPixelLightingTx VSEnvMapPixelLightingBnSM4(VSInputNmTx vin)
 float4 PSEnvMap(PSInputTxEnvMap pin) : SV_Target0
 {
     float4 color = Texture.Sample(Sampler, pin.TexCoord) * pin.Diffuse;
-    float4 envmap = EnvironmentMap.Sample(EnvMapSampler, pin.EnvCoord) * color.a;
+    float4 envmap = EnvironmenSMap.Sample(EnvMapSampler, pin.EnvCoord) * color.a;
 
     color.rgb = lerp(color.rgb, envmap.rgb, pin.Specular.rgb);
 
@@ -291,7 +291,7 @@ float4 PSEnvMap(PSInputTxEnvMap pin) : SV_Target0
 float4 PSEnvMapNoFog(PSInputTxEnvMap pin) : SV_Target0
 {
     float4 color = Texture.Sample(Sampler, pin.TexCoord) * pin.Diffuse;
-    float4 envmap = EnvironmentMap.Sample(EnvMapSampler, pin.EnvCoord) * color.a;
+    float4 envmap = EnvironmenSMap.Sample(EnvMapSampler, pin.EnvCoord) * color.a;
 
     color.rgb = lerp(color.rgb, envmap.rgb, pin.Specular.rgb);
 
@@ -303,10 +303,10 @@ float4 PSEnvMapNoFog(PSInputTxEnvMap pin) : SV_Target0
 float4 PSEnvMapSpecular(PSInputTxEnvMap pin) : SV_Target0
 {
     float4 color = Texture.Sample(Sampler, pin.TexCoord) * pin.Diffuse;
-    float4 envmap = EnvironmentMap.Sample(EnvMapSampler, pin.EnvCoord) * color.a;
+    float4 envmap = EnvironmenSMap.Sample(EnvMapSampler, pin.EnvCoord) * color.a;
 
     color.rgb = lerp(color.rgb, envmap.rgb, pin.Specular.rgb);
-    color.rgb += EnvironmentMapSpecular * envmap.a;
+    color.rgb += EnvironmenSMapSpecular * envmap.a;
 
     ApplyFog(color, pin.Specular.w);
 
@@ -318,10 +318,10 @@ float4 PSEnvMapSpecular(PSInputTxEnvMap pin) : SV_Target0
 float4 PSEnvMapSpecularNoFog(PSInputTxEnvMap pin) : SV_Target0
 {
     float4 color = Texture.Sample(Sampler, pin.TexCoord) * pin.Diffuse;
-    float4 envmap = EnvironmentMap.Sample(EnvMapSampler, pin.EnvCoord) * color.a;
+    float4 envmap = EnvironmenSMap.Sample(EnvMapSampler, pin.EnvCoord) * color.a;
 
     color.rgb = lerp(color.rgb, envmap.rgb, pin.Specular.rgb);
-    color.rgb += EnvironmentMapSpecular * envmap.a;
+    color.rgb += EnvironmenSMapSpecular * envmap.a;
 
     return color;
 }

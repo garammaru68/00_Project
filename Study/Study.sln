@@ -122,6 +122,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestLight", "TestLight\Test
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestFrustumCullingObject", "TestFrustumCullingObject\TestFrustumCullingObject.vcxproj", "{5B13EE5C-8575-4541-8FB3-5966284EBC39}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestQuadTree", "TestQuadTree\TestQuadTree.vcxproj", "{9411B7E2-9A45-4F2B-9D4E-F5F3BCD52E5A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -466,6 +468,14 @@ Global
 		{5B13EE5C-8575-4541-8FB3-5966284EBC39}.Release|x64.Build.0 = Release|x64
 		{5B13EE5C-8575-4541-8FB3-5966284EBC39}.Release|x86.ActiveCfg = Release|Win32
 		{5B13EE5C-8575-4541-8FB3-5966284EBC39}.Release|x86.Build.0 = Release|Win32
+		{9411B7E2-9A45-4F2B-9D4E-F5F3BCD52E5A}.Debug|x64.ActiveCfg = Debug|x64
+		{9411B7E2-9A45-4F2B-9D4E-F5F3BCD52E5A}.Debug|x64.Build.0 = Debug|x64
+		{9411B7E2-9A45-4F2B-9D4E-F5F3BCD52E5A}.Debug|x86.ActiveCfg = Debug|Win32
+		{9411B7E2-9A45-4F2B-9D4E-F5F3BCD52E5A}.Debug|x86.Build.0 = Debug|Win32
+		{9411B7E2-9A45-4F2B-9D4E-F5F3BCD52E5A}.Release|x64.ActiveCfg = Release|x64
+		{9411B7E2-9A45-4F2B-9D4E-F5F3BCD52E5A}.Release|x64.Build.0 = Release|x64
+		{9411B7E2-9A45-4F2B-9D4E-F5F3BCD52E5A}.Release|x86.ActiveCfg = Release|Win32
+		{9411B7E2-9A45-4F2B-9D4E-F5F3BCD52E5A}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -519,9 +529,10 @@ Global
 		{7486218E-F8B3-48C9-9BD3-E886316555B4} = {3D96494E-817C-4CEE-9DB2-0769F15DE7A7}
 		{133E72BB-379F-4135-8DE1-AC339D55FAF4} = {3D96494E-817C-4CEE-9DB2-0769F15DE7A7}
 		{5B13EE5C-8575-4541-8FB3-5966284EBC39} = {3D96494E-817C-4CEE-9DB2-0769F15DE7A7}
+		{9411B7E2-9A45-4F2B-9D4E-F5F3BCD52E5A} = {3D96494E-817C-4CEE-9DB2-0769F15DE7A7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		VisualSVNWorkingCopyRoot = .
 		SolutionGuid = {8CA5F4F3-F11A-4339-87C9-38CD6690C71A}
+		VisualSVNWorkingCopyRoot = .
 	EndGlobalSection
 EndGlobal

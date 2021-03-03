@@ -22,7 +22,7 @@ SObject* SObjectManager::Clone(wstring szName)
 	}
 	return pNewObj;
 }
-void  SObjectManager::GetBitmapLoad(FILE* fp, wstring& ret)
+void  SObjectManager::GetBitMapLoad(FILE* fp, wstring& ret)
 {
 	TCHAR szBuffer[256] = { 0, };
 	TCHAR szTemp[256] = { 0, };
@@ -42,7 +42,7 @@ void SObjectManager::CreateEffect(std::vector<SSpriteInfo>&	list)
 		SEffect* pEffect = new SEffect;
 		pEffect->Init();
 		pEffect->m_szName = list[iEffect].szName;
-		pEffect->Load(list[iEffect].colorbitmap.c_str(), list[iEffect].maskbitmap.c_str());
+		pEffect->Load(list[iEffect].colorbitMap.c_str(), list[iEffect].maskbitMap.c_str());
 		SPoint p = { 0,0 };
 		pEffect->Set(p, list[iEffect].rtArray[0]);
 		pEffect->SetSprite(list[iEffect].rtArray);
@@ -59,33 +59,33 @@ void  SObjectManager::CreateObject(std::vector<SObjAttribute>&	list)
 	//	pObj->Init();
 	//	if (info.bColorKey == false)
 	//	{
-	//		pObj->Load(info.colorbitmap.c_str(),
-	//			info.maskbitmap.c_str());
+	//		pObj->Load(info.colorbitMap.c_str(),
+	//			info.maskbitMap.c_str());
 	//	}
 	//	else
 	//	{
-	//		pObj->Load(info.colorbitmap.c_str(),
+	//		pObj->Load(info.colorbitMap.c_str(),
 	//			nullptr,
 	//			info.dwColor);
 	//	}
 	//	// state
-	//	pObj->m_StateBitmap.resize(4);
-	//	pObj->m_StateBitmap[DEFAULT] =
+	//	pObj->m_StateBitMap.resize(4);
+	//	pObj->m_StateBitMap[DEFAULT] =
 	//		pObj->m_pColorBmp;
-	//	if (!info.pushbitmap.empty())
+	//	if (!info.pushbitMap.empty())
 	//	{
-	//		pObj->m_StateBitmap[PUSH] =
-	//			g_BitmapMgr.Load(info.pushbitmap.c_str());
+	//		pObj->m_StateBitMap[PUSH] =
+	//			g_BitMapMgr.Load(info.pushbitMap.c_str());
 	//	}
-	//	if (!info.selectbitmap.empty())
+	//	if (!info.selectbitMap.empty())
 	//	{
-	//		pObj->m_StateBitmap[SELECT] =
-	//			g_BitmapMgr.Load(info.selectbitmap.c_str());
+	//		pObj->m_StateBitMap[SELECT] =
+	//			g_BitMapMgr.Load(info.selectbitMap.c_str());
 	//	}
-	//	if (!info.disbitmap.empty())
+	//	if (!info.disbitMap.empty())
 	//	{
-	//		pObj->m_StateBitmap[DISABLE] =
-	//			g_BitmapMgr.Load(info.disbitmap.c_str());
+	//		pObj->m_StateBitMap[DISABLE] =
+	//			g_BitMapMgr.Load(info.disbitMap.c_str());
 	//	}
 	//	pObj->Set(info.pos, info.rtSrc);
 	//	Add(pObj);
@@ -123,11 +123,11 @@ bool SObjectManager::LoadEffectFile(T_STR szFileName, std::vector<SSpriteInfo>& 
 			}
 			_fgetts(szBuffer, _countof(szBuffer), fp);
 			_stscanf_s(szBuffer, _T("%s"), szTemp, (unsigned)_countof(szTemp));
-			tSprite.colorbitmap = szTemp;
+			tSprite.colorbitMap = szTemp;
 
 			_fgetts(szBuffer, _countof(szBuffer), fp);
 			_stscanf_s(szBuffer, _T("%s"), szTemp, (unsigned)_countof(szTemp));
-			tSprite.maskbitmap = szTemp;
+			tSprite.maskbitMap = szTemp;
 
 			RECT rt;
 			for (int iFrame = 0; iFrame < iNumFrame; iFrame++)
@@ -198,11 +198,11 @@ bool SObjectManager::LoadObjectFile(T_STR szFileName, std::vector<SObjAttribute>
 			objinfo.szParentName = szTempParent;
 
 
-			GetBitmapLoad(fp, objinfo.colorbitmap);
-			GetBitmapLoad(fp, objinfo.pushbitmap);
-			GetBitmapLoad(fp, objinfo.selectbitmap);
-			GetBitmapLoad(fp, objinfo.disbitmap);
-			GetBitmapLoad(fp, objinfo.maskbitmap);
+			GetBitMapLoad(fp, objinfo.colorbitMap);
+			GetBitMapLoad(fp, objinfo.pushbitMap);
+			GetBitMapLoad(fp, objinfo.selectbitMap);
+			GetBitMapLoad(fp, objinfo.disbitMap);
+			GetBitMapLoad(fp, objinfo.maskbitMap);
 			//	0, 0,
 			_fgetts(szBuffer, sizeof(TCHAR) * 256, fp);
 			_stscanf_s(szBuffer, _T("%d%d%d%d"), &objinfo.rtDesk.left,
@@ -462,7 +462,7 @@ void		SObjectManager::DeleteExecute(SObject* owner)
 }
 SObjectManager::SObjectManager()
 {
-	m_szDefaultPath = L"../../data/bitmap/";
+	m_szDefaultPath = L"../../data/BitMap/";
 	m_iExecuteSelectID = 0;
 	m_iExecuteCollisionID = 0;
 }

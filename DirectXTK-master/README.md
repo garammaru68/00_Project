@@ -37,7 +37,7 @@ These components are designed to work without requiring any content from the leg
     * ScreenGrab.h - light-weight screen shot saver
     * SimpleMath.h - simplified C++ wrapper for DirectXMath
     * SpriteBatch.h - simple & efficient 2D sprite rendering
-    * SpriteFont.h - bitmap based text rendering
+    * SpriteFont.h - BitMap based text rendering
     * VertexTypes.h - structures for commonly used vertex data formats
     * WICTextureLoader.h - WIC-based image file texture loader
     * XboxDDSTextureLoader.h - Xbox One exclusive apps variant of DDSTextureLoader

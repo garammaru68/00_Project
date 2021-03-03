@@ -16,12 +16,12 @@ bool SceneBattle::CreateScene()
 			pObj->Init();
 			if (info.bColorKey == false)
 			{
-				pObj->Load(info.colorbitmap.c_str(),
-					info.maskbitmap.c_str());
+				pObj->Load(info.colorbitMap.c_str(),
+					info.maskbitMap.c_str());
 			}
 			else
 			{
-				pObj->Load(info.colorbitmap.c_str(),
+				pObj->Load(info.colorbitMap.c_str(),
 					nullptr,
 					info.dwColor);
 			}

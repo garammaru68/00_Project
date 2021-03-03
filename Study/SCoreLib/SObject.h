@@ -1,5 +1,5 @@
 #pragma once
-#include "SBitmapManager.h"
+#include "SBitMapManager.h"
 #include "SCollision.h"
 #include "SDxObject.h"
 typedef std::vector<RECT>  RECT_ARRAY;
@@ -27,11 +27,11 @@ struct SObjAttribute
 	int iObjType;
 	wstring szName;
 	wstring szParentName;
-	wstring colorbitmap;
-	wstring pushbitmap;
-	wstring selectbitmap;
-	wstring disbitmap;
-	wstring maskbitmap;
+	wstring colorbitMap;
+	wstring pushbitMap;
+	wstring selectbitMap;
+	wstring disbitMap;
+	wstring maskbitMap;
 	SPoint  pos;
 	RECT   rtSrc;
 	RECT   rtDesk;
@@ -42,8 +42,8 @@ struct SObjAttribute
 };
 struct SSpriteInfo
 {
-	wstring		colorbitmap;
-	wstring		maskbitmap;
+	wstring		colorbitMap;
+	wstring		maskbitMap;
 	RECT_ARRAY	rtArray;
 	wstring		szName;
 	wstring		szParentName;
@@ -79,13 +79,13 @@ public:
 public:
 	wstring     m_szName;
 	wstring		m_szParentName;
-	SObject*	m_pParenSObject;
+	SObject*	m_pParentObject;
 	SObjAttribute m_Attribute;
 	std::vector<SObject*>	m_pChildObjects;
 public:
-	//TBitmap*	m_pMaskBmp;
-	//TBitmap*	m_pColorBmp;
-	//std::vector<TBitmap*> m_StateBitmap;
+	//TBitMap*	m_pMaskBmp;
+	//TBitMap*	m_pColorBmp;
+	//std::vector<TBitMap*> m_StateBitMap;
 	RECT		m_rtSrc;		/// 원본 이미지 영역
 	RECT		m_rtDesk;		/// 초기 화면 드로우 영역
 	RECT		m_rtDraw;		/// 최종 드로우 영역

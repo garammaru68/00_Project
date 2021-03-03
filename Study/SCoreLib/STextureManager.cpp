@@ -76,7 +76,7 @@ bool STextureManager::Release()
 
 STextureManager::STextureManager()
 {
-	m_szDefaultPath = L"../../data/bitmap/";
+	m_szDefaultPath = L"../../data/BitMap/";
 }
 STextureManager::~STextureManager()
 {

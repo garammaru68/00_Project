@@ -18,7 +18,7 @@ bool SHeightMap::CreateHeightMap(ID3D11Device* pDevice,
 	{
 		return false;
 	}
-	ID3D11Texture2D		*pTexture2D = NULL;
+	ID3D11Texture2D *pTexture2D = NULL;
 	if (FAILED(pTexture->QueryInterface(__uuidof(ID3D11Texture2D), (LPVOID*)&pTexture2D)))
 	{
 		return false;
@@ -36,7 +36,7 @@ bool SHeightMap::CreateHeightMap(ID3D11Device* pDevice,
 		if (SUCCEEDED(pContext->Map((ID3D11Resource*)pTexture2D, D3D11CalcSubresource(0, 0, 1), D3D11_MAP_READ, 0, &MappedFaceDest)))
 		{
 			UCHAR* pTexels = (UCHAR*)MappedFaceDest.pData;
-			PNCT_VERTEX v;
+			PNCT_VERTEX	v;
 			for (UINT row = 0; row < desc.Height; row++)
 			{
 				UINT rowStart = row * MappedFaceDest.RowPitch;
@@ -44,7 +44,7 @@ bool SHeightMap::CreateHeightMap(ID3D11Device* pDevice,
 				{
 					UINT colStart = col * 4;
 					UINT uRed = pTexels[rowStart + colStart + 0];
-					m_fHeightList[row * desc.Width + col] = uRed;
+					m_fHeightList[row * desc.Width + col] = uRed;	/// DWORDÀÌ¹Ç·Î pitch/4	
 				}
 			}
 			pContext->Unmap(pTexture2D, D3D11CalcSubresource(0, 0, 1));
@@ -57,7 +57,8 @@ bool SHeightMap::CreateHeightMap(ID3D11Device* pDevice,
 	pTexture->Release();
 	return true;
 }
-float SHeightMap::GetHeightOfVertex(UINT index)
+float   SHeightMap::GetHeightOfVertex(UINT index)
 {
+	//return 0;
 	return m_fHeightList[index] / m_MapDesc.fScaleHeight;
 }

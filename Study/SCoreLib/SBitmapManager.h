@@ -1,27 +1,27 @@
 //#pragma once
-//#include "SBitmap.h"
+//#include "SBitMap.h"
 //
-//class SBitmapManager : public SSingleton<SBitmapManager>
+//class SBitMapManager : public SSingleton<SBitMapManager>
 //{
 //public:
-//	friend class SSingleton<SBitmapManager>;
+//	friend class SSingleton<SBitMapManager>;
 //private:
-//	std::map<wstring, SBitmap*>				m_List;
-//	std::map<wstring, SBitmap*>::iterator	m_iter;
+//	std::map<wstring, SBitMap*>				m_List;
+//	std::map<wstring, SBitMap*>::iterator	m_iter;
 //	std::wstring							m_szDefaultPath;
 //public:
-//	SBitmap*	CreateLaod(LONG iWidth, LONG iHeight, const TCHAR* filename, int iBitCount = 24);
-//	SBitmap*	Load(const TCHAR* filename);
-//	SBitmap*	GetPtr(wstring filename);
-//	static HBITMAP	CreateDIB(int w, int h, LPVOID* pPixelData = nullptr);
-//	static bool		SaveFile(HBITMAP hBitmap, const TCHAR* strSaveFile);
+//	SBitMap*	CreateLaod(LONG iWidth, LONG iHeight, const TCHAR* filename, int iBitCount = 24);
+//	SBitMap*	Load(const TCHAR* filename);
+//	SBitMap*	GetPtr(wstring filename);
+//	static HBitMap	CreateDIB(int w, int h, LPVOID* pPixelData = nullptr);
+//	static bool		SaveFile(HBitMap hBitMap, const TCHAR* strSaveFile);
 //	bool	Init();
 //	bool	Frame();
 //	bool	Render();
 //	bool	Release();
 //private:
-//	SBitmapManager();
+//	SBitMapManager();
 //public:
-//	~SBitmapManager();
+//	~SBitMapManager();
 //};
-//#define g_BitmapMgr SBitmapManager::GetInstance()
+//#define g_BitMapMgr SBitMapManager::GetInstance()
