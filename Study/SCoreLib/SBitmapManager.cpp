@@ -1,26 +1,26 @@
-//#include "SBitMapManager.h"
+//#include "SBitmapManager.h"
 //
-//bool SBitMapManager::SaveFile(HBitMap hBitMap, const TCHAR* strSaveFile)
+//bool SBitmapManager::SaveFile(HBITMAP hBitmap, const TCHAR* strSaveFile)
 //{
-//	BitMap BitMap;
-//	GeSObject(hBitMap, sizeof(BitMap), &BitMap);
+//	BITMAP bitmap;
+//	GeSObject(hBitmap, sizeof(BITMAP), &bitmap);
 //
-//	BitMapINFOHEADER bitHeader;
-//	memset(&bitHeader, 0, sizeof(BitMapINFOHEADER));
-//	bitHeader.biSize = sizeof(BitMapINFOHEADER);
-//	bitHeader.biWidth = BitMap.bmWidth;
-//	bitHeader.biHeight = BitMap.bmHeight;
+//	BITMAPINFOHEADER bitHeader;
+//	memset(&bitHeader, 0, sizeof(BITMAPINFOHEADER));
+//	bitHeader.biSize = sizeof(BITMAPINFOHEADER);
+//	bitHeader.biWidth = bitmap.bmWidth;
+//	bitHeader.biHeight = bitmap.bmHeight;
 //	bitHeader.biPlanes = 1;
-//	bitHeader.biBitCount = BitMap.bmBitsPixel;
+//	bitHeader.biBitCount = bitmap.bmBitsPixel;
 //	bitHeader.biCompression = BI_RGB;
-//	//bitHeader.biSizeImage = BitMap.bmWidthBytes * BitMap.bmHeight;
+//	//bitHeader.biSizeImage = bitmap.bmWidthBytes * bitmap.bmHeight;
 //
 //	HDC hdc = GetDC(GetDesktopWindow());
 //	// biSizeImage 정보 얻기
-//	GetDIBits(hdc, hBitMap, 0, BitMap.bmHeight, NULL, (LPBitMapINFO)&bitHeader, DIB_RGB_COLORS);
+//	GetDIBits(hdc, hBitmap, 0, bitmap.bmHeight, NULL, (LPBITMAPINFO)&bitHeader, DIB_RGB_COLORS);
 //	// 비트맵 데이터 얻기
 //	LPBYTE lpBits = new BYTE[bitHeader.biSizeImage];
-//	GetDIBits(hdc, hBitMap, 0, BitMap.bmHeight, lpBits, (LPBitMapINFO)&bitHeader, DIB_RGB_COLORS);
+//	GetDIBits(hdc, hBitmap, 0, bitmap.bmHeight, lpBits, (LPBITMAPINFO)&bitHeader, DIB_RGB_COLORS);
 //	ReleaseDC(GetDesktopWindow(), hdc);
 //
 //	// 파일 생성 및 저장
@@ -32,17 +32,17 @@
 //		return false;
 //	}
 //	// 파일 헤더 저장
-//	BitMapFILEHEADER bmFileHeader;
-//	memset(&bmFileHeader, 0, sizeof(BitMapFILEHEADER));
+//	BITMAPFILEHEADER bmFileHeader;
+//	memset(&bmFileHeader, 0, sizeof(BITMAPFILEHEADER));
 //	bmFileHeader.bfType = ((WORD)('M' << 8) | 'B');
-//	bmFileHeader.bfOffBits = sizeof(BitMapFILEHEADER) + sizeof(BitMapINFOHEADER);
+//	bmFileHeader.bfOffBits = sizeof(BITMAPFILEHEADER) + sizeof(BITMAPINFOHEADER);
 //	bmFileHeader.bfSize = bmFileHeader.bfOffBits + bitHeader.biSizeImage;
 //
 //	DWORD dwWritten;
 //	//파일헤더 저장
-//	WriteFile(hFile, &bmFileHeader, sizeof(BitMapFILEHEADER), &dwWritten, NULL);
+//	WriteFile(hFile, &bmFileHeader, sizeof(BITMAPFILEHEADER), &dwWritten, NULL);
 //	//정보헤더 저장
-//	WriteFile(hFile, &bitHeader, sizeof(BitMapINFOHEADER), &dwWritten, NULL);
+//	WriteFile(hFile, &bitHeader, sizeof(BITMAPINFOHEADER), &dwWritten, NULL);
 //	//데이터 저장
 //	WriteFile(hFile, lpBits, bitHeader.biSizeImage, &dwWritten, NULL);
 //	CloseHandle(hFile);
@@ -50,22 +50,22 @@
 //	delete[] lpBits;
 //	return true;
 //}
-//HBitMap SBitMapManager::CreateDIB(
+//HBITMAP SBitmapManager::CreateDIB(
 //	int iWidth, int iHeight,
 //	LPVOID* pPixelData)
 //{
-//	BitMapINFO bmi;
+//	BITMAPINFO bmi;
 //	LPVOID pBits;
 //
-//	HBitMap hBitMap;
-//	memset(&bmi.bmiHeader, 0, sizeof(BitMapINFOHEADER));
-//	bmi.bmiHeader.biSize = sizeof(BitMapINFOHEADER);
+//	HBITMAP hBitmap;
+//	memset(&bmi.bmiHeader, 0, sizeof(BITMAPINFOHEADER));
+//	bmi.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
 //	bmi.bmiHeader.biBitCount = 32;
 //	bmi.bmiHeader.biWidth = iWidth;
 //	bmi.bmiHeader.biHeight = iHeight;
 //	bmi.bmiHeader.biPlanes = 1;
 //
-//	hBitMap = CreateDIBSection(g_hScreenDC, (BitMapINFO*)&bmi,
+//	hBitmap = CreateDIBSection(g_hScreenDC, (BITMAPINFO*)&bmi,
 //		DIB_RGB_COLORS, &pBits, NULL, 0);
 //
 //	for (int j = 0; j < iHeight; ++j)
@@ -85,9 +85,9 @@
 //	{
 //		*pPixelData = pBits;
 //	}
-//	return hBitMap;
+//	return hBitmap;
 //}
-//SBitMap* SBitMapManager::Load(const TCHAR* filename)
+//SBitmap* SBitmapManager::Load(const TCHAR* filename)
 //{
 //	TCHAR drive[MAX_PATH] = { 0, };
 //	TCHAR dir[MAX_PATH] = { 0, };
@@ -110,13 +110,13 @@
 //		key = name;
 //		key += ext;
 //	}
-//	SBitMap* pData = GetPtr(key);
+//	SBitmap* pData = GetPtr(key);
 //	if (pData != nullptr)
 //	{
 //		return pData;
 //	}
 //
-//	pData = new SBitMap;
+//	pData = new SBitmap;
 //	pData->Init();
 //	if (pData->Load(loadfile))
 //	{
@@ -126,7 +126,7 @@
 //	delete pData;
 //	return nullptr;
 //}
-//SBitMap* SBitMapManager::CreateLaod(
+//SBitmap* SBitmapManager::CreateLaod(
 //	LONG iWidth, LONG iHeight, const TCHAR* filename, int iBitCount)
 //{
 //	TCHAR drive[MAX_PATH] = { 0, };
@@ -150,13 +150,13 @@
 //		key = name;
 //		key += ext;
 //	}
-//	SBitMap* pData = GetPtr(key);
+//	SBitmap* pData = GetPtr(key);
 //	if (pData != nullptr)
 //	{
 //		return pData;
 //	}
 //
-//	pData = new SBitMap;
+//	pData = new SBitmap;
 //	pData->Init();
 //	if (pData->CreateDIB(iWidth, iHeight, iBitCount))
 //	{
@@ -166,7 +166,7 @@
 //	delete pData;
 //	return nullptr;
 //}
-//SBitMap* SBitMapManager::GetPtr(wstring filename)
+//SBitmap* SBitmapManager::GetPtr(wstring filename)
 //{
 //	m_iter = m_List.find(filename);
 //	if (m_iter == m_List.end())
@@ -175,19 +175,19 @@
 //	}
 //	return (*m_iter).second;
 //}
-//bool SBitMapManager::Init()
+//bool SBitmapManager::Init()
 //{
 //	return true;
 //}
-//bool SBitMapManager::Frame()
+//bool SBitmapManager::Frame()
 //{
 //	return true;
 //}
-//bool SBitMapManager::Render()
+//bool SBitmapManager::Render()
 //{
 //	return true;
 //}
-//bool SBitMapManager::Release()
+//bool SBitmapManager::Release()
 //{
 //	for (m_iter = m_List.begin();
 //		m_iter != m_List.end();
@@ -199,11 +199,11 @@
 //	return true;
 //}
 //
-//SBitMapManager::SBitMapManager()
+//SBitmapManager::SBitmapManager()
 //{
 //	m_szDefaultPath = L"../../data/API/";
 //}
-//SBitMapManager::~SBitMapManager()
+//SBitmapManager::~SBitmapManager()
 //{
 //	Release();
 //}

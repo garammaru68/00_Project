@@ -427,16 +427,16 @@ HRESULT DirectX::SaveWICTextureToFile(
 
     auto_delete_file_wic delonfail(stream, fileName);
 
-    ComPtr<IWICBitMapEncoder> encoder;
+    ComPtr<IWICBitmapEncoder> encoder;
     hr = pWIC->CreateEncoder(guidContainerFormat, nullptr, encoder.GetAddressOf());
     if (FAILED(hr))
         return hr;
 
-    hr = encoder->Initialize(stream.Get(), WICBitMapEncoderNoCache);
+    hr = encoder->Initialize(stream.Get(), WICBitmapEncoderNoCache);
     if (FAILED(hr))
         return hr;
 
-    ComPtr<IWICBitMapFrameEncode> frame;
+    ComPtr<IWICBitmapFrameEncode> frame;
     ComPtr<IPropertyBag2> props;
     hr = encoder->CreateNewFrame(frame.GetAddressOf(), props.GetAddressOf());
     if (FAILED(hr))
@@ -616,8 +616,8 @@ HRESULT DirectX::SaveWICTextureToFile(
     if (memcmp(&targetGuid, &pfGuid, sizeof(WICPixelFormatGUID)) != 0)
     {
         // Conversion required to write
-        ComPtr<IWICBitMap> source;
-        hr = pWIC->CreateBitMapFromMemory(desc.Width, desc.Height,
+        ComPtr<IWICBitmap> source;
+        hr = pWIC->CreateBitmapFromMemory(desc.Width, desc.Height,
             pfGuid,
             mapped.RowPitch, static_cast<UINT>(imageSize),
             static_cast<BYTE*>(mapped.pData), source.GetAddressOf());
@@ -643,7 +643,7 @@ HRESULT DirectX::SaveWICTextureToFile(
             return E_UNEXPECTED;
         }
 
-        hr = FC->Initialize(source.Get(), targetGuid, WICBitMapDitherTypeNone, nullptr, 0, WICBitMapPaletteTypeMedianCut);
+        hr = FC->Initialize(source.Get(), targetGuid, WICBitmapDitherTypeNone, nullptr, 0, WICBitmapPaletteTypeMedianCut);
         if (FAILED(hr))
         {
             pContext->Unmap(pStaging.Get(), 0);

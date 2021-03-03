@@ -63,26 +63,26 @@ bool  SScene::CreateScene()
 
 		if (info.bColorKey == false)
 		{
-			pObj->Load(info.colorbitMap.c_str(), info.maskbitMap.c_str());
+			pObj->Load(info.colorbitmap.c_str(), info.maskbitmap.c_str());
 		}
 		else
 		{
-			pObj->Load(info.colorbitMap.c_str(), nullptr, info.dwColor);
+			pObj->Load(info.colorbitmap.c_str(), nullptr, info.dwColor);
 		}
 		//// state
-		//pObj->m_StateBitMap.resize(4);
-		//pObj->m_StateBitMap[DEFAULT] =	pObj->m_pColorBmp;
-		//if (!info.pushbitMap.empty())
+		//pObj->m_StateBitmap.resize(4);
+		//pObj->m_StateBitmap[DEFAULT] =	pObj->m_pColorBmp;
+		//if (!info.pushbitmap.empty())
 		//{
-		//	pObj->m_StateBitMap[PUSH] =	g_BitMapMgr.Load(info.pushbitMap.c_str());
+		//	pObj->m_StateBitmap[PUSH] =	g_BitmapMgr.Load(info.pushbitmap.c_str());
 		//}
-		//if (!info.selectbitMap.empty())
+		//if (!info.selectbitmap.empty())
 		//{
-		//	pObj->m_StateBitMap[SELECT] =g_BitMapMgr.Load(info.selectbitMap.c_str());
+		//	pObj->m_StateBitmap[SELECT] =g_BitmapMgr.Load(info.selectbitmap.c_str());
 		//}
-		//if (!info.disbitMap.empty())
+		//if (!info.disbitmap.empty())
 		//{
-		//	pObj->m_StateBitMap[DISABLE] =	g_BitMapMgr.Load(info.disbitMap.c_str());
+		//	pObj->m_StateBitmap[DISABLE] =	g_BitmapMgr.Load(info.disbitmap.c_str());
 		//}
 
 		SeSObject(info, pObj);

@@ -109,7 +109,7 @@ bool Sample::Frame()
 	m_BoxShape.Frame();
 
 	m_BoxShape.m_vPos.y =
-		m_Map.GetHeightMap(m_BoxShape.m_matWorld._41,
+		m_Map.GetHeightmap(m_BoxShape.m_matWorld._41,
 			m_BoxShape.m_matWorld._43);
 
 

@@ -188,20 +188,20 @@ bool  SObject::Load(const TCHAR* color, const TCHAR* mask, DWORD dwColor)
 {
 	//if (color != nullptr)
 	//{
-	//	m_pColorBmp = g_BitMapMgr.Load(color);
+	//	m_pColorBmp = g_BitmapMgr.Load(color);
 	//	if (m_pColorBmp != nullptr)
 	//	{
 	//		Set({ 0, 0,
-	//			m_pColorBmp->m_BitMapInfo.bmWidth,
-	//			m_pColorBmp->m_BitMapInfo.bmHeight },
+	//			m_pColorBmp->m_BitmapInfo.bmWidth,
+	//			m_pColorBmp->m_BitmapInfo.bmHeight },
 	//			{ 0,0,
-	//			m_pColorBmp->m_BitMapInfo.bmWidth,
-	//			m_pColorBmp->m_BitMapInfo.bmHeight });
+	//			m_pColorBmp->m_BitmapInfo.bmWidth,
+	//			m_pColorBmp->m_BitmapInfo.bmHeight });
 	//	}
 	//}
 	//if (mask != nullptr)
 	//{
-	//	m_pMaskBmp = g_BitMapMgr.Load(mask);
+	//	m_pMaskBmp = g_BitmapMgr.Load(mask);
 	//}
 	//if (mask == nullptr)
 	//{

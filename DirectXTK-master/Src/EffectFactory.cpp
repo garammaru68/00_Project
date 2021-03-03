@@ -147,7 +147,7 @@ std::shared_ptr<IEffect> EffectFactory::Impl::CreateEffect(IEffectFactory* facto
 
         auto effect = std::make_shared<DualTextureEffect>(mDevice.Get());
 
-        // Dual texture effect doesn't support lighting (usually it's lighSMaps)
+        // Dual texture effect doesn't support lighting (usually it's lightmaps)
 
         effect->SetAlpha(info.alpha);
 

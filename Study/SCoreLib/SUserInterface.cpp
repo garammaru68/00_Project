@@ -320,15 +320,15 @@ bool   SButton::Render(ID3D11DeviceContext*	pd3dContext)
 	if (m_pColorBmp == nullptr) return true;
 
 	int iCurrentState = m_iImageState;
-	if (m_StateBitMap[iCurrentState] == nullptr)
+	if (m_StateBitmap[iCurrentState] == nullptr)
 	{
 		iCurrentState = 0;
 	}
 	if (m_bColorKey == true)
 	{
-		TBitMap* pCurrent = m_pColorBmp;
-		(m_StateBitMap[iCurrentState] != nullptr) ?
-			pCurrent = m_StateBitMap[iCurrentState] :
+		TBITMAP* pCurrent = m_pColorBmp;
+		(m_StateBitmap[iCurrentState] != nullptr) ?
+			pCurrent = m_StateBitmap[iCurrentState] :
 			pCurrent = nullptr;
 		if (pCurrent != nullptr)
 		{
@@ -340,17 +340,17 @@ bool   SButton::Render(ID3D11DeviceContext*	pd3dContext)
 		return PostRender();
 	}
 	if (m_pColorBmp &&
-		m_pColorBmp->m_BitMapInfo.bmBitsPixel == 32)
+		m_pColorBmp->m_BitmapInfo.bmBitsPixel == 32)
 	{
 		switch (iCurrentState)
 		{
 		case 0: {m_pColorBmp->DrawAlphaBlend(rtDraw, m_rtSrc); }break;
 		case 1: {
-			m_StateBitMap[1]->DrawAlphaBlend(rtDraw, m_rtSrc); }break;
+			m_StateBitmap[1]->DrawAlphaBlend(rtDraw, m_rtSrc); }break;
 		case 2: {
-			m_StateBitMap[2]->DrawAlphaBlend(rtDraw, m_rtSrc); }break;
+			m_StateBitmap[2]->DrawAlphaBlend(rtDraw, m_rtSrc); }break;
 		case 3: {
-			m_StateBitMap[3]->DrawAlphaBlend(rtDraw, m_rtSrc); }break;
+			m_StateBitmap[3]->DrawAlphaBlend(rtDraw, m_rtSrc); }break;
 		}
 		return true;
 	}
@@ -365,9 +365,9 @@ bool   SButton::Render(ID3D11DeviceContext*	pd3dContext)
 		switch (iCurrentState)
 		{
 		case 0: {m_pColorBmp->Draw(rtDraw, m_rtSrc, SRCCOPY, 0); }break;
-		case 1: {m_StateBitMap[1]->Draw(rtDraw, m_rtSrc, SRCCOPY, 0); }break;
-		case 2: {m_StateBitMap[2]->Draw(rtDraw, m_rtSrc, SRCCOPY, 0); }break;
-		case 3: {m_StateBitMap[3]->Draw(rtDraw, m_rtSrc, SRCCOPY, 0); }break;
+		case 1: {m_StateBitmap[1]->Draw(rtDraw, m_rtSrc, SRCCOPY, 0); }break;
+		case 2: {m_StateBitmap[2]->Draw(rtDraw, m_rtSrc, SRCCOPY, 0); }break;
+		case 3: {m_StateBitmap[3]->Draw(rtDraw, m_rtSrc, SRCCOPY, 0); }break;
 		}
 
 	}*/
@@ -472,16 +472,16 @@ bool   SEdit::Render(ID3D11DeviceContext*	pd3dContext)
 		m_rtCollide.bottom += m_rtCollide.top;
 	}
 	/*	int iCurrentState = m_iImageState;
-		if (m_StateBitMap[iCurrentState] == nullptr )
+		if (m_StateBitmap[iCurrentState] == nullptr )
 		{
 			iCurrentState = 0;
 		}
 		if (m_bColorKey == true)
 		{
-			TBitMap* pCurrent = m_pColorBmp;
+			TBITMAP* pCurrent = m_pColorBmp;
 
-			(m_StateBitMap[iCurrentState] != nullptr) ?
-				pCurrent = m_StateBitMap[iCurrentState] :
+			(m_StateBitmap[iCurrentState] != nullptr) ?
+				pCurrent = m_StateBitmap[iCurrentState] :
 				pCurrent = nullptr;
 			if (pCurrent != nullptr)
 			{
@@ -491,17 +491,17 @@ bool   SEdit::Render(ID3D11DeviceContext*	pd3dContext)
 			return PostRender();
 		}
 		if (m_pColorBmp &&
-			m_pColorBmp->m_BitMapInfo.bmBitsPixel == 32)
+			m_pColorBmp->m_BitmapInfo.bmBitsPixel == 32)
 		{
 			switch (iCurrentState)
 			{
 			case 0: {m_pColorBmp->DrawAlphaBlend(rtDraw, m_rtSrc); }break;
 			case 1: {
-				m_StateBitMap[1]->DrawAlphaBlend(rtDraw, m_rtSrc); }break;
+				m_StateBitmap[1]->DrawAlphaBlend(rtDraw, m_rtSrc); }break;
 			case 2: {
-				m_StateBitMap[2]->DrawAlphaBlend(rtDraw, m_rtSrc); }break;
+				m_StateBitmap[2]->DrawAlphaBlend(rtDraw, m_rtSrc); }break;
 			case 3: {
-				m_StateBitMap[3]->DrawAlphaBlend(rtDraw, m_rtSrc); }break;
+				m_StateBitmap[3]->DrawAlphaBlend(rtDraw, m_rtSrc); }break;
 			}
 		}
 		else
@@ -517,9 +517,9 @@ bool   SEdit::Render(ID3D11DeviceContext*	pd3dContext)
 				switch (iCurrentState)
 				{
 				case 0: {m_pColorBmp->Draw(rtDraw, m_rtSrc, SRCCOPY, 0); }break;
-				case 1: {m_StateBitMap[1]->Draw(rtDraw, m_rtSrc, SRCCOPY, 0); }break;
-				case 2: {m_StateBitMap[2]->Draw(rtDraw, m_rtSrc, SRCCOPY, 0); }break;
-				case 3: {m_StateBitMap[3]->Draw(rtDraw, m_rtSrc, SRCCOPY, 0); }break;
+				case 1: {m_StateBitmap[1]->Draw(rtDraw, m_rtSrc, SRCCOPY, 0); }break;
+				case 2: {m_StateBitmap[2]->Draw(rtDraw, m_rtSrc, SRCCOPY, 0); }break;
+				case 3: {m_StateBitmap[3]->Draw(rtDraw, m_rtSrc, SRCCOPY, 0); }break;
 				}
 			}
 		}

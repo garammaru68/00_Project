@@ -59,7 +59,7 @@ public:
 	bool  LoadEffectFile(T_STR szFileName, std::vector<SSpriteInfo>&);
 	void  CreateEffect(std::vector<SSpriteInfo>&	list);
 	void  CreateObject(std::vector<SObjAttribute>&	list);
-	void  GetBitMapLoad(FILE* fp, wstring& ret);
+	void  GetBitmapLoad(FILE* fp, wstring& ret);
 private:
 	SObjectManager();
 public:

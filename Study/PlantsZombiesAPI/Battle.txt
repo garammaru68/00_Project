@@ -66,8 +66,8 @@ NPC=300,
 struct TObjAttribute
 {
 	int iObjType;
-	wstring colorbitMap;
-	wstring maskbitMap;
+	wstring colorbitmap;
+	wstring maskbitmap;
 	POINT  pos;
 	RECT   rtSrc;
 	RECT   rtDesk;

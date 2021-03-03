@@ -266,7 +266,7 @@ namespace DirectX
 
 
 
-    // Built-in shader supports two layer multitexturing (eg. for lighSMaps or detail textures).
+    // Built-in shader supports two layer multitexturing (eg. for lightmaps or detail textures).
     class DualTextureEffect : public IEffect, public IEffectMatrices, public IEffectFog
     {
     public:
@@ -318,7 +318,7 @@ namespace DirectX
 
 
     // Built-in shader supports cubic environment mapping.
-    class EnvironmenSMapEffect : public IEffect, public IEffectMatrices, public IEffectLights, public IEffectFog
+    class EnvironmentMapEffect : public IEffect, public IEffectMatrices, public IEffectLights, public IEffectFog
     {
     public:
         enum Mapping
@@ -328,14 +328,14 @@ namespace DirectX
             Mapping_DualParabola,   // Dual-parabola environment map (requires Feature Level 10.0)
         };
 
-        explicit EnvironmenSMapEffect(_In_ ID3D11Device* device);
-        EnvironmenSMapEffect(EnvironmenSMapEffect&& moveFrom) noexcept;
-        EnvironmenSMapEffect& operator= (EnvironmenSMapEffect&& moveFrom) noexcept;
+        explicit EnvironmentMapEffect(_In_ ID3D11Device* device);
+        EnvironmentMapEffect(EnvironmentMapEffect&& moveFrom) noexcept;
+        EnvironmentMapEffect& operator= (EnvironmentMapEffect&& moveFrom) noexcept;
 
-        EnvironmenSMapEffect(EnvironmenSMapEffect const&) = delete;
-        EnvironmenSMapEffect& operator= (EnvironmenSMapEffect const&) = delete;
+        EnvironmentMapEffect(EnvironmentMapEffect const&) = delete;
+        EnvironmentMapEffect& operator= (EnvironmentMapEffect const&) = delete;
 
-        ~EnvironmenSMapEffect() override;
+        ~EnvironmentMapEffect() override;
 
         // IEffect methods.
         void __cdecl Apply(_In_ ID3D11DeviceContext* deviceContext) override;
@@ -372,12 +372,12 @@ namespace DirectX
 
         // Texture setting.
         void __cdecl SetTexture(_In_opt_ ID3D11ShaderResourceView* value);
-        void __cdecl SetEnvironmenSMap(_In_opt_ ID3D11ShaderResourceView* value);
+        void __cdecl SetEnvironmentMap(_In_opt_ ID3D11ShaderResourceView* value);
 
         // Environment map settings.
         void __cdecl SetMode(Mapping mapping);
-        void __cdecl SetEnvironmenSMapAmount(float value);
-        void XM_CALLCONV SetEnvironmenSMapSpecular(FXMVECTOR value);
+        void __cdecl SetEnvironmentMapAmount(float value);
+        void XM_CALLCONV SetEnvironmentMapSpecular(FXMVECTOR value);
         void __cdecl SetFresnelFactor(float value);
 
         // Normal compression settings.
