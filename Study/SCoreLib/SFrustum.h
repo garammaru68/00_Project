@@ -37,5 +37,6 @@ public:
 
 	BOOL	ClassifyPoint(Vector3 v);
 	BOOL	ClassifyBox(SShapeBox box);
+	BOOL	CheckOBBInPlane(S_BOX* pBox);
 };
 

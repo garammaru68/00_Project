@@ -14,11 +14,11 @@ protected:
 public:
 	MSG			m_msg;
 	RECT		m_rtClient;
-	RECT		m_rSWindow;
+	RECT		m_rtWindow;
 	bool		m_bDrag;
 	POINT		m_ptClick;
 public:
-	bool		SeSWindow(HINSTANCE hInstance,const TCHAR* pTitleName = L"SampleProject", int iWidth = 800, int iHeight = 600);
+	bool		SetWindow(HINSTANCE hInstance,const TCHAR* pTitleName = L"SampleProject", int iWidth = 800, int iHeight = 600);
 	bool		MsgProcess();
 public:
 	virtual void ResizeDevice(UINT w, UINT h);

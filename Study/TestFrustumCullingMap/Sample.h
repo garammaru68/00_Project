@@ -5,6 +5,7 @@
 #include "SModelViewCamera.h"
 #include "SMap.h"
 #include "SMiniMap.h"
+
 class SBoxUser : public SShapeBox
 {
 public:

@@ -2,7 +2,7 @@
 namespace  SBASIS_CORE_LIB
 {
 	ID3D11Device*			g_pd3dDevice = nullptr;
-	ID3D11DeviceContext*	g_ImmediateContext = nullptr;
+	ID3D11DeviceContext*	g_pImmediateContext = nullptr;
 }
 void	SDevice::SetMode(bool bFullScreen)
 {

@@ -233,7 +233,7 @@ bool Sample::Frame()
 	m_UserShape.Frame();
 
 	m_UserShape.m_vPos.y =
-		m_Map.GetHeightMap(m_UserShape.m_matWorld._41,
+		m_Map.GetHeightmap(m_UserShape.m_matWorld._41,
 			m_UserShape.m_matWorld._43);
 
 

@@ -55,14 +55,14 @@ LRESULT CALLBACK WndProc(
 	{
 		if (m_bDrag)
 		{
-			RECT rSWindow;
-			GetWindowRect(hWnd, &rSWindow);
-			rSWindow.left -= m_ptClick.x - LOWORD(lParam);
-			rSWindow.top -= m_ptClick.y - HIWORD(lParam);
+			RECT rtWindow;
+			GetWindowRect(hWnd, &rtWindow);
+			rtWindow.left -= m_ptClick.x - LOWORD(lParam);
+			rtWindow.top -= m_ptClick.y - HIWORD(lParam);
 #if NDEBUG
-			SetWindowPos(hWnd, HWND_TOPMOST, rSWindow.left, rSWindow.top, 0, 0, SWP_NOSIZE);//HWND_TOP
+			SetWindowPos(hWnd, HWND_TOPMOST, rtWindow.left, rtWindow.top, 0, 0, SWP_NOSIZE);//HWND_TOP
 #else
-			SetWindowPos(hWnd, HWND_NOTOPMOST, rSWindow.left, rSWindow.top, 0, 0, SWP_NOSIZE);
+			SetWindowPos(hWnd, HWND_NOTOPMOST, rtWindow.left, rtWindow.top, 0, 0, SWP_NOSIZE);
 #endif
 		}
 	}return 0;
@@ -118,7 +118,7 @@ bool SWindow::MsgProcess()
 void SWindow::MsgEvent(MSG msg)
 {
 }
-bool SWindow::SeSWindow(HINSTANCE hInstance, const  TCHAR* pTitleName, int iWidth, int iHeight)
+bool SWindow::SetWindow(HINSTANCE hInstance, const  TCHAR* pTitleName, int iWidth, int iHeight)
 {
 	g_hInstance = hInstance;
 	m_hInstance = hInstance;
@@ -155,7 +155,7 @@ bool SWindow::SeSWindow(HINSTANCE hInstance, const  TCHAR* pTitleName, int iWidt
 	g_hWnd = m_hWnd;
 	GetClientRect(m_hWnd, &m_rtClient);
 	g_rtClient = m_rtClient;
-	GetWindowRect(m_hWnd, &m_rSWindow);
+	GetWindowRect(m_hWnd, &m_rtWindow);
 	return true;
 }
 

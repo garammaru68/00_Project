@@ -6,7 +6,7 @@
 #include "SHeightMap.h"
 #include "SMiniMap.h"
 #include "SQuadTree.h"
-class TBoxUser : public SShapeBox
+class SBoxUser : public SShapeBox
 {
 public:
 	void FrontMovement(float fDir)
@@ -51,14 +51,14 @@ class Sample : public SCore
 public:
 	SQuadTree		m_QuadTree;
 	S_BoxObject*	m_pObject;
-	S_BOX			m_TBoxBase;
+	S_BOX			m_SBoxBase;
 
 	SMiniMap		m_MiniMap;
 	SHeightMap		m_Map;
 	Vector4			m_vDirValue;
 	std::vector<SObject*> m_ObjList;
-	TBoxUser		m_UserShape;
-	TBoxUser		m_BoxShape;
+	SBoxUser		m_UserShape;
+	SBoxUser		m_BoxShape;
 	SShapePlane		m_PlaneShape;
 	SModelViewCamera  m_ModelCamera;
 	SCamera			m_TopCamera;
@@ -79,4 +79,4 @@ public:
 	void DrawObject(Matrix* pView, Matrix* pProj);
 };
 
-TGAME_RUN;
+SGAME_RUN;

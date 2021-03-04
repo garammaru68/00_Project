@@ -1,6 +1,5 @@
 #pragma once
 #include "SCamera.h"
-#include "SFrustum.h"
 class SArcBall
 {
 public:
@@ -25,9 +24,6 @@ public:
 };
 class SModelViewCamera : public SCamera
 {
-public:
-	//Matrix    m_matWorld;
-	SFrustum  m_Frustum;
 public:
 	SArcBall	m_WorldArcBall;
 	SArcBall	m_ViewArcBall;

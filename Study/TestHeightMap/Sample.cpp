@@ -1,50 +1,50 @@
 #include "Sample.h"
-//Matrix* SD3DXMatrixShadow(Matrix *pout,
-//	Vector4 *plight,
-//	Vector4 *pplane)
-//{
-//	Vector4 Nplane;
-//	FLOAT dot;
-//	Nplane.Normalize();
-//	//D3DXPlaneNormalize(&Nplane, pplane);
-//	dot = Nplane.Dot(*plight);
-//	pout->m[0][0] = dot - Nplane.x * plight->x;
-//	pout->m[0][1] = -Nplane.x * plight->y;
-//	pout->m[0][2] = -Nplane.x * plight->z;
-//	pout->m[0][3] = -Nplane.x * plight->w;
-//	pout->m[1][0] = -Nplane.y * plight->x;
-//	pout->m[1][1] = dot - Nplane.y * plight->y;
-//	pout->m[1][2] = -Nplane.y * plight->z;
-//	pout->m[1][3] = -Nplane.y * plight->w;
-//	pout->m[2][0] = -Nplane.z * plight->x;
-//	pout->m[2][1] = -Nplane.z * plight->y;
-//	pout->m[2][2] = dot - Nplane.z * plight->z;
-//	pout->m[2][3] = -Nplane.z * plight->w;
-//	pout->m[3][0] = -Nplane.w * plight->x;
-//	pout->m[3][1] = -Nplane.w * plight->y;
-//	pout->m[3][2] = -Nplane.w * plight->z;
-//	pout->m[3][3] = dot - Nplane.w * plight->w;
-//	return pout;
-//}
-//Matrix Sample::CreateMatrixShadow(
-//	Vector4* pPlane,
-//	Vector4* pLight)
-//{
-//	Matrix mat;
-//	Vector4 plane, light;
-//	pPlane->Normalize();
-//	plane.x = pPlane->x * -1.0f;
-//	plane.y = pPlane->y * -1.0f;
-//	plane.z = pPlane->z * -1.0f;
-//	plane.w = pPlane->w * -1.0f;
-//	light = *pLight;// * -1.0f;
-//	float D = -(plane.Dot(light));
-//	mat._11 = plane.x * light.x + D;	mat._12 = plane.x * light.y;	mat._13 = plane.x * light.z;	mat._14 = plane.x * light.w;
-//	mat._21 = plane.y * light.x;	mat._22 = plane.y * light.y + D;	mat._23 = plane.y * light.z;	mat._24 = plane.y * light.w;
-//	mat._31 = plane.z * light.x;	mat._32 = plane.z * light.y;	mat._33 = plane.z * light.z + D;	mat._34 = plane.z * light.w;
-//	mat._41 = plane.w * light.x;	mat._42 = plane.w * light.y;	mat._43 = plane.w * light.z;	mat._44 = plane.w * light.w + D;
-//	return mat;
-//}
+Matrix* SD3DXMatrixShadow(Matrix *pout,
+	Vector4 *plight,
+	Vector4 *pplane)
+{
+	Vector4 Nplane;
+	FLOAT dot;
+	Nplane.Normalize();
+	//D3DXPlaneNormalize(&Nplane, pplane);
+	dot = Nplane.Dot(*plight);
+	pout->m[0][0] = dot - Nplane.x * plight->x;
+	pout->m[0][1] = -Nplane.x * plight->y;
+	pout->m[0][2] = -Nplane.x * plight->z;
+	pout->m[0][3] = -Nplane.x * plight->w;
+	pout->m[1][0] = -Nplane.y * plight->x;
+	pout->m[1][1] = dot - Nplane.y * plight->y;
+	pout->m[1][2] = -Nplane.y * plight->z;
+	pout->m[1][3] = -Nplane.y * plight->w;
+	pout->m[2][0] = -Nplane.z * plight->x;
+	pout->m[2][1] = -Nplane.z * plight->y;
+	pout->m[2][2] = dot - Nplane.z * plight->z;
+	pout->m[2][3] = -Nplane.z * plight->w;
+	pout->m[3][0] = -Nplane.w * plight->x;
+	pout->m[3][1] = -Nplane.w * plight->y;
+	pout->m[3][2] = -Nplane.w * plight->z;
+	pout->m[3][3] = dot - Nplane.w * plight->w;
+	return pout;
+}
+Matrix Sample::CreateMatrixShadow(
+	Vector4* pPlane,
+	Vector4* pLight)
+{
+	Matrix mat;
+	Vector4 plane, light;
+	pPlane->Normalize();
+	plane.x = pPlane->x * -1.0f;
+	plane.y = pPlane->y * -1.0f;
+	plane.z = pPlane->z * -1.0f;
+	plane.w = pPlane->w * -1.0f;
+	light = *pLight;// * -1.0f;
+	float D = -(plane.Dot(light));
+	mat._11 = plane.x * light.x + D;	mat._12 = plane.x * light.y;	mat._13 = plane.x * light.z;	mat._14 = plane.x * light.w;
+	mat._21 = plane.y * light.x;	mat._22 = plane.y * light.y + D;	mat._23 = plane.y * light.z;	mat._24 = plane.y * light.w;
+	mat._31 = plane.z * light.x;	mat._32 = plane.z * light.y;	mat._33 = plane.z * light.z + D;	mat._34 = plane.z * light.w;
+	mat._41 = plane.w * light.x;	mat._42 = plane.w * light.y;	mat._43 = plane.w * light.z;	mat._44 = plane.w * light.w + D;
+	return mat;
+}
 LRESULT	 Sample::MsgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	if (m_pMainCamera == nullptr) return -1;
@@ -54,7 +54,7 @@ LRESULT	 Sample::MsgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 bool Sample::Init()
 {
 	HRESULT hr;
-	m_Map.CreateHeightMap(m_pd3dDevice, m_pd3dContext,
+	m_Map.CreateHeightMap(g_pd3dDevice, g_pImmediateContext,
 		L"../../data/map/HEIGHT_CASTLE.bmp");
 
 	SMapDesc desc;
@@ -65,10 +65,10 @@ bool Sample::Init()
 	desc.szVS = L"VS.txt";
 	desc.szPS = L"PS.txt";
 
-	m_Map.CreateMap(m_pd3dDevice, m_pd3dContext, desc);
+	m_Map.CreateMap(g_pd3dDevice, g_pImmediateContext, desc);
 
 
-	m_MiniMap.Create(m_pd3dDevice, L"vs.txt", L"ps.txt",
+	m_MiniMap.Create(g_pd3dDevice, L"vs.txt", L"ps.txt",
 		L"../../data/tileA.jpg");
 
 	m_vDirValue = { 0,0,0,0 };
@@ -78,12 +78,12 @@ bool Sample::Init()
 	matRotation = Matrix::CreateRotationX(SBASIS_PI*0.5f);
 	m_matPlaneWorld = matScale * matRotation;
 
-	if (!m_BoxShape.Create(m_pd3dDevice, L"vs.txt", L"ps.txt",
+	if (!m_BoxShape.Create(g_pd3dDevice, L"vs.txt", L"ps.txt",
 		L"../../data/1KGCABK.bmp"))
 	{
 		return false;
 	}
-	if (!m_PlaneShape.Create(m_pd3dDevice, L"vs.txt", L"ps.txt",
+	if (!m_PlaneShape.Create(g_pd3dDevice, L"vs.txt", L"ps.txt",
 		L"../../data/tileA.jpg"))
 	{
 		return false;
@@ -93,7 +93,7 @@ bool Sample::Init()
 	float fAspect = g_rtClient.right / (float)g_rtClient.bottom;
 	m_ModelCamera.CreateProjMatrix(1, 1000, SBASIS_PI / 4.0f, fAspect);
 	m_ModelCamera.Init();
-	m_ModelCamera.CreateFrustum(m_pd3dDevice, m_pd3dContext);
+	m_ModelCamera.CreateFrustum(g_pd3dDevice, g_pImmediateContext);
 	m_pMainCamera = &m_ModelCamera;
 
 
@@ -109,22 +109,22 @@ bool Sample::Frame()
 	if (g_Input.GetKey('0') == KEY_PUSH)
 	{
 		SDxState::m_FillMode = D3D11_FILL_WIREFRAME;
-		SDxState::SetRasterizerState(m_pd3dDevice);
+		SDxState::SetRasterizerState(g_pd3dDevice);
 	}
 	if (g_Input.GetKey('9') == KEY_PUSH)
 	{
 		SDxState::m_FillMode = D3D11_FILL_SOLID;
-		SDxState::SetRasterizerState(m_pd3dDevice);
+		SDxState::SetRasterizerState(g_pd3dDevice);
 	}
 	if (g_Input.GetKey('8') == KEY_PUSH)
 	{
 		SDxState::m_CullMode = D3D11_CULL_BACK;
-		SDxState::SetRasterizerState(m_pd3dDevice);
+		SDxState::SetRasterizerState(g_pd3dDevice);
 	}
 	if (g_Input.GetKey('7') == KEY_PUSH)
 	{
 		SDxState::m_CullMode = D3D11_CULL_FRONT;
-		SDxState::SetRasterizerState(m_pd3dDevice);
+		SDxState::SetRasterizerState(g_pd3dDevice);
 	}
 
 	if (g_Input.GetKey('W') == KEY_HOLD)
@@ -154,15 +154,15 @@ bool Sample::Frame()
 	m_BoxShape.Frame();
 	m_pMainCamera->m_vCameraTarget = m_BoxShape.m_vPos;
 
-	m_pMainCamera->FrameFrustum(m_pd3dContext);
+	m_pMainCamera->FrameFrustum(g_pImmediateContext);
 	return true;
 }
 bool Sample::Render()
 {
-	m_pd3dContext->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	m_pd3dContext->RSSetState(SDxState::m_pRS);
-	m_pd3dContext->PSSetSamplers(0, 1, &SDxState::m_pWrapLinear);
-	m_pd3dContext->OMSetDepthStencilState(SDxState::m_pDSS, 0);
+	g_pImmediateContext->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	g_pImmediateContext->RSSetState(SDxState::m_pRS);
+	g_pImmediateContext->PSSetSamplers(0, 1, &SDxState::m_pWrapLinear);
+	g_pImmediateContext->OMSetDepthStencilState(SDxState::m_pDSS, 0);
 
 	// CULLING
 	std::vector<DWORD> visibleIB;
@@ -201,7 +201,7 @@ bool Sample::Render()
 	if (visibleIB.size() != 0)
 	{
 		m_Map.m_iNumFaces = visibleIB.size() / 3;
-		m_pd3dContext->UpdateSubresource(
+		g_pImmediateContext->UpdateSubresource(
 			m_Map.m_pIndexBuffer, 0, NULL, &visibleIB.at(0), 0, 0);
 	}
 	else
@@ -209,12 +209,12 @@ bool Sample::Render()
 		m_Map.m_iNumFaces = 0;
 	}
 
-	if (m_MiniMap.Begin(m_pd3dContext))
+	if (m_MiniMap.Begin(g_pImmediateContext))
 	{
 		m_Map.SetMatrix(NULL,
 			&m_TopCamera.m_matView,
 			&m_TopCamera.m_matProj);
-		m_Map.Render(m_pd3dContext);
+		m_Map.Render(g_pImmediateContext);
 
 		Matrix matWorld;
 		matWorld._41 = m_TopCamera.m_vCameraPos.x;
@@ -224,7 +224,7 @@ bool Sample::Render()
 		m_BoxShape.SetMatrix(&m_BoxShape.m_matWorld,
 			&m_TopCamera.m_matView,
 			&m_TopCamera.m_matProj);
-		m_BoxShape.Render(m_pd3dContext);
+		m_BoxShape.Render(g_pImmediateContext);
 
 		// ¹Ì´Ï¸Ê Á¤Áß¾Ó ¹èÄ¡
 		//Vector3 vPos = m_BoxShape.m_vPos- m_BoxShape.m_vLook;
@@ -233,26 +233,26 @@ bool Sample::Render()
 		//	vPos,
 		//	m_BoxShape.m_vPos);
 
-		/*m_pMainCamera->DrawFrustum(m_pd3dContext,
+		/*m_pMainCamera->DrawFrustum(g_pImmediateContext,
 			&m_TopCamera.m_matView,
 			&m_TopCamera.m_matProj);*/
 
-		m_MiniMap.End(m_pd3dContext);
+		m_MiniMap.End(g_pImmediateContext);
 	}
 
 	m_Map.SetMatrix(NULL,
 		&m_pMainCamera->m_matView,
 		&m_pMainCamera->m_matProj);
-	m_Map.Render(m_pd3dContext);
+	m_Map.Render(g_pImmediateContext);
 
 	m_BoxShape.SetMatrix(&m_BoxShape.m_matWorld,
 		&m_pMainCamera->m_matView,
 		&m_pMainCamera->m_matProj);
-	m_BoxShape.Render(m_pd3dContext);
+	m_BoxShape.Render(g_pImmediateContext);
 	m_MiniMap.SetMatrix(NULL,
 		NULL, //&m_pMainCamera->m_matView,
 		NULL); //&m_pMainCamera->m_matProj);
-	m_MiniMap.Render(m_pd3dContext);
+	m_MiniMap.Render(g_pImmediateContext);
 
 	return true;
 }

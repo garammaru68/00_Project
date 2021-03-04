@@ -1,10 +1,12 @@
 #pragma once
 #include "SStd.h"
 #include "SShape.h"
+#include "SFrustum.h"
 
 class SCamera
 {
 public:
+	SFrustum	m_Frustum;
 	float		m_pSpeed;
 	Vector3		m_vCameraPos = { 10,0,-10 };
 	Vector3		m_vCameraTarget = { 0,0,0 };
