@@ -1,23 +1,21 @@
 #pragma once
 #include "SCore.h"
-#include "SObject.h"
-#include "SHeightMap.h"
-#include "SModelViewCamera.h"
-
+#include "SMap.h"
+#include "SQuadtree.h"
+class SHeighSMap :public SMap
+{
+public:
+	float   GetHeightOfVertex(UINT index) override;
+	bool	CreateHeighSMap(ID3D11Device* pDevice,
+		ID3D11DeviceContext* pContext, const TCHAR* pszFileName);
+};
 class Sample : public SCore
 {
 public:
-	SHeightMap			m_Map;
-	SModelViewCamera	m_MainCamera;
+	SHeighSMap  m_Map;
+	SQuadtree	m_Quadtree;
 public:
-	Matrix				m_matPlaneWorld;
-public:
-	bool Init();
-	bool Frame();
-	bool Render();
-	bool Release();
-	
-
+	bool	Init();
+	bool    Render();
 };
-
 SGAME_RUN;

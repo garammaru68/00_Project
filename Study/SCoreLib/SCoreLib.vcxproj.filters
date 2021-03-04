@@ -37,6 +37,9 @@
     <Filter Include="map">
       <UniqueIdentifier>{8b753cc0-7b1a-4f1f-8f3d-67fce53a90ad}</UniqueIdentifier>
     </Filter>
+    <Filter Include="shader">
+      <UniqueIdentifier>{24b284fd-5da3-4348-8e49-a5b2ca34f445}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SStd.h">
@@ -334,5 +337,13 @@
     <None Include="SimpleMath.inl">
       <Filter>math</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\data\shader\PS.txt">
+      <Filter>shader</Filter>
+    </Text>
+    <Text Include="..\..\data\shader\VS.txt">
+      <Filter>shader</Filter>
+    </Text>
   </ItemGroup>
 </Project>

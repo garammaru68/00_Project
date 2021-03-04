@@ -1,5 +1,15 @@
 #pragma once
-class Sample
-{
-};
+#include "SCore.h"
+#include "SHeightMap.h"
+#include "SQuadTree.h"
 
+class Sample : public SCore
+{
+public:
+	SHeightMap	m_Map;
+	SQuadTree	m_QuadTree;
+public:
+	bool Init();
+	bool Render();
+};
+SGAME_RUN;

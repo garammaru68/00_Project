@@ -1,4 +1,5 @@
 #include "SHeightMap.h"
+
 bool SHeightMap::CreateHeightMap(ID3D11Device* pDevice,
 	ID3D11DeviceContext* pContext, const TCHAR* pszFileName)
 {
@@ -59,6 +60,5 @@ bool SHeightMap::CreateHeightMap(ID3D11Device* pDevice,
 }
 float   SHeightMap::GetHeightOfVertex(UINT index)
 {
-	//return 0;
 	return m_fHeightList[index] / m_MapDesc.fScaleHeight;
 }

@@ -1,22 +1,22 @@
 #pragma once
+#include "SNode.h"
 #include "SMap.h"
-struct SNode
-{
-	DWORD					m_dwDepth;
-	BOOL					m_blLeaf;
-	UINT					m_iCornerIndex[4];
-	SNode*					m_pChild[4];
-	vector<DWORD>			m_IndexList;
-	ComPtr<ID3D11Buffer>	m_pIndexBuffer;
-};
+
 class SQuadTree
 {
-	SNode* m_pRootNode;
-	vector<SNode*>	m_leafList;
-	vector<SNode*>	m_visibleList;
 public:
-	SMap* m_pMap;
-	SNode* CreateNode(SNode* pParentNode, UINT TopLeft, UINT TopRight, UINT BottomLeft, UINT BottomRight);
-	bool DivideNode(SNode* pNode);
+	SMap*			m_pMap;
+	SNode*			m_pRootNode;
+	vector<SNode*>	m_leafList;
+public:
+	SNode*	CreateNode(SNode* pParentNode, UINT TopLeft, UINT TopRight, UINT BottomLeft, UINT BottomRight);
+	bool	BuildTree();
+	bool	CreateQuadtree(SMap* pMap);
+	bool	DivideNode(SNode* pNode);
+	bool    BuildQuadTree(SNode* pNode);
+
+	bool    Render(ID3D11DeviceContext* pd3dContext);
+	void    Draw(SNode* pNode, ID3D11DeviceContext* pd3dContext);
+
 };
 
