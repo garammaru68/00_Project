@@ -192,7 +192,7 @@ bool  SObject::Load(const TCHAR* color, const TCHAR* mask, DWORD dwColor)
 	//	if (m_pColorBmp != nullptr)
 	//	{
 	//		Set({ 0, 0,
-	//			m_pColorBmp->m_BitmapInfo.bmWidth,
+	//			m_pColorBmp->m_Bit	mapInfo.bmWidth,
 	//			m_pColorBmp->m_BitmapInfo.bmHeight },
 	//			{ 0,0,
 	//			m_pColorBmp->m_BitmapInfo.bmWidth,

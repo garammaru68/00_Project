@@ -175,7 +175,6 @@ HRESULT SDevice::SetDepthStencilView()
 		&dsvDesc,
 		m_pDSV.GetAddressOf());
 
-	if (pTexture)pTexture->Release();
 	if (FAILED(hr))
 	{
 		return false;
@@ -235,7 +234,7 @@ bool SDevice::Frame()
 }
 bool SDevice::PreRender()
 {
-	if (m_pImmediateContext.GetAddressOf())
+	if (m_pImmediateContext.Get())
 	{
 		m_pImmediateContext->RSSetViewports(1, &m_ViewPort);
 		m_pImmediateContext->OMSetRenderTargets(1, m_pRenderTargetView.GetAddressOf(), m_pDSV.Get());

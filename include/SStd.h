@@ -45,10 +45,8 @@ namespace SBASIS_CORE_LIB
 	extern bool					g_bActive;
 }
 
-/////////////////////////////////////////  반환하지 않는다. ////////////////////////////////////////////////////////
 #if defined(DEBUG) | defined(_DEBUG) 
 #ifndef H
-//주의사항:매크로 함수안에서 매크로 함수(x가 함수로 해석)를 중복 실행 되지 않게 x=DX메소드만 사용해야 한다.
 #define H(x){ hr = (x);if (FAILED(hr)){\
 							LPWSTR output;\
 							WCHAR buffer[256]={0,};\
@@ -64,10 +62,8 @@ namespace SBASIS_CORE_LIB
 #endif
 #endif
 
-/////////////////////////////////////////  실폐의 경우만 반환한다 ////////////////////////////////////////////////////////
 #if defined(DEBUG) | defined(_DEBUG) 
 #ifndef H_RETURN
-//주의사항:hr = (x); 이 있어야 매크로 함수안에서 매크로 함수(x가 함수로 해석)를 중복 실행하지 않는다.
 #define H_RETURN(x){  hr = (x); if (FAILED(hr)){\
 							LPWSTR output;\
 							WCHAR buffer[256]={0,};\
@@ -81,10 +77,8 @@ namespace SBASIS_CORE_LIB
 #define H_RETURN(x){ hr = (x); if( FAILED(hr) ) { return hr; }}
 #endif
 
-/////////////////////////////////////////  무조건 반환한다 ////////////////////////////////////////////////////////
 #if defined(DEBUG) | defined(_DEBUG) 
 #ifndef U_RETURN
-//주의사항:hr = (x); 이 있어야 매크로 함수안에서 매크로 함수(x가 함수로 해석)를 중복 실행하지 않는다.
 #define U_RETURN(x){  hr = (x);if (FAILED(hr)){\
 							LPWSTR output;\
 							WCHAR buffer[256]={0,};\
@@ -110,9 +104,6 @@ namespace SBASIS_CORE_LIB
 #define T_RETURN(x,ret){ hr = (x); if( FAILED(hr) ) { return ret; } }
 #endif
 
-//////////////////////////////////////////////
-// 객체 및 배열 할당과 삭제 및 소멸 매크로
-//////////////////////////////////////////////
 #ifndef SAFE_ZERO
 #define SAFE_ZERO(A)				{ A = 0; }
 #endif

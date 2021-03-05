@@ -46,3 +46,10 @@ bool Sample::Render()
 
 	return true;
 }
+bool Sample::Release()
+{
+	m_Map.Release();
+	m_QuadTree.Release();
+
+	return true;
+}

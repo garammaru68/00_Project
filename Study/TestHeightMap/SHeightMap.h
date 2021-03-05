@@ -3,7 +3,7 @@
 class SHeightMap :public SMap
 {
 public:
-	float   GetHeightOfVertex(UINT index) override;
+	float   GetHeight(UINT index) override;
 	bool	CreateHeightMap(ID3D11Device* pDevice,
 		ID3D11DeviceContext* pContext, const TCHAR* pszFileName);
 };

@@ -1,5 +1,6 @@
 #pragma once
 #include "SCamera.h"
+
 class SArcBall
 {
 public:
@@ -24,6 +25,9 @@ public:
 };
 class SModelViewCamera : public SCamera
 {
+public:
+	//Matrix    m_matWorld;
+
 public:
 	SArcBall	m_WorldArcBall;
 	SArcBall	m_ViewArcBall;

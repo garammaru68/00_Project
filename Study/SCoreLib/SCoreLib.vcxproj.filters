@@ -186,17 +186,20 @@
     <ClInclude Include="SDxRT.h">
       <Filter>map</Filter>
     </ClInclude>
-    <ClInclude Include="SFrustum.h">
-      <Filter>map</Filter>
-    </ClInclude>
     <ClInclude Include="SMiniMap.h">
-      <Filter>map</Filter>
-    </ClInclude>
-    <ClInclude Include="SModelViewCamera.h">
       <Filter>map</Filter>
     </ClInclude>
     <ClInclude Include="dxtk\pch.h">
       <Filter>dxtk</Filter>
+    </ClInclude>
+    <ClInclude Include="SModelViewCamera.h">
+      <Filter>Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="SFrustum.h">
+      <Filter>Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="SHeightMap.h">
+      <Filter>map</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -320,17 +323,20 @@
     <ClCompile Include="SDxRT.cpp">
       <Filter>map</Filter>
     </ClCompile>
-    <ClCompile Include="SFrustum.cpp">
-      <Filter>map</Filter>
-    </ClCompile>
     <ClCompile Include="SMiniMap.cpp">
-      <Filter>map</Filter>
-    </ClCompile>
-    <ClCompile Include="SModelViewCamera.cpp">
       <Filter>map</Filter>
     </ClCompile>
     <ClCompile Include="dxtk\WICTextureLoader.cpp">
       <Filter>dxtk</Filter>
+    </ClCompile>
+    <ClCompile Include="SModelViewCamera.cpp">
+      <Filter>Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="SFrustum.cpp">
+      <Filter>Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="SHeightMap.cpp">
+      <Filter>map</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

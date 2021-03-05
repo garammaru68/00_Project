@@ -11,5 +11,6 @@ public:
 public:
 	bool Init();
 	bool Render();
+	bool Release();
 };
 SGAME_RUN;

@@ -93,6 +93,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "My", "My", "{6EB94D10-E5D6-4924-A4EB-4EC957A2537E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DX", "DX", "{3D96494E-817C-4CEE-9DB2-0769F15DE7A7}"
+	ProjectSection(SolutionItems) = preProject
+		필기.txt = 필기.txt
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestCamera", "TestCamera\TestCamera.vcxproj", "{FB857D15-7965-4870-AAF3-F6562E24BAD0}"
 EndProject
@@ -125,6 +128,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DirectXTK_Desktop_2017", "..\DirectXTK-master\DirectXTK_Desktop_2017.vcxproj", "{E0B52AE7-E160-4D32-BF3F-910B785E5A8E}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TchQuadTree", "TchQuadTree\TchQuadTree.vcxproj", "{B09D7FCB-64FF-48A9-8B3D-02E83910E230}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestMousePicking", "TestMousePicking\TestMousePicking.vcxproj", "{950EC36E-ECDA-42C8-8DA0-F0194DE14BB1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -486,6 +491,14 @@ Global
 		{B09D7FCB-64FF-48A9-8B3D-02E83910E230}.Release|x64.Build.0 = Release|x64
 		{B09D7FCB-64FF-48A9-8B3D-02E83910E230}.Release|x86.ActiveCfg = Release|Win32
 		{B09D7FCB-64FF-48A9-8B3D-02E83910E230}.Release|x86.Build.0 = Release|Win32
+		{950EC36E-ECDA-42C8-8DA0-F0194DE14BB1}.Debug|x64.ActiveCfg = Debug|x64
+		{950EC36E-ECDA-42C8-8DA0-F0194DE14BB1}.Debug|x64.Build.0 = Debug|x64
+		{950EC36E-ECDA-42C8-8DA0-F0194DE14BB1}.Debug|x86.ActiveCfg = Debug|Win32
+		{950EC36E-ECDA-42C8-8DA0-F0194DE14BB1}.Debug|x86.Build.0 = Debug|Win32
+		{950EC36E-ECDA-42C8-8DA0-F0194DE14BB1}.Release|x64.ActiveCfg = Release|x64
+		{950EC36E-ECDA-42C8-8DA0-F0194DE14BB1}.Release|x64.Build.0 = Release|x64
+		{950EC36E-ECDA-42C8-8DA0-F0194DE14BB1}.Release|x86.ActiveCfg = Release|Win32
+		{950EC36E-ECDA-42C8-8DA0-F0194DE14BB1}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -541,6 +554,7 @@ Global
 		{5B13EE5C-8575-4541-8FB3-5966284EBC39} = {3D96494E-817C-4CEE-9DB2-0769F15DE7A7}
 		{9411B7E2-9A45-4F2B-9D4E-F5F3BCD52E5A} = {3D96494E-817C-4CEE-9DB2-0769F15DE7A7}
 		{B09D7FCB-64FF-48A9-8B3D-02E83910E230} = {3D96494E-817C-4CEE-9DB2-0769F15DE7A7}
+		{950EC36E-ECDA-42C8-8DA0-F0194DE14BB1} = {3D96494E-817C-4CEE-9DB2-0769F15DE7A7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		VisualSVNWorkingCopyRoot = .

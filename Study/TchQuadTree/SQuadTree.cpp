@@ -1,8 +1,7 @@
 #include "SQuadTree.h"
 SNode* SQuadTree::CreateNode(SNode* pParenSNode, UINT TopLeft, UINT TopRight, UINT BottomLeft, UINT BottomRight)
 {
-	SNode* pNode = 0;
-	SAFE_NEW(pNode, SNode);
+	SNode* pNode = new SNode;
 	if (pParenSNode != nullptr)
 	{
 		pNode->m_dwDepth = pParenSNode->m_dwDepth + 1;
@@ -17,7 +16,7 @@ SNode* SQuadTree::CreateNode(SNode* pParenSNode, UINT TopLeft, UINT TopRight, UI
 	DWORD dwBottomLeft	= pNode->m_iCornerIndex[2];
 	DWORD dwBottomRight = pNode->m_iCornerIndex[3];
 
-	DWORD dwSize = (dwTopRight - dwTopLeft) * (dwTopRight - dwTopLeft);
+	DWORD dwSize = (dwTopRight - dwTopLeft) * (dwTopRight - dwTopLeft) * 2 *3;
 	pNode->m_vIndexList.resize(dwSize);
 
 	int iCurrentIndex = 0;
@@ -154,4 +153,9 @@ void   SQuadTree::Draw(SNode* pNode,
 	Draw(pNode->m_pChild[1], pd3dContext);
 	Draw(pNode->m_pChild[2], pd3dContext);
 	Draw(pNode->m_pChild[3], pd3dContext);
+}
+bool SQuadTree::Release()
+{
+	delete m_pRootNode;
+	return true;
 }

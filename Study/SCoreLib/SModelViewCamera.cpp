@@ -135,13 +135,13 @@ bool SModelViewCamera::Frame()
 {
 	//VIEW
 	m_fDistance += m_fWheelDelta;
-	Matrix maSCameraRotation;
-	maSCameraRotation = m_ViewArcBall.GetRotationMatrix();
+	Matrix matCameraRotation;
+	matCameraRotation = m_ViewArcBall.GetRotationMatrix();
 	Vector3 vLocalUp = { 0,1,0 };
 	Vector3 vLocalLook = { 0,0,1 };
 	// TODO V*M
-	vLocalUp = Vector3::Transform(vLocalUp, maSCameraRotation);
-	vLocalLook = Vector3::Transform(vLocalLook, maSCameraRotation);
+	vLocalUp = Vector3::Transform(vLocalUp, matCameraRotation);
+	vLocalLook = Vector3::Transform(vLocalLook, matCameraRotation);
 	vLocalLook.Normalize();
 	vLocalUp.Normalize();
 

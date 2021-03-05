@@ -56,7 +56,8 @@ bool SCore::GameInit()
 	m_Camera.Init();
 	m_pMainCamera = &m_Camera;
 
-	if (!m_LineShape.Create(g_pd3dDevice, L"vs.txt", L"ps.txt",
+	if (!m_LineShape.Create(g_pd3dDevice, L"../../data/shader/vs.txt",
+		L"../../data/shader/ps.txt",
 		L"../../data/tileA.jpg"))
 	{
 		return false;

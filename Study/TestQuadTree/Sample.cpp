@@ -1,5 +1,5 @@
 #include "Sample.h"
-bool SHeighSMap::CreateHeighSMap(ID3D11Device* pDevice,
+bool SHeightMap::CreateHeightMap(ID3D11Device* pDevice,
 	ID3D11DeviceContext* pContext, const TCHAR* pszFileName)
 {
 	HRESULT hr;
@@ -57,7 +57,7 @@ bool SHeighSMap::CreateHeighSMap(ID3D11Device* pDevice,
 	pTexture->Release();
 	return true;
 }
-float   SHeighSMap::GetHeightOfVertex(UINT index)
+float   SHeightMap::GetHeight(UINT index)
 {
 	//return 0;
 	return m_fHeightList[index] / m_MapDesc.fScaleHeight;
@@ -66,8 +66,8 @@ bool Sample::Init()
 {
 	m_Camera.CreateViewMatrix({ 0,300,-300 }, { 0,0,0 });
 
-	m_Map.CreateHeighSMap(g_pd3dDevice, g_pImmediateContext,
-		L"../../data/map/heighSMap513.bmp");
+	m_Map.CreateHeightMap(g_pd3dDevice, g_pImmediateContext,
+		L"../../data/map/heightMap513.bmp");
 
 	SMapDesc desc;
 	desc.iNumCols = m_Map.m_iNumCols;

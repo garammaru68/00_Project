@@ -58,7 +58,7 @@ bool SHeightMap::CreateHeightMap(ID3D11Device* pDevice,
 	pTexture->Release();
 	return true;
 }
-float   SHeightMap::GetHeightOfVertex(UINT index)
+float   SHeightMap::GetHeight(UINT index)
 {
 	return m_fHeightList[index] / m_MapDesc.fScaleHeight;
 }
