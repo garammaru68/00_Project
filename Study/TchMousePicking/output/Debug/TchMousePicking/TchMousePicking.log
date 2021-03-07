@@ -1,32 +1,8 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(376,5): warning MSB8004: Intermediate 디렉터리가 슬래시로 끝나지 않습니다. Intermediate 디렉터리의 적절한 평가를 허용하는 데 필요하므로 이 빌드 인스턴스에서 슬래시를 추가합니다.
 C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(391,5): warning MSB8028: 중간 디렉터리(.../../output/Debug/TchMousePicking\)에 다른 프로젝트(*.vcxproj)에서 공유하는 파일이 포함되어 있습니다.  이로 인해 잘못된 정리 및 다시 빌드 동작이 수행될 수 있습니다.
-  Sample.cpp
   SQuadtree.cpp
-g:\00_project\study\tchmousepicking\squadtree.cpp(112): warning C4267: '인수': 'size_t'에서 'UINT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-g:\00_project\study\tchmousepicking\squadtree.cpp(148): warning C4267: '인수': 'size_t'에서 'UINT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+g:\00_project\study\tchmousepicking\squadtree.cpp(110): warning C4267: '인수': 'size_t'에서 'UINT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+g:\00_project\study\tchmousepicking\squadtree.cpp(146): warning C4267: '인수': 'size_t'에서 'UINT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  Sample.cpp
   코드를 생성하고 있습니다...
-SCoreLib_D.lib(DDSTextureLoader.obj) : warning LNK4099: 'SCoreLib.pdb' PDB를 'SCoreLib_D.lib(DDSTextureLoader.obj)' 또는 'G:\00_Project\Study\TchMousePicking\output\Debug\SCoreLib.pdb'에서 찾을 수 없습니다. 디버그 정보가 없는 것처럼 개체를 링크합니다.
-SCoreLib_D.lib(WICTextureLoader.obj) : warning LNK4099: 'SCoreLib.pdb' PDB를 'SCoreLib_D.lib(WICTextureLoader.obj)' 또는 'G:\00_Project\Study\TchMousePicking\output\Debug\SCoreLib.pdb'에서 찾을 수 없습니다. 디버그 정보가 없는 것처럼 개체를 링크합니다.
-SCoreLib_D.lib(SCamera.obj) : warning LNK4099: 'SCoreLib.pdb' PDB를 'SCoreLib_D.lib(SCamera.obj)' 또는 'G:\00_Project\Study\TchMousePicking\output\Debug\SCoreLib.pdb'에서 찾을 수 없습니다. 디버그 정보가 없는 것처럼 개체를 링크합니다.
-SCoreLib_D.lib(SCollision.obj) : warning LNK4099: 'SCoreLib.pdb' PDB를 'SCoreLib_D.lib(SCollision.obj)' 또는 'G:\00_Project\Study\TchMousePicking\output\Debug\SCoreLib.pdb'에서 찾을 수 없습니다. 디버그 정보가 없는 것처럼 개체를 링크합니다.
-SCoreLib_D.lib(SCore.obj) : warning LNK4099: 'SCoreLib.pdb' PDB를 'SCoreLib_D.lib(SCore.obj)' 또는 'G:\00_Project\Study\TchMousePicking\output\Debug\SCoreLib.pdb'에서 찾을 수 없습니다. 디버그 정보가 없는 것처럼 개체를 링크합니다.
-SCoreLib_D.lib(SDebugCamera.obj) : warning LNK4099: 'SCoreLib.pdb' PDB를 'SCoreLib_D.lib(SDebugCamera.obj)' 또는 'G:\00_Project\Study\TchMousePicking\output\Debug\SCoreLib.pdb'에서 찾을 수 없습니다. 디버그 정보가 없는 것처럼 개체를 링크합니다.
-SCoreLib_D.lib(SDevice.obj) : warning LNK4099: 'SCoreLib.pdb' PDB를 'SCoreLib_D.lib(SDevice.obj)' 또는 'G:\00_Project\Study\TchMousePicking\output\Debug\SCoreLib.pdb'에서 찾을 수 없습니다. 디버그 정보가 없는 것처럼 개체를 링크합니다.
-SCoreLib_D.lib(SDxObject.obj) : warning LNK4099: 'SCoreLib.pdb' PDB를 'SCoreLib_D.lib(SDxObject.obj)' 또는 'G:\00_Project\Study\TchMousePicking\output\Debug\SCoreLib.pdb'에서 찾을 수 없습니다. 디버그 정보가 없는 것처럼 개체를 링크합니다.
-SCoreLib_D.lib(SDxState.obj) : warning LNK4099: 'SCoreLib.pdb' PDB를 'SCoreLib_D.lib(SDxState.obj)' 또는 'G:\00_Project\Study\TchMousePicking\output\Debug\SCoreLib.pdb'에서 찾을 수 없습니다. 디버그 정보가 없는 것처럼 개체를 링크합니다.
-SCoreLib_D.lib(SEffect.obj) : warning LNK4099: 'SCoreLib.pdb' PDB를 'SCoreLib_D.lib(SEffect.obj)' 또는 'G:\00_Project\Study\TchMousePicking\output\Debug\SCoreLib.pdb'에서 찾을 수 없습니다. 디버그 정보가 없는 것처럼 개체를 링크합니다.
-SCoreLib_D.lib(SFrustum.obj) : warning LNK4099: 'SCoreLib.pdb' PDB를 'SCoreLib_D.lib(SFrustum.obj)' 또는 'G:\00_Project\Study\TchMousePicking\output\Debug\SCoreLib.pdb'에서 찾을 수 없습니다. 디버그 정보가 없는 것처럼 개체를 링크합니다.
-SCoreLib_D.lib(SimpleMath.obj) : warning LNK4099: 'SCoreLib.pdb' PDB를 'SCoreLib_D.lib(SimpleMath.obj)' 또는 'G:\00_Project\Study\TchMousePicking\output\Debug\SCoreLib.pdb'에서 찾을 수 없습니다. 디버그 정보가 없는 것처럼 개체를 링크합니다.
-SCoreLib_D.lib(SInput.obj) : warning LNK4099: 'SCoreLib.pdb' PDB를 'SCoreLib_D.lib(SInput.obj)' 또는 'G:\00_Project\Study\TchMousePicking\output\Debug\SCoreLib.pdb'에서 찾을 수 없습니다. 디버그 정보가 없는 것처럼 개체를 링크합니다.
-SCoreLib_D.lib(SMap.obj) : warning LNK4099: 'SCoreLib.pdb' PDB를 'SCoreLib_D.lib(SMap.obj)' 또는 'G:\00_Project\Study\TchMousePicking\output\Debug\SCoreLib.pdb'에서 찾을 수 없습니다. 디버그 정보가 없는 것처럼 개체를 링크합니다.
-SCoreLib_D.lib(SObject.obj) : warning LNK4099: 'SCoreLib.pdb' PDB를 'SCoreLib_D.lib(SObject.obj)' 또는 'G:\00_Project\Study\TchMousePicking\output\Debug\SCoreLib.pdb'에서 찾을 수 없습니다. 디버그 정보가 없는 것처럼 개체를 링크합니다.
-SCoreLib_D.lib(SObjectManager.obj) : warning LNK4099: 'SCoreLib.pdb' PDB를 'SCoreLib_D.lib(SObjectManager.obj)' 또는 'G:\00_Project\Study\TchMousePicking\output\Debug\SCoreLib.pdb'에서 찾을 수 없습니다. 디버그 정보가 없는 것처럼 개체를 링크합니다.
-SCoreLib_D.lib(SShape.obj) : warning LNK4099: 'SCoreLib.pdb' PDB를 'SCoreLib_D.lib(SShape.obj)' 또는 'G:\00_Project\Study\TchMousePicking\output\Debug\SCoreLib.pdb'에서 찾을 수 없습니다. 디버그 정보가 없는 것처럼 개체를 링크합니다.
-SCoreLib_D.lib(SSound.obj) : warning LNK4099: 'SCoreLib.pdb' PDB를 'SCoreLib_D.lib(SSound.obj)' 또는 'G:\00_Project\Study\TchMousePicking\output\Debug\SCoreLib.pdb'에서 찾을 수 없습니다. 디버그 정보가 없는 것처럼 개체를 링크합니다.
-SCoreLib_D.lib(SSoundManager.obj) : warning LNK4099: 'SCoreLib.pdb' PDB를 'SCoreLib_D.lib(SSoundManager.obj)' 또는 'G:\00_Project\Study\TchMousePicking\output\Debug\SCoreLib.pdb'에서 찾을 수 없습니다. 디버그 정보가 없는 것처럼 개체를 링크합니다.
-SCoreLib_D.lib(STexture.obj) : warning LNK4099: 'SCoreLib.pdb' PDB를 'SCoreLib_D.lib(STexture.obj)' 또는 'G:\00_Project\Study\TchMousePicking\output\Debug\SCoreLib.pdb'에서 찾을 수 없습니다. 디버그 정보가 없는 것처럼 개체를 링크합니다.
-SCoreLib_D.lib(STextureManager.obj) : warning LNK4099: 'SCoreLib.pdb' PDB를 'SCoreLib_D.lib(STextureManager.obj)' 또는 'G:\00_Project\Study\TchMousePicking\output\Debug\SCoreLib.pdb'에서 찾을 수 없습니다. 디버그 정보가 없는 것처럼 개체를 링크합니다.
-SCoreLib_D.lib(STimer.obj) : warning LNK4099: 'SCoreLib.pdb' PDB를 'SCoreLib_D.lib(STimer.obj)' 또는 'G:\00_Project\Study\TchMousePicking\output\Debug\SCoreLib.pdb'에서 찾을 수 없습니다. 디버그 정보가 없는 것처럼 개체를 링크합니다.
-SCoreLib_D.lib(SWindow.obj) : warning LNK4099: 'SCoreLib.pdb' PDB를 'SCoreLib_D.lib(SWindow.obj)' 또는 'G:\00_Project\Study\TchMousePicking\output\Debug\SCoreLib.pdb'에서 찾을 수 없습니다. 디버그 정보가 없는 것처럼 개체를 링크합니다.
-SCoreLib_D.lib(SWrite.obj) : warning LNK4099: 'SCoreLib.pdb' PDB를 'SCoreLib_D.lib(SWrite.obj)' 또는 'G:\00_Project\Study\TchMousePicking\output\Debug\SCoreLib.pdb'에서 찾을 수 없습니다. 디버그 정보가 없는 것처럼 개체를 링크합니다.
   TchMousePicking.vcxproj -> G:\00_Project\Study\TchMousePicking\.../../output/Debug/TchMousePicking.exe

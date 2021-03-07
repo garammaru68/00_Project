@@ -44,7 +44,7 @@ bool SHeightMap::CreateHeightMap(ID3D11Device* pDevice,
 				{
 					UINT colStart = col * 4;
 					UINT uRed = pTexels[rowStart + colStart + 0];
-					m_fHeightList[row * desc.Width + col] = uRed;	/// DWORD이므로 pitch/4	
+					m_fHeightList[row * desc.Width + col] = uRed;
 				}
 			}
 			pContext->Unmap(pTexture2D, D3D11CalcSubresource(0, 0, 1));
@@ -67,7 +67,6 @@ bool Sample::Init()
 	m_Camera.CreateViewMatrix({ 0,10,-1 }, { 0,0,0 });
 
 	m_Map.CreateHeightMap(g_pd3dDevice, g_pImmediateContext,
-		//L"../../data/map/heightMap513.bmp");
 		L"../../data/map/129.jpg");
 
 	SMapDesc desc;
@@ -102,7 +101,6 @@ bool    Sample::GetIntersection(
 	m_vIntersection = vStart + vDirection * fT;
 	return true;
 }
-// 폴리곤안에 위치하는지 판단한다.
 bool    Sample::PointInPolygon(
 	Vector3 vert,
 	Vector3 faceNormal,
@@ -111,11 +109,6 @@ bool    Sample::PointInPolygon(
 	Vector3 v2)
 {
 	Vector3 e0, e1, iInter, vNormal;
-	// v0    v1
-	//       v
-	// v2    v3
-	//
-	//     v
 
 	e0 = v2 - v1;
 	e1 = v0 - v1;
@@ -130,11 +123,6 @@ bool    Sample::PointInPolygon(
 	fDot = faceNormal.Dot(vNormal);
 	if (fDot < 0.0f) return false;
 
-	//     v1
-	//     v
-	// v0      v2
-	//
-	//     v
 	e0 = v0 - v2;
 	e1 = v1 - v2;
 	iInter = vert - v2;
@@ -154,7 +142,6 @@ bool Sample::Frame()
 {
 	if (g_Input.GetKey(VK_RBUTTON) == KEY_PUSH)
 	{
-		// ray
 		POINT cursor;
 		GetCursorPos(&cursor);
 		ScreenToClient(g_hWnd, &cursor);
@@ -173,7 +160,6 @@ bool Sample::Frame()
 		vRayDir = Vector3::TransformNormal(vRayDir, matInvView);
 		vRayDir.Normalize();
 
-		// face list
 		Vector3 v0, v1, v2;
 		for (int iFace = 0;
 			iFace < m_Map.m_IndexList.size() / 3;
@@ -221,7 +207,6 @@ bool Sample::Render()
 	m_Map.SetMatrix(NULL,
 		&m_pMainCamera->m_matView,
 		&m_pMainCamera->m_matProj);
-	//m_Map.Render(g_pImmediateContext);
 	m_Quadtree.Render(g_pImmediateContext);
 
 	m_LineShape.SetMatrix(NULL, &m_pMainCamera->m_matView,

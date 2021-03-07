@@ -2,13 +2,11 @@
 bool   SQuadtree::CreateQuadtree(SMap* pMap)
 {
 	m_pMap = pMap;
-	//1)  맵 인덱스데이터 통해서 공간분할
 	BuildTree();
 	return true;
 }
 bool SQuadtree::BuildTree()
 {
-	// 1)루트노드  TNode
 	UINT tr, tl, br, bl;
 	tr = 0;
 	tl = m_pMap->m_iNumCols - 1;
@@ -39,14 +37,8 @@ bool   SQuadtree::SpliteChild(SNode* pNode)
 	m_leafList.push_back(pNode);
 	return false;
 }
-// 0  1  e0  3  4
-// 5  6  7  8   9 
-// e1 11 e2 13 e3
-// 15 16 17 18 19 
-// 20 21 e4 23 24
 bool   SQuadtree::BuildQuadtree(SNode* pNode)
 {
-	// 분할가능하면
 	if (SpliteChild(pNode))
 	{
 		float fWidthSplit = (pNode->iEdgeIndex[1] - pNode->iEdgeIndex[0]) / 2;
@@ -96,13 +88,10 @@ SNode*  SQuadtree::CreateNode(SNode* pParentNode, UINT tl, UINT tr, UINT bl, UIN
 
 	DWORD dwStartCol = dwTL % m_dwWidth;
 	DWORD dwEndCol = dwTR % m_dwWidth;
-	//  0      
 	for (DWORD dwRow = dwStartRow; dwRow < dwEndRow; dwRow++)
 	{
 		for (DWORD dwCol = dwStartCol; dwCol < dwEndCol; dwCol++)
 		{
-			//0	1    4   
-			//2	   3 5
 			DWORD dwNextRow = dwRow + 1;
 			DWORD dwNextCol = dwCol + 1;
 			pNode->m_IndexList[dwCurentIndex++] = dwRow * m_dwWidth + dwCol;
@@ -155,7 +144,6 @@ void   SQuadtree::Draw(SNode* pNode,
 				&m_pMap->m_pTexture->m_pTextureSRV);
 		}
 		pd3dContext->DrawIndexed(pNode->m_IndexList.size(), 0, 0);
-		//pd3dContext->DrawIndexed(m_pMap->m_IndexList.size(), 0, 0);
 		return;
 	}
 	Draw(pNode->pChild[0], pd3dContext);
