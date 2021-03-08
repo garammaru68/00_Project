@@ -158,6 +158,10 @@
     <ClInclude Include="SNode.h" />
     <ClInclude Include="SQuadTree.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="PS.txt" />
+    <Text Include="VS.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
