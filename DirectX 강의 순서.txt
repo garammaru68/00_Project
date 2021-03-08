@@ -56,3 +56,5 @@
 	제 101강 SLOD(Static LOD) -2-	All				311p
 29일차 -	제 102강 BSP(Binary Space Partition)	All				327p
 	제 103강 Mouse Picking	All					353p
+30일차 -	제 104강 Collision Dectection -1-	1.충돌처리 ~ <반직선> 		366p ~ 369p
+		(AABB 제외)		<반직선(Ray)과 OBB>		373p

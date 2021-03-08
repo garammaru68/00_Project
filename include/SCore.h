@@ -3,7 +3,7 @@
 #include "STimer.h"
 #include "SInput.h"
 #include "SWrite.h"
-#include "SSoundManager.h"
+//#include "SSoundManager.h"
 #include "SDebugCamera.h"
 
 class SCore : public SDevice

@@ -91,12 +91,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>../../include/;../../include/SNetLib;../../fmod/inc;../../include/dxtk</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../include/;../../include/SNetLib;../../include/dxtk</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>../../lib;..//./fmod/lib/x64;</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>../../lib;</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -149,12 +149,14 @@
   <ItemGroup>
     <ClCompile Include="Pick.cpp" />
     <ClCompile Include="Sample.cpp" />
+    <ClCompile Include="SHeightMap.cpp" />
     <ClCompile Include="SNode.cpp" />
     <ClCompile Include="SQuadTree.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Pick.h" />
     <ClInclude Include="Sample.h" />
+    <ClInclude Include="SHeightMap.h" />
     <ClInclude Include="SNode.h" />
     <ClInclude Include="SQuadTree.h" />
   </ItemGroup>

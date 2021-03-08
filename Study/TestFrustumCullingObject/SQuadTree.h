@@ -6,10 +6,10 @@
 class SQuadTree
 {
 public:
-	ID3D11Device*			m_pd3dDevice;
+	ID3D11Device*			g_pd3dDevice;
 	enum QUADTREECORNER { tTL = 0, tTR = 1, tBL = 2, tBR = 3, };
 	int				m_iRenderDepth;
-	SNode*					m_pRooSNode;
+	SNode*					m_pRootNode;
 	queue<SNode*>			m_QuadTreeQueue;
 	vector<SBaseObj*>		m_DrawObjList;
 	vector< SNode* >		m_DrawNodeList;

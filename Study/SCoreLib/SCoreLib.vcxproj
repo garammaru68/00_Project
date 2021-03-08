@@ -207,8 +207,12 @@ copy "dxtk\\*.h" "..\\..\\include\\dxtk"</Command>
     <ClInclude Include="SProjectile.h" />
     <ClInclude Include="SScene.h" />
     <ClInclude Include="SShape.h" />
-    <ClInclude Include="SSound.h" />
-    <ClInclude Include="SSoundManager.h" />
+    <ClInclude Include="SSound.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="SSoundManager.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="SStandState.h" />
     <ClInclude Include="SStd.h" />
     <ClInclude Include="STexture.h" />
@@ -255,8 +259,12 @@ copy "dxtk\\*.h" "..\\..\\include\\dxtk"</Command>
     <ClCompile Include="SProjectile.cpp" />
     <ClCompile Include="SScene.cpp" />
     <ClCompile Include="SShape.cpp" />
-    <ClCompile Include="SSound.cpp" />
-    <ClCompile Include="SSoundManager.cpp" />
+    <ClCompile Include="SSound.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="SSoundManager.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="SStandState.cpp" />
     <ClCompile Include="STexture.cpp" />
     <ClCompile Include="STextureManager.cpp" />

@@ -1,6 +1,6 @@
 #include "Sample.h"
 #define NUM_OBJECTS 10
-Matrix* TD3DXMatrixShadow(Matrix *pout,
+Matrix* SD3DXMatrixShadow(Matrix *pout,
 	Vector4 *plight,
 	Vector4 *pplane)
 {
@@ -101,7 +101,7 @@ void Sample::DrawObject(Matrix* pView, Matrix* pProj)
 	for (int iBox = 0; iBox < NUM_OBJECTS; iBox++)
 	{
 		m_pObject[iBox].m_matWorld._42 =
-			m_Map.GetHeight(m_pObject[iBox].m_matWorld._41,
+			m_Map.GetHeightmap(m_pObject[iBox].m_matWorld._41,
 				m_pObject[iBox].m_matWorld._43);
 
 		m_BoxShape.SetMatrix(&m_pObject[iBox].m_matWorld,
@@ -118,7 +118,7 @@ bool Sample::Init()
 {
 	HRESULT hr;
 
-	if (!m_UserShape.Create(g_pd3dDevice, L"vs.txt", L"ps.txt",
+	if (!m_UserShape.Create(g_pd3dDevice, L"../../data/shader/VS.txt", L"../../data/shader/PS.txt",
 		L"../../data/1KGCABK.bmp"))
 	{
 		return false;
@@ -133,15 +133,15 @@ bool Sample::Init()
 	desc.fCellDistance = 1;
 	desc.fScaleHeight = 10.0f;
 	desc.szTexFile = L"../../data/map/castle.jpg";
-	desc.szVS = L"VS.txt";
-	desc.szPS = L"PS.txt";
+	desc.szVS = L"../../data/shader/VS.txt";
+	desc.szPS = L"../../data/shader/PS.txt";
 
 	m_Map.CreateMap(g_pd3dDevice, g_pImmediateContext, desc);
 
 	m_QuadTree.Build(129, 129);
 
 
-	m_MiniMap.Create(g_pd3dDevice, L"vs.txt", L"ps.txt",
+	m_MiniMap.Create(g_pd3dDevice, L"../../data/shader/VS.txt", L"../../data/shader/PS.txt",
 		L"../../data/tileA.jpg");
 
 	m_vDirValue = { 0,0,0,0 };
@@ -151,7 +151,7 @@ bool Sample::Init()
 	matRotation = Matrix::CreateRotationX(SBASIS_PI*0.5f);
 	m_matPlaneWorld = matScale * matRotation;
 
-	if (!m_BoxShape.Create(g_pd3dDevice, L"vs.txt", L"ps.txt",
+	if (!m_BoxShape.Create(g_pd3dDevice, L"../../data/shader/VS.txt", L"../../data/shader/PS.txt",
 		L"../../data/1KGCABK.bmp"))
 	{
 		return false;
@@ -162,7 +162,7 @@ bool Sample::Init()
 		m_QuadTree.AddObject(&m_pObject[iBox]);
 	}
 
-	if (!m_PlaneShape.Create(g_pd3dDevice, L"vs.txt", L"ps.txt",
+	if (!m_PlaneShape.Create(g_pd3dDevice, L"../../data/shader/VS.txt", L"../../data/shader/PS.txt",
 		L"../../data/tileA.jpg"))
 	{
 		return false;
@@ -350,7 +350,7 @@ bool Sample::Render()
 	m_MiniMap.Render(g_pImmediateContext);
 
 
-	DrawQuadLine(m_QuadTree.m_pRooSNode);
+	DrawQuadLine(m_QuadTree.m_pRootNode);
 	DrawObject(&m_pMainCamera->m_matView,
 		&m_pMainCamera->m_matProj);
 	return true;

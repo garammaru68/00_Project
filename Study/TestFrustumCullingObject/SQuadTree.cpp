@@ -2,9 +2,9 @@
 bool SQuadTree::Build(float fWidth, float fHeight)
 {
 	m_fWidth = fWidth, m_fHeight = fHeight;
-	m_pRooSNode = CreateNode(NULL, -fWidth / 2, fWidth / 2, -fHeight / 2, fHeight / 2);
+	m_pRootNode = CreateNode(NULL, -fWidth / 2, fWidth / 2, -fHeight / 2, fHeight / 2);
 
-	if (BuildTree(m_pRooSNode))
+	if (BuildTree(m_pRootNode))
 	{
 		return true;
 	}
@@ -107,9 +107,9 @@ SNode* SQuadTree::CreateNode(SNode* pParenSNode, float fTopLeft, float fTopRight
 
 int SQuadTree::AddObject(SBaseObj* pObj)
 {
-	if (CheckRect(m_pRooSNode, pObj))
+	if (CheckRect(m_pRootNode, pObj))
 	{
-		SNode* pNode = FindNode(m_pRooSNode, pObj);
+		SNode* pNode = FindNode(m_pRootNode, pObj);
 		if (pNode)
 		{
 			pNode->m_ObjectList.push_back(pObj);
@@ -194,7 +194,7 @@ DWORD SQuadTree::CheckSize(DWORD dwSize)
 }
 bool SQuadTree::Release()
 {
-	SAFE_DEL(m_pRooSNode);
+	SAFE_DEL(m_pRootNode);
 	return true;
 }
 
@@ -206,8 +206,8 @@ SQuadTree::SQuadTree(void)
 	m_iMaxDepthLimit = 1;
 	m_fMinDivideSize = 2;
 	m_bUsedIndexList = false;
-	m_pd3dDevice = 0;
-	m_pRooSNode = 0;
+	g_pd3dDevice = 0;
+	m_pRootNode = 0;
 }
 
 SQuadTree::~SQuadTree(void)

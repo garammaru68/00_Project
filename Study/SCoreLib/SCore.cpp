@@ -40,7 +40,7 @@ bool SCore::GameInit()
 
 	g_Timer.Init();
 	g_Input.Init();
-	g_SoundMgr.Init();
+	//g_SoundMgr.Init();
 
 	IDXGISurface1* pBackBuffer = nullptr;
 	m_pSwapChain->GetBuffer(0, __uuidof(IDXGISurface),
@@ -56,8 +56,8 @@ bool SCore::GameInit()
 	m_Camera.Init();
 	m_pMainCamera = &m_Camera;
 
-	if (!m_LineShape.Create(g_pd3dDevice, L"../../data/shader/vs.txt",
-		L"../../data/shader/ps.txt",
+	if (!m_LineShape.Create(g_pd3dDevice, L"../../data/shader/VS.txt",
+		L"../../data/shader/PS.txt",
 		L"../../data/tileA.jpg"))
 	{
 		return false;
@@ -74,7 +74,7 @@ bool SCore::GameRelease()
 	Release();
 	g_Timer.Release();
 	g_Input.Release();
-	g_SoundMgr.Release();
+	//g_SoundMgr.Release();
 	g_ObjectMgr.Release();
 	g_dxWrite.Release();
 	SDevice::Release();
@@ -85,7 +85,7 @@ bool	SCore::GameFrame()
 	PreFrame();
 	g_Timer.Frame();
 	g_Input.Frame();
-	g_SoundMgr.Frame();
+	//g_SoundMgr.Frame();
 	Frame();
 	g_ObjectMgr.Frame();
 	CameraFrame();
@@ -104,11 +104,11 @@ void    SCore::CameraFrame()
 	}
 	if (g_Input.GetKey('A') == KEY_HOLD)
 	{
-		m_pMainCamera->RightMovement(1.0f);
+		m_pMainCamera->RightMovement(-1.0f);
 	}
 	if (g_Input.GetKey('D') == KEY_HOLD)
 	{
-		m_pMainCamera->RightMovement(-1.0f);
+		m_pMainCamera->RightMovement(1.0f);
 	}
 	if (g_Input.GetKey('Q') == KEY_HOLD)
 	{
@@ -138,7 +138,7 @@ bool	SCore::PostRender()
 
 	g_Timer.Render();
 	g_Input.Render();
-	g_SoundMgr.Render();
+	//g_SoundMgr.Render();
 
 	g_dxWrite.Render();
 	g_dxWrite.Draw(0, 0, g_Timer.m_szBuffer);

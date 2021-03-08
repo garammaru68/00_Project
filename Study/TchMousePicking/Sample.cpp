@@ -64,7 +64,7 @@ float   SHeightMap::GetHeight(UINT index)
 }
 bool Sample::Init()
 {
-	m_Camera.CreateViewMatrix({ 0,10,-1 }, { 0,0,0 });
+	m_Camera.CreateViewMatrix({ 0,40,-40 }, { 0,0,0 });
 
 	m_Map.CreateHeightMap(g_pd3dDevice, g_pImmediateContext,
 		L"../../data/map/129.jpg");
