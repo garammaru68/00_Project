@@ -154,6 +154,14 @@ void   SQuadTree::Draw(SNode* pNode,
 	Draw(pNode->m_pChild[2], pd3dContext);
 	Draw(pNode->m_pChild[3], pd3dContext);
 }
+
+SNode*	SQuadTree::FindNode(SNode* pNode, Object* pObj)
+{
+	assert(pNode);
+	{
+
+	}
+}
 bool SQuadTree::Release()
 {
 	delete m_pRootNode;

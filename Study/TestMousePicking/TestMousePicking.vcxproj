@@ -147,6 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Object.cpp" />
     <ClCompile Include="Pick.cpp" />
     <ClCompile Include="Sample.cpp" />
     <ClCompile Include="SHeightMap.cpp" />
@@ -154,6 +155,7 @@
     <ClCompile Include="SQuadTree.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Object.h" />
     <ClInclude Include="Pick.h" />
     <ClInclude Include="Sample.h" />
     <ClInclude Include="SHeightMap.h" />

@@ -1,6 +1,8 @@
 #pragma once
+#include <queue>
 #include "SNode.h"
 #include "SHeightMap.h"
+#include "Object.h"
 
 class SQuadTree
 {
@@ -15,6 +17,11 @@ public:
 	bool    DivideNode(SNode* pNode);
 	bool    BuildQuadTree(SNode* pNode);
 	bool    Render(ID3D11DeviceContext* pContext);
-	bool	Release();
 	void    Draw(SNode* pNode, ID3D11DeviceContext* pd3dContext);
+
+	int		AddObject(Object* pObj);
+	int		CheckRect(SNode* pNode, Object* pObj);
+	SNode*	FindNode(SNode* pNode, Object* pObj);
+
+	bool	Release();
 };

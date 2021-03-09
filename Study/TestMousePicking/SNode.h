@@ -10,7 +10,6 @@ public:
 	SNode*					m_pChild[4];
 	std::vector<DWORD>		m_vIndexList;
 	ComPtr<ID3D11Buffer>	m_pIndexBuffer;
-
 public:
 	SNode();
 	~SNode();
