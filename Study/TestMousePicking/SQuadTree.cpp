@@ -50,7 +50,136 @@ SNode* SQuadTree::CreateNode(SNode* pParenSNode, UINT TopLeft, UINT TopRight, UI
 
 	return pNode;
 }
-bool SQuadTree::BuildTree()
+SNode* SQuadTree::CreateObjectNode(SNode* pParentNode, float fTopLeft, float fTopRight, float fBottomLeft, float fBottomRight)
+{
+	SNode* pNode = 0;
+	SAFE_NEW(pNode, SNode);
+	assert(pNode);
+
+	pNode->m_ChildList.reserve(4);
+	pNode->m_vCornerList.reserve(4);
+
+	pNode->m_Box.vMin = Vector3(fTopLeft, 0.0f, fBottomLeft);
+	pNode->m_Box.vMax = Vector3(fTopRight, 0.0f, fBottomRight);
+	pNode->m_Box.vCenter = (pNode->m_Box.vMax + pNode->m_Box.vMin);
+	pNode->m_Box.vCenter.x /= 2.0f;
+	pNode->m_Box.vCenter.y /= 2.0f;
+	pNode->m_Box.vCenter.z /= 2.0f;
+	pNode->m_Box.fExtent[0] = pNode->m_Box.vMax.x - pNode->m_Box.vCenter.x;
+	pNode->m_Box.fExtent[1] = pNode->m_Box.vMax.y - pNode->m_Box.vCenter.y;
+	pNode->m_Box.fExtent[2] = pNode->m_Box.vMax.z - pNode->m_Box.vCenter.z;
+
+	pNode->m_vCornerList.push_back(Vector3(pNode->m_Box.vMin.x, 0.0f, pNode->m_Box.vMax.z));
+	pNode->m_vCornerList.push_back(pNode->m_Box.vMax);
+	pNode->m_vCornerList.push_back(pNode->m_Box.vMin);
+	pNode->m_vCornerList.push_back(Vector3(pNode->m_Box.vMax.x, 0.0f, pNode->m_Box.vMin.z));
+
+	if (pParentNode)
+	{
+		pNode->m_dwDepth = pParentNode->m_dwDepth + 1;
+		if ((DWORD)m_iMaxDepth < pNode->m_dwDepth)
+		{
+			m_iMaxDepth = pNode->m_dwDepth;
+		}
+	}
+	return pNode;
+}
+bool SQuadTree::Build(float fWidth, float fHeight)
+{
+	m_fWidth = fWidth, m_fHeight = fHeight;
+	m_pRootNode = CreateNode(NULL, -fWidth / 2, fWidth / 2, -fHeight / 2, fHeight / 2);
+
+	if (BuildTree(m_pRootNode))
+	{
+		return true;
+	}
+	return false;
+}
+bool SQuadTree::BuildTree(SNode* pNode)
+{
+	// 분할 가능하냐
+	if (SubDivide(pNode))
+	{
+		for (int iNode = 0; iNode < pNode->m_ChildList.size(); iNode++)
+		{
+			/*		if (m_bUsedIndexList)
+					{
+						DWORD dwIndex =
+							pNode->m_ChildList[iNode]->m_dwPositionIndex[1] * pow(2.0f, (float)pNode->m_ChildList[iNode]->m_dwDepth) + pNode->m_ChildList[iNode]->m_dwPositionIndex[0];
+						DWORD dwValue = pNode->m_ChildList[iNode]->m_dwDepth;
+						m_LevelList[dwValue][dwIndex] =
+							pNode->m_ChildList[iNode];
+					}*/
+			BuildTree(pNode->m_ChildList[iNode]);
+		}
+	}
+	return true;
+}
+bool SQuadTree::SubDivide(SNode* pNode)
+{
+	// 4등분 할수 없으면 더이상 분할하지 않는다.
+	if (pNode == NULL)
+	{
+		return false;
+	}
+
+	// 최대 깊이 한도 초과시 강제 리프노드 지정
+	if ((DWORD)m_iMaxDepthLimit <= pNode->m_dwDepth)
+	{
+		pNode->m_blLeaf = TRUE;
+		return false;
+	}
+
+	// 현재 노드의 실제 크기를 계산한다.
+
+	float fWidthSplit = (pNode->m_vCornerList[tTR].x - pNode->m_vCornerList[tTL].x) / 2;
+	float fHeightSplit = (pNode->m_vCornerList[tTL].z - pNode->m_vCornerList[tBL].z) / 2;
+
+	// 자식 노드가 지정된 분할크기보다 작다면 더이상 분할하지 않는다.
+	if (fWidthSplit < m_fMinDivideSize || fHeightSplit < m_fMinDivideSize)
+	{
+		pNode->m_blLeaf = TRUE;
+		return false;
+	}
+
+	pNode->m_ChildList.push_back(CreateNode(pNode, pNode->m_vCornerList[tTL].x,
+		pNode->m_vCornerList[tTL].x + fWidthSplit,
+		pNode->m_vCornerList[tTL].z - fHeightSplit,
+		pNode->m_vCornerList[tTL].z));
+
+	pNode->m_ChildList.push_back(CreateNode(pNode, pNode->m_vCornerList[tTL].x + fWidthSplit,
+		pNode->m_vCornerList[tTR].x,
+		pNode->m_vCornerList[tTL].z - fHeightSplit,
+		pNode->m_vCornerList[tTL].z));
+
+	pNode->m_ChildList.push_back(CreateNode(pNode, pNode->m_vCornerList[tTL].x,
+		pNode->m_vCornerList[tTL].x + fWidthSplit,
+		pNode->m_vCornerList[tBL].z,
+		pNode->m_vCornerList[tTL].z - fHeightSplit));
+
+	pNode->m_ChildList.push_back(CreateNode(pNode, pNode->m_vCornerList[tTL].x + fWidthSplit,
+		pNode->m_vCornerList[tTR].x,
+		pNode->m_vCornerList[tBR].z,
+		pNode->m_vCornerList[tTL].z - fHeightSplit));
+
+
+	return true;
+}
+
+bool SQuadTree::PreFrame()
+{
+	m_DrawObjList.clear();
+	m_DrawNodeList.clear();
+	//if (!m_pCamera) return false;
+	return true;
+}
+bool SQuadTree::Frame()
+{
+	if (!PreFrame()) return false;
+	return true;
+}
+
+bool SQuadTree::SBuildTree()
 {
 	UINT tr, tl, br, bl;
 	tr = 0;
@@ -66,7 +195,7 @@ bool SQuadTree::BuildTree()
 bool   SQuadTree::CreateQuadtree(SMap* pMap)
 {
 	m_pMap = pMap;
-	BuildTree();
+	SBuildTree();
 	return true;
 }
 bool   SQuadTree::DivideNode(SNode* pNode)
@@ -155,15 +284,53 @@ void   SQuadTree::Draw(SNode* pNode,
 	Draw(pNode->m_pChild[3], pd3dContext);
 }
 
+int SQuadTree::AddObject(Object* pObj)
+{
+	if (CheckRect(m_pRootNode, pObj))
+	{
+		SNode* pNode = FindNode(m_pRootNode, pObj);
+		if (pNode)
+		{
+			pNode->m_ObjectList.push_back(pObj);
+		}
+		return 1;
+	}
+	return 0;
+}
+int SQuadTree::CheckRect(SNode* pNode, Object* pObj)
+{
+	if (pNode->m_Box.vMin.x <= pObj->m_Box.vMin.x && pNode->m_Box.vMax.x >= pObj->m_Box.vMax.x)
+	{
+		if (pNode->m_Box.vMin.z <= pObj->m_Box.vMin.z && pNode->m_Box.vMax.z >= pObj->m_Box.vMax.z)
+		{
+			return 1;
+		}
+	}
+	return 0;
+}
 SNode*	SQuadTree::FindNode(SNode* pNode, Object* pObj)
 {
 	assert(pNode);
-	{
+	do {
+		for (DWORD dwChild = 0; dwChild < pNode->m_ChildList.size(); dwChild++)
+		{
+			if (pNode->m_ChildList[dwChild] &&
+				CheckRect(pNode->m_ChildList[dwChild], pObj))
+			{
+				m_qQuadTree.push(pNode->m_ChildList[dwChild]);
+				break;
+			}
+		}
 
-	}
+		if (m_qQuadTree.empty()) break;
+
+		pNode = m_qQuadTree.front();
+		m_qQuadTree.pop();
+	} while (pNode);
+	return pNode;
 }
 bool SQuadTree::Release()
 {
-	delete m_pRootNode;
+	SAFE_DEL(m_pRootNode);
 	return true;
 }

@@ -32,7 +32,7 @@ public:
 	std::vector<PNCT_VERTEX>	m_VertexList;
 	std::vector< SPlane>   m_Plane;
 public:
-	virtual bool Create(ID3D11Device* pd3dDevice);
+	virtual bool Create(ID3D11Device* pd3dDevice, ID3D11DeviceContext*	d3dContext);
 	virtual bool Frame();
 
 	BOOL	ClassifyPoint(Vector3 v);

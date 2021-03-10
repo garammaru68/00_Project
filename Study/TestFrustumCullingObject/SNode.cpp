@@ -1,4 +1,3 @@
-#include "..\TestMousePicking\Object.h"
 //#include "SNode.h"
 //S_BoxObject::S_BoxObject()
 //{
@@ -168,10 +167,6 @@ S_BoxObject::S_BoxObject()
 	m_tBox.vMin = vMin;
 	m_tBox.vMax = vMax;
 	m_matWorld = matWorld;
-}
-
-S_BoxObject::~S_BoxObject()
-{
 }
 
 SNode::SNode()

@@ -25,7 +25,7 @@ BOOL SFrustum::CheckOBBInPlane(S_BOX*  pBox)
 	return TRUE;
 }
 
-bool SFrustum::Create(ID3D11Device* pd3dDevice)
+bool SFrustum::Create(ID3D11Device* pd3dDevice, ID3D11DeviceContext*	d3dContext)
 {
 	if (!m_FrustumObj.Create(pd3dDevice, L"../../data/shader/VS.txt",
 		L"../../data/shader/PS.txt",

@@ -97,7 +97,7 @@ bool SModelViewCamera::CreateFrustum(
 	ID3D11Device* pd3dDevice,
 	ID3D11DeviceContext*	d3dContext)
 {
-	m_Frustum.Create(pd3dDevice);
+	m_Frustum.Create(pd3dDevice, d3dContext);
 	return true;
 }
 bool  SModelViewCamera::FrameFrustum(
