@@ -705,8 +705,14 @@ namespace SBASIS_CORE_LIB
 			pd3dContext->PSSetShaderResources(0, 1,
 				&m_pTexture->m_pTextureSRV);
 		}
-		//pd3dContext->Draw(m_VertexList.size(), 0);
-		PostRender(pd3dContext);
+		if (m_pIndexBuffer == nullptr)
+		{
+			pd3dContext->Draw(m_VertexList.size(), 0);
+		}
+		else
+		{
+			PostRender(pd3dContext);
+		}
 		return true;
 	}
 	bool	SDxObject::PostRender(ID3D11DeviceContext*	pd3dContext)
@@ -789,6 +795,8 @@ namespace SBASIS_CORE_LIB
 	}
 	bool	SDxObject::CreateIndexBuffer()
 	{
+		if (m_IndexList.size() <= 0) return true;
+
 		D3D11_BUFFER_DESC bd;
 		ZeroMemory(&bd, sizeof(D3D11_BUFFER_DESC));
 		bd.ByteWidth = sizeof(DWORD) * m_IndexList.size();

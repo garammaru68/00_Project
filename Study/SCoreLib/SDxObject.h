@@ -49,7 +49,6 @@ struct PNCT_VERTEX
 		p = vp, n = vn, c = vc, t = vt;
 	}
 };
-
 struct S_SPHERE
 {
 	Vector3		vCenter;
@@ -67,7 +66,14 @@ struct S_BOX
 	Vector3		vAxis[3];
 	float		fExtent[3];
 };
-
+struct S_TRIANGLE
+{
+	PNCT_VERTEX	vVertex[3];
+	Vector3		vNormal;
+	int			iSubIndex;
+	S_TRIANGLE(int Index) : iSubIndex(Index) {}
+	S_TRIANGLE() : iSubIndex(-1) {}
+};
 struct SDataCB
 {
 	Matrix  matWorld;
@@ -122,16 +128,17 @@ namespace SBASIS_CORE_LIB
 		Matrix    m_matView;
 		Matrix    m_matProj;
 	public:
-		SDataCB					m_cbData;
+		SDataCB						m_cbData;
+		std::vector<S_TRIANGLE>		m_TriangleList;
 		std::vector<PNCT_VERTEX>	m_VertexList;
-		std::vector<DWORD>		m_IndexList;
-		ID3D11Buffer*			m_pVertexBuffer;
-		ID3D11Buffer*			m_pIndexBuffer;
-		ID3D11Buffer*			m_pConstantBuffer;
-		ID3D11InputLayout*		m_pInputLayout;
-		ID3D11VertexShader*		m_pVertexShader;
-		ID3D11PixelShader*		m_pPixelShader;
-		STexture*				m_pTexture;
+		std::vector<DWORD>			m_IndexList;
+		ID3D11Buffer*				m_pVertexBuffer;
+		ID3D11Buffer*				m_pIndexBuffer;
+		ID3D11Buffer*				m_pConstantBuffer;
+		ID3D11InputLayout*			m_pInputLayout;
+		ID3D11VertexShader*			m_pVertexShader;
+		ID3D11PixelShader*			m_pPixelShader;
+		STexture*					m_pTexture;
 	public:
 		virtual bool	Init();
 		virtual bool	Frame();
