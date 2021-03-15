@@ -147,6 +147,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Text Include="PS.txt" />
+    <Text Include="VS.txt" />
+  </ItemGroup>
+  <ItemGroup>
     <ClCompile Include="Sample.cpp" />
     <ClCompile Include="SHeightMap.cpp" />
     <ClCompile Include="SNode.cpp" />
@@ -157,10 +161,6 @@
     <ClInclude Include="SHeightMap.h" />
     <ClInclude Include="SNode.h" />
     <ClInclude Include="SQuadTree.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="PS.txt" />
-    <Text Include="VS.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

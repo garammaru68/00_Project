@@ -20,9 +20,9 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{442BEBCF-46E8-458D-99D3-D60A8DE464F7}</ProjectGuid>
+    <ProjectGuid>{43D0480D-03FB-4523-8D00-BCB116A40E47}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>TestFrustumCullingPicking</RootNamespace>
+    <RootNamespace>TestFBXLoader</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -72,8 +72,6 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>../../output/Debug/</OutDir>
-    <IntDir>../../output/Debug/TestFrustumCullingPicking</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
@@ -91,12 +89,10 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>../../include;../../include/SNetLib;../../fmod/inc;../../include/dxtk;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>../../lib;../../fmod/lib/x64;</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -147,18 +143,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Pick.cpp" />
-    <ClCompile Include="Sample.cpp" />
-    <ClCompile Include="SHeightMap.cpp" />
-    <ClCompile Include="SNode.cpp" />
-    <ClCompile Include="SQuadTree.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Pick.h" />
-    <ClInclude Include="Sample.h" />
-    <ClInclude Include="SHeightMap.h" />
-    <ClInclude Include="SNode.h" />
-    <ClInclude Include="SQuadTree.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

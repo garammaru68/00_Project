@@ -135,11 +135,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TchMousePicking", "TchMouse
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestOBBToRay", "TestOBBToRay\TestOBBToRay.vcxproj", "{5CA7097C-95AD-4C43-AEB4-CCBB7DDC3227}"
 EndProject
-<<<<<<< HEAD
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestFrustumCullingPicking", "TestFrustumCullingPicking\TestFrustumCullingPicking.vcxproj", "{310EE4AA-62EF-44D2-A7F0-1D870E376800}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestFrustumCullingPicking", "TestFrustumCullingPicking\TestFrustumCullingPicking.vcxproj", "{442BEBCF-46E8-458D-99D3-D60A8DE464F7}"
 EndProject
-=======
->>>>>>> parent of b68a7b1... 3DMax Day - 1, Camera -fix-
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -524,17 +521,14 @@ Global
 		{5CA7097C-95AD-4C43-AEB4-CCBB7DDC3227}.Release|x64.Build.0 = Release|x64
 		{5CA7097C-95AD-4C43-AEB4-CCBB7DDC3227}.Release|x86.ActiveCfg = Release|Win32
 		{5CA7097C-95AD-4C43-AEB4-CCBB7DDC3227}.Release|x86.Build.0 = Release|Win32
-<<<<<<< HEAD
-		{310EE4AA-62EF-44D2-A7F0-1D870E376800}.Debug|x64.ActiveCfg = Debug|x64
-		{310EE4AA-62EF-44D2-A7F0-1D870E376800}.Debug|x64.Build.0 = Debug|x64
-		{310EE4AA-62EF-44D2-A7F0-1D870E376800}.Debug|x86.ActiveCfg = Debug|Win32
-		{310EE4AA-62EF-44D2-A7F0-1D870E376800}.Debug|x86.Build.0 = Debug|Win32
-		{310EE4AA-62EF-44D2-A7F0-1D870E376800}.Release|x64.ActiveCfg = Release|x64
-		{310EE4AA-62EF-44D2-A7F0-1D870E376800}.Release|x64.Build.0 = Release|x64
-		{310EE4AA-62EF-44D2-A7F0-1D870E376800}.Release|x86.ActiveCfg = Release|Win32
-		{310EE4AA-62EF-44D2-A7F0-1D870E376800}.Release|x86.Build.0 = Release|Win32
-=======
->>>>>>> parent of b68a7b1... 3DMax Day - 1, Camera -fix-
+		{442BEBCF-46E8-458D-99D3-D60A8DE464F7}.Debug|x64.ActiveCfg = Debug|x64
+		{442BEBCF-46E8-458D-99D3-D60A8DE464F7}.Debug|x64.Build.0 = Debug|x64
+		{442BEBCF-46E8-458D-99D3-D60A8DE464F7}.Debug|x86.ActiveCfg = Debug|Win32
+		{442BEBCF-46E8-458D-99D3-D60A8DE464F7}.Debug|x86.Build.0 = Debug|Win32
+		{442BEBCF-46E8-458D-99D3-D60A8DE464F7}.Release|x64.ActiveCfg = Release|x64
+		{442BEBCF-46E8-458D-99D3-D60A8DE464F7}.Release|x64.Build.0 = Release|x64
+		{442BEBCF-46E8-458D-99D3-D60A8DE464F7}.Release|x86.ActiveCfg = Release|Win32
+		{442BEBCF-46E8-458D-99D3-D60A8DE464F7}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -593,13 +587,10 @@ Global
 		{950EC36E-ECDA-42C8-8DA0-F0194DE14BB1} = {3D96494E-817C-4CEE-9DB2-0769F15DE7A7}
 		{1E880F67-A3FC-41B1-B127-43803BD8A62F} = {3D96494E-817C-4CEE-9DB2-0769F15DE7A7}
 		{5CA7097C-95AD-4C43-AEB4-CCBB7DDC3227} = {3D96494E-817C-4CEE-9DB2-0769F15DE7A7}
-<<<<<<< HEAD
-		{310EE4AA-62EF-44D2-A7F0-1D870E376800} = {3D96494E-817C-4CEE-9DB2-0769F15DE7A7}
-=======
->>>>>>> parent of b68a7b1... 3DMax Day - 1, Camera -fix-
+		{442BEBCF-46E8-458D-99D3-D60A8DE464F7} = {3D96494E-817C-4CEE-9DB2-0769F15DE7A7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		VisualSVNWorkingCopyRoot = .
 		SolutionGuid = {8CA5F4F3-F11A-4339-87C9-38CD6690C71A}
+		VisualSVNWorkingCopyRoot = .
 	EndGlobalSection
 EndGlobal

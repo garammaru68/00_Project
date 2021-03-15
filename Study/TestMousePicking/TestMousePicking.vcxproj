@@ -18,6 +18,20 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Pick.cpp" />
+    <ClCompile Include="Sample.cpp" />
+    <ClCompile Include="SHeightMap.cpp" />
+    <ClCompile Include="SNode.cpp" />
+    <ClCompile Include="SQuadTree.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Pick.h" />
+    <ClInclude Include="Sample.h" />
+    <ClInclude Include="SHeightMap.h" />
+    <ClInclude Include="SNode.h" />
+    <ClInclude Include="SQuadTree.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{950EC36E-ECDA-42C8-8DA0-F0194DE14BB1}</ProjectGuid>
@@ -146,20 +160,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="Pick.cpp" />
-    <ClCompile Include="Sample.cpp" />
-    <ClCompile Include="SHeightMap.cpp" />
-    <ClCompile Include="SNode.cpp" />
-    <ClCompile Include="SQuadTree.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Pick.h" />
-    <ClInclude Include="Sample.h" />
-    <ClInclude Include="SHeightMap.h" />
-    <ClInclude Include="SNode.h" />
-    <ClInclude Include="SQuadTree.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

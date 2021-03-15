@@ -15,10 +15,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Pick.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
     <ClCompile Include="Sample.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Pick.cpp">
+    <ClCompile Include="SHeightMap.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="SNode.cpp">
@@ -27,24 +30,21 @@
     <ClCompile Include="SQuadTree.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="SHeightMap.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Pick.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
     <ClInclude Include="Sample.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Pick.h">
+    <ClInclude Include="SHeightMap.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="SNode.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="SQuadTree.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="SHeightMap.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,0 +1,11 @@
+﻿  Pick.cpp
+e:\00_project\study\testfrustumcullingpicking\pick.h(2): fatal error C1083: 포함 파일을 열 수 없습니다. 'SShape.h': No such file or directory
+  Sample.cpp
+e:\00_project\study\testfrustumcullingpicking\sample.h(2): fatal error C1083: 포함 파일을 열 수 없습니다. 'SCore.h': No such file or directory
+  SHeightMap.cpp
+e:\00_project\study\testfrustumcullingpicking\sheightmap.h(2): fatal error C1083: 포함 파일을 열 수 없습니다. 'SMap.h': No such file or directory
+  SNode.cpp
+e:\00_project\study\testfrustumcullingpicking\snode.h(2): fatal error C1083: 포함 파일을 열 수 없습니다. 'SFrustum.h': No such file or directory
+  SQuadTree.cpp
+e:\00_project\study\testfrustumcullingpicking\snode.h(2): fatal error C1083: 포함 파일을 열 수 없습니다. 'SFrustum.h': No such file or directory
+  코드를 생성하고 있습니다...
