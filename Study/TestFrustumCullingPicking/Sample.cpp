@@ -19,13 +19,13 @@ bool Sample::Init()
 
 	m_QuadTree.CreateQuadtree(&m_Map);
 
-	m_MiniMap.Create( g_pd3dDevice, L"../../data/shader/vs.txt",
-									L"../../data/shader/ps.txt",
-									L"../../data/tileA.jpg");
+	m_MiniMap.Create(g_pd3dDevice, L"../../data/shader/vs.txt",
+		L"../../data/shader/ps.txt",
+		L"../../data/tileA.jpg");
 
 	if (!m_BoxShape.Create(g_pd3dDevice, L"../../data/shader/VS.txt",
-										 L"../../data/shader/PS.txt",
-										 L"../../data/1KGCABK.bmp"))
+		L"../../data/shader/PS.txt",
+		L"../../data/1KGCABK.bmp"))
 	{
 		return false;
 	}
@@ -35,19 +35,19 @@ bool Sample::Init()
 		m_QuadTree.AddObject(&m_pBoxObject[iBox]);
 	}
 
-	m_Camera.CreateViewMatrix({ 0,40,-40 }, { 0,0,0 });
-	float fAspect = g_rtClient.right / (float)g_rtClient.bottom;
-	m_Camera.CreateProjMatrix(1, 1000, SBASIS_PI / 4.0f, fAspect);
-	m_Camera.Init();
-	m_Camera.m_Frustum.Create(g_pd3dDevice, g_pImmediateContext);
+	//m_Camera.CreateViewMatrix({ 0,40,-40 }, { 0,0,0 });
+	//float fAspect = g_rtClient.right / (float)g_rtClient.bottom;
+	//m_Camera.CreateProjMatrix(1, 1000, SBASIS_PI / 4.0f, fAspect);
+	//m_Camera.Init();
+	//m_Camera.m_Frustum.Create(g_pd3dDevice, g_pImmediateContext);
 	//m_pMainCamera = &m_Camera;
 
-	//m_ModelCamera.CreateViewMatrix({ 0,40,-40 }, { 0,0,0 });
-	//float fAspect = g_rtClient.right / (float)g_rtClient.bottom;
-	//m_ModelCamera.CreateProjMatrix(1, 1000, SBASIS_PI / 4.0f, fAspect);
-	//m_ModelCamera.Init();
-	//m_ModelCamera.CreateFrustum(g_pd3dDevice, g_pImmediateContext);
-	//m_pMainCamera = &m_ModelCamera;
+	m_ModelCamera.CreateViewMatrix({ 0,40,-40 }, { 0,0,0 });
+	float fAspect = g_rtClient.right / (float)g_rtClient.bottom;
+	m_ModelCamera.CreateProjMatrix(1, 1000, SBASIS_PI / 4.0f, fAspect);
+	m_ModelCamera.Init();
+	m_ModelCamera.CreateFrustum(g_pd3dDevice, g_pImmediateContext);
+	m_pMainCamera = &m_ModelCamera;
 
 	m_MiniMapCameara.CreateViewMatrix({ 0,30,-0.1f }, { 0,0,0 });
 	fAspect = g_rtClient.right / (float)g_rtClient.bottom;
@@ -65,7 +65,7 @@ bool Sample::Frame()
 		GetCursorPos(&cursor);
 		ScreenToClient(g_hWnd, &cursor);
 
-		Matrix matProj = m_pMainCamera->m_matProj;
+		//Matrix matProj = m_Camera.m_matProj;
 		Matrix matProj = m_pMainCamera->m_matProj;
 		Vector3 v;
 		v.x = (((2.0f*cursor.x) / g_rtClient.right) - 1) / matProj._11;
@@ -108,6 +108,34 @@ bool Sample::Frame()
 		}
 	}
 
+	if (g_Input.GetKey('W') == KEY_HOLD)
+	{
+		m_Camera.FrontMovement(1.0f);
+	}
+	if (g_Input.GetKey('S') == KEY_HOLD)
+	{
+		m_Camera.FrontMovement(-1.0f);
+	}
+	if (g_Input.GetKey('A') == KEY_HOLD)
+	{
+		m_Camera.RightMovement(-1.0f);
+	}
+	if (g_Input.GetKey('D') == KEY_HOLD)
+	{
+		m_Camera.RightMovement(1.0f);
+	}
+	if (g_Input.GetKey('Q') == KEY_HOLD)
+	{
+		m_Camera.UpMovement(1.0f);
+	}
+	if (g_Input.GetKey('E') == KEY_HOLD)
+	{
+		m_Camera.UpMovement(-1.0f);
+	}
+	m_ModelCamera.Frame();
+	//m_Camera.Update();
+
+	m_pMainCamera->m_vCameraTarget = m_ModelCamera.m_vCameraPos;
 	m_pMainCamera->FrameFrustum(g_pImmediateContext);
 	m_BoxShape.m_matRotation = m_pMainCamera->m_matWorld;
 
@@ -164,7 +192,8 @@ bool Sample::Render()
 	DrawQuadLine(m_QuadTree.m_pRootNode);
 	DrawBoxObject(&m_pMainCamera->m_matView,
 		&m_pMainCamera->m_matProj);
-
+	//DrawBoxObject( &m_Camera.m_matView,
+	//				 &m_Camera.m_matProj);
 	m_QuadTree.Render(g_pImmediateContext);
 
 	m_LineShape.SetMatrix(NULL, &m_pMainCamera->m_matView,
@@ -222,12 +251,12 @@ bool Sample::DrawQuadLine(SNode* pNode)
 	}
 	return true;
 }
-//LRESULT	 Sample::MsgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
-//{
-//	if (m_pMainCamera == nullptr) return -1;
-//	m_pMainCamera->WndProc(hWnd, message, wParam, lParam);
-//	return -1;
-//}
+LRESULT	 Sample::MsgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	if (m_pMainCamera == nullptr) return -1;
+	m_pMainCamera->WndProc(hWnd, message, wParam, lParam);
+	return -1;
+}
 void Sample::DrawBoxObject(Matrix* pView, Matrix* pProj)
 {
 	for (int iBox = 0; iBox < 10; iBox++)

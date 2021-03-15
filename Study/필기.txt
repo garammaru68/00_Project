@@ -9,3 +9,11 @@
 OBB to OBB
 
 마주보고 있는 평면을 노말로 사용
+
+m_tMeshMap
+FbxMesh->GetControlPointsCount() - 제어점
+		GetControlPoints();
+
+컬러 위치, 노말, 
+
+DxObject.h 수정
