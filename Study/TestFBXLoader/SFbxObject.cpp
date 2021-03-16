@@ -51,3 +51,25 @@ bool SFbxObject::LoadFBX(std::string szFileName)
 	ParseAnimation(m_pFBXScene);
 	return true;
 }
+void SFbxObject::PreProcess(FbxNode* pNode)
+{
+	if (pNode && (pNode->GetCamera() || pNode->GetLight()))
+	{
+		return;
+	}
+	Matrix mat = mat.Identity;
+	auto iter = m_dxMatrixMap.find(pNode->GetName());
+	if (iter == m_dxMatrixMap.end())
+	{
+		m_dxMatrixMap[pNode->GetName()] = mat;
+	}
+	int dwChild = pNode->GetChildCount();
+	for (int dwObj = 0; dwObj < dwChild; dwObj++)
+	{
+		FbxNode* pChildNode = pNode->GetChild(dwObj);
+		if (pChildNode->GetNodeAttribute() != NULL)
+		{
+			FbxNodeAttribute::EType AttributeType = pChildNode->GetNodeAttribute()->GetAttributeType();
+		}
+	}
+}

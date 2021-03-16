@@ -1,8 +1,13 @@
 #pragma once
 #include "SCore.h"
-#include "SFBXObj.h"
+#include "SFbxObject.h"
 class Sample : public SCore
 {
-	SFBXObj	m_fbxObj;
+	SFbxObject	m_fbxObj;
+public:
+	bool Init() override;
+	bool Frame() override;
+	bool Render() override;
+	bool Release() override;
 };
-
+SGAME_RUN;
