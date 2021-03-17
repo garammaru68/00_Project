@@ -17,3 +17,11 @@ FbxMesh->GetControlPointsCount() - 제어점
 컬러 위치, 노말, 
 
 DxObject.h 수정
+
+LOD + MousePicking + FrustumCulling
+
+ASE 파일은 월드좌표
+
+1.Object 여러개 추가
+2.SubMaterial 추가
+3.

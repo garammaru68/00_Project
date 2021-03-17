@@ -20,7 +20,9 @@ public:
 	bool LoadFBX(std::string szFileName);
 	bool Initialize(std::string szFileName);
 	void PreProcess(FbxNode* pNode);
-	void ParseNode(FbxNode* pNode, FbxScene* pFBXScene);
+	void ParseNode(FbxNode* pNode, Matrix matParent);
+	void ParseMesh(FbxNode* pNode, FbxMesh* pMesh, SObject* pObj);
+	Matrix ParseTransform(FbxNode* pNode, Matrix& matParentWorld);
 	void ParseAnimation(FbxScene* pFBXScene);
 public:
 	SFbxObject();
