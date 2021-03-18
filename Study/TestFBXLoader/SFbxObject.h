@@ -1,4 +1,5 @@
 #pragma once
+#define _CRT_SECURE_NO_WARNINGS
 #include <SStd.h>
 #include <fbxsdk.h>
 #include <map>
@@ -23,7 +24,6 @@ public:
 	void ParseNode(FbxNode* pNode, Matrix matParent);
 	void ParseMesh(FbxNode* pNode, FbxMesh* pMesh, SObject* pObj);
 	Matrix ParseTransform(FbxNode* pNode, Matrix& matParentWorld);
-	void ParseAnimation(FbxScene* pFBXScene);
 public:
 	SFbxObject();
 };

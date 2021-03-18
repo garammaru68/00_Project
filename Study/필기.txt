@@ -25,3 +25,17 @@ ASE 파일은 월드좌표
 1.Object 여러개 추가
 2.SubMaterial 추가
 3.
+
+3DMAX
+export - Z-up
+tga형식 지원X (BMP로 바꾸기)
+
+모든 페이스를 각각 사용하는 서브 메테리얼을 찾아서 나누고
+트라이앵글 리스트(서브 메테리얼 수만큼)를 만들어서
+서브 메테리얼당 VB, IB
+
+레이어 하나이상X - 덮어쓰기
+하나의 레이어당 pnct
+FbxLayerElementMaterial - 
+GetMappingMode() 모두의 종류
+iSubMtrl = iPoly // iPoly(face)당 텍스쳐 (면 하나가 인덱스)

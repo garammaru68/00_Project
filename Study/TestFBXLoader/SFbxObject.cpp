@@ -7,24 +7,43 @@ SFbxObject::SFbxObject()
 }
 bool SFbxObject::Load(std::string szFileName)
 {
+	// FBX 파일 정보 불러오기
 	if (LoadFBX(szFileName))
 	{
 		return true;
 	}
 	return false;
 }
+bool SFbxObject::LoadFBX(std::string szFileName)
+{
+	// SDK
+	if (Initialize(szFileName) == false)
+	{
+		return false;
+	}
+	// INode*
+	FbxNode* pFbxRootNode = m_pFBXScene->GetRootNode(); // 트리구조로 되어 있는 Scene의 정보를 가져오기 위함
+	PreProcess(pFbxRootNode);
+	ParseNode(pFbxRootNode, Matrix::Identity);
+	return true;
+}
 bool SFbxObject::Initialize(std::string szFileName)
 {
 	if (g_pSDKManager == nullptr)
 	{
+		/// 인스턴스화
+		// FBX SDK 관리자 객체 생성
 		g_pSDKManager = FbxManager::Create();
 		if (g_pSDKManager == nullptr)return false;
+		// FBX IO 객체 설정 및 셋팅
 		FbxIOSettings* ios = FbxIOSettings::Create(g_pSDKManager, IOSROOT);
 		if (ios == nullptr) return false;
+		// 씬의 정보를 가져오거나 내보냄 (camera, light, mesh, texture, material, animation, 사용자 정의 속성 등)
 		g_pSDKManager->SetIOSettings(ios);
 	}
 	if (m_pFbxImporter == nullptr)
 	{
+		// FbxImporter 객체 생성
 		m_pFbxImporter = FbxImporter::Create(g_pSDKManager, "");
 		if (m_pFbxImporter == nullptr) return false;
 	}
@@ -36,42 +55,27 @@ bool SFbxObject::Initialize(std::string szFileName)
 
 	bool bRet = m_pFbxImporter->Initialize(szFileName.c_str(), -1, g_pSDKManager->GetIOSettings());
 	if (bRet == false) return false;
+	// FBX 파일 내용을 Scene으로 가져오기
 	bRet = m_pFbxImporter->Import(m_pFBXScene);
 
 	// 삼각형화
-	FbxGeometryConverter lGeomConverter(g_pSDKManager);
-	lGeomConverter.Triangulate(m_pFBXScene, true);
-	return true;
-}
-bool SFbxObject::LoadFBX(std::string szFileName)
-{
-	if (Initialize(szFileName) == false)
-	{
-		return false;
-	}
-	// INode*
-	FbxNode* pFbxRootNode = m_pFBXScene->GetRootNode();
-	PreProcess(pFbxRootNode);
-	ParseNode(pFbxRootNode, Matrix::Identity);
-	ParseAnimation(m_pFBXScene);
+	//FbxGeometryConverter lGeomConverter(g_pSDKManager);
+	//lGeomConverter.Triangulate(m_pFBXScene, true);
 	return true;
 }
 void SFbxObject::PreProcess(FbxNode* pNode)
 {
+	// 카메라와 빛 정보 제외
 	if (pNode && (pNode->GetCamera() || pNode->GetLight()))
 	{
 		return;
 	}
-	Matrix mat = mat.Identity;
-	auto iter = m_dxMatrixMap.find(pNode->GetName());
-	if (iter == m_dxMatrixMap.end())
-	{
-		m_dxMatrixMap[pNode->GetName()] = mat;
-	}
+	// 모든 Child(정보)를 순회하면 원하는 정보 얻기 (노드 탐색)
 	int dwChild = pNode->GetChildCount();
 	for (int dwObj = 0; dwObj < dwChild; dwObj++)
 	{
 		FbxNode* pChildNode = pNode->GetChild(dwObj);
+		// 노드(도형) 타입 정하기
 		if (pChildNode->GetNodeAttribute() != NULL)
 		{
 			FbxNodeAttribute::EType AttributeType = pChildNode->GetNodeAttribute()->GetAttributeType();
@@ -85,6 +89,39 @@ void SFbxObject::PreProcess(FbxNode* pNode)
 		PreProcess(pChildNode);
 	}
 }
+void SFbxObject::ParseNode(FbxNode* pNode, Matrix matParent)
+{
+	if (pNode == nullptr) return;
+	if (pNode && (pNode->GetCamera() || pNode->GetLight())) // Camera와 Light 정보 제외
+	{
+		return;
+	}
+
+	SObject* obj = new SObject;
+	obj->m_szName = to_mw(pNode->GetName());
+	m_sMeshMap[pNode] = obj;
+
+	// world matrix
+	Matrix matWorld = ParseTransform(pNode, matParent); // 월드행렬 정보(정규화 상태)
+	obj->m_matWorld = matWorld;
+
+	if (pNode->GetMesh() != nullptr)
+	{
+		ParseMesh(pNode, pNode->GetMesh(), obj); // vb, ib
+	}
+	// 모든 Child(정보)를 순회하면 원하는 정보 얻기 (노드 탐색)
+	int dwChild = pNode->GetChildCount();
+	for (int dwObj = 0; dwObj < dwChild; dwObj++)
+	{
+		FbxNode* pChildNode = pNode->GetChild(dwObj);
+		ParseNode(pChildNode, matWorld);
+	}
+}
+Matrix SFbxObject::ParseTransform(FbxNode* pNode, Matrix& matParentWorld)
+{
+	Matrix matWorld = Matrix::Identity;
+	return matWorld;
+}
 void SFbxObject::ParseMesh(FbxNode* pNode, FbxMesh* pFbxMesh, SObject* pObj)
 {
 	int iNumMtrl = pNode->GetMaterialCount();
@@ -94,8 +131,8 @@ void SFbxObject::ParseMesh(FbxNode* pNode, FbxMesh* pFbxMesh, SObject* pObj)
 	}
 	// NumFace
 	int iPolyCount = pFbxMesh->GetPolygonCount();
-	int iVertexCount = pFbxMesh->GetControlPointsCount();
-	FbxVector4* pVertexPositions = pFbxMesh->GetControlPoints();
+	int iVertexCount = pFbxMesh->GetControlPointsCount(); // 정점 갯수
+	FbxVector4* pVertexPositions = pFbxMesh->GetControlPoints(); // 정점 위치
 
 	for (int iPoly = 0; iPoly < iPolyCount; iPoly++)
 	{
@@ -141,27 +178,4 @@ void SFbxObject::ParseMesh(FbxNode* pNode, FbxMesh* pFbxMesh, SObject* pObj)
 			pObj->m_TriangleList.push_back(tri);
 		}
 	}
-}
-Matrix SFbxObject::ParseTransform(FbxNode* pNode, Matrix& matParentWorld)
-{
-	Matrix matWorld = Matrix::Identity;
-	return matWorld;
-}
-void SFbxObject::ParseNode(FbxNode* pNode, Matrix matParent)
-{
-	if (pNode == nullptr) return;
-	if (pNode && (pNode->GetCamera() || pNode->GetLight()))
-	{
-		return;
-	}
-	//shared_ptr<SObject> obj = make_shared<SObject>();
-	SObject* obj = new SObject;
-	obj->m_szName = to_mw(pNode->GetName());
-	m_sMeshMap[pNode] = obj;
-	Matrix matWorld = ParseTransform(pNode, matParent);
-	//m_pMeshList.push_back(obj);
-}
-void SFbxObject::ParseAnimation(FbxScene* pFBXScene)
-{
-
 }
