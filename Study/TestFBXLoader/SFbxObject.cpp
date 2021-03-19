@@ -12,7 +12,9 @@ std::string SFbxObject::ParseMaterial(FbxSurfaceMaterial* pMtrl)
 		const FbxFileTexture* tex = Property.GetSrcObject<FbxFileTexture>(0);
 		if (tex != nullptr)
 		{
-			return tex->GetFileName();
+			const CHAR* szFileName = tex->GetFileName();
+			CHAR Drive[MAX_PATH];
+			CHAR Dir[MAX_PATH];
 		}
 	}
 	return std::string("");
@@ -162,7 +164,7 @@ void SFbxObject::ParseNode(FbxNode* pNode, Matrix matParent)
 		return;
 	}
 
-	SObject* obj = new SObject;
+	SModelObject* obj = new SModelObject;
 	obj->m_szName = to_mw(pNode->GetName());
 	m_sMeshMap[pNode] = obj;
 
@@ -187,7 +189,7 @@ Matrix SFbxObject::ParseTransform(FbxNode* pNode, Matrix& matParentWorld)
 	Matrix matWorld = Matrix::Identity;
 	return matWorld;
 }
-void SFbxObject::ParseMesh(FbxNode* pNode, FbxMesh* pFbxMesh, SObject* pObj)
+void SFbxObject::ParseMesh(FbxNode* pNode, FbxMesh* pFbxMesh, SModelObject* pObj)
 {
 	std::vector<FbxLayerElementUV*> VertexUVSets;
 	int iLayerCount = pFbxMesh->GetLayerCount();	// 모든 Layer를 불러온다 = 1

@@ -3,15 +3,19 @@
 bool Sample::Init()
 {
 	m_Camera.CreateViewMatrix({ 0,50,-50 }, { 0,0,0 });
+
+	// FBX Load
 	m_fbxObj.Load("../../data/object/box.fbx");
 
 	for (auto data : m_fbxObj.m_sMeshMap)
 	{
+		// unordered_map 에서 SObject Data 가져오기 
 		SObject* pObject = (SObject*)data.second;
-		if (pObject->m_TriangleList.size() <= 0) continue;
 
-		pObject->m_VertexList.resize(pObject->m_TriangleList.size() * 3);
-		for (int iFace = 0; iFace < pObject->m_TriangleList.size(); iFace++)
+		if (pObject->m_TriangleList.size() <= 0) continue;
+	
+		pObject->m_VertexList.resize(pObject->m_TriangleList.size() * 3);	// Triangle 버텍스 크기 resize
+		for (int iFace = 0; iFace < pObject->m_TriangleList.size(); iFace++)	// 정점 정보
 		{
 			int iIndex = iFace * 3;
 			pObject->m_VertexList[iIndex + 0] =
