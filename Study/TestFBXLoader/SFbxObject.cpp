@@ -1,5 +1,70 @@
 #include "SFbxObject.h"
 FbxManager* SFbxObject::g_pSDKManager = nullptr;
+// Material(재질) 설정
+std::string SFbxObject::ParseMaterial(FbxSurfaceMaterial* pMtrl)
+{
+	std::string name = pMtrl->GetName();
+	// Material 속성(특성)
+	auto Property = pMtrl->FindProperty(FbxSurfaceMaterial::sDiffuse);
+	if (Property.IsValid())
+	{
+		// 0번 텍스쳐 정보를 들고온다
+		const FbxFileTexture* tex = Property.GetSrcObject<FbxFileTexture>(0);
+		if (tex != nullptr)
+		{
+			return tex->GetFileName();
+		}
+	}
+	return std::string("");
+}
+void SFbxObject::ReadTextureCoord(FbxMesh* pFbxMesh, FbxLayerElementUV* pUVSet, int vertexIndex, int uvIndex, FbxVector2& uv)
+{
+	FbxLayerElementUV *pFbxLayerElementUV = pUVSet;
+	if (pFbxLayerElementUV == nullptr)
+	{
+		return;
+	}
+	switch (pFbxLayerElementUV->GetMappingMode()) // mapping 방식
+	{
+	case FbxLayerElementUV::eByControlPoint:
+	{
+		switch (pFbxLayerElementUV->GetReferenceMode()) // mapping 정보가 저장되는 방식
+		{
+		case FbxLayerElementUV::eDirect:
+		{
+			FbxVector2 fbxUv = pFbxLayerElementUV->GetDirectArray().GetAt(vertexIndex);
+			uv.mData[0] = fbxUv.mData[0];
+			uv.mData[1] = fbxUv.mData[1];
+			break;
+		}
+		case FbxLayerElementUV::eIndexToDirect:
+		{
+			int id = pFbxLayerElementUV->GetIndexArray().GetAt(vertexIndex);
+			FbxVector2 fbxUv = pFbxLayerElementUV->GetDirectArray().GetAt(id);
+			uv.mData[0] = fbxUv.mData[0];
+			uv.mData[1] = fbxUv.mData[1];
+			break;
+		}
+		}
+		break;
+	}
+	case FbxLayerElementUV::eByPolygonVertex:
+	{
+		switch (pFbxLayerElementUV->GetReferenceMode())
+		{
+			// Always enters this part for the example model
+		case FbxLayerElementUV::eDirect:
+		case FbxLayerElementUV::eIndexToDirect:
+		{
+			uv.mData[0] = pFbxLayerElementUV->GetDirectArray().GetAt(uvIndex).mData[0];
+			uv.mData[1] = pFbxLayerElementUV->GetDirectArray().GetAt(uvIndex).mData[1];
+			break;
+		}
+		}
+		break;
+	}
+	}
+}
 SFbxObject::SFbxObject()
 {
 	m_pFbxImporter	= nullptr;
@@ -124,10 +189,32 @@ Matrix SFbxObject::ParseTransform(FbxNode* pNode, Matrix& matParentWorld)
 }
 void SFbxObject::ParseMesh(FbxNode* pNode, FbxMesh* pFbxMesh, SObject* pObj)
 {
-	int iNumMtrl = pNode->GetMaterialCount();
+	std::vector<FbxLayerElementUV*> VertexUVSets;
+	int iLayerCount = pFbxMesh->GetLayerCount();	// 모든 Layer를 불러온다 = 1
+	for (int iLayer = 0; iLayer < iLayerCount; iLayer++)
+	{
+		FbxLayer* pLayer = pFbxMesh->GetLayer(iLayer);	// iLayer 얻는다
+
+		if (pLayer->GetVertexColors() != NULL)
+		{
+
+		}
+		if (pLayer->GetUVs() != NULL)
+		{
+			VertexUVSets.push_back(pLayer->GetUVs());	// pLayer에서 UV정보를 가져와서 push_back
+		}
+	}
+
+	std::vector<std::string> fbxMaterialList;
+	int iNumMtrl = pNode->GetMaterialCount();	// 모든 재질 정보를 가져온다
 	for (int iMtrl = 0; iMtrl < iNumMtrl; iMtrl++)
 	{
-
+		FbxSurfaceMaterial* pMtrl = pNode->GetMaterial(iMtrl);	// iMtrl(재질) 얻기
+		if (pMtrl == nullptr)
+		{
+			continue;
+		}
+		fbxMaterialList.push_back(ParseMaterial(pMtrl)); // 텍스쳐 + 재질 push_back
 	}
 	// NumFace
 	int iPolyCount = pFbxMesh->GetPolygonCount();
@@ -136,7 +223,7 @@ void SFbxObject::ParseMesh(FbxNode* pNode, FbxMesh* pFbxMesh, SObject* pObj)
 
 	for (int iPoly = 0; iPoly < iPolyCount; iPoly++)
 	{
-		int iPolySize = pFbxMesh->GetPolygonSize(iPoly);
+		int iPolySize = pFbxMesh->GetPolygonSize(iPoly);	// Polygon 정점 수를 가져온다
 		int iTriangleCount = iPolySize - 2;
 
 		int iCornerIndices[3];
@@ -171,8 +258,17 @@ void SFbxObject::ParseMesh(FbxNode* pNode, FbxMesh* pFbxMesh, SObject* pObj)
 				v.n.x = vNormals[iCornerIndices[iIndex]].mData[0]; // x
 				v.n.y = vNormals[iCornerIndices[iIndex]].mData[2]; // z
 				v.n.z = vNormals[iCornerIndices[iIndex]].mData[1]; // y
-				v.t.x = 0.0f; // x
-				v.t.y = 1.0f - 1.0f; // z
+				for (int iUVIndex = 0; iUVIndex < VertexUVSets.size(); ++iUVIndex)
+				{
+					FbxLayerElementUV* pUVSet = VertexUVSets[iUVIndex];
+					FbxVector2 uv(0, 0);
+					ReadTextureCoord(pFbxMesh, pUVSet,
+									 iCornerIndices[iIndex], u[iIndex],
+									 uv);
+					v.t.x = uv.mData[0]; // x
+					v.t.y = 1.0f - uv.mData[1]; // z
+
+				}
 				tri.vVertex[iIndex] = v;
 			}
 			pObj->m_TriangleList.push_back(tri);
