@@ -47,3 +47,16 @@ iSubMtrl = iPoly // iPoly(face)당 텍스쳐 (면 하나가 인덱스)
 2.로컬 트랜스폼 - 원점에서 월드로 변환
 3.애니메이션 트랜스폼 - 시간에 따라 행렬이 달라진다
   월드 좌표 곱하지 않는다.
+
+  행렬에 의한 변환
+  normalMatrix = geo의 역행렬 -> 전치
+  
+  Direct Light 방향
+  Point Light 위치
+  Spot Light 방향, 위치, 범위
+
+Object Material - 오브젝트 마다 빛을 표현하는 범위가 다르다
+
+eDirect - 배열에 있을 경우
+eIndexToDirect  - 인덱스에 데이터가 있을 경우
+SDxObject->Update - time을 view(시선)벡터로 넘겨준다
