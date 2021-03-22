@@ -24,11 +24,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Sample.cpp" />
-    <ClCompile Include="TFbxObj.cpp" />
+    <ClCompile Include="SFbxObj.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sample.h" />
-    <ClInclude Include="TFbxObj.h" />
+    <ClInclude Include="SFbxObj.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
@@ -109,6 +109,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>../../lib;../../fmod/lib/x64;../../fbxsdk/lib/x64/debug;../../maxdk/lib/x64/Release</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libfbxsdk-md.lib;libxml2-md.lib;zlib-md.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

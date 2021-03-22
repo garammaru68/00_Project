@@ -42,6 +42,8 @@
 25일차 -	제 51강 Create Frustum	All (복습)					494p
 	제 52강 Frustum Culling	All (복습)					506p
 	제 78강 PointLight		3.지형 높이값 얻기				751p
+03.22 -	제 75강 VertexNormalsFastLookup	All (복습)				720p
+	제 76강 Diffuse Lighting						724p
 275p 표 수정
 309p 표 수정
 

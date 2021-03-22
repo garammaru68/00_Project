@@ -777,6 +777,7 @@ namespace SBASIS_CORE_LIB
 	}
 	bool	SDxObject::CreateVertexBuffer()
 	{
+		if (m_VertexList.size() <= 0) return true;
 		D3D11_BUFFER_DESC bd;
 		ZeroMemory(&bd, sizeof(D3D11_BUFFER_DESC));
 		bd.ByteWidth = sizeof(PNCT_VERTEX) * m_VertexList.size();

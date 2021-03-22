@@ -1,9 +1,9 @@
 #pragma once
 #include "SCore.h"
-#include "TFbxObj.h"
+#include "SFbxObj.h"
 class Sample : public SCore
 {
-	TFbxObj		m_fbxObj;
+	SFbxObj		m_fbxObj;
 public:
 	bool Init() override;
 	bool Frame() override;

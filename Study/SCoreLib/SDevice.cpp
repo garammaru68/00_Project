@@ -238,10 +238,14 @@ bool SDevice::PreRender()
 	{
 		m_pImmediateContext->RSSetViewports(1, &m_ViewPort);
 		m_pImmediateContext->OMSetRenderTargets(1, m_pRenderTargetView.GetAddressOf(), m_pDSV.Get());
-		float clearColor[] = { 0,0,0,1 };
+		float clearColor[] = { 0.3f,0.5f,0.23f,1 };
 		m_pImmediateContext->ClearRenderTargetView(m_pRenderTargetView.Get(), clearColor);
 		m_pImmediateContext->ClearDepthStencilView(m_pDSV.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1, 0);
 	}
+	m_pImmediateContext->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	m_pImmediateContext->RSSetState(SDxState::m_pRS);
+	m_pImmediateContext->PSSetSamplers(0, 1, &SDxState::m_pWrapLinear);
+	m_pImmediateContext->OMSetDepthStencilState(SDxState::m_pDSS, 0);
 	return true;
 }
 bool SDevice::Render()
