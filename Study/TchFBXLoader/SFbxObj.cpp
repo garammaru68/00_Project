@@ -21,6 +21,8 @@ std::string SFbxObj::ParseMaterial(FbxSurfaceMaterial* pMtrl)
 			_splitpath(szFileName, Drive, Dir, FName, Ext);
 			std::string texName = FName;
 			std::string ext = Ext;
+
+			// tga형식 지원X 바꿔주기
 			if (ext == ".tga")
 			{
 				ext.clear();
@@ -125,12 +127,11 @@ bool SFbxObj::Initialize(std::string szFileName)
 	if (bRet == false) return false;
 	// FBX 파일 내용을 Scene으로 가져오기
 	bRet = m_pFbxImporter->Import(m_pFBXScene);
-	//Import 이후 세팅
+
+	//Import 이후 세팅 // Z축 변환
 	FbxAxisSystem::MayaZUp.ConvertScene(m_pFBXScene);
 	FbxAxisSystem SceneAxisSystem = m_pFBXScene->GetGlobalSettings().GetAxisSystem();
-	//// 삼각형화
-	//FbxGeometryConverter lGeomConverter(g_pSDKManager);
-	//lGeomConverter.Triangulate(m_pFBXScene, true);
+
 	return true;
 }
 
@@ -254,11 +255,11 @@ void SFbxObj::ParseMesh(FbxNode* pNode,
 			{
 				switch (pMaterialSetList[0]->GetReferenceMode())
 				{
-				case FbxLayerElement::eIndex:
+				case FbxLayerElement::eIndex: // 배열에 있을 경우
 				{
 					iSubMtrl = iPoly;
 				}break;
-				case FbxLayerElement::eIndexToDirect:
+				case FbxLayerElement::eIndexToDirect: // 인덱스에 데이터가 있을 경우
 				{
 					iSubMtrl = pMaterialSetList[0]->GetIndexArray().GetAt(iPoly);
 					pObj->subMesh[iSubMtrl].iCount++;
