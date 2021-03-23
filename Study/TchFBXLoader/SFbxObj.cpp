@@ -227,7 +227,6 @@ void SFbxObj::ParseMesh(FbxNode* pNode,
 	}
 
 	// transform
-	FbxAMatrix geom1;
 	FbxAMatrix geom;
 	FbxVector4 trans = pNode->GetGeometricTranslation(FbxNode::eSourcePivot);
 	FbxVector4 rot = pNode->GetGeometricRotation(FbxNode::eSourcePivot);
@@ -235,12 +234,15 @@ void SFbxObj::ParseMesh(FbxNode* pNode,
 	geom.SetT(trans);
 	geom.SetR(rot);
 	geom.SetS(scale);
-	FbxAMatrix globalMatrix = pNode->EvaluateLocalTransform();
-	FbxAMatrix matrix = globalMatrix * geom;
+
+	// 이미 World 행렬이 들어가 있음
+	FbxAMatrix normalMat = geom;
+	normalMat = normalMat.Inverse();
+	normalMat = normalMat.Transpose();
 
 	int iPolyCount = pFbxMesh->GetPolygonCount();
 	int iVertexCount = pFbxMesh->GetControlPointsCount(); // 정점 갯수
-	FbxVector4* pVertexPosiions = pFbxMesh->GetControlPoints(); // 정점 위치
+	FbxVector4* pVertexPositions = pFbxMesh->GetControlPoints(); // 정점 위치
 
 	for (int iPoly = 0; iPoly < iPolyCount; iPoly++)
 	{
@@ -299,7 +301,7 @@ void SFbxObj::ParseMesh(FbxNode* pNode,
 			for (int iIndex = 0; iIndex < 3; iIndex++)
 			{
 				PNCT_VERTEX v;
-				auto finalPos = geom.MultT(pVertexPosiions[iCornerIndices[iIndex]]);
+				auto finalPos = geom.MultT(pVertexPositions[iCornerIndices[iIndex]]);
 				v.p.x = finalPos.mData[0]; // x
 				v.p.y = finalPos.mData[2]; // z
 				v.p.z = finalPos.mData[1]; // y
