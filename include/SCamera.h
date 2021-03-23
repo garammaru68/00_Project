@@ -6,7 +6,7 @@ class SCamera
 {
 public:
 	SFrustum    m_Frustum;
-	float		m_pSpeed;
+	float		m_fSpeed;
 	Vector3		m_vCameraPos = { 10,0,-10 };
 	Vector3		m_vCameraTarget = { 0,0,0 };
 	Matrix      m_matWorld;

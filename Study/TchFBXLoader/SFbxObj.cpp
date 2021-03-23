@@ -45,10 +45,11 @@ void SFbxObj::ReadTextureCoord(FbxMesh* pFbxMesh, FbxLayerElementUV* pUVSet, int
 
 	switch (pFbxLayerElementUV->GetMappingMode()) // mapping 방식
 	{
-	case FbxLayerElementUV::eByControlPoint:
+	case FbxLayerElementUV::eByControlPoint: // control point의 노말을 control point의 인덱스로 접근 ( 하나의 노말 )
 	{
 		switch (pFbxLayerElementUV->GetReferenceMode()) // mapping 정보가 저장되는 방식
 		{
+		// control point의 인덱스 또는 각 면의 정점의 인덱스를 통해 normal에 접근
 		case FbxLayerElementUV::eDirect:
 		{
 			FbxVector2 fbxUv = pFbxLayerElementUV->GetDirectArray().GetAt(vertexIndex);
@@ -56,6 +57,8 @@ void SFbxObj::ReadTextureCoord(FbxMesh* pFbxMesh, FbxLayerElementUV* pUVSet, int
 			uv.mData[1] = fbxUv.mData[1];
 			break;
 		}
+		// 각 면의 정점의 인덱스를 통해 normal 벡터를 가리킬 수 있는 인덱스를 부여받고, 
+		// 이것을 통해 실제 normal에 접근
 		case FbxLayerElementUV::eIndexToDirect:
 		{
 			int id = pFbxLayerElementUV->GetIndexArray().GetAt(vertexIndex);
@@ -67,7 +70,7 @@ void SFbxObj::ReadTextureCoord(FbxMesh* pFbxMesh, FbxLayerElementUV* pUVSet, int
 		}
 		break;
 	}
-	case FbxLayerElementUV::eByPolygonVertex:
+	case FbxLayerElementUV::eByPolygonVertex: // 버텍스의 노말을 버텍스의 인덱스로 접근 ( 하나의 edge에 모이는 정점의 수만큼 노말 )
 	{
 		switch (pFbxLayerElementUV->GetReferenceMode())
 		{
@@ -123,6 +126,7 @@ bool SFbxObj::Initialize(std::string szFileName)
 		if (m_pFBXScene == nullptr) return false;
 	}
 
+	// Importer에 FBX 파일 데이터 초기화
 	bool bRet = m_pFbxImporter->Initialize(szFileName.c_str(), -1, g_pSDKManager->GetIOSettings());
 	if (bRet == false) return false;
 	// FBX 파일 내용을 Scene으로 가져오기
@@ -202,7 +206,7 @@ void SFbxObj::ParseMesh(FbxNode* pNode,
 		}
 		if (pFbxMesh->GetLayer(iLayer)->GetMaterials() != nullptr)
 		{
-			pMaterialSetList.push_back(pFbxMesh->GetLayer(iLayer)->GetMaterials());
+			pMaterialSetList.push_back(pFbxMesh->GetLayer(iLayer)->GetMaterials()); // 레이어에 Material을 push_back
 		}
 	}
 
@@ -255,14 +259,13 @@ void SFbxObj::ParseMesh(FbxNode* pNode,
 			{
 				switch (pMaterialSetList[0]->GetReferenceMode())
 				{
-				case FbxLayerElement::eIndex: // 배열에 있을 경우
+				case FbxLayerElement::eIndex: 
 				{
 					iSubMtrl = iPoly;
 				}break;
-				case FbxLayerElement::eIndexToDirect: // 인덱스에 데이터가 있을 경우
+				case FbxLayerElement::eIndexToDirect: 
 				{
 					iSubMtrl = pMaterialSetList[0]->GetIndexArray().GetAt(iPoly);
-					pObj->subMesh[iSubMtrl].iCount++;
 				}break;
 				}
 			}
@@ -356,7 +359,7 @@ void SFbxObj::ParseNode(
 	{
 		ParseMesh(pNode, pNode->GetMesh(), obj); // vb, ib
 	}
-	// 모든 Child(정보)를 순회하면 원하는 정보 얻기 (노드 탐색)
+	// 모든 Child(정보)를 순회하며 원하는 정보 얻기 (노드 탐색)
 	int dwChild = pNode->GetChildCount();
 	for (int dwObj = 0; dwObj < dwChild; dwObj++)
 	{

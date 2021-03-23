@@ -118,6 +118,15 @@ void    SCore::CameraFrame()
 	{
 		m_pMainCamera->UpMovement(-1.0f);
 	}
+	if (g_Input.GetKey(VK_SPACE) == KEY_HOLD)
+	{
+		m_pMainCamera->m_fSpeed += g_fSecondPerFrame * 100.0f;
+	}
+	else
+	{
+		m_pMainCamera->m_fSpeed = 30.0f;
+	}
+
 	m_pMainCamera->Frame();
 }
 bool	SCore::PreRender()

@@ -1,6 +1,9 @@
 #pragma once
 #include "SStd.h"
 #include "dxtk/WICTextureLoader.h"
+#include "dxtk/DDSTextureLoader.h"
+#include "dxtk/DDS.h"
+
 class STexture
 {
 public:

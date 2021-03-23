@@ -14,7 +14,7 @@ void SDebugCamera::Update(Vector4 data)
 	//D3DXMatrixAffineTransformation
 	// matRotation = quaternion * pos * scale;
 	//m_vCameraPos += m_vLook * data.w;
-	m_vCameraPos += m_vLook * m_fWheelDelta;
+	m_vCameraPos += m_vLook * m_fWheelDelta * m_fSpeed;
 	SBASIS_CORE_LIB::OutputDebug("%10.4f\n", m_fWheelDelta);
 	matRoation._41 = m_vCameraPos.x;
 	matRoation._42 = m_vCameraPos.y;

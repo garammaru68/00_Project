@@ -28,17 +28,21 @@ void SFbxObject::ReadTextureCoord(FbxMesh* pFbxMesh, FbxLayerElementUV* pUVSet, 
 	}
 	switch (pFbxLayerElementUV->GetMappingMode()) // mapping 방식
 	{
-	case FbxLayerElementUV::eByControlPoint:
+	case FbxLayerElementUV::eByControlPoint: // control point의 노말을 control point의 인덱스로 접근 ( 하나의 노말 )
 	{
 		switch (pFbxLayerElementUV->GetReferenceMode()) // mapping 정보가 저장되는 방식
 		{
-		case FbxLayerElementUV::eDirect:
+		// control point의 인덱스 또는 각 면의 정점의 인덱스를 통해 normal에 접근하는 것
+		case FbxLayerElementUV::eDirect: 
 		{
 			FbxVector2 fbxUv = pFbxLayerElementUV->GetDirectArray().GetAt(vertexIndex);
 			uv.mData[0] = fbxUv.mData[0];
 			uv.mData[1] = fbxUv.mData[1];
 			break;
 		}
+		// control point의 인덱스를 사용하거나 
+		// 각 면의 정점의 인덱스를 통해 normal 벡터를 가리킬 수 있는 인덱스를 부여받고, 
+		// 이것을 통해 실제 normal에 접근할 수 있다.
 		case FbxLayerElementUV::eIndexToDirect:
 		{
 			int id = pFbxLayerElementUV->GetIndexArray().GetAt(vertexIndex);
@@ -50,11 +54,10 @@ void SFbxObject::ReadTextureCoord(FbxMesh* pFbxMesh, FbxLayerElementUV* pUVSet, 
 		}
 		break;
 	}
-	case FbxLayerElementUV::eByPolygonVertex:
+	case FbxLayerElementUV::eByPolygonVertex: // 버텍스의 노말을 버텍스의 인덱스로 접근 ( 하나의 edge에 모이는 정점의 수만큼 노말 )
 	{
 		switch (pFbxLayerElementUV->GetReferenceMode())
 		{
-			// Always enters this part for the example model
 		case FbxLayerElementUV::eDirect:
 		case FbxLayerElementUV::eIndexToDirect:
 		{

@@ -95,39 +95,39 @@ void SCamera::Update(Vector4 data)
 }
 void SCamera::FrontMovement(float fDir)
 {
-	Vector3 vOffset = m_vLook * g_fSecondPerFrame * m_pSpeed * fDir;
+	Vector3 vOffset = m_vLook * g_fSecondPerFrame * m_fSpeed * fDir;
 	m_vCameraPos += vOffset;
 }
 void SCamera::RightMovement(float fDir)
 {
-	Vector3 vMove = m_vRight * g_fSecondPerFrame * m_pSpeed * fDir;
+	Vector3 vMove = m_vRight * g_fSecondPerFrame * m_fSpeed * fDir;
 	m_vCameraPos += vMove;
 }
 void SCamera::UpMovement(float fDir)
 {
-	Vector3 vMove = m_vUp * g_fSecondPerFrame * m_pSpeed * fDir;
+	Vector3 vMove = m_vUp * g_fSecondPerFrame * m_fSpeed * fDir;
 	m_vCameraPos += vMove;
 }
 void SCamera::FrontBase(float fDir)
 {
 	Vector3 vSide = { 0,0,1 };
-	Vector3 vMove = vSide * g_fSecondPerFrame * m_pSpeed * fDir;
+	Vector3 vMove = vSide * g_fSecondPerFrame * m_fSpeed * fDir;
 	m_vCameraPos += vMove;
-	m_vCameraTarget += m_vLook * m_pSpeed;
+	m_vCameraTarget += m_vLook * m_fSpeed;
 }
 void SCamera::RightBase(float fDir)
 {
 	Vector3 vSide = { 1,0,0 };
-	Vector3 vMove = vSide * g_fSecondPerFrame * m_pSpeed * fDir;
+	Vector3 vMove = vSide * g_fSecondPerFrame * m_fSpeed * fDir;
 	m_vCameraPos += vMove;
-	m_vCameraTarget += m_vLook * m_pSpeed;
+	m_vCameraTarget += m_vLook * m_fSpeed;
 }
 void SCamera::UpBase(float fDir)
 {
 	Vector3 vUp = { 0,1,0 };
-	Vector3 vMove = vUp * g_fSecondPerFrame * m_pSpeed * fDir;
+	Vector3 vMove = vUp * g_fSecondPerFrame * m_fSpeed * fDir;
 	m_vCameraPos += vMove;
-	m_vCameraTarget += m_vLook * m_pSpeed;
+	m_vCameraTarget += m_vLook * m_fSpeed;
 }
 void SCamera::UpdateVector()
 {
@@ -167,7 +167,7 @@ bool SCamera::DrawFrustum(ID3D11DeviceContext*	pd3dContext,
 }
 SCamera::SCamera()
 {
-	m_pSpeed = 30.0f;
+	m_fSpeed = 60.0f;
 	m_bDrag = false;
 	m_fWheelDelta = 0;
 }

@@ -7,7 +7,15 @@ bool STexture::Load(ID3D11Device* pd3dDevice, T_STR szTex)
 		pd3dDevice, szTex.c_str(),
 		NULL,
 		&m_pTextureSRV);
-	if (FAILED(hr)) return false;
+	if (FAILED(hr))
+	{
+		hr = DirectX::CreateDDSTextureFromFile(
+			pd3dDevice, szTex.c_str(),
+			NULL,
+			&m_pTextureSRV);
+		if (FAILED(hr)) return false;
+	}
+
 	return true;
 }
 bool STexture::Init()
