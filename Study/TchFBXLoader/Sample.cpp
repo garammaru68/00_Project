@@ -138,5 +138,15 @@ bool Sample::Render()
 }
 bool Sample::Release()
 {
+	for (auto data : m_fbxObj.m_sMeshMap)
+	{
+		SModelObject* pObject = (SModelObject*)data.second;
+		for (int iSub = 0; iSub < pObject->subMesh.size(); iSub++)
+		{
+			SSubMesh* pMesh = &pObject->subMesh[iSub];
+		}
+		pObject->Release();
+		delete pObject;
+	}
 	return true;
 }

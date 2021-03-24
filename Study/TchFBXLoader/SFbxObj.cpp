@@ -313,12 +313,19 @@ void SFbxObj::ParseMesh(FbxNode* pNode,
 											VertexColorSet[0],
 											iCornerIndices[iIndex],
 											iBasePolyIndex + iVertIndex[iIndex]);
+				v.c.x = (float)color.mRed;
+				v.c.y = (float)color.mGreen;
+				v.c.z = (float)color.mBlue;
+				v.c.w = 1;
 
+				FbxVector4 normal = ReadNormal(pFbxMesh,
+					iCornerIndices[iIndex],
+					iBasePolyIndex + iVertIndex[iIndex]);
+				finalPos = normalMat.MultT(normal);
+				v.n.x = finalPos.mData[0]; // x
+				v.n.y = finalPos.mData[2]; // z
+				v.n.z = finalPos.mData[1]; // y
 
-				v.c = Vector4(1, 1, 1, 1);
-				v.n.x = 0;// vNormals[iCornerIndices[iIndex]].mData[0]; // x
-				v.n.y = 0;//vNormals[iCornerIndices[iIndex]].mData[2]; // z
-				v.n.z = 0;//vNormals[iCornerIndices[iIndex]].mData[1]; // y
 				for (int iUVIndex = 0; iUVIndex < VertexUVSets.size(); ++iUVIndex)
 				{
 					FbxLayerElementUV* pUVSet = VertexUVSets[iUVIndex];
@@ -343,6 +350,7 @@ void SFbxObj::ParseMesh(FbxNode* pNode,
 				pObj->m_TriangleList.push_back(tri);
 			}
 		}
+		iBasePolyIndex += iPolySize;
 	}
 }
 Matrix SFbxObj::ParseTransform(FbxNode* pNode, Matrix& matParentWorld)
@@ -390,7 +398,7 @@ FbxVector4 SFbxObj::ReadNormal(const FbxMesh* mesh, int controlPointIndex, int v
 
 	FbxVector4 result; // ³ë¸» º¤ÅÍ¸¦ ÀúÀåÇÒ º¤ÅÍ
 
-	switch (vertexNormal->GetMappingMode)
+	switch (vertexNormal->GetMappingMode())
 	{
 	case FbxGeometryElement::eByControlPoint:
 	{
