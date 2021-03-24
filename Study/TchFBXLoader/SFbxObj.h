@@ -56,6 +56,10 @@ struct SSubMesh
 	ComPtr<ID3D11Buffer>	    m_pVertexBuffer;
 	STexture*				    m_pTexture;
 	int iCount = 0;
+	~SSubMesh()
+	{
+
+	}
 };
 
 class SModelObject : public SObject
@@ -63,6 +67,10 @@ class SModelObject : public SObject
 public:
 	std::vector<std::wstring> fbxMaterialList;
 	std::vector<SSubMesh>   subMesh;
+	virtual ~SModelObject()
+	{
+
+	}
 };
 typedef std::unordered_map<FbxNode*, SModelObject*>	sMeshMap;
 class SFbxObj
@@ -87,6 +95,10 @@ public:
 		int uvIndex,
 		FbxVector2& uv);
 	std::string ParseMaterial(FbxSurfaceMaterial* pMtrl);
+	FbxVector4	ReadNormal(const FbxMesh* mesh, int controlPoinIndex, int vertexCounter);
+	FbxColor	ReadColor(const FbxMesh* mesh, DWORD dwVertexColorCount,
+						  FbxLayerElementVertexColor* pVertexColorSet,
+						  DWORD dwDCCIndex, DWORD dwVertexIndex);
 	void ParseAnimation(FbxScene*	pFBXScene);
 public:
 	SFbxObj();

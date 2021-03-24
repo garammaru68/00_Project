@@ -60,3 +60,16 @@ Object Material - 오브젝트 마다 빛을 표현하는 범위가 다르다
 eDirect - 배열에 있을 경우
 eIndexToDirect  - 인덱스에 데이터가 있을 경우
 SDxObject->Update - time을 view(시선)벡터로 넘겨준다
+
+1프레임 4800틱
+샘플링 방식		- 곡선 알고리즘이 적용 되어이쓴 파형을 샘플링
+네거티브 스케일	- 반대쪽으로 변형하다 좌표 방향이 역전되는 것
+				  -1을 곱하면 정상적으로 변함
+vColor = m_vLook - 카메라가 바라보는 방향이 라이트 벡터
+
+<Animation>
+animationStack = 동작
+fFrameTime = 0.033
+fSampleTime = fFrameTime * 1.0f(프레임)
+Evaluator - 작업 도구
+GetNodeGlobalTransform(); - 최종 행렬

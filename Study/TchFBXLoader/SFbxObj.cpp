@@ -45,7 +45,7 @@ void SFbxObj::ReadTextureCoord(FbxMesh* pFbxMesh, FbxLayerElementUV* pUVSet, int
 
 	switch (pFbxLayerElementUV->GetMappingMode()) // mapping 방식
 	{
-	case FbxLayerElementUV::eByControlPoint: // control point의 노말을 control point의 인덱스로 접근 ( 하나의 노말 )
+	case FbxLayerElementUV::eByControlPoint: // control point의 노말을 control point의 인덱스로 접근 ( 하나당 하나의 노말 )
 	{
 		switch (pFbxLayerElementUV->GetReferenceMode()) // mapping 정보가 저장되는 방식
 		{
@@ -189,6 +189,7 @@ void SFbxObj::ParseMesh(FbxNode* pNode,
 {
 	std::vector<FbxLayerElementUV*> VertexUVSets;
 	std::vector<FbxLayerElementMaterial*> pMaterialSetList;
+	std::vector<FbxLayerElementVertexColor*> VertexColorSet;
 
 	int iLayerCount = pFbxMesh->GetLayerCount(); // 모든 Layer를 불러온다 = 1
 	for (int iLayer = 0; iLayer < iLayerCount; iLayer++)
@@ -197,7 +198,7 @@ void SFbxObj::ParseMesh(FbxNode* pNode,
 		// 버텍스 컬러
 		if (pLayer->GetVertexColors() != NULL)
 		{
-
+			VertexColorSet.push_back(pLayer->GetVertexColors());
 		}
 		// UV
 		if (pLayer->GetUVs() != NULL)
@@ -235,7 +236,7 @@ void SFbxObj::ParseMesh(FbxNode* pNode,
 	geom.SetR(rot);
 	geom.SetS(scale);
 
-	// 이미 World 행렬이 들어가 있음
+	// 노말 변환 Nomal * (World Matrix^(-1))^T // World 행렬 이미 들어가 있음
 	FbxAMatrix normalMat = geom;
 	normalMat = normalMat.Inverse();
 	normalMat = normalMat.Transpose();
@@ -244,6 +245,7 @@ void SFbxObj::ParseMesh(FbxNode* pNode,
 	int iVertexCount = pFbxMesh->GetControlPointsCount(); // 정점 갯수
 	FbxVector4* pVertexPositions = pFbxMesh->GetControlPoints(); // 정점 위치
 
+	int iBasePolyIndex = 0;
 	for (int iPoly = 0; iPoly < iPolyCount; iPoly++)
 	{
 		int iPolySize = pFbxMesh->GetPolygonSize(iPoly); // Polygon 정점 수를 가져온다
@@ -305,6 +307,12 @@ void SFbxObj::ParseMesh(FbxNode* pNode,
 				v.p.x = finalPos.mData[0]; // x
 				v.p.y = finalPos.mData[2]; // z
 				v.p.z = finalPos.mData[1]; // y
+
+				FbxColor color = ReadColor( pFbxMesh,
+											VertexColorSet.size(),
+											VertexColorSet[0],
+											iCornerIndices[iIndex],
+											iBasePolyIndex + iVertIndex[iIndex]);
 
 
 				v.c = Vector4(1, 1, 1, 1);
@@ -372,4 +380,96 @@ void SFbxObj::ParseNode(
 void SFbxObj::ParseAnimation(FbxScene*	pFBXScene)
 {
 
+}
+// 정점 노말을 읽는다
+FbxVector4 SFbxObj::ReadNormal(const FbxMesh* mesh, int controlPointIndex, int vertexCounter)
+{
+	if (mesh->GetElementNormalCount() < 1) {}
+
+	const FbxGeometryElementNormal* vertexNormal = mesh->GetElementNormal(0); // 노말 얻기
+
+	FbxVector4 result; // 노말 벡터를 저장할 벡터
+
+	switch (vertexNormal->GetMappingMode)
+	{
+	case FbxGeometryElement::eByControlPoint:
+	{
+		switch (vertexNormal->GetReferenceMode())
+		{
+		case FbxGeometryElement::eDirect:
+		{
+			result[0] = static_cast<float>(vertexNormal->GetDirectArray().GetAt(controlPointIndex).mData[0]);
+			result[1] = static_cast<float>(vertexNormal->GetDirectArray().GetAt(controlPointIndex).mData[1]);
+			result[2] = static_cast<float>(vertexNormal->GetDirectArray().GetAt(controlPointIndex).mData[2]);
+		}break;
+		case FbxGeometryElement::eIndexToDirect:
+		{
+			int index = vertexNormal->GetIndexArray().GetAt(controlPointIndex);
+			result[0] = static_cast<float>(vertexNormal->GetDirectArray().GetAt(index).mData[0]);
+			result[1] = static_cast<float>(vertexNormal->GetDirectArray().GetAt(index).mData[1]);
+			result[2] = static_cast<float>(vertexNormal->GetDirectArray().GetAt(index).mData[2]);
+		}break;
+		}break;
+	}break;
+	case FbxGeometryElement::eByPolygonVertex:
+	{
+		switch (vertexNormal->GetReferenceMode())
+		{
+		case FbxGeometryElement::eDirect:
+		{
+			result[0] = static_cast<float>(vertexNormal->GetDirectArray().GetAt(vertexCounter).mData[0]);
+			result[1] = static_cast<float>(vertexNormal->GetDirectArray().GetAt(vertexCounter).mData[1]);
+			result[2] = static_cast<float>(vertexNormal->GetDirectArray().GetAt(vertexCounter).mData[2]);
+		}break;
+		case FbxGeometryElement::eIndexToDirect:
+		{
+			int index = vertexNormal->GetIndexArray().GetAt(vertexCounter);
+			result[0] = static_cast<float>(vertexNormal->GetDirectArray().GetAt(index).mData[0]);
+			result[1] = static_cast<float>(vertexNormal->GetDirectArray().GetAt(index).mData[1]);
+			result[2] = static_cast<float>(vertexNormal->GetDirectArray().GetAt(index).mData[2]);
+		}break;
+		}
+	}break;
+	}
+	return result;
+}
+FbxColor SFbxObj::ReadColor(const FbxMesh* mesh, DWORD dwVertexColorCount,
+							FbxLayerElementVertexColor* pVertexColorSet,
+							DWORD dwDCCIndex, DWORD dwVertexIndex)
+{
+	FbxColor Value(1, 1, 1, 1);
+	if (dwVertexColorCount > 0 && pVertexColorSet != NULL)
+	{
+		switch (pVertexColorSet->GetMappingMode())
+		{
+		case FbxLayerElement::eByControlPoint:
+			switch (pVertexColorSet->GetReferenceMode())
+			{
+			case FbxLayerElement::eDirect:
+			{
+				Value = pVertexColorSet->GetDirectArray().GetAt(dwDCCIndex);
+			}break;
+			case FbxLayerElement::eIndexToDirect:
+			{
+				int iColorIndex = pVertexColorSet->GetIndexArray().GetAt(dwDCCIndex);
+				Value = pVertexColorSet->GetDirectArray().GetAt(iColorIndex);
+			}break;
+			}
+		case FbxLayerElement::eByPolygonVertex:
+			switch (pVertexColorSet->GetReferenceMode())
+			{
+			case FbxLayerElement::eDirect:
+			{
+				int iColorIndex = dwVertexIndex;
+				Value = pVertexColorSet->GetDirectArray().GetAt(iColorIndex);
+			}
+			case FbxLayerElement::eIndexToDirect:
+			{
+				int iColorIndex = pVertexColorSet->GetIndexArray().GetAt(dwVertexIndex);
+				Value = pVertexColorSet->GetDirectArray().GetAt(iColorIndex);
+			}break;
+			}break;
+		}
+	}
+	return Value;
 }
