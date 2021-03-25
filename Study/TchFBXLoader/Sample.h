@@ -3,7 +3,7 @@
 #include "SFbxObj.h"
 class Sample : public SCore
 {
-	SFbxObj		m_fbxObj;
+	std::vector<std::shared_ptr<SFbxObj>> m_ObjList;
 public:
 	bool Init() override;
 	bool Frame() override;

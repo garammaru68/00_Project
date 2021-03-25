@@ -25,12 +25,18 @@
     <ClCompile Include="SFbxObj.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="SFbxAnimation.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sample.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="SFbxObj.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SFbxAnimation.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

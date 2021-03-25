@@ -6,7 +6,7 @@ ID3D11SamplerState*			SDxState::m_pWrapLinear = nullptr;
 ID3D11DepthStencilState*	SDxState::m_pDSS = nullptr;
 
 D3D11_FILL_MODE			SDxState::m_FillMode = D3D11_FILL_SOLID;
-D3D11_CULL_MODE			SDxState::m_CullMode = D3D11_CULL_NONE;
+D3D11_CULL_MODE			SDxState::m_CullMode = D3D11_CULL_BACK;
 
 bool SDxState::Set(ID3D11Device* pd3dDevice)
 {

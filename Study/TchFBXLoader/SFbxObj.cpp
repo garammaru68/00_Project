@@ -23,7 +23,7 @@ std::string SFbxObj::ParseMaterial(FbxSurfaceMaterial* pMtrl)
 			std::string ext = Ext;
 
 			// tga형식 지원X 바꿔주기
-			if (ext == ".tga")
+			if (ext == ".tga" || ext == ".TGA")
 			{
 				ext.clear();
 				ext = ".dds";
@@ -222,10 +222,6 @@ void SFbxObj::ParseMesh(FbxNode* pNode,
 		}
 		pObj->fbxMaterialList.push_back(to_mw(ParseMaterial(pMtrl))); // 텍스쳐 + 재질 push_back
 	}
-	if (iNumMtrl > 1)
-	{
-		pObj->subMesh.resize(iNumMtrl);
-	}
 
 	// transform
 	FbxAMatrix geom;
@@ -240,6 +236,11 @@ void SFbxObj::ParseMesh(FbxNode* pNode,
 	FbxAMatrix normalMat = geom;
 	normalMat = normalMat.Inverse();
 	normalMat = normalMat.Transpose();
+
+	//pObj->m_matWorld = DxConvertMatrix(ConvertMatrixA(pNode->EvaluateGlobalTransform(1.0f)));
+	FbxAMatrix globalMatrix = pNode->EvaluateLocalTransform();
+	FbxAMatrix matrix = globalMatrix * geom;
+	pObj->m_matWorld = DxConvertMatrix(ConvertMatrixA(matrix));
 
 	int iPolyCount = pFbxMesh->GetPolygonCount();
 	int iVertexCount = pFbxMesh->GetControlPointsCount(); // 정점 갯수
@@ -308,11 +309,15 @@ void SFbxObj::ParseMesh(FbxNode* pNode,
 				v.p.y = finalPos.mData[2]; // z
 				v.p.z = finalPos.mData[1]; // y
 
-				FbxColor color = ReadColor( pFbxMesh,
-											VertexColorSet.size(),
-											VertexColorSet[0],
-											iCornerIndices[iIndex],
-											iBasePolyIndex + iVertIndex[iIndex]);
+				FbxColor color = FbxColor(1, 1, 1, 1);
+				if (VertexColorSet.size())
+				{
+					ReadColor(pFbxMesh,
+						VertexColorSet.size(),
+						VertexColorSet[0],
+						iCornerIndices[iIndex],
+						iBasePolyIndex + iVertIndex[iIndex]);
+				}
 				v.c.x = (float)color.mRed;
 				v.c.y = (float)color.mGreen;
 				v.c.z = (float)color.mBlue;
@@ -326,23 +331,29 @@ void SFbxObj::ParseMesh(FbxNode* pNode,
 				v.n.y = finalPos.mData[2]; // z
 				v.n.z = finalPos.mData[1]; // y
 
-				for (int iUVIndex = 0; iUVIndex < VertexUVSets.size(); ++iUVIndex)
+
+				if (VertexUVSets.size())
 				{
-					FbxLayerElementUV* pUVSet = VertexUVSets[iUVIndex];
-					FbxVector2 uv(0, 0);
-					ReadTextureCoord(
-						pFbxMesh,
-						pUVSet,
-						iCornerIndices[iIndex],
-						u[iIndex],
-						uv);
-					v.t.x = uv.mData[0];
-					v.t.y = 1.0f - uv.mData[1];
+					// Texture UV
+					for (int iUVIndex = 0; iUVIndex < 1/*VertexUVSets.size()*/; ++iUVIndex)
+					{
+						FbxLayerElementUV* pUVSet = VertexUVSets[iUVIndex];
+						FbxVector2 uv(0, 0);
+						ReadTextureCoord(
+							pFbxMesh,
+							pUVSet,
+							iCornerIndices[iIndex],
+							u[iIndex],
+							uv);
+						v.t.x = uv.mData[0];
+						v.t.y = 1.0f - uv.mData[1];
+					}
 				}
 				tri.vVertex[iIndex] = v;
 			}
 			if (iNumMtrl > 1)
 			{
+				pObj->subMesh.resize(iNumMtrl);
 				pObj->subMesh[iSubMtrl].m_TriangleList.push_back(tri);
 			}
 			else
@@ -384,10 +395,6 @@ void SFbxObj::ParseNode(
 		FbxNode* pChildNode = pNode->GetChild(dwObj);
 		ParseNode(pChildNode, matWorld);
 	}
-}
-void SFbxObj::ParseAnimation(FbxScene*	pFBXScene)
-{
-
 }
 // 정점 노말을 읽는다
 FbxVector4 SFbxObj::ReadNormal(const FbxMesh* mesh, int controlPointIndex, int vertexCounter)

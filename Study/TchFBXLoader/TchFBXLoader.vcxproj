@@ -24,10 +24,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Sample.cpp" />
+    <ClCompile Include="SFbxAnimation.cpp" />
     <ClCompile Include="SFbxObj.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sample.h" />
+    <ClInclude Include="SFbxAnimation.h" />
     <ClInclude Include="SFbxObj.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

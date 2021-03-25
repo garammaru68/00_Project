@@ -73,3 +73,12 @@ fFrameTime = 0.033
 fSampleTime = fFrameTime * 1.0f(프레임)
 Evaluator - 작업 도구
 GetNodeGlobalTransform(); - 최종 행렬
+
+<Character>
+-논블랜딩-
+행렬을 배열로
+쉐이더에 넘기고
+행렬의 인덱스를 넘긴다
+
+-블래딩-
+정점에 인덱스와 가중치 저장

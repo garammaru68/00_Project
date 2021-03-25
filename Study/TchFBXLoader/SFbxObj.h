@@ -51,7 +51,7 @@ static Matrix ConvertMatrixA(const FbxMatrix& matrix)
 }
 struct SSubMesh
 {
-	std::vector<S_TRIANGLE>			m_TriangleList;
+	std::vector<S_TRIANGLE>		m_TriangleList;
 	std::vector<PNCT_VERTEX>	m_VertexList;
 	ComPtr<ID3D11Buffer>	    m_pVertexBuffer;
 	STexture*				    m_pTexture;
@@ -73,6 +73,7 @@ public:
 	}
 };
 typedef std::unordered_map<FbxNode*, SModelObject*>	sMeshMap;
+typedef std::vector<SModelObject*> sMeshList;
 class SFbxObj
 {
 public:
@@ -99,7 +100,6 @@ public:
 	FbxColor	ReadColor(const FbxMesh* mesh, DWORD dwVertexColorCount,
 						  FbxLayerElementVertexColor* pVertexColorSet,
 						  DWORD dwDCCIndex, DWORD dwVertexIndex);
-	void ParseAnimation(FbxScene*	pFBXScene);
 public:
 	SFbxObj();
 };
