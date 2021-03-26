@@ -149,6 +149,7 @@ bool SFbxObj::LoadFBX(std::string szFileName)
 	// 트리구조로 되어 있는 Scene의 정보를 가져오기 위함
 	FbxNode* pFbxRootNode = m_pFBXScene->GetRootNode();
 	ParseNode(pFbxRootNode, Matrix::Identity);
+	ParseAnimation(m_pFBXScene);
 	return true;
 }
 void SFbxObj::PreProcess(FbxNode* pNode)
@@ -237,10 +238,10 @@ void SFbxObj::ParseMesh(FbxNode* pNode,
 	normalMat = normalMat.Inverse();
 	normalMat = normalMat.Transpose();
 
-	//pObj->m_matWorld = DxConvertMatrix(ConvertMatrixA(pNode->EvaluateGlobalTransform(1.0f)));
-	FbxAMatrix globalMatrix = pNode->EvaluateLocalTransform();
-	FbxAMatrix matrix = globalMatrix * geom;
-	pObj->m_matWorld = DxConvertMatrix(ConvertMatrixA(matrix));
+	pObj->m_matWorld = DxConvertMatrix(ConvertMatrixA(pNode->EvaluateGlobalTransform(1.0f)));
+	//FbxAMatrix globalMatrix = pNode->EvaluateLocalTransform();
+	//FbxAMatrix matrix = globalMatrix * geom;
+	//pObj->m_matWorld = DxConvertMatrix(ConvertMatrixA(matrix));
 
 	int iPolyCount = pFbxMesh->GetPolygonCount();
 	int iVertexCount = pFbxMesh->GetControlPointsCount(); // 정점 갯수
@@ -381,6 +382,8 @@ void SFbxObj::ParseNode(
 	SModelObject* obj = new SModelObject;
 	obj->m_szName = to_mw(pNode->GetName());
 	m_sMeshMap[pNode] = obj;
+	m_sMeshList.push_back(obj);
+
 	// world matrix
 	Matrix matWorld = ParseTransform(pNode, matParent); // 월드행렬 정보(정규화 상태)
 	obj->m_matWorld = matWorld;

@@ -1,20 +1,21 @@
 #include "Sample.h"
 bool Sample::Init()
 {
-	m_Camera.CreateViewMatrix({ 0,500,-2000 }, { 0,0,0 });
+	m_Camera.CreateViewMatrix({ 0,20,-50 }, { 0,0,0 });
 	float fAspect = g_rtClient.right / (float)g_rtClient.bottom;
 	m_Camera.CreateProjMatrix(1, 5000, SBASIS_PI / 4.0f, fAspect);
 
 	// FBX LOAD
 	const char* fbxobject[] =
 	{
-		"../../data/object/rockBlobFive.fbx",
-		"../../data/object/rockBlobFour.fbx",
-		"../../data/object/SM_Tree_Var01.fbx",
+		"../../data/object/Turret_Deploy1.fbx",
+		//"../../data/object/rockBlobFive.fbx",
+		//"../../data/object/rockBlobFour.fbx",
+		//"../../data/object/SM_Tree_Var01.fbx",
 		//"../../data/object/ship.fbx",
-		"../../data/object/SM_Rock.fbx",
-		"../../data/object/SM_House_Var01.fbx",
-		"../../data/object/SM_Barrel.fbx",
+		//"../../data/object/SM_Rock.fbx",
+		//"../../data/object/SM_House_Var01.fbx",
+		//"../../data/object/SM_Barrel.fbx",
 		//"../../data/object/sphereboxZ.fbx",
 	};
 	for (int iObj = 0; iObj < ARRAYSIZE(fbxobject); iObj++)
@@ -25,7 +26,7 @@ bool Sample::Init()
 			for (auto data : obj->m_sMeshMap)
 			{
 				// unordered_map 에서 SObject Data 가져오기 
-				SModelObject* pObject = (SModelObject*)data.second;
+				SModelObject* pObject = data;
 				if (pObject->m_TriangleList.size() <= 0 &&
 					pObject->subMesh.size() <= 0)
 				{
@@ -69,6 +70,8 @@ bool Sample::Init()
 					for (int iSub = 0; iSub < pObject->subMesh.size(); iSub++)
 					{
 						SSubMesh* pSub = &pObject->subMesh[iSub];
+						if (pSub->m_TriangleList.size() <= 0) continue;
+
 						pSub->m_VertexList.resize(pSub->m_TriangleList.size() * 3);
 						for (int iFace = 0; iFace < pSub->m_TriangleList.size(); iFace++)
 						{
@@ -108,7 +111,26 @@ bool Sample::Init()
 }
 bool Sample::Frame()
 {
-
+	if (g_Input.GetKey('0') == KEY_PUSH)
+	{
+		SDxState::m_FillMode = D3D11_FILL_WIREFRAME;
+		SDxState::SetRasterizerState(g_pd3dDevice);
+	}
+	if (g_Input.GetKey('9') == KEY_PUSH)
+	{
+		SDxState::m_FillMode = D3D11_FILL_SOLID;
+		SDxState::SetRasterizerState(g_pd3dDevice);
+	}
+	if (g_Input.GetKey('8') == KEY_PUSH)
+	{
+		SDxState::m_CullMode = D3D11_CULL_BACK;
+		SDxState::SetRasterizerState(g_pd3dDevice);
+	}
+	if (g_Input.GetKey('7') == KEY_PUSH)
+	{
+		SDxState::m_CullMode = D3D11_CULL_FRONT;
+		SDxState::SetRasterizerState(g_pd3dDevice);
+	}
 	return true;
 }
 bool Sample::Render()
@@ -120,12 +142,11 @@ bool Sample::Render()
 
 		for (auto data : m_ObjList[iObj]->m_sMeshMap)
 		{
-			SModelObject* pObject = (SModelObject*)data.second;
+			SModelObject* pObject = data;
 			if (pObject->subMesh.size() == 0)
 			{
 				if (pObject->m_TriangleList.size() <= 0) continue;
 
-				pObject->m_matWorld._41 = vPos.x;
 				pObject->m_cbData.vColor[0] = m_pMainCamera->m_vLook.x;
 				pObject->m_cbData.vColor[1] = m_pMainCamera->m_vLook.y;
 				pObject->m_cbData.vColor[2] = m_pMainCamera->m_vLook.z;
@@ -184,7 +205,7 @@ bool Sample::Release()
 	{
 		for (auto data : m_ObjList[iObj]->m_sMeshMap)
 		{
-			SModelObject* pObject = (SModelObject*)data.second;
+			SModelObject* pObject = data;
 			for (int iSub = 0; iSub < pObject->subMesh.size(); iSub++)
 			{
 				SSubMesh* pMesh = &pObject->subMesh[iSub];

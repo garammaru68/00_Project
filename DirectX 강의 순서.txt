@@ -1,68 +1,70 @@
 <제1권>
-1일차 -	제 11강 2D 기초		All					122p
-	제 12강 3D 기초		All					142p
-	제 25강 벡터 -1-		All					258p
-	제 26강 벡터 -2-		1.벡터의 내적				271p 
-2일차 -	제 26강 벡터 -2-		2.벡터의 외적 ~				274p ~
-3일차 -	제 29강 행렬 -1-		1.행렬 ~ 5)전치행렬			299p ~ 301p
-4일차 -	제 29강 행렬 -1-		6)역행렬 ~ 11)4차원 행렬의 역행렬		301p ~ 306p
-	제 29강 행렬 -1-		2.변환					307p ~ 315p
-5일차 -	제 30강 정점변환		All					316p
-	제 31강 D3DXMATRIX	All					325p
-	제 32강 뷰 및 투영 변환 	1.카메라 변환 ~ 3)오브젝트 회전 행렬		330p ~ 334p
-6일차 -	제 32강 뷰 및 투영 변환	2.투영변환 ~ 3.원근평행 1)간단한 원근법 투영	334p ~ 342p
-				3.원근평행 4)Z 값의 계산 공식		344p
-7일차 -	제 32강 뷰 및 투영 변환	3.원근평행 2)수평시야 및 수직시야		342p ~ 343p
-10일차 -	제 08강 DirectWrite / Font	All					88p
-12일차 -	제 15강 ConstantBuffer	All					172p
-	제 16강 Primitive Type	All					176p
-	제 17강 GeometryShader	All					188p
-13일차 -	제 18강 Texture -1-	All					195p
-	제 21강 Access Image	All					208p
-	제 22강 Texture -2-	All					215p
-14일차 -	제 33강 행렬 - 2-		All					347p
-	제 34강 Depth Buffer -1-	All					355p
-	제 35강 Depth Buffer -2-	All					363p
-	제 36강 행렬 -3-		All					371p
-15일차 -	제 41강 DrawShape -0-	All					407p
-16일차 -	제 35강 Depth Buffer -2-	All (복습)					363p
-	제 36강 행렬 -3-		All (복습)					371p
-	제 38강 변환		All					387p
-	제 39강 Stencil Buffer	All					393p
-17일차 -	제 44강 Camera -1-	All					433p
-	제 45강 Camera -2-	All					441p
-18일차 -	제 47강 Camera -3-	All					453p
-	제 51강 Create Frustum	All					494p
-	제 52강 Frustum Culling	All					506p
-19일차 -	제 48강 사원수		All					459p
-20일차 -	제 49강 Camera -4-	All					474p
-21일차 -	제 73강 Customize Map	All					695p
-	제 74강 Height Map	All					705p
-	제 75강 VertexNormalsFastLookup	All				720p
-25일차 -	제 51강 Create Frustum	All (복습)					494p
-	제 52강 Frustum Culling	All (복습)					506p
-	제 78강 PointLight		3.지형 높이값 얻기				751p
-03.22 -	제 75강 VertexNormalsFastLookup	All (복습)				720p
-	제 76강 Diffuse Lighting						724p
+1일차 -	제 11강 2D 기초			All						122p
+	제 12강 3D 기초			All						142p
+	제 25강 벡터 -1-			All						258p
+	제 26강 벡터 -2-			1.벡터의 내적					271p 
+2일차 -	제 26강 벡터 -2-			2.벡터의 외적 ~					274p ~
+3일차 -	제 29강 행렬 -1-			1.행렬 ~ 5)전치행렬				299p ~ 301p
+4일차 -	제 29강 행렬 -1-			6)역행렬 ~ 11)4차원 행렬의 역행렬			301p ~ 306p
+	제 29강 행렬 -1-			2.변환						307p ~ 315p
+5일차 -	제 30강 정점변환			All						316p
+	제 31강 D3DXMATRIX		All						325p
+	제 32강 뷰 및 투영 변환 		1.카메라 변환 ~ 3)오브젝트 회전 행렬			330p ~ 334p
+6일차 -	제 32강 뷰 및 투영 변환		2.투영변환 ~ 3.원근평행 1)간단한 원근법 투영		334p ~ 342p
+					3.원근평행 4)Z 값의 계산 공식			344p
+7일차 -	제 32강 뷰 및 투영 변환		3.원근평행 2)수평시야 및 수직시야			342p ~ 343p
+10일차 -	제 08강 DirectWrite / Font		All						88p
+12일차 -	제 15강 ConstantBuffer		All						172p
+	제 16강 Primitive Type		All						176p
+	제 17강 GeometryShader		All						188p
+13일차 -	제 18강 Texture -1-		All						195p
+	제 21강 Access Image		All						208p
+	제 22강 Texture -2-		All						215p
+14일차 -	제 33강 행렬 - 2-			All						347p
+	제 34강 Depth Buffer -1-		All						355p
+	제 35강 Depth Buffer -2-		All						363p
+	제 36강 행렬 -3-			All						371p
+15일차 -	제 41강 DrawShape -0-		All						407p
+16일차 -	제 35강 Depth Buffer -2-		All (복습)						363p
+	제 36강 행렬 -3-			All (복습)						371p
+	제 38강 변환			All						387p
+	제 39강 Stencil Buffer		All						393p
+17일차 -	제 44강 Camera -1-		All						433p
+	제 45강 Camera -2-		All						441p
+18일차 -	제 47강 Camera -3-		All						453p
+	제 51강 Create Frustum		All						494p
+	제 52강 Frustum Culling		All						506p
+19일차 -	제 48강 사원수			All						459p
+20일차 -	제 49강 Camera -4-		All						474p
+21일차 -	제 73강 Customize Map		All						695p
+	제 74강 Height Map		All						705p
+	제 75강 VertexNormalsFastLookup	All						720p
+25일차 -	제 51강 Create Frustum		All (복습)						494p
+	제 52강 Frustum Culling		All (복습)						506p
+	제 78강 PointLight			3.지형 높이값 얻기					751p
+03.22 -	제 75강 VertexNormalsFastLookup	All (복습)						720p
+	제 76강 Diffuse Lighting								724p
 275p 표 수정
 309p 표 수정
 
 <제2권>
-26일차 -	제 93강 QuadTree -0-	All					196p
-	제 94강 QuadTree -1-	All					209p
-	제 95강 Octree		All					223p
-	제 96강 Imbalance QuadTree		All				229p
-27일차 -	제 98강 QuadTree -2-	All					257p
-	제 99강 ROAM		All					267p
-28일차 -	제 100강 SLOD(Static LOD) -1-	All				288p
-	제 101강 SLOD(Static LOD) -2-	All				311p
-29일차 -	제 102강 BSP(Binary Space Partition)	All				327p
-	제 103강 Mouse Picking	All					353p
-30일차 -	제 104강 Collision Dectection -1-	1.충돌처리 ~ <반직선> 		366p ~ 369p
-		(AABB 제외)		<반직선(Ray)과 OBB>		373p
-31일차 -	제 104강 Collision Dectection -1-	<반직선과 AABB>			369p ~ 373p
-03.24 -	구조적 문제							58p
-	제 83강 TMesh Converter	Class FbxObj 추가				59p
-	제 84강 Object Animation						72p
-	제 85강 Single Object Animation	All				88p
-	제 86강 Multi Object Animation	All				108p
+26일차 -	제 93강 QuadTree -0-		All						196p
+	제 94강 QuadTree -1-		All						209p
+	제 95강 Octree			All						223p
+	제 96강 Imbalance QuadTree		All						229p
+27일차 -	제 98강 QuadTree -2-		All						257p
+	제 99강 ROAM			All						267p
+28일차 -	제 100강 SLOD(Static LOD) -1-	All						288p
+	제 101강 SLOD(Static LOD) -2-	All						311p
+29일차 -	제 102강 BSP(Binary Space Partition)	All						327p
+	제 103강 Mouse Picking		All						353p
+30일차 -	제 104강 Collision Dectection -1-	1.충돌처리 ~ <반직선> 				366p ~ 369p
+		(AABB 제외)		<반직선(Ray)과 OBB>				373p
+31일차 -	제 104강 Collision Dectection -1-	<반직선과 AABB>					369p ~ 373p
+03.24 -	제 82강 Ase SubMaterial		구조적 문제 해결					58p
+	제 83강 TMesh Converter		Class FbxObj 추가					59p
+	제 84강 Object Animation		All						72p
+	제 85강 Single Object Animation	All						88p
+	제 86강 Multi Object Animation	All						108p
+03.26	제 115강 Max Utility Plugin		2. 정점 블랜딩(Vertex Blending) ~ 4.스키닝(Skinning)	529p ~ 531p
+					6.Skin Modifier - Check				542p - Check

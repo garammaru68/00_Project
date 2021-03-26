@@ -17,7 +17,6 @@ struct VS_OUTPUT
 	float3 n : NORMAL;
 	float4 c : COLOR0;
 	float2 t : TEXCOORD0;
-	float4 v : TEXCOORD1;
 };
 struct PS_OUTPUT
 {
@@ -32,7 +31,8 @@ PS_OUTPUT PS( VS_OUTPUT vIn)
 	float3 vLight = normalize(vColor.xyz);
 	float c = dot( vIn.n, -vLight);
 	float4 vLightColor = float4(c,c,c,1);
-	vOut.c = vFinalColor * vLightColor;
+	float4 vAmbint = float4(0.3f, 0.3f, 0.3f, 1.0f);
+	vOut.c = vFinalColor * (vAmbint + vLightColor);
 	return vOut;
 }
 PS_OUTPUT PSLine( VS_OUTPUT vIn)

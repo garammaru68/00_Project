@@ -82,3 +82,11 @@ GetNodeGlobalTransform(); - 최종 행렬
 
 -블래딩-
 정점에 인덱스와 가중치 저장
+
+GetDeformerCount - 적용된 Skin의 갯수
+deforemer - 장치
+pCluster - 노드
+ClusterCount - mesh에 영향을 주는 행렬 바이패드의 갯수
+ClusterSize - mesh에 영향을 받는 정점(노드)의 갯수
+Sample 방식 - 50개의 행렬중 어떤 정점에 영향을 주는가
+
