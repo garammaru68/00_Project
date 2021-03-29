@@ -381,8 +381,9 @@ void SFbxObj::ParseNode(
 	}
 	SModelObject* obj = new SModelObject;
 	obj->m_szName = to_mw(pNode->GetName());
-	m_sMeshMap[pNode] = obj;
-	m_sMeshList.push_back(obj);
+	//m_sMeshMap[pNode] = obj;
+	//m_sMeshList.push_back(obj);
+	m_sMeshMap.push_back(obj);
 
 	// world matrix
 	Matrix matWorld = ParseTransform(pNode, matParent); // 월드행렬 정보(정규화 상태)
