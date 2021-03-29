@@ -70,7 +70,7 @@ struct SScene
 {
 	int iFirstFrame;
 	int iLastFrame;
-	int iframeSpeed;
+	int iFrameSpeed;
 	int iTickPerFrame;
 	int iNumMesh;
 	int iDeltaTick;
@@ -87,7 +87,7 @@ public:
 	SModelObject* pParent;
 	SModelObject()
 	{
-		// pParent = nullptr;
+		 pParent = nullptr;
 	}
 	virtual ~SModelObject()
 	{

@@ -49,6 +49,44 @@ struct PNCT_VERTEX
 		p = vp, n = vn, c = vc, t = vt;
 	}
 };
+struct IW_VERTEX
+{
+	float	i1[4];
+	float	i2[4];
+	float	w1[4];
+	float	w2[4];
+	IW_VERTEX()
+	{
+		i1[0] = i1[1] = i1[2] = i1[3] = 0.0f;
+		w1[0] = w1[1] = w1[2] = w1[3] = 0;
+		i2[0] = i2[1] = i2[2] = i2[3] = 0.0f;
+		w2[0] = w2[1] = w2[2] = w2[3] = 0;
+	}
+};
+struct PNCTIW_VERTEX
+{
+	Vector3		p;
+	Vector3		n;
+	Vector4		c;
+	Vector2		t;
+	Vector4		i;
+	Vector4		w;
+	bool operator == (const PNCTIW_VERTEX & Vertex)
+	{
+		if (p == Vertex.p && n == Vertex.n && c == Vertex.c && t == Vertex.t)
+		{
+			return true;
+		}
+		return false;
+	}
+	PNCTIW_VERTEX() {}
+	PNCTIW_VERTEX(Vector3 vp, Vector3 vn, Vector4 vc, Vector2 vt)
+	{
+		p = vp, n = vn, c = vc, t = vt;
+		i = Vector4(0, 0, 0, 0);
+		w = Vector4(0.0f, 0.0f, 0.0f, 0.0f);
+	}
+};
 struct S_SPHERE
 {
 	Vector3		vCenter;
@@ -69,6 +107,7 @@ struct S_BOX
 struct S_TRIANGLE
 {
 	PNCT_VERTEX	vVertex[3];
+	IW_VERTEX vVertexIW[3];
 	Vector3		vNormal;
 	int			iSubIndex;
 	S_TRIANGLE(int Index) : iSubIndex(Index) {}
@@ -131,6 +170,7 @@ namespace SBASIS_CORE_LIB
 		SDataCB						m_cbData;
 		std::vector<S_TRIANGLE>		m_TriangleList;
 		std::vector<PNCT_VERTEX>	m_VertexList;
+		std::vector<PNCTIW_VERTEX>		m_VertexListIW;
 		std::vector<DWORD>			m_IndexList;
 		ID3D11Buffer*				m_pVertexBuffer;
 		ID3D11Buffer*				m_pIndexBuffer;
