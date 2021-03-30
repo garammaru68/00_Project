@@ -61,29 +61,12 @@ struct SSubMesh
 
 	}
 };
-struct SAnimTrack
-{
-	int iTick;
-	Matrix mat;
-};
-struct SScene
-{
-	int iFirstFrame;
-	int iLastFrame;
-	int iFrameSpeed;
-	int iTickPerFrame;
-	int iNumMesh;
-	int iDeltaTick;
-	float fDeltaTime;
-	float fFirstTime;
-	float fLastTime;
-};
 class SModelObject : public SObject
 {
 public:
 	std::vector<std::wstring>	fbxMaterialList;
 	std::vector<SSubMesh>		subMesh;
-	SModelObject* pParent;
+	SModelObject*				pParent;
 	SModelObject()
 	{
 		 pParent = nullptr;
