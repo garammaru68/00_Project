@@ -1,6 +1,97 @@
 #include "SFbxObj.h"
 
 FbxManager* SFbxObj::g_pSDKManager = nullptr;
+bool SFbxObj::Load(std::string szFileName)
+{
+	if (LoadFBX(szFileName))
+	{
+		return true;
+	}
+	return false;
+}
+// FBX 파일 정보 불러오기
+bool SFbxObj::LoadFBX(std::string szFileName)
+{
+	// 인스턴트화 및 Scene(m_pFBXScene) Import 과정
+	if (Initialize(szFileName) == false)
+	{
+		return false;
+	}
+	// 트리구조로 되어 있는 Scene의 정보를 가져오기 위함
+	FbxNode* pFbxRootNode = m_pFBXScene->GetRootNode();
+	ParseNode(pFbxRootNode, Matrix::Identity);
+	ParseAnimation(m_pFBXScene);
+	return true;
+}
+bool SFbxObj::Initialize(std::string szFileName)
+{
+	if (g_pSDKManager == nullptr)
+	{
+		/// 인스턴스화
+		// FBX SDK 관리자 객체 생성
+		g_pSDKManager = FbxManager::Create();
+		if (g_pSDKManager == nullptr) return false;
+		// FBX IO 객체 설정 및 셋팅
+		FbxIOSettings* ios = FbxIOSettings::Create(g_pSDKManager, IOSROOT);
+		if (ios == nullptr) return false;
+		// 씬의 정보를 가져오거나 내보냄 (camera, light, mesh, texture, material, animation, 사용자 정의 속성 등)
+		g_pSDKManager->SetIOSettings(ios);
+	}
+	if (m_pFbxImporter == nullptr)
+	{
+		// FbxImporter 객체 생성
+		m_pFbxImporter = FbxImporter::Create(g_pSDKManager, "");
+		if (m_pFbxImporter == nullptr) return false;
+	}
+	if (m_pFBXScene == nullptr)
+	{
+		// FBXScene 객체 생성
+		m_pFBXScene = FbxScene::Create(g_pSDKManager, "");
+		if (m_pFBXScene == nullptr) return false;
+	}
+
+	// Importer에 FBX 파일 데이터 초기화
+	bool bRet = m_pFbxImporter->Initialize(szFileName.c_str(), -1, g_pSDKManager->GetIOSettings());
+	if (bRet == false) return false;
+	// FBX 파일 내용을 Scene으로 가져오기
+	bRet = m_pFbxImporter->Import(m_pFBXScene);
+
+	//Import 이후 세팅 // Z축 변환
+	FbxAxisSystem::MayaZUp.ConvertScene(m_pFBXScene);
+	FbxAxisSystem SceneAxisSystem = m_pFBXScene->GetGlobalSettings().GetAxisSystem();
+
+	return true;
+}
+void SFbxObj::ParseNode(
+	FbxNode* pNode,
+	Matrix  matParent)
+{
+	if (pNode == nullptr) return;
+	if (pNode && (pNode->GetCamera() || pNode->GetLight()))
+	{
+		return;
+	}
+	// 오브젝트 생성
+	SModelObject* obj = new SModelObject;
+	obj->m_szName = to_mw(pNode->GetName()); // Scene에서 Name가져와서 저장
+	m_sMeshMap[pNode] = obj;
+	m_sMeshList.push_back(obj);
+
+	// world matrix
+	Matrix matWorld = ParseTransform(pNode, matParent); // 월드행렬 정보(정규화 상태)
+	obj->m_matWorld = matWorld;
+	if (pNode->GetMesh() != nullptr)
+	{
+		ParseMesh(pNode, pNode->GetMesh(), obj); // vb, ib
+	}
+	// 모든 Child(정보)를 순회하며 원하는 정보 얻기 (노드 탐색)
+	int dwChild = pNode->GetChildCount();
+	for (int dwObj = 0; dwObj < dwChild; dwObj++)
+	{
+		FbxNode* pChildNode = pNode->GetChild(dwObj);
+		ParseNode(pChildNode, matWorld); // 재귀 호출
+	}
+}
 // Material(재질) 설정
 std::string SFbxObj::ParseMaterial(FbxSurfaceMaterial* pMtrl)
 {
@@ -90,67 +181,6 @@ SFbxObj::SFbxObj()
 {
 	m_pFbxImporter = nullptr;
 	m_pFBXScene = nullptr;
-}
-bool SFbxObj::Load(std::string szFileName)
-{
-	// FBX 파일 정보 불러오기
-	if (LoadFBX(szFileName))
-	{
-		return true;
-	}
-	return false;
-}
-bool SFbxObj::Initialize(std::string szFileName)
-{
-	if (g_pSDKManager == nullptr)
-	{
-		/// 인스턴스화
-		// FBX SDK 관리자 객체 생성
-		g_pSDKManager = FbxManager::Create();
-		if (g_pSDKManager == nullptr) return false;
-		// FBX IO 객체 설정 및 셋팅
-		FbxIOSettings* ios = FbxIOSettings::Create(g_pSDKManager, IOSROOT);
-		if (ios == nullptr) return false;
-		// 씬의 정보를 가져오거나 내보냄 (camera, light, mesh, texture, material, animation, 사용자 정의 속성 등)
-		g_pSDKManager->SetIOSettings(ios);
-	}
-	if (m_pFbxImporter == nullptr)
-	{
-		// FbxImporter 객체 생성
-		m_pFbxImporter = FbxImporter::Create(g_pSDKManager, "");
-		if (m_pFbxImporter == nullptr) return false;
-	}
-	if (m_pFBXScene == nullptr)
-	{
-		m_pFBXScene = FbxScene::Create(g_pSDKManager, "");
-		if (m_pFBXScene == nullptr) return false;
-	}
-
-	// Importer에 FBX 파일 데이터 초기화
-	bool bRet = m_pFbxImporter->Initialize(szFileName.c_str(), -1, g_pSDKManager->GetIOSettings());
-	if (bRet == false) return false;
-	// FBX 파일 내용을 Scene으로 가져오기
-	bRet = m_pFbxImporter->Import(m_pFBXScene);
-
-	//Import 이후 세팅 // Z축 변환
-	FbxAxisSystem::MayaZUp.ConvertScene(m_pFBXScene);
-	FbxAxisSystem SceneAxisSystem = m_pFBXScene->GetGlobalSettings().GetAxisSystem();
-
-	return true;
-}
-
-
-bool SFbxObj::LoadFBX(std::string szFileName)
-{
-	if (Initialize(szFileName) == false)
-	{
-		return false;
-	}
-	// 트리구조로 되어 있는 Scene의 정보를 가져오기 위함
-	FbxNode* pFbxRootNode = m_pFBXScene->GetRootNode();
-	ParseNode(pFbxRootNode, Matrix::Identity);
-	ParseAnimation(m_pFBXScene);
-	return true;
 }
 void SFbxObj::PreProcess(FbxNode* pNode)
 {
@@ -369,35 +399,6 @@ Matrix SFbxObj::ParseTransform(FbxNode* pNode, Matrix& matParentWorld)
 {
 	Matrix matWorld = Matrix::Identity;
 	return matWorld;
-}
-void SFbxObj::ParseNode(
-	FbxNode* pNode,
-	Matrix  matParent)
-{
-	if (pNode == nullptr) return;
-	if (pNode && (pNode->GetCamera() || pNode->GetLight()))
-	{
-		return;
-	}
-	SModelObject* obj = new SModelObject;
-	obj->m_szName = to_mw(pNode->GetName());
-	m_sMeshMap[pNode] = obj;
-	m_sMeshList.push_back(obj);
-
-	// world matrix
-	Matrix matWorld = ParseTransform(pNode, matParent); // 월드행렬 정보(정규화 상태)
-	obj->m_matWorld = matWorld;
-	if (pNode->GetMesh() != nullptr)
-	{
-		ParseMesh(pNode, pNode->GetMesh(), obj); // vb, ib
-	}
-	// 모든 Child(정보)를 순회하며 원하는 정보 얻기 (노드 탐색)
-	int dwChild = pNode->GetChildCount();
-	for (int dwObj = 0; dwObj < dwChild; dwObj++)
-	{
-		FbxNode* pChildNode = pNode->GetChild(dwObj);
-		ParseNode(pChildNode, matWorld);
-	}
 }
 // 정점 노말을 읽는다
 FbxVector4 SFbxObj::ReadNormal(const FbxMesh* mesh, int controlPointIndex, int vertexCounter)

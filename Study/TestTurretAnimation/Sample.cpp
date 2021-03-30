@@ -22,11 +22,12 @@ bool Sample::Init()
 	for (int iObj = 0; iObj < ARRAYSIZE(fbxobject); iObj++)
 	{
 		std::shared_ptr<SFbxObj> obj = make_shared<SFbxObj>();
+		// fbx 파일 로드하기 ( 정보 불러오기 )
 		if (obj->Load(fbxobject[iObj]))
 		{
 			for (auto data : obj->m_sMeshList)
 			{
-				// unordered_map 에서 SObject Data 가져오기 
+				// Object Data 유무 확인
 				SModelObject* pObject = data;
 				if (pObject->m_TriangleList.size() <= 0 &&
 					pObject->subMesh.size() <= 0)
@@ -36,7 +37,7 @@ bool Sample::Init()
 				// 서브 Material이 없을 경우
 				if (pObject->subMesh.size() == 0)
 				{
-					pObject->m_VertexList.resize(pObject->m_TriangleList.size() * 3); // Triangle 버텍스 크기 resize
+					pObject->m_VertexList.resize(pObject->m_TriangleList.size() * 3); // Triangle 총 버텍스 크기 resize
 					for (int iFace = 0; iFace < pObject->m_TriangleList.size(); iFace++) // 정점 정보
 					{
 						int iIndex = iFace * 3;
@@ -71,7 +72,7 @@ bool Sample::Init()
 					for (int iSub = 0; iSub < pObject->subMesh.size(); iSub++)
 					{
 						SSubMesh* pSub = &pObject->subMesh[iSub];
-						if (pSub->m_TriangleList.size() <= 0) continue;
+						if (pSub->m_TriangleList.size() <= 0) continue; // subMesh를 사용하는 페이스 갯수(m_TriangleList)
 
 						pSub->m_VertexList.resize(pSub->m_TriangleList.size() * 3);
 						for (int iFace = 0; iFace < pSub->m_TriangleList.size(); iFace++)

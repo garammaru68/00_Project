@@ -83,8 +83,8 @@ class SModelObject : public SObject
 public:
 	std::vector<std::wstring>	fbxMaterialList;
 	std::vector<SSubMesh>		subMesh;
-	//SModelObject*				pParent;
 	std::vector<SAnimTrack>     animlist;
+	//SModelObject*				pParent;
 	SModelObject()
 	{
 		// pParent = nullptr;
