@@ -238,10 +238,10 @@ void SFbxObj::ParseMesh(FbxNode* pNode,
 	normalMat = normalMat.Inverse();
 	normalMat = normalMat.Transpose();
 
-	//pObj->m_matWorld = DxConvertMatrix(ConvertMatrixA(pNode->EvaluateGlobalTransform(1.0f)));
-	FbxAMatrix globalMatrix = pNode->EvaluateLocalTransform();
-	FbxAMatrix matrix = globalMatrix * geom;
-	pObj->m_matWorld = DxConvertMatrix(ConvertMatrixA(matrix));
+	pObj->m_matWorld = DxConvertMatrix(ConvertMatrixA(pNode->EvaluateGlobalTransform(1.0f)));
+	//FbxAMatrix globalMatrix = pNode->EvaluateLocalTransform();
+	//FbxAMatrix matrix = globalMatrix * geom;
+	//pObj->m_matWorld = DxConvertMatrix(ConvertMatrixA(matrix));
 
 	int iPolyCount = pFbxMesh->GetPolygonCount();
 	int iVertexCount = pFbxMesh->GetControlPointsCount(); // 정점 갯수
@@ -381,7 +381,8 @@ void SFbxObj::ParseNode(
 	}
 	SModelObject* obj = new SModelObject;
 	obj->m_szName = to_mw(pNode->GetName());
-	m_sMeshMap.push_back(obj);
+	m_sMeshMap[pNode] = obj;
+	m_sMeshList.push_back(obj);
 
 	// world matrix
 	Matrix matWorld = ParseTransform(pNode, matParent); // 월드행렬 정보(정규화 상태)
@@ -396,16 +397,6 @@ void SFbxObj::ParseNode(
 	{
 		FbxNode* pChildNode = pNode->GetChild(dwObj);
 		ParseNode(pChildNode, matWorld);
-	}
-}
-void SFbxObj::ParseAnimation(FbxScene* pFbxScene)
-{
-	FbxArray<FbxString*> AnimStackNameArray;
-	pFbxScene->FillAnimStackNameArray(AnimStackNameArray);	// 애니메이션 이름을 배열에 채운다
-	int iAnimStackCount = AnimStackNameArray.GetCount();	// 애니메이션 갯수
-	for (int i = 0; i < iAnimStackCount; i++)
-	{
-		ParseAnimStack(pFbxScene, AnimStackNameArray.GetAt(i));
 	}
 }
 // 정점 노말을 읽는다

@@ -4,7 +4,6 @@
 class Sample : public SCore
 {
 	std::vector<std::shared_ptr<SFbxObj>> m_ObjList;
-	SFbxObj		m_fbxObj;
 public:
 	bool Init() override;
 	bool Frame() override;

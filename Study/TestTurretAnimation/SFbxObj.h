@@ -61,31 +61,52 @@ struct SSubMesh
 
 	}
 };
+struct SAnimTrack
+{
+	int   iTick;
+	Matrix mat;
+};
+struct SScene
+{
+	int iFirstFrame;
+	int iLastFrame;
+	int iFrameSpeed;
+	int iTickPerFrame;
+	int iNumMesh;
+	int iDeltaTick;
+	float fDeltaTime;
+	float fFirstTime;
+	float fLastTime;
+};
 class SModelObject : public SObject
 {
 public:
 	std::vector<std::wstring>	fbxMaterialList;
 	std::vector<SSubMesh>		subMesh;
-	SModelObject*				pParent;
+	//SModelObject*				pParent;
+	std::vector<SAnimTrack>     animlist;
 	SModelObject()
 	{
-		 pParent = nullptr;
+		// pParent = nullptr;
 	}
 	virtual ~SModelObject()
 	{
 	}
 };
-//typedef std::unordered_map<FbxNode*, SModelObject*>	sMeshMap;
-typedef std::vector<SModelObject*> sMeshMap;
+typedef std::unordered_map<FbxNode*, SModelObject*>	sMeshMap;
+typedef std::vector<SModelObject*> sMeshList;
 
 class SFbxObj
 {
 public:
+	SScene    m_Scene;
+	float	  m_fTick = 0.0f;
 	static FbxManager*  g_pSDKManager;
 	FbxImporter*		m_pFbxImporter;
 	FbxScene*			m_pFBXScene;
 	std::unordered_map<std::string, Matrix> m_dxMatrixMap;
 	sMeshMap	m_sMeshMap;
+	sMeshList	m_sMeshList;
 public:
 	bool Load(std::string szFileName);
 	bool LoadFBX(std::string szFileName);

@@ -24,7 +24,7 @@ bool Sample::Init()
 		std::shared_ptr<SFbxObj> obj = make_shared<SFbxObj>();
 		if (obj->Load(fbxobject[iObj]))
 		{
-			for (auto data : obj->m_sMeshMap)
+			for (auto data : obj->m_sMeshList)
 			{
 				// unordered_map 에서 SObject Data 가져오기 
 				SModelObject* pObject = data;
@@ -138,9 +138,28 @@ bool Sample::Render()
 {
 	for (int iObj = 0; iObj < m_ObjList.size(); iObj++)
 	{
-		for (auto data : m_ObjList[iObj]->m_sMeshMap)
+		m_ObjList[iObj]->m_fTick += g_fSecondPerFrame *
+			m_ObjList[iObj]->m_Scene.iFrameSpeed *
+			m_ObjList[iObj]->m_Scene.iTickPerFrame;// *0.1f;
+
+		if (m_ObjList[iObj]->m_fTick >=
+			(m_ObjList[iObj]->m_Scene.iLastFrame *
+				m_ObjList[iObj]->m_Scene.iTickPerFrame))
 		{
+			m_ObjList[iObj]->m_fTick = 0;
+		}
+		for (auto data : m_ObjList[iObj]->m_sMeshList)
+		{
+			Matrix matWorld = Matrix::Identity;
 			SModelObject* pObject = data;
+			for (int iTick = 0; iTick < pObject->animlist.size(); iTick++)
+			{
+				if (pObject->animlist[iTick].iTick >= m_ObjList[iObj]->m_fTick)
+				{
+					matWorld = pObject->animlist[iTick].mat;
+					break;
+				}
+			}
 			if (pObject->subMesh.size() == 0)
 			{
 				if (pObject->m_TriangleList.size() <= 0) continue;
@@ -148,13 +167,14 @@ bool Sample::Render()
 				pObject->m_cbData.vColor[0] = m_pMainCamera->m_vLook.x;
 				pObject->m_cbData.vColor[1] = m_pMainCamera->m_vLook.y;
 				pObject->m_cbData.vColor[2] = m_pMainCamera->m_vLook.z;
+				pObject->m_matWorld = pObject->animlist[0].mat;
 				pObject->SetMatrix(&pObject->m_matWorld, &m_pMainCamera->m_matView,
 					&m_pMainCamera->m_matProj);
 				pObject->Render(g_pImmediateContext);
 			}
 			else
 			{
-				pObject->SetMatrix(&pObject->m_matWorld, &m_pMainCamera->m_matView,
+				pObject->SetMatrix(&matWorld, &m_pMainCamera->m_matView,
 					&m_pMainCamera->m_matProj);
 				pObject->m_cbData.vColor[0] = m_pMainCamera->m_vLook.x;
 				pObject->m_cbData.vColor[1] = m_pMainCamera->m_vLook.y;
@@ -201,7 +221,7 @@ bool Sample::Release()
 {
 	for (int iObj = 0; iObj < m_ObjList.size(); iObj++)
 	{
-		for (auto data : m_ObjList[iObj]->m_sMeshMap)
+		for (auto data : m_ObjList[iObj]->m_sMeshList)
 		{
 			SModelObject* pObject = data;
 			for (int iSub = 0; iSub < pObject->subMesh.size(); iSub++)

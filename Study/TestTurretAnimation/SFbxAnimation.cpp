@@ -1,14 +1,14 @@
 #include "SFbxObj.h"
-//void SFbxObj::ParseAnimation(FbxScene* pFbxScene)
-//{
-//	FbxArray<FbxString*> AnimStackNameArray;
-//	pFbxScene->FillAnimStackNameArray(AnimStackNameArray);	// 애니메이션 이름을 배열에 채운다
-//	int iAnimStackCount = AnimStackNameArray.GetCount();	// 애니메이션 갯수
-//	for (int i = 0; i < iAnimStackCount; i++)
-//	{
-//		ParseAnimStack(pFbxScene, AnimStackNameArray.GetAt(i));
-//	}
-//}
+void SFbxObj::ParseAnimation(FbxScene* pFbxScene)
+{
+	FbxArray<FbxString*> AnimStackNameArray;
+	pFbxScene->FillAnimStackNameArray(AnimStackNameArray);	// 애니메이션 이름을 배열에 채운다
+	int iAnimStackCount = AnimStackNameArray.GetCount();	// 애니메이션 갯수
+	for (int i = 0; i < iAnimStackCount; i++)
+	{
+		ParseAnimStack(pFbxScene, AnimStackNameArray.GetAt(i));
+	}
+}
 void SFbxObj::ParseNodeAnimation(FbxNode* pNode)
 {
 	if (pNode == nullptr) return;
@@ -16,14 +16,28 @@ void SFbxObj::ParseNodeAnimation(FbxNode* pNode)
 	{
 		return;
 	}
-	FbxAnimEvaluator* anim = m_pFBXScene->GetAnimationEvaluator();
+	//if (pNode->GetMesh() == nullptr)
+	//{
+	//	return;
+	//}
+#if (FBXSDK_VERSION_MAJOR > 2014 || ((FBXSDK_VERSION_MAJOR==2014) && (FBXSDK_VERSION_MINOR>1) ) )
+	auto anim = m_pFBXScene->GetAnimationEvaluator();
+#else
+	auto anim = m_pFBXScene->GetEvaluator();
+#endif
 	float fCurrentTime = 0.0f;
-	float fEndTime = 1.666f;
-	float fDeltaTime = 0.0333f;
-	while (fCurrentTime <= fEndTime)
+	while (fCurrentTime <= m_Scene.fLastTime)
 	{
-		FbxAMatrix mat = anim->GetNodeGlobalTransform(pNode, fCurrentTime);
-		fCurrentTime += fDeltaTime;
+		FbxTime t;
+		t.SetSecondDouble(fCurrentTime);
+		FbxAMatrix mat = anim->GetNodeGlobalTransform(pNode, t);
+		SAnimTrack track;
+		track.iTick = fCurrentTime * 30 * 160;
+		track.mat = DxConvertMatrix(ConvertMatrixA(mat));
+
+		auto data = m_sMeshMap.find(pNode);
+		data->second->animlist.push_back(track);
+		fCurrentTime += m_Scene.fDeltaTime;
 		FbxAMatrix self;
 	}
 	int dwChild = pNode->GetChildCount();
@@ -43,11 +57,6 @@ void SFbxObj::ParseAnimStack(FbxScene* pFbxScene,
 	FbxTime FrameTime;
 	FrameTime.SetTime(0, 0, 0, 1, 0, pFbxScene->GetGlobalSettings().GetTimeMode());
 	float fFrameTime = FrameTime.GetSecondDouble();
-	float fSampleTime = fFrameTime * 1.0f;
-	float fSoureSamplingInterval = fSampleTime;
-	// tick = 1Sec* FrameSpeed * FramePerTick
-	// 4800 = 1Sec*30* 160;
-	// 0.033 = 1Sec / 30;
 	float fStartTime, fEndTime;
 	if (info)
 	{
@@ -62,9 +71,12 @@ void SFbxObj::ParseAnimStack(FbxScene* pFbxScene,
 		fStartTime = (float)tlTimeSpan.GetStart().GetSecondDouble();
 		fEndTime = (float)tlTimeSpan.GetStop().GetSecondDouble();
 	}
-	float SCENE_FRAMESPEED = 30;
-	float SCENE_TICKSPERFRAME = 160;
-	int iFirstFrame = fStartTime * 30.0f;
-	int iLastFrame = fEndTime * 30.0f;
-	ParseNodeAnimation(pFbxScene->GetRootNode());
+	m_Scene.iFirstFrame = fStartTime * 30.0f;
+	m_Scene.iLastFrame = fEndTime * 30.0f;
+	m_Scene.iFrameSpeed = 30;
+	m_Scene.iTickPerFrame = 160;
+	m_Scene.iDeltaTick = 1;
+	m_Scene.fDeltaTime = fFrameTime * 1.0f;
+	m_Scene.fFirstTime = fStartTime;
+	m_Scene.fLastTime = fEndTime;	ParseNodeAnimation(pFbxScene->GetRootNode());
 }
