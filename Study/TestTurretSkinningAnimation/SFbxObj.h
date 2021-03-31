@@ -38,11 +38,14 @@ public:
 	std::unordered_map<std::string, Matrix>	m_dxMatrixMap;
 	std::unordered_map<FbxNode*, int>		m_pNodeMap;
 	std::vector<Matrix>						m_pMatrixList;
+	sNodeMap	m_sNodeMap;
+	sNodeList	m_sNodeList;
 public:
 	bool Load(std::string szFileName);
 	bool LoadFBX(std::string szFileName);
 	bool Initialize(std::string szFileName);
 	void PreProcess(FbxNode* pNode);
+	void ParseNode(FbxNode* pNode, Matrix matParent);
 public:
 	SFbxObj();
 };

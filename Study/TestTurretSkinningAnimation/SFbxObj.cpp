@@ -66,16 +66,29 @@ void SFbxObj::PreProcess(FbxNode* pNode)
 	for (int dwObj = 0; dwObj < dwChild; dwObj++)
 	{
 		FbxNode* pChildNode = pNode->GetChild(dwObj);
-		if (pChildNode->GetNodeAttribute() != NULL)
-		{
-			FbxNodeAttribute::EType AttributeType = pChildNode->GetNodeAttribute()->GetAttributeType();
-			if (AttributeType != FbxNodeAttribute::eMesh &&
-				AttributeType != FbxNodeAttribute::eSkeleton&&
-				AttributeType != FbxNodeAttribute::eNull)
-			{
-				continue;
-			}
-		}
+		//if (pChildNode->GetNodeAttribute() != NULL)
+		//{
+		//	FbxNodeAttribute::EType AttributeType = pChildNode->GetNodeAttribute()->GetAttributeType();
+		//	if (AttributeType != FbxNodeAttribute::eMesh &&
+		//		AttributeType != FbxNodeAttribute::eSkeleton&&
+		//		AttributeType != FbxNodeAttribute::eNull)
+		//	{
+		//		continue;
+		//	}
+		//}
 		PreProcess(pChildNode);
 	}
+}
+void SFbxObj::ParseNode(FbxNode* pNode, Matrix matParent)
+{
+	if (pNode == nullptr) return;
+	if (pNode && (pNode->GetCamera()) || (pNode->GetLight()))
+	{
+		return;
+	}
+	SModelObj* obj = new SModelObj;
+	obj->m_szName = to_mw(pNode->GetName());
+	m_sNodeMap[pNode] = obj;
+	m_sNodeList.push_back(obj);
+
 }
