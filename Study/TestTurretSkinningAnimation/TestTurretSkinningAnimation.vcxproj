@@ -20,9 +20,9 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{3BB24962-FC88-4688-85AF-EDF6CE79F498}</ProjectGuid>
+    <ProjectGuid>{B722411D-1725-4277-9442-F412ED433094}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>TestTurretAnimation</RootNamespace>
+    <RootNamespace>TestTurretSkinningAnimation</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -73,7 +73,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>../../output/Debug/</OutDir>
-    <IntDir>../../output/Debug/TestTurretAnimation</IntDir>
+    <IntDir>../../output/Debug/TestTurretSkinningAnimation</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
@@ -148,17 +148,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Text Include="PS.txt" />
-    <Text Include="VS.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="Sample.cpp" />
     <ClCompile Include="SFbxAnimation.cpp" />
     <ClCompile Include="SFbxObj.cpp" />
+    <ClCompile Include="SModelObj.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sample.h" />
     <ClInclude Include="SFbxObj.h" />
+    <ClInclude Include="SModelObj.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

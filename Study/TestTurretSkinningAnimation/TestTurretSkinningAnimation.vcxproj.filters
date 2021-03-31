@@ -15,10 +15,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="PS.txt" />
-    <Text Include="VS.txt" />
-  </ItemGroup>
-  <ItemGroup>
+    <ClCompile Include="SModelObj.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
     <ClCompile Include="Sample.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -30,6 +29,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="SModelObj.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
     <ClInclude Include="Sample.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>

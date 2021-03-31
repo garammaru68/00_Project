@@ -110,3 +110,12 @@ matBindPos -
 1. 바이패드 행렬을 정점에 곱해서 애니메이션(오브젝트가 하나일 경우)
 2. mesh에서 bindpose를 뽑고 로컬공간에 적용
 스킨이 적용된 정점뿐만 아니라 모든 정점에 바이패드가 적용되어야 한다
+
+CStopWatch - 경과시간
+Shader Manager 필요
+Single 사용중
+
+<애니메이션 프레임>
+WALK  - 3 ~ 35
+IDLE1 - 35 ~ 101
+IDLE2 - 101 ~ 161

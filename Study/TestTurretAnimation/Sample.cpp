@@ -137,6 +137,7 @@ bool Sample::Frame()
 }
 bool Sample::Render()
 {
+	// Tick °è»ê
 	for (int iObj = 0; iObj < m_ObjList.size(); iObj++)
 	{
 		m_ObjList[iObj]->m_fTick += g_fSecondPerFrame *

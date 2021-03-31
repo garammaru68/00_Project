@@ -150,6 +150,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestTurretAnimation", "Test
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestSkinningAnimation", "TestSkinningAnimation\TestSkinningAnimation.vcxproj", "{2994EF40-B646-49FC-9C0F-60739068C89F}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestTurretSkinningAnimation", "TestTurretSkinningAnimation\TestTurretSkinningAnimation.vcxproj", "{B722411D-1725-4277-9442-F412ED433094}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -574,6 +576,14 @@ Global
 		{2994EF40-B646-49FC-9C0F-60739068C89F}.Release|x64.Build.0 = Release|x64
 		{2994EF40-B646-49FC-9C0F-60739068C89F}.Release|x86.ActiveCfg = Release|Win32
 		{2994EF40-B646-49FC-9C0F-60739068C89F}.Release|x86.Build.0 = Release|Win32
+		{B722411D-1725-4277-9442-F412ED433094}.Debug|x64.ActiveCfg = Debug|x64
+		{B722411D-1725-4277-9442-F412ED433094}.Debug|x64.Build.0 = Debug|x64
+		{B722411D-1725-4277-9442-F412ED433094}.Debug|x86.ActiveCfg = Debug|Win32
+		{B722411D-1725-4277-9442-F412ED433094}.Debug|x86.Build.0 = Debug|Win32
+		{B722411D-1725-4277-9442-F412ED433094}.Release|x64.ActiveCfg = Release|x64
+		{B722411D-1725-4277-9442-F412ED433094}.Release|x64.Build.0 = Release|x64
+		{B722411D-1725-4277-9442-F412ED433094}.Release|x86.ActiveCfg = Release|Win32
+		{B722411D-1725-4277-9442-F412ED433094}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -638,9 +648,10 @@ Global
 		{35EE1786-73D7-459D-B2CC-3EE1431FA085} = {3FC426C6-3D5F-4D62-93E8-DBDE89626BFF}
 		{3BB24962-FC88-4688-85AF-EDF6CE79F498} = {3FC426C6-3D5F-4D62-93E8-DBDE89626BFF}
 		{2994EF40-B646-49FC-9C0F-60739068C89F} = {3FC426C6-3D5F-4D62-93E8-DBDE89626BFF}
+		{B722411D-1725-4277-9442-F412ED433094} = {3FC426C6-3D5F-4D62-93E8-DBDE89626BFF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {8CA5F4F3-F11A-4339-87C9-38CD6690C71A}
 		VisualSVNWorkingCopyRoot = .
+		SolutionGuid = {8CA5F4F3-F11A-4339-87C9-38CD6690C71A}
 	EndGlobalSection
 EndGlobal
