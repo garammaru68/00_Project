@@ -52,6 +52,7 @@ STexture* STextureManager::GetPtr(wstring filename)
 
 bool STextureManager::Init()
 {
+	m_pWhiteTexture = Load(g_pd3dDevice, L"../../data/white.jpg");
 	return true;
 }
 bool STextureManager::Frame()

@@ -62,6 +62,7 @@ bool SCore::GameInit()
 	{
 		return false;
 	}
+	g_TexMgr.Init();
 
 	Init();
 	PostInit();

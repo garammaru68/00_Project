@@ -15,7 +15,7 @@ static Matrix DxConvertMatrix(Matrix m)
 	mat._44 = 1.0f;
 	return mat;
 }
-static Matrix ConvertMatrxA(const FbxMatrix& matrix)
+static Matrix ConvertMatrixA(const FbxMatrix& matrix)
 {
 	Matrix matResult;
 	auto fData = reinterpret_cast<float*>(&matResult);
@@ -45,7 +45,11 @@ public:
 	bool LoadFBX(std::string szFileName);
 	bool Initialize(std::string szFileName);
 	void PreProcess(FbxNode* pNode);
-	void ParseNode(FbxNode* pNode, Matrix matParent);
+	void		ParseNode(FbxNode* pNode, Matrix matParent);
+	Matrix		ParseTransform(FbxNode* pNode, Matrix& matParentWorld);
+	void		ParseMesh(FbxNode* pNode, FbxMesh* pFbxMesh, SModelObj* pObj);
+	std::string ParseMaterial(FbxSurfaceMaterial* pMtrl);
+	bool		ParseMeshSkinningMap(const FbxMesh* pFbxMesh, std::vector<SWeight>* skindata);
 public:
 	SFbxObj();
 };

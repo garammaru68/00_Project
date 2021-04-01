@@ -107,7 +107,7 @@ struct S_BOX
 struct S_TRIANGLE
 {
 	PNCT_VERTEX	vVertex[3];
-	IW_VERTEX vVertexIW[3];
+	IW_VERTEX	vVertexIW[3];
 	Vector3		vNormal;
 	int			iSubIndex;
 	S_TRIANGLE(int Index) : iSubIndex(Index) {}
@@ -137,7 +137,7 @@ namespace SBASIS_CORE_LIB
 	ID3D11ComputeShader*  LoadComputeShaderFile(ID3D11Device*  pd3dDevice, const void* pLoadShaderFile, ID3DBlob** ppBlobOut = nullptr, const char *pFuntionName = 0, bool bBinary = false);
 
 
-	ID3D11InputLayout* CreateInputlayout(ID3D11Device*  pd3dDevice, DWORD dwSize, LPCVOID lpData, D3D11_INPUT_ELEMENT_DESC* layout, UINT numElements);
+	ID3D11InputLayout* CreateInputLayout(ID3D11Device*  pd3dDevice, DWORD dwSize, LPCVOID lpData, D3D11_INPUT_ELEMENT_DESC* layout, UINT numElements);
 	ID3D11Buffer* CreateVertexBuffer(ID3D11Device*  pd3dDevice, void *vertices, UINT iNumVertex, UINT iVertexSize, bool bDynamic = false);
 	ID3D11Buffer* CreateIndexBuffer(ID3D11Device*  pd3dDevice, void *indices, UINT iNumIndex, UINT iSize, bool bDynamic = false);
 	ID3D11Buffer* CreateConstantBuffer(ID3D11Device*  pd3dDevice, void *data, UINT iNumIndex, UINT iSize, bool bDynamic = false);
@@ -170,7 +170,7 @@ namespace SBASIS_CORE_LIB
 		SDataCB						m_cbData;
 		std::vector<S_TRIANGLE>		m_TriangleList;
 		std::vector<PNCT_VERTEX>	m_VertexList;
-		std::vector<PNCTIW_VERTEX>		m_VertexListIW;
+		std::vector<PNCTIW_VERTEX>	m_VertexListIW;
 		std::vector<DWORD>			m_IndexList;
 		ID3D11Buffer*				m_pVertexBuffer;
 		ID3D11Buffer*				m_pIndexBuffer;
