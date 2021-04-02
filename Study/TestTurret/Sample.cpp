@@ -149,10 +149,10 @@ bool Sample::Render()
 			pObject->SetMatrix(NULL,
 				&m_pMainCamera->m_matView,
 				&m_pMainCamera->m_matProj);
-
 			pObject->m_cbData.vColor[0] = m_pMainCamera->m_vLook.x;
 			pObject->m_cbData.vColor[1] = m_pMainCamera->m_vLook.y;
 			pObject->m_cbData.vColor[2] = m_pMainCamera->m_vLook.z;
+
 			pObject->SDxObject::Update(g_pImmediateContext);
 			pObject->PreRender(g_pImmediateContext);
 			UINT iStride = sizeof(PNCT_VERTEX);

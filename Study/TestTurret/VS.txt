@@ -1,7 +1,7 @@
 // HLSL
 #define MAX_BONE_MATRICES 255
 #define FT_CONSTANTBUFFER
-cbuffer SDataCB : register(bo)
+cbuffer SDataCB : register(b0)
 {
 	float4x4  g_matWorld: packoffset(c0);
 	float4x4  g_matView: packoffset(c4);

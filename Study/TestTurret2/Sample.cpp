@@ -9,8 +9,8 @@ bool Sample::Init()
 
 	m_pObj = make_shared<SFbxObj>();
 	//if (m_pObj->Load("../../data/object/man.fbx"))
-	//if (m_pObj->Load("../../data/object/Turret_Deploy1.fbx"))
-	if (m_pObj->Load("../../data/object/Scifi_Model_L2_all_in_one.fbx"))
+	if (m_pObj->Load("../../data/object/Turret_Deploy1.fbx"))
+	//if (m_pObj->Load("../../data/object/Scifi_Model_L2_all_in_one.fbx"))
 	{
 		CStopwatch stop;
 		for (auto data : m_pObj->m_sNodeList)
@@ -122,7 +122,7 @@ bool Sample::Frame()
 		{
 			matBiped = data->second;
 		}
-
+		
 		for (int iTick = 0; iTick < pModelObject->animlist.size(); iTick++)
 		{
 			if (pModelObject->animlist[iTick].iTick >=

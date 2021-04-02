@@ -374,7 +374,7 @@ namespace SBASIS_CORE_LIB
 		return pComputeShader;
 	};
 
-	ID3D11InputLayout* CreateInputLayout(ID3D11Device*  pd3dDevice,
+	ID3D11InputLayout* CreateInputlayout(ID3D11Device*  pd3dDevice,
 		DWORD dwSize,
 		LPCVOID lpData,
 		D3D11_INPUT_ELEMENT_DESC* layout,
@@ -743,12 +743,12 @@ namespace SBASIS_CORE_LIB
 		m_szVertexShader = "VS";
 		m_szPixelShader = "PS";
 		m_iTopology = D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
-		//m_pConstantBuffer = nullptr;
-		//m_pVertexBuffer = nullptr;
-		//m_pIndexBuffer = nullptr;
-		//m_pInputLayout = nullptr;
-		//m_pVertexShader = nullptr;
-		//m_pPixelShader = nullptr;
+		m_pConstantBuffer = nullptr;
+		m_pVertexBuffer = nullptr;
+		m_pIndexBuffer = nullptr;
+		m_pInputLayout = nullptr;
+		m_pVertexShader = nullptr;
+		m_pPixelShader = nullptr;
 	}
 	SDxObject::~SDxObject()
 	{

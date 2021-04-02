@@ -119,3 +119,10 @@ Single 사용중
 WALK  - 3 ~ 35
 IDLE1 - 35 ~ 101
 IDLE2 - 101 ~ 161
+
+SRT 분해 (부모행렬)
+matInvBindPos.Invert() - mesh에서만 뽑으
+
+m = 자기자신 행렬
+Decompose - 직교행렬은 분해된다
+행렬로 보간하면 순서가 바뀔 수 있다

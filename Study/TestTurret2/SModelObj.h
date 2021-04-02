@@ -80,9 +80,6 @@ public:
 	std::vector<SWeight>		WeightList;
 	bool						m_bSkinnedMesh = false;
 public:
-
-	bool	CreateInputLayout() override;
-
 	SModelObj()
 	{
 	}

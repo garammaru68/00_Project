@@ -52,10 +52,20 @@ struct PNCT_VERTEX
 struct IW_VERTEX
 {
 	float	i1[4];
+	float	w1[4];
+	IW_VERTEX()
+	{
+		i1[0] = i1[1] = i1[2] = i1[3] = 0.0f;
+		w1[0] = w1[1] = w1[2] = w1[3] = 0;
+	}
+};
+struct IW_VERTEX8
+{
+	float	i1[4];
 	float	i2[4];
 	float	w1[4];
 	float	w2[4];
-	IW_VERTEX()
+	IW_VERTEX8()
 	{
 		i1[0] = i1[1] = i1[2] = i1[3] = 0.0f;
 		w1[0] = w1[1] = w1[2] = w1[3] = 0;
@@ -137,7 +147,7 @@ namespace SBASIS_CORE_LIB
 	ID3D11ComputeShader*  LoadComputeShaderFile(ID3D11Device*  pd3dDevice, const void* pLoadShaderFile, ID3DBlob** ppBlobOut = nullptr, const char *pFuntionName = 0, bool bBinary = false);
 
 
-	ID3D11InputLayout* CreateInputLayout(ID3D11Device*  pd3dDevice, DWORD dwSize, LPCVOID lpData, D3D11_INPUT_ELEMENT_DESC* layout, UINT numElements);
+	ID3D11InputLayout* CreateInputlayout(ID3D11Device*  pd3dDevice, DWORD dwSize, LPCVOID lpData, D3D11_INPUT_ELEMENT_DESC* layout, UINT numElements);
 	ID3D11Buffer* CreateVertexBuffer(ID3D11Device*  pd3dDevice, void *vertices, UINT iNumVertex, UINT iVertexSize, bool bDynamic = false);
 	ID3D11Buffer* CreateIndexBuffer(ID3D11Device*  pd3dDevice, void *indices, UINT iNumIndex, UINT iSize, bool bDynamic = false);
 	ID3D11Buffer* CreateConstantBuffer(ID3D11Device*  pd3dDevice, void *data, UINT iNumIndex, UINT iSize, bool bDynamic = false);
