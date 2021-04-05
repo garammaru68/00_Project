@@ -13,7 +13,10 @@ bool STexture::Load(ID3D11Device* pd3dDevice, T_STR szTex)
 			pd3dDevice, szTex.c_str(),
 			NULL,
 			&m_pTextureSRV);
-		if (FAILED(hr)) return false;
+		if (FAILED(hr))
+		{
+			return false;
+		}
 	}
 
 	return true;
@@ -27,12 +30,6 @@ bool STexture::Frame()
 {
 	return true;
 }
-
-bool STexture::Render()
-{
-	return true;
-}
-
 bool STexture::Release()
 {
 	if (m_pTextureSRV)
@@ -42,6 +39,11 @@ bool STexture::Release()
 	}
 	return true;
 }
+bool STexture::Render()
+{
+	return true;
+}
+
 STexture::STexture()
 {
 	m_pTextureSRV = nullptr;

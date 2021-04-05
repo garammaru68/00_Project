@@ -40,7 +40,7 @@ bool SCore::GameInit()
 
 	g_Timer.Init();
 	g_Input.Init();
-	//g_SoundMgr.Init();
+	g_SoundMgr.Init();
 
 	IDXGISurface1* pBackBuffer = nullptr;
 	m_pSwapChain->GetBuffer(0, __uuidof(IDXGISurface),

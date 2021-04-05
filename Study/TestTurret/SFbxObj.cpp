@@ -372,7 +372,7 @@ void SFbxObj::ParseMesh(FbxNode* pNode,
 					}
 				}
 
-				IW_VERTEX iw;
+				IW_VERTEX8 iw;
 				if (pObj->m_bSkinnedMesh)
 				{
 					SWeight* pW = &pObj->WeightList[iCornerIndices[iIndex]];
@@ -407,7 +407,7 @@ void SFbxObj::ParseMesh(FbxNode* pNode,
 					iw.w1[0] = 1.0f;
 				}
 				tri.vVertex[iIndex] = v;
-				tri.vVertexIW[iIndex] = iw;
+				tri.vVertexIW8[iIndex] = iw;
 			}
 			if (iNumMtrl > 1)
 			{
