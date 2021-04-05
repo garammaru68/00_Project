@@ -8,7 +8,7 @@ bool Sample::Init()
 	m_Camera.CreateProjMatrix(1, 5000, SBASIS_PI / 4.0f, fAspect);
 
 	m_pObj = make_shared<SFbxObj>();
-	// if (m_pObj->Load("../../data/object/man.fbx"))
+	 //if (m_pObj->Load("../../data/object/man.fbx"))
 		if (m_pObj->Load("../../data/object/Turret_Deploy1.fbx"))
 		//if (m_pObj->Load("../../data/object/Scifi_Model_L2_all_in_one.fbx"))	
 	{
