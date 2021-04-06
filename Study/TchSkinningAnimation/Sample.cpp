@@ -2,14 +2,15 @@
 bool Sample::Init()
 {
 	m_Camera.CreateViewMatrix(
-		{ 0,20,-50 },
+		{ 0,150,-200 },
 		{ 0,0, 0 });
 	float fAspect = g_rtClient.right / (float)g_rtClient.bottom;
 	m_Camera.CreateProjMatrix(1, 5000, SBASIS_PI / 4.0f, fAspect);
 
 	m_pObj = make_shared<SFbxObj>();
-	 //if (m_pObj->Load("../../data/object/man.fbx"))
-		if (m_pObj->Load("../../data/object/Turret_Deploy1.fbx"))
+	// FBX 파일 로드
+	 if (m_pObj->Load("../../data/object/man.fbx"))
+		//if (m_pObj->Load("../../data/object/Turret_Deploy1.fbx"))
 		//if (m_pObj->Load("../../data/object/Scifi_Model_L2_all_in_one.fbx"))	
 	{
 		CStopwatch stop;
@@ -45,7 +46,7 @@ bool Sample::Init()
 				//		pSub->m_VertexListIW[iIndex + 1] =pSub->m_TriangleList[iFace].vVertexIW[1];
 				//		pSub->m_VertexListIW[iIndex + 2] =pSub->m_TriangleList[iFace].vVertexIW[2];
 				//}
-				// vb
+				// vb + 가중치
 				ID3D11Buffer* vbiw =
 					CreateVertexBuffer(g_pd3dDevice,
 						&pSub->m_VertexListIW.at(0),
@@ -53,7 +54,7 @@ bool Sample::Init()
 						sizeof(IW_VERTEX));
 				pSub->m_pVertexBufferIW.Attach(vbiw);
 
-
+				// ib
 				ID3D11Buffer* ib =
 					CreateIndexBuffer(g_pd3dDevice,
 						&pSub->m_IndexArray.at(0),
@@ -61,6 +62,7 @@ bool Sample::Init()
 						sizeof(DWORD));
 				pSub->m_pIndexBuffer.Attach(ib);
 
+				// Sub Material
 				wstring loadTex = L"../../data/object/";
 				loadTex += pObject->fbxMaterialList[iSub].c_str();
 				pSub->m_pTexture = g_TexMgr.Load(g_pd3dDevice, loadTex.c_str());
@@ -73,6 +75,7 @@ bool Sample::Init()
 				return false;
 			}*/
 		}
+		// Object 생성 ( cb, vb, ib, vd, id, shader, texture, InputLayout )
 		if (!m_pObj->Create(SBASIS_CORE_LIB::g_pd3dDevice,
 			L"vs.txt",
 			L"ps.txt",
@@ -92,6 +95,7 @@ bool Sample::Init()
 		D3D11_CPU_ACCESS_WRITE,
 		0
 	};
+	// 
 	m_pd3dDevice->CreateBuffer(&vbdesc, NULL, m_pObj->m_pBoneBuffer.GetAddressOf());
 
 	m_pObj->m_fTick = 3 * 160;
@@ -99,16 +103,19 @@ bool Sample::Init()
 }
 bool Sample::Frame()
 {
+	// Tick 계산
 	m_pObj->m_fTick += g_fSecondPerFrame *
 		m_pObj->m_Scene.iFrameSpeed *
-		m_pObj->m_Scene.iTickPerFrame*0.1f;
+		m_pObj->m_Scene.iTickPerFrame * 1.0f;
 
+	// 마지막 프레임에서 처음으로 돌아온다
 	if (m_pObj->m_fTick >=
 		(m_pObj->m_Scene.iLastFrame *
 			m_pObj->m_Scene.iTickPerFrame))
 	{
 		m_pObj->m_fTick = 3 * 160;
 	}
+
 	for (int iNode = 0; iNode < m_pObj->m_sNodeList.size(); iNode++)
 	{
 		Matrix matWorld = Matrix::Identity;

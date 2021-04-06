@@ -61,7 +61,7 @@ bool SFbxObj::ParseMeshSkinningMap(const FbxMesh* pFbxMesh,
 		for (int dwClusterIndex = 0; dwClusterIndex < dwClusterCount; dwClusterIndex++)
 		{
 			auto pCluster = pSkin->GetCluster(dwClusterIndex);
-			
+
 			FbxAMatrix matXBindPose;
 			FbxAMatrix matReferenceGlobalInitPosition;
 			pCluster->GetTransformLinkMatrix(matXBindPose); // Link Node에 변환 매개 변수 행렬(matXBindPose)을 가져온다

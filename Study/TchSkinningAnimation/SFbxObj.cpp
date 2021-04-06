@@ -18,10 +18,6 @@ public:
 		ZeroMemory(this, sizeof(ExportMaterialParameter));
 	}
 };
-
-FbxManager* SFbxObj::g_pSDKManager = nullptr;
-
-
 std::string SFbxObj::ParseMaterial(FbxSurfaceMaterial* pMtrl)
 {
 	std::string name = pMtrl->GetName();
@@ -112,6 +108,7 @@ bool SFbxObj::Load(std::string szFileName)
 	}
 	return false;
 }
+FbxManager* SFbxObj::g_pSDKManager = nullptr;
 bool SFbxObj::Initialize(std::string szFileName)
 {
 	if (g_pSDKManager == nullptr)
@@ -270,7 +267,7 @@ void SFbxObj::ParseMesh(FbxNode* pNode,
 	for (int iLayer = 0; iLayer < iLayerCount; iLayer++)
 	{
 		FbxLayer* pLayer = pFbxMesh->GetLayer(iLayer);
-		// 버텍스 컬러
+		// Vertex Color
 		if (pLayer->GetVertexColors() != NULL)
 		{
 			VertexColorSet.push_back(pLayer->GetVertexColors());
@@ -280,24 +277,25 @@ void SFbxObj::ParseMesh(FbxNode* pNode,
 		{
 			VertexUVSets.push_back(pLayer->GetUVs());
 		}
+		// Material이 있을 경우 pMaterialSetList에 push_back
 		if (pFbxMesh->GetLayer(iLayer)->GetMaterials() != nullptr)
 		{
 			pMaterialSetList.push_back(pFbxMesh->GetLayer(iLayer)->GetMaterials());
 		}
 	}
-	int iPolyCount = pFbxMesh->GetPolygonCount();
-	int iVertexCount = pFbxMesh->GetControlPointsCount();
+	int iPolyCount = pFbxMesh->GetPolygonCount(); // Polygon 갯수 반환
 
 	// 트라이앵글 최대치 계산
 	int iMaxTriangleCount = 0;
 	for (int iPoly = 0; iPoly < iPolyCount; iPoly++)
 	{
-		int iPolySize = pFbxMesh->GetPolygonSize(iPoly);
-		iMaxTriangleCount += iPolySize - 2;
+		int iPolySize = pFbxMesh->GetPolygonSize(iPoly); // Polygon의 모든 정점 반환
+		iMaxTriangleCount += iPolySize - 2; // 겹치는 정점 2개 빼주기
 	}
 
+	// Material 셋팅
 	int iNumMtrl = pNode->GetMaterialCount();
-	if (iNumMtrl > 1)
+	if (iNumMtrl > 1) // Material이 2개 이상일 경우
 	{
 		pObj->subMesh.resize(iNumMtrl);
 	}
@@ -318,10 +316,6 @@ void SFbxObj::ParseMesh(FbxNode* pNode,
 		pObj->subMesh[iMtrl].m_VertexList.reserve(iMaxTriangleCount * 3);
 	}
 
-
-	// 정점 당 영향을 미치는 행렬 및 가중치 검색
-
-
 	// transform
 	FbxAMatrix geom;
 	FbxVector4 trans = pNode->GetGeometricTranslation(FbxNode::eSourcePivot);
@@ -331,10 +325,12 @@ void SFbxObj::ParseMesh(FbxNode* pNode,
 	geom.SetR(rot);
 	geom.SetS(scale);
 
+	// 노말 변환 Nomal * (World Matrix^(-1))^T
 	FbxAMatrix normalMatrix = geom;
 	normalMatrix = normalMatrix.Inverse();
 	normalMatrix = normalMatrix.Transpose();
 
+	// 변환 행렬 반환 후, Z축 Y축 바꾸기 (World 행렬 이미 들어가 있음)
 	pObj->m_matWorld = DxConvertMatrix(ConvertMatrixA(pNode->EvaluateGlobalTransform(1.0f)));
 	//FbxAMatrix globalMatrix = pNode->EvaluateLocalTransform();
 	//geom = globalMatrix * geom;

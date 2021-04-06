@@ -126,3 +126,20 @@ matInvBindPos.Invert() - mesh에서만 뽑으
 m = 자기자신 행렬
 Decompose - 직교행렬은 분해된다
 행렬로 보간하면 순서가 바뀔 수 있다
+
+<쓰지 않는 Key 빼기>
+변환량을 시간으로 나눔
+S(Scale) or R(Rotation) or T(translation)가 있는지 없는지 확인 - Animation 유무 확인
+Start 와 End는 넣어둔다 ( 있을 경우 )
+0 Tick(Start)에서 모든 Tick 비교(End까지)
+vb, ib, aniTrack
+
+<캐릭터 이동>
+월드 행렬(단위 행렬)에 변환 행렬을 넘겨준다
+AnimationTrack {
+모든 바이패드에 시간을 넘겨주는 함수();
+}
+
+<BindPoseAnimation>
+
+캐릭터 시선 높이(y)를 정규화해서 회전 ( 마우스 클릭 높이를 캐릭터 시선으로 맞춘 후 회전 (y = 0) )
