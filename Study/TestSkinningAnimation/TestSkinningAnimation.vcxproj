@@ -149,7 +149,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Sample.cpp" />
-    <ClCompile Include="SAnimation.cpp" />
+    <ClCompile Include="SFbxAnimation.cpp" />
     <ClCompile Include="SFbxObj.cpp" />
     <ClCompile Include="SModelObj.cpp" />
   </ItemGroup>
