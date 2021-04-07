@@ -9,9 +9,9 @@ bool Sample::Init()
 
 	m_pObj = make_shared<SFbxObj>();
 	// FBX 파일 로드
-	if (m_pObj->Load("../../data/object/man.fbx"))
+	//if (m_pObj->Load("../../data/object/man.fbx"))
 		//if (m_pObj->Load("../../data/object/Turret_Deploy1.fbx"))
-		//if (m_pObj->Load("../../data/object/Scifi_Model_L2_all_in_one.fbx"))	
+		if (m_pObj->Load("../../data/object/Scifi_Model_L2_all_in_one.fbx"))	
 	{
 		CStopwatch stop;
 		for (auto data : m_pObj->m_sNodeList)
@@ -103,6 +103,7 @@ bool Sample::Init()
 }
 bool Sample::Frame()
 {
+	m_pObj->Movement();
 	// Tick 계산
 	m_pObj->m_fTick += g_fSecondPerFrame *
 		m_pObj->m_Scene.iFrameSpeed *

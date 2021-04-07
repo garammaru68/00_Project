@@ -57,26 +57,3 @@ bool SModelObj::CreateInputLayout()
 	if (FAILED(hr)) return false;
 	return true;
 }
-bool SModelObj::MoveFrame()
-{
-	if (g_Input.GetKey('W') == KEY_HOLD)
-	{
-
-	}
-	if (g_Input.GetKey('S') == KEY_HOLD)
-	{
-
-	}
-	if (g_Input.GetKey('A') == KEY_HOLD)
-	{
-
-	}
-	if (g_Input.GetKey('D') == KEY_HOLD)
-	{
-
-	}
-	if (g_Input.GetKey(VK_SPACE) == KEY_PUSH)
-	{
-
-	}
-}

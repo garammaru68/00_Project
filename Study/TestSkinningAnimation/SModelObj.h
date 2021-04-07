@@ -88,7 +88,6 @@ public:
 	bool						m_bSkinnedMesh = false;
 public:
 	bool	CreateInputLayout() override;
-	bool	MoveFrame();
 
 	SModelObj()
 	{

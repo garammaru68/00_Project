@@ -70,6 +70,7 @@ public:
 
 	void AddKey(FbxNode* pNode, FbxAMatrix mat, float fCurentTime);
 	bool	CreateInputLayout() override;
+	void Movement();
 public:
 	SFbxObj();
 };

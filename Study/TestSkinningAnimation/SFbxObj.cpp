@@ -644,3 +644,30 @@ bool SFbxObj::CreateInputLayout()
 	if (FAILED(hr)) return false;
 	return true;
 }
+void SFbxObj::Movement()
+{
+	if (g_Input.GetKey(VK_UP) == KEY_HOLD)
+	{
+	//	m_matWorld._43 += g_fSecondPerFrame * m_fSpeed * 1.0f;
+		Vector3 vMove = m_vLook * g_fSecondPerFrame * m_fSpeed * 1.0f;
+		m_vPos += vMove;
+	}
+	if (g_Input.GetKey(VK_DOWN) == KEY_HOLD)
+	{
+		//m_matWorld._43 -= g_fSecondPerFrame * m_fSpeed * 1.0f;
+		Vector3 vMove = m_vLook * g_fSecondPerFrame * m_fSpeed * -1.0f;
+		m_vPos += vMove;
+	}
+	if (g_Input.GetKey(VK_LEFT) == KEY_HOLD)
+	{
+		//m_matWorld._41 -= g_fSecondPerFrame * m_fSpeed * 1.0f;
+		Vector3 vMove = m_vRight * g_fSecondPerFrame * m_fSpeed * -1.0f;
+		m_vPos += vMove;
+	}
+	if (g_Input.GetKey(VK_RIGHT) == KEY_HOLD)
+	{
+		//m_matWorld._41 += g_fSecondPerFrame * m_fSpeed * 1.0f;
+		Vector3 vMove = m_vRight * g_fSecondPerFrame * m_fSpeed * 1.0f;
+		m_vPos += vMove;
+	}
+}

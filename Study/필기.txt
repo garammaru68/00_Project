@@ -143,3 +143,8 @@ AnimationTrack {
 <BindPoseAnimation>
 
 캐릭터 시선 높이(y)를 정규화해서 회전 ( 마우스 클릭 높이를 캐릭터 시선으로 맞춘 후 회전 (y = 0) )
+
+<카메라>
+클릭한 곳을 중점으로 회전
+
+행렬 직접 접근 setMatrix가 아니라 직접만든 Matrix를 넘겨준다

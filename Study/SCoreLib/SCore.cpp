@@ -125,7 +125,7 @@ void    SCore::CameraFrame()
 	}
 	else
 	{
-		m_pMainCamera->m_fSpeed = 30.0f;
+		m_pMainCamera->m_fSpeed = 100.0f;
 	}
 
 	m_pMainCamera->Frame();
