@@ -648,7 +648,7 @@ void SFbxObj::Movement()
 {
 	if (g_Input.GetKey(VK_UP) == KEY_HOLD)
 	{
-	//	m_matWorld._43 += g_fSecondPerFrame * m_fSpeed * 1.0f;
+		//m_matWorld._43 += g_fSecondPerFrame * m_fSpeed * 1.0f;
 		Vector3 vMove = m_vLook * g_fSecondPerFrame * m_fSpeed * 1.0f;
 		m_vPos += vMove;
 	}
