@@ -43,7 +43,10 @@
 	제 52강 Frustum Culling		All (복습)						506p
 	제 78강 PointLight			3.지형 높이값 얻기					751p
 03.22 -	제 75강 VertexNormalsFastLookup	All (복습)						720p
-	제 76강 Diffuse Lighting								724p
+04.08	제 76강 Diffuse Lighting		All						724p
+	제 77강 Specular Lighting		All						738p
+	제 78강 Point Light			All						743p
+	제 79강 Spot Light			All						756p
 275p 표 수정
 309p 표 수정
 
@@ -68,3 +71,4 @@
 	제 86강 Multi Object Animation	All						108p
 03.26	제 115강 Max Utility Plugin		2. 정점 블랜딩(Vertex Blending) ~ 4.스키닝(Skinning)	529p ~ 531p
 					6.Skin Modifier - Check				542p - Check
+04.08	제 90강 Cook-Trooance		All (2.프레넬 방정식 어려워서 안봄)			156p

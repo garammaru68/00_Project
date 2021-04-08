@@ -155,6 +155,7 @@ bool SFbxObj::Initialize(std::string szFileName)
 }
 bool SFbxObj::LoadFBX(std::string szFileName)
 {
+
 	if (Initialize(szFileName) == false)
 	{
 		return false;
@@ -177,6 +178,7 @@ bool SFbxObj::LoadFBX(std::string szFileName)
 			ParseMesh(pNode, pNode->GetMesh(), obj);
 		}
 	}
+
 #if (FBXSDK_VERSION_MAJOR > 2014 || ((FBXSDK_VERSION_MAJOR==2014) && (FBXSDK_VERSION_MINOR>1) ) )
 	auto anim = m_pFBXScene->GetAnimationEvaluator();
 #else
@@ -215,17 +217,6 @@ void SFbxObj::PreProcess(FbxNode* pNode)
 	m_pFbxNodeMap.insert(make_pair(pNode, m_pMatrixList.size()));
 	m_pMatrixList.push_back(mat);
 	m_pFbxNodeList.push_back(pNode);
-
-	//shared_ptr<SObject> obj = make_shared<SObject>();	
-	//SModelObj* obj = new SModelObj;
-	//obj->m_szName = to_mw(pNode->GetName());
-	//obj->m_pParentObject = pParentObj;
-	//m_sNodeMap[pNode] = obj;
-	//m_sNodeList.push_back(obj);
-	//if (pNode->GetMesh() != nullptr)
-	//{
-	//	ParseMesh(pNode, pNode->GetMesh(), obj);
-	//}
 	int dwChild = pNode->GetChildCount();
 	for (int dwObj = 0; dwObj < dwChild; dwObj++)
 	{
@@ -480,7 +471,51 @@ void SFbxObj::ParseMesh(FbxNode* pNode,
 }
 Matrix SFbxObj::ParseTransform(FbxNode* pNode, Matrix& matParentWorld)
 {
-	Matrix matWorld = Matrix::Identity;
+	//Matrix matWorld = Matrix::Identity;
+	Matrix matWorld;
+	Matrix matLocal;
+	Matrix matGeom;
+	BOOL bProcessDefaultTransform = TRUE;
+
+	FbxMatrix geom = GetGeometryTransformation(pNode);
+
+	if (!m_dxMatrixBindPoseMap.empty())
+	{
+		Matrix matWorld = Matrix::Identity;
+		SModelObj* pModelObject = pNode;
+
+		std::string szName;
+		szName.assign(pModelObject->m_szName.begin(), pModelObject->m_szName.end());
+		Matrix matBiped = Matrix::Identity;
+		auto data = m_dxMatrixBindPoseMap.find(szName);
+		if (data != m_dxMatrixBindPoseMap.end())
+		{
+			FbxMatrix PoseMatrix = data->second;
+			matWorld = DxConvertMatrix(ConvertMatrixA(PoseMatrix));
+			matWorld = DxConvertMatrix(ConvertMatrixA(geom));
+			bProcessDefaultTransform = FALSE;
+		}
+	}
+
+	if (bProcessDefaultTransform)
+	{
+		FbxVector4 Translation;
+		if (pNode->LclTranslation.IsValid())
+			Translation = pNode->LclTranslation.Get();
+
+		FbxVector4 Rotation;
+		if (pNode->LclRotation.IsValid())
+			Rotation = pNode->LclRotation.Get();
+
+		FbxVector4 Scale;
+		if (pNode->LclScaling.IsValid())
+			Scale = pNode->LclScaling.Get();
+
+		FbxMatrix matTransform(Translation, Rotation, Scale);
+		matGeom = DxConvertMatrix(ConvertMatrixA(geom));
+		matLocal = DxConvertMatrix(ConvertMatrixA(matTransform));
+		matWorld = matLocal * matParentWorld;
+	}
 	return matWorld;
 }
 void SFbxObj::ParseNode(
@@ -492,6 +527,25 @@ void SFbxObj::ParseNode(
 	{
 		return;
 	}
+
+	FbxNode* pFbxRootNode = m_pFBXScene->GetRootNode();
+	CStopwatch stopwatch;
+	PreProcess(pFbxRootNode);
+	for (int iNode = 0; iNode < m_pFbxNodeList.size(); iNode++)
+	{
+		FbxNode* pNode = m_pFbxNodeList[iNode];
+		//shared_ptr<SObject> obj = make_shared<SObject>();	
+		SModelObj* obj = new SModelObj;
+		obj->m_szName = to_mw(pNode->GetName());
+		obj->m_pParentObject = m_sNodeMap[pNode->GetParent()];
+		m_sNodeMap[pNode] = obj;
+		m_sNodeList.push_back(obj);
+		if (pNode->GetMesh() != nullptr)
+		{
+			ParseMesh(pNode, pNode->GetMesh(), obj);
+		}
+	}
+
 	//shared_ptr<SObject> obj = make_shared<SObject>();	
 	SModelObj* obj = new SModelObj;
 	obj->m_szName = to_mw(pNode->GetName());
@@ -646,6 +700,7 @@ bool SFbxObj::CreateInputLayout()
 }
 void SFbxObj::Movement()
 {
+	SModelObj* pModelObj;
 	if (g_Input.GetKey(VK_UP) == KEY_HOLD)
 	{
 		//m_matWorld._43 += g_fSecondPerFrame * m_fSpeed * 1.0f;
@@ -669,5 +724,6 @@ void SFbxObj::Movement()
 		//m_matWorld._41 += g_fSecondPerFrame * m_fSpeed * 1.0f;
 		Vector3 vMove = m_vRight * g_fSecondPerFrame * m_fSpeed * 1.0f;
 		m_vPos += vMove;
+		Quaternion vRot = m_matRotation * g_fSecondPerFrame * m_fSpeed * 5.0f;
 	}
 }
