@@ -18,83 +18,6 @@ public:
 		ZeroMemory(this, sizeof(ExportMaterialParameter));
 	}
 };
-std::string SFbxObj::ParseMaterial(FbxSurfaceMaterial* pMtrl)
-{
-	std::string name = pMtrl->GetName();
-	auto Property = pMtrl->FindProperty(FbxSurfaceMaterial::sDiffuse);
-	if (Property.IsValid())
-	{
-		const FbxFileTexture* tex = Property.GetSrcObject<FbxFileTexture>(0);
-		if (tex != nullptr)
-		{
-			const CHAR* szFileName = tex->GetFileName();
-			CHAR Drive[MAX_PATH];
-			CHAR Dir[MAX_PATH];
-			CHAR FName[MAX_PATH];
-			CHAR Ext[MAX_PATH];
-			_splitpath(szFileName, Drive, Dir, FName, Ext);
-			std::string texName = FName;
-			std::string ext = Ext;
-			if (ext == ".tga" || ext == ".TGA")
-			{
-				ext.clear();
-				ext = ".dds";
-			}
-			texName += ext;
-			return texName;
-		}
-	}
-	return std::string("");
-}
-void SFbxObj::ReadTextureCoord(FbxMesh* pFbxMesh, FbxLayerElementUV* pUVSet, int vertexIndex, int uvIndex, FbxVector2& uv) {
-
-	FbxLayerElementUV *pFbxLayerElementUV = pUVSet;
-
-	if (pFbxLayerElementUV == nullptr) {
-		return;
-	}
-
-	switch (pFbxLayerElementUV->GetMappingMode())
-	{
-	case FbxLayerElementUV::eByControlPoint:
-	{
-		switch (pFbxLayerElementUV->GetReferenceMode())
-		{
-		case FbxLayerElementUV::eDirect:
-		{
-			FbxVector2 fbxUv = pFbxLayerElementUV->GetDirectArray().GetAt(vertexIndex);
-			uv.mData[0] = fbxUv.mData[0];
-			uv.mData[1] = fbxUv.mData[1];
-			break;
-		}
-		case FbxLayerElementUV::eIndexToDirect:
-		{
-			int id = pFbxLayerElementUV->GetIndexArray().GetAt(vertexIndex);
-			FbxVector2 fbxUv = pFbxLayerElementUV->GetDirectArray().GetAt(id);
-			uv.mData[0] = fbxUv.mData[0];
-			uv.mData[1] = fbxUv.mData[1];
-			break;
-		}
-		}
-		break;
-	}
-	case FbxLayerElementUV::eByPolygonVertex:
-	{
-		switch (pFbxLayerElementUV->GetReferenceMode())
-		{
-			// Always enters this part for the example model
-		case FbxLayerElementUV::eDirect:
-		case FbxLayerElementUV::eIndexToDirect:
-		{
-			uv.mData[0] = pFbxLayerElementUV->GetDirectArray().GetAt(uvIndex).mData[0];
-			uv.mData[1] = pFbxLayerElementUV->GetDirectArray().GetAt(uvIndex).mData[1];
-			break;
-		}
-		}
-		break;
-	}
-	}
-}
 SFbxObj::SFbxObj()
 {
 	m_pFbxImporter = nullptr;
@@ -108,6 +31,64 @@ bool SFbxObj::Load(std::string szFileName)
 	}
 	return false;
 }
+bool SFbxObj::LoadFBX(std::string szFileName)
+{
+
+	if (Initialize(szFileName) == false)
+	{
+		return false;
+	}
+	FbxNode* pFbxRootNode = m_pFBXScene->GetRootNode();
+	CStopwatch stopwatch;
+	PreProcess(pFbxRootNode);
+
+	Matrix matIdentity = Matrix::Identity;
+	for (int iNode = 0; iNode < m_pFbxNodeList.size(); iNode++)
+	{
+		FbxNode* pNode = m_pFbxNodeList[iNode];
+		SModelObj* obj = new SModelObj;
+		obj->m_szName = to_mw(pNode->GetName());
+		obj->m_pParentObject = m_sNodeMap[pNode->GetParent()];
+		m_sNodeMap[pNode] = obj;
+		m_sNodeList.push_back(obj);
+
+		Matrix matWorld = ParseTransform(pNode, matIdentity);
+		obj->m_matWorld = matWorld;
+
+		if (pNode->GetMesh() != nullptr)
+		{
+			ParseMesh(pNode, pNode->GetMesh(), obj);
+		}
+	}
+#if (FBXSDK_VERSION_MAJOR > 2014 || ((FBXSDK_VERSION_MAJOR==2014) && (FBXSDK_VERSION_MINOR>1) ) )
+	auto anim = m_pFBXScene->GetAnimationEvaluator();
+#else
+	auto anim = m_pFBXScene->GetEvaluator();
+#endif
+	ParseAnimation(m_pFBXScene);
+
+	float fCurrentTime = 0.0f;
+	while (fCurrentTime <= m_Scene.fLastTime)
+	{
+		FbxTime t;
+		t.SetSecondDouble(fCurrentTime);
+		for (int iNode = 0; iNode < m_pFbxNodeList.size(); iNode++)
+		{
+			FbxNode* pNode = m_pFbxNodeList[iNode];
+			auto data = m_sNodeMap.find(pNode);
+			FbxAMatrix mat = anim->GetNodeGlobalTransform(pNode, t);
+			AddKey(pNode, mat, fCurrentTime);
+			/*SAnimTrack track;
+			track.iTick = fCurrentTime * 30 * 160;
+			track.mat = DxConvertMatrix(ConvertMatrixA(mat));*/
+			//data->second->animlist.push_back(track);				
+		}
+		fCurrentTime += m_Scene.fDeltaTime * 1;
+	}
+	stopwatch.Output(L"Load");
+	return true;
+}
+
 FbxManager* SFbxObj::g_pSDKManager = nullptr;
 bool SFbxObj::Initialize(std::string szFileName)
 {
@@ -151,60 +132,6 @@ bool SFbxObj::Initialize(std::string szFileName)
 	// 삼각형화
 	//FbxGeometryConverter lGeomConverter(g_pSDKManager);
 	//lGeomConverter.Triangulate(m_pFBXScene, true);
-	return true;
-}
-bool SFbxObj::LoadFBX(std::string szFileName)
-{
-
-	if (Initialize(szFileName) == false)
-	{
-		return false;
-	}
-
-	FbxNode* pFbxRootNode = m_pFBXScene->GetRootNode();
-	CStopwatch stopwatch;
-	PreProcess(pFbxRootNode);
-	for (int iNode = 0; iNode < m_pFbxNodeList.size(); iNode++)
-	{
-		FbxNode* pNode = m_pFbxNodeList[iNode];
-		//shared_ptr<SObject> obj = make_shared<SObject>();	
-		SModelObj* obj = new SModelObj;
-		obj->m_szName = to_mw(pNode->GetName());
-		obj->m_pParentObject = m_sNodeMap[pNode->GetParent()];
-		m_sNodeMap[pNode] = obj;
-		m_sNodeList.push_back(obj);
-		if (pNode->GetMesh() != nullptr)
-		{
-			ParseMesh(pNode, pNode->GetMesh(), obj);
-		}
-	}
-
-#if (FBXSDK_VERSION_MAJOR > 2014 || ((FBXSDK_VERSION_MAJOR==2014) && (FBXSDK_VERSION_MINOR>1) ) )
-	auto anim = m_pFBXScene->GetAnimationEvaluator();
-#else
-	auto anim = m_pFBXScene->GetEvaluator();
-#endif
-	ParseAnimation(m_pFBXScene);
-
-	float fCurrentTime = 0.0f;
-	while (fCurrentTime <= m_Scene.fLastTime)
-	{
-		FbxTime t;
-		t.SetSecondDouble(fCurrentTime);
-		for (int iNode = 0; iNode < m_pFbxNodeList.size(); iNode++)
-		{
-			FbxNode* pNode = m_pFbxNodeList[iNode];
-			auto data = m_sNodeMap.find(pNode);
-			FbxAMatrix mat = anim->GetNodeGlobalTransform(pNode, t);
-			AddKey(pNode, mat, fCurrentTime);
-			/*SAnimTrack track;
-			track.iTick = fCurrentTime * 30 * 160;
-			track.mat = DxConvertMatrix(ConvertMatrixA(mat));*/
-			//data->second->animlist.push_back(track);				
-		}
-		fCurrentTime += m_Scene.fDeltaTime * 1;
-	}
-	stopwatch.Output(L"Load");
 	return true;
 }
 void SFbxObj::PreProcess(FbxNode* pNode)
@@ -322,7 +249,7 @@ void SFbxObj::ParseMesh(FbxNode* pNode,
 	normalMatrix = normalMatrix.Transpose();
 
 	// 변환 행렬 반환 후, Z축 Y축 바꾸기 (World 행렬 이미 들어가 있음)
-	pObj->m_matWorld = DxConvertMatrix(ConvertMatrixA(pNode->EvaluateGlobalTransform(1.0f)));
+	pObj->m_matWorld = DxConvertMatrix(ConvertMatrixA(pNode->EvaluateGlobalTransform(5.0f)));
 	//FbxAMatrix globalMatrix = pNode->EvaluateLocalTransform();
 	//geom = globalMatrix * geom;
 	//pObj->m_matWorld = DxConvertMatrix(ConvertMatrixA(matrix));
@@ -469,6 +396,34 @@ void SFbxObj::ParseMesh(FbxNode* pNode,
 		iBasePolyIndex += iPolySize;
 	}
 }
+std::string SFbxObj::ParseMaterial(FbxSurfaceMaterial* pMtrl)
+{
+	std::string name = pMtrl->GetName();
+	auto Property = pMtrl->FindProperty(FbxSurfaceMaterial::sDiffuse);
+	if (Property.IsValid())
+	{
+		const FbxFileTexture* tex = Property.GetSrcObject<FbxFileTexture>(0);
+		if (tex != nullptr)
+		{
+			const CHAR* szFileName = tex->GetFileName();
+			CHAR Drive[MAX_PATH];
+			CHAR Dir[MAX_PATH];
+			CHAR FName[MAX_PATH];
+			CHAR Ext[MAX_PATH];
+			_splitpath(szFileName, Drive, Dir, FName, Ext);
+			std::string texName = FName;
+			std::string ext = Ext;
+			if (ext == ".tga" || ext == ".TGA")
+			{
+				ext.clear();
+				ext = ".dds";
+			}
+			texName += ext;
+			return texName;
+		}
+	}
+	return std::string("");
+}
 Matrix SFbxObj::ParseTransform(FbxNode* pNode, Matrix& matParentWorld)
 {
 	//Matrix matWorld = Matrix::Identity;
@@ -477,21 +432,23 @@ Matrix SFbxObj::ParseTransform(FbxNode* pNode, Matrix& matParentWorld)
 	Matrix matGeom;
 	BOOL bProcessDefaultTransform = TRUE;
 
-	FbxMatrix geom = GetGeometryTransformation(pNode);
+	FbxVector4 trans = pNode->GetGeometricTranslation(FbxNode::eSourcePivot);
+	FbxVector4 rot = pNode->GetGeometricRotation(FbxNode::eSourcePivot);
+	FbxVector4 scale = pNode->GetGeometricScaling(FbxNode::eSourcePivot);
+	FbxMatrix geom(trans, rot, scale);
+
 
 	if (!m_dxMatrixBindPoseMap.empty())
 	{
-		Matrix matWorld = Matrix::Identity;
-		SModelObj* pModelObject = pNode;
-
+		SModelObj* pModelObject = new SModelObj;
+		pModelObject->m_szName = to_mw(pNode->GetName());
 		std::string szName;
 		szName.assign(pModelObject->m_szName.begin(), pModelObject->m_szName.end());
-		Matrix matBiped = Matrix::Identity;
 		auto data = m_dxMatrixBindPoseMap.find(szName);
 		if (data != m_dxMatrixBindPoseMap.end())
 		{
-			FbxMatrix PoseMatrix = data->second;
-			matWorld = DxConvertMatrix(ConvertMatrixA(PoseMatrix));
+			Matrix PoseMatrix = data->second;
+			matWorld = DxConvertMatrix(PoseMatrix);
 			matWorld = DxConvertMatrix(ConvertMatrixA(geom));
 			bProcessDefaultTransform = FALSE;
 		}
@@ -518,58 +475,80 @@ Matrix SFbxObj::ParseTransform(FbxNode* pNode, Matrix& matParentWorld)
 	}
 	return matWorld;
 }
-void SFbxObj::ParseNode(
-	FbxNode* pNode,
-	Matrix  matParent, SModelObj* pParentObj)
+//void SFbxObj::ParseNode(
+//	FbxNode* pNode,
+//	Matrix  matParent, SModelObj* pParentObj)
+//{
+//	if (pNode == nullptr) return;
+//	if (pNode && (pNode->GetCamera() || pNode->GetLight()))
+//	{
+//		return;
+//	}
+//	//shared_ptr<SObject> obj = make_shared<SObject>();	
+//	SModelObj* obj = new SModelObj;
+//	obj->m_szName = to_mw(pNode->GetName());
+//	obj->m_pParentObject = pParentObj;
+//	m_sNodeMap[pNode] = obj;
+//	m_sNodeList.push_back(obj);
+//	Matrix matWorld = ParseTransform(pNode, matParent);
+//	// world matrix
+//	obj->m_matWorld = matWorld;
+//	if (pNode->GetMesh() != nullptr)
+//	{
+//		// vb, ib
+//		ParseMesh(pNode, pNode->GetMesh(), obj);
+//	}
+//
+//	int dwChild = pNode->GetChildCount();
+//	for (int dwObj = 0; dwObj < dwChild; dwObj++)
+//	{
+//		FbxNode* pChildNode = pNode->GetChild(dwObj);
+//		ParseNode(pChildNode, matWorld, obj);
+//	}
+//}
+FbxColor SFbxObj::ReadColor(const FbxMesh* mesh,
+	DWORD dwVertexColorCount,
+	FbxLayerElementVertexColor* pVertexColorSet,
+	DWORD dwDCCIndex, DWORD dwVertexIndex)
 {
-	if (pNode == nullptr) return;
-	if (pNode && (pNode->GetCamera() || pNode->GetLight()))
+	FbxColor Value(1, 1, 1, 1);
+	if (dwVertexColorCount > 0 && pVertexColorSet != NULL)
 	{
-		return;
-	}
-
-	FbxNode* pFbxRootNode = m_pFBXScene->GetRootNode();
-	CStopwatch stopwatch;
-	PreProcess(pFbxRootNode);
-	for (int iNode = 0; iNode < m_pFbxNodeList.size(); iNode++)
-	{
-		FbxNode* pNode = m_pFbxNodeList[iNode];
-		//shared_ptr<SObject> obj = make_shared<SObject>();	
-		SModelObj* obj = new SModelObj;
-		obj->m_szName = to_mw(pNode->GetName());
-		obj->m_pParentObject = m_sNodeMap[pNode->GetParent()];
-		m_sNodeMap[pNode] = obj;
-		m_sNodeList.push_back(obj);
-		if (pNode->GetMesh() != nullptr)
+		// Crack apart the FBX dereferencing system for Color coordinates		
+		switch (pVertexColorSet->GetMappingMode())
 		{
-			ParseMesh(pNode, pNode->GetMesh(), obj);
+		case FbxLayerElement::eByControlPoint:
+			switch (pVertexColorSet->GetReferenceMode())
+			{
+			case FbxLayerElement::eDirect:
+			{
+				Value = pVertexColorSet->GetDirectArray().GetAt(dwDCCIndex);
+			}break;
+			case FbxLayerElement::eIndexToDirect:
+			{
+				int iColorIndex = pVertexColorSet->GetIndexArray().GetAt(dwDCCIndex);
+				Value = pVertexColorSet->GetDirectArray().GetAt(iColorIndex);
+			}break;
+			}
+		case FbxLayerElement::eByPolygonVertex:
+			switch (pVertexColorSet->GetReferenceMode())
+			{
+			case FbxLayerElement::eDirect:
+			{
+				int iColorIndex = dwVertexIndex;
+				Value = pVertexColorSet->GetDirectArray().GetAt(iColorIndex);
+			}break;
+			case FbxLayerElement::eIndexToDirect:
+			{
+				int iColorIndex = pVertexColorSet->GetIndexArray().GetAt(dwVertexIndex);
+				Value = pVertexColorSet->GetDirectArray().GetAt(iColorIndex);
+			}break;
+			}
+			break;
 		}
 	}
-
-	//shared_ptr<SObject> obj = make_shared<SObject>();	
-	SModelObj* obj = new SModelObj;
-	obj->m_szName = to_mw(pNode->GetName());
-	obj->m_pParentObject = pParentObj;
-	m_sNodeMap[pNode] = obj;
-	m_sNodeList.push_back(obj);
-	Matrix matWorld = ParseTransform(pNode, matParent);
-	// world matrix
-	obj->m_matWorld = matWorld;
-	if (pNode->GetMesh() != nullptr)
-	{
-		// vb, ib
-		ParseMesh(pNode, pNode->GetMesh(), obj);
-	}
-
-	int dwChild = pNode->GetChildCount();
-	for (int dwObj = 0; dwObj < dwChild; dwObj++)
-	{
-		FbxNode* pChildNode = pNode->GetChild(dwObj);
-		ParseNode(pChildNode, matWorld, obj);
-	}
+	return Value;
 }
-
-
 FbxVector4 SFbxObj::ReadNormal(const FbxMesh* mesh,
 	int controlPointIndex,
 	int vertexCounter)
@@ -629,51 +608,55 @@ FbxVector4 SFbxObj::ReadNormal(const FbxMesh* mesh,
 	}
 	return result;
 }
-FbxColor SFbxObj::ReadColor(const FbxMesh* mesh,
-	DWORD dwVertexColorCount,
-	FbxLayerElementVertexColor* pVertexColorSet,
-	DWORD dwDCCIndex, DWORD dwVertexIndex)
-{
-	FbxColor Value(1, 1, 1, 1);
-	if (dwVertexColorCount > 0 && pVertexColorSet != NULL)
+void SFbxObj::ReadTextureCoord(FbxMesh* pFbxMesh, FbxLayerElementUV* pUVSet, int vertexIndex, int uvIndex, FbxVector2& uv) {
+
+	FbxLayerElementUV *pFbxLayerElementUV = pUVSet;
+
+	if (pFbxLayerElementUV == nullptr) {
+		return;
+	}
+
+	switch (pFbxLayerElementUV->GetMappingMode())
 	{
-		// Crack apart the FBX dereferencing system for Color coordinates		
-		switch (pVertexColorSet->GetMappingMode())
+	case FbxLayerElementUV::eByControlPoint:
+	{
+		switch (pFbxLayerElementUV->GetReferenceMode())
 		{
-		case FbxLayerElement::eByControlPoint:
-			switch (pVertexColorSet->GetReferenceMode())
-			{
-			case FbxLayerElement::eDirect:
-			{
-				Value = pVertexColorSet->GetDirectArray().GetAt(dwDCCIndex);
-			}break;
-			case FbxLayerElement::eIndexToDirect:
-			{
-				int iColorIndex = pVertexColorSet->GetIndexArray().GetAt(dwDCCIndex);
-				Value = pVertexColorSet->GetDirectArray().GetAt(iColorIndex);
-			}break;
-			}
-		case FbxLayerElement::eByPolygonVertex:
-			switch (pVertexColorSet->GetReferenceMode())
-			{
-			case FbxLayerElement::eDirect:
-			{
-				int iColorIndex = dwVertexIndex;
-				Value = pVertexColorSet->GetDirectArray().GetAt(iColorIndex);
-			}break;
-			case FbxLayerElement::eIndexToDirect:
-			{
-				int iColorIndex = pVertexColorSet->GetIndexArray().GetAt(dwVertexIndex);
-				Value = pVertexColorSet->GetDirectArray().GetAt(iColorIndex);
-			}break;
-			}
+		case FbxLayerElementUV::eDirect:
+		{
+			FbxVector2 fbxUv = pFbxLayerElementUV->GetDirectArray().GetAt(vertexIndex);
+			uv.mData[0] = fbxUv.mData[0];
+			uv.mData[1] = fbxUv.mData[1];
 			break;
 		}
+		case FbxLayerElementUV::eIndexToDirect:
+		{
+			int id = pFbxLayerElementUV->GetIndexArray().GetAt(vertexIndex);
+			FbxVector2 fbxUv = pFbxLayerElementUV->GetDirectArray().GetAt(id);
+			uv.mData[0] = fbxUv.mData[0];
+			uv.mData[1] = fbxUv.mData[1];
+			break;
+		}
+		}
+		break;
 	}
-	return Value;
+	case FbxLayerElementUV::eByPolygonVertex:
+	{
+		switch (pFbxLayerElementUV->GetReferenceMode())
+		{
+			// Always enters this part for the example model
+		case FbxLayerElementUV::eDirect:
+		case FbxLayerElementUV::eIndexToDirect:
+		{
+			uv.mData[0] = pFbxLayerElementUV->GetDirectArray().GetAt(uvIndex).mData[0];
+			uv.mData[1] = pFbxLayerElementUV->GetDirectArray().GetAt(uvIndex).mData[1];
+			break;
+		}
+		}
+		break;
+	}
+	}
 }
-
-
 bool SFbxObj::CreateInputLayout()
 {
 	HRESULT hr = S_OK;
@@ -703,27 +686,26 @@ void SFbxObj::Movement()
 	SModelObj* pModelObj;
 	if (g_Input.GetKey(VK_UP) == KEY_HOLD)
 	{
-		//m_matWorld._43 += g_fSecondPerFrame * m_fSpeed * 1.0f;
+		//SAnimTrack track;
+		//Quaternion qRotation(0.0f, 10.0f, 0.0f, 1.0f);
+		//track.q += qRotation;
 		Vector3 vMove = m_vLook * g_fSecondPerFrame * m_fSpeed * 1.0f;
 		m_vPos += vMove;
 	}
 	if (g_Input.GetKey(VK_DOWN) == KEY_HOLD)
 	{
-		//m_matWorld._43 -= g_fSecondPerFrame * m_fSpeed * 1.0f;
 		Vector3 vMove = m_vLook * g_fSecondPerFrame * m_fSpeed * -1.0f;
 		m_vPos += vMove;
 	}
 	if (g_Input.GetKey(VK_LEFT) == KEY_HOLD)
 	{
-		//m_matWorld._41 -= g_fSecondPerFrame * m_fSpeed * 1.0f;
 		Vector3 vMove = m_vRight * g_fSecondPerFrame * m_fSpeed * -1.0f;
 		m_vPos += vMove;
 	}
 	if (g_Input.GetKey(VK_RIGHT) == KEY_HOLD)
 	{
-		//m_matWorld._41 += g_fSecondPerFrame * m_fSpeed * 1.0f;
 		Vector3 vMove = m_vRight * g_fSecondPerFrame * m_fSpeed * 1.0f;
 		m_vPos += vMove;
-		Quaternion vRot = m_matRotation * g_fSecondPerFrame * m_fSpeed * 5.0f;
+		//Quaternion vRot = m_matRotation * g_fSecondPerFrame * m_fSpeed * 5.0f;
 	}
 }

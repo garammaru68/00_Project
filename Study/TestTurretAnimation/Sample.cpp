@@ -8,8 +8,8 @@ bool Sample::Init()
 	// FBX LOAD
 	const char* fbxobject[] =
 	{
-		//"../../data/object/man.fbx"
-		"../../data/object/Turret_Deploy1.fbx",
+		"../../data/object/man.fbx"
+		//"../../data/object/Turret_Deploy1.fbx",
 		//"../../data/object/rockBlobFive.fbx",
 		//"../../data/object/rockBlobFour.fbx",
 		//"../../data/object/SM_Tree_Var01.fbx",

@@ -91,12 +91,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>../../include;../../include/SNetLib;../../fmod/inc;../../include/dxtk;../../fbxsdk/include;../../maxsdk/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../include;../../include/SNetLib;../../fmod/inc;../../include/dxtk;../../fbxsdk/include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>../../lib;../../fmod/lib/x64;../../fbxsdk/lib/x64/debug;../../maxdk/lib/x64/Release</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>../../lib;../../fmod/lib/x64;../../fbxsdk/lib/x64/debug</AdditionalLibraryDirectories>
       <AdditionalDependencies>libfbxsdk-md.lib;libxml2-md.lib;zlib-md.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>

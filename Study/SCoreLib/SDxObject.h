@@ -59,20 +59,20 @@ struct IW_VERTEX
 		w1[0] = w1[1] = w1[2] = w1[3] = 0;
 	}
 };
-//struct IW_VERTEX8
-//{
-//	float	i1[4];
-//	float	i2[4];
-//	float	w1[4];
-//	float	w2[4];
-//	IW_VERTEX8()
-//	{
-//		i1[0] = i1[1] = i1[2] = i1[3] = 0.0f;
-//		w1[0] = w1[1] = w1[2] = w1[3] = 0;
-//		i2[0] = i2[1] = i2[2] = i2[3] = 0.0f;
-//		w2[0] = w2[1] = w2[2] = w2[3] = 0;
-//	}
-//};
+struct IW_VERTEX8
+{
+	float	i1[4];
+	float	i2[4];
+	float	w1[4];
+	float	w2[4];
+	IW_VERTEX8()
+	{
+		i1[0] = i1[1] = i1[2] = i1[3] = 0.0f;
+		w1[0] = w1[1] = w1[2] = w1[3] = 0;
+		i2[0] = i2[1] = i2[2] = i2[3] = 0.0f;
+		w2[0] = w2[1] = w2[2] = w2[3] = 0;
+	}
+};
 struct PNCTIW_VERTEX
 {
 	Vector3		p;
@@ -118,7 +118,7 @@ struct S_TRIANGLE
 {
 	PNCT_VERTEX	vVertex[3];
 	IW_VERTEX	vVertexIW[3];
-	//IW_VERTEX8	vVertexIW8[3];
+	IW_VERTEX8	vVertexIW8[3];
 	Vector3		vNormal;
 	int			iSubIndex;
 	S_TRIANGLE(int Index) : iSubIndex(Index) {}
