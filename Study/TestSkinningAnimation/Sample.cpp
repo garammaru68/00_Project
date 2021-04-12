@@ -98,12 +98,68 @@ bool Sample::Init()
 	// 
 	m_pd3dDevice->CreateBuffer(&vbdesc, NULL, m_pObj->m_pBoneBuffer.GetAddressOf());
 
-	m_pObj->m_fTick = 3 * 160;
+	m_pObj->m_Scene.iFirstFrame = 36;
+	m_pObj->m_Scene.iLastFrame = 101;
+	m_pObj->m_fTick = m_pObj->m_Scene.iFirstFrame * 160;
 	return true;
 }
 bool Sample::Frame()
 {
-	m_pObj->Movement();
+	if (g_Input.GetKey(VK_UP) == KEY_HOLD)
+	{
+		//SAnimTrack track;
+		//Quaternion qRotation(0.0f, 10.0f, 0.0f, 1.0f);	
+		//track.q += qRotation;
+		//m_Scene.iFirstFrame = 3;
+		m_pObj->m_Scene.iFirstFrame = 5;
+		m_pObj->m_Scene.iLastFrame = 35;
+		Vector3 vMove = m_pObj->m_vLook * g_fSecondPerFrame * m_pObj->m_fSpeed * 1.0f;
+		m_pObj->m_vPos += vMove;
+	}
+	else
+	{
+		m_pObj->m_Scene.iFirstFrame = 36;
+		m_pObj->m_Scene.iLastFrame = 101;
+	}
+	if (g_Input.GetKey(VK_DOWN) == KEY_HOLD)
+	{
+		m_pObj->m_Scene.iFirstFrame = 5;
+		m_pObj->m_Scene.iLastFrame = 35;
+		Vector3 vMove = m_pObj->m_vLook * g_fSecondPerFrame * m_pObj->m_fSpeed * -1.0f;
+		m_pObj->m_vPos += vMove;
+	}
+	else
+	{
+		m_pObj->m_Scene.iFirstFrame = 36;
+		m_pObj->m_Scene.iLastFrame = 101;
+	}
+	if (g_Input.GetKey(VK_LEFT) == KEY_HOLD)
+	{
+		m_pObj->m_Scene.iFirstFrame = 5;
+		m_pObj->m_Scene.iLastFrame = 35;
+		Vector3 vMove = m_pObj->m_vRight * g_fSecondPerFrame * m_pObj->m_fSpeed * -1.0f;
+		m_pObj->m_vPos += vMove;
+	}
+	else
+	{
+		m_pObj->m_Scene.iFirstFrame = 36;
+		m_pObj->m_Scene.iLastFrame = 101;
+	}
+	if (g_Input.GetKey(VK_RIGHT) == KEY_HOLD)
+	{
+		m_pObj->m_Scene.iFirstFrame = 5;
+		m_pObj->m_Scene.iLastFrame = 35;
+		Vector3 vMove = m_pObj->m_vRight * g_fSecondPerFrame * m_pObj->m_fSpeed * 1.0f;
+		m_pObj->m_vPos += vMove;
+		//Quaternion vRot = m_matRotation * g_fSecondPerFrame * m_fSpeed * 5.0f;
+	}
+	else
+	{
+		m_pObj->m_Scene.iFirstFrame = 36;
+		m_pObj->m_Scene.iLastFrame = 101;
+	}
+
+
 	// Tick 계산
 	m_pObj->m_fTick += g_fSecondPerFrame *
 		m_pObj->m_Scene.iFrameSpeed *
@@ -111,10 +167,9 @@ bool Sample::Frame()
 
 	// 마지막 프레임에서 처음으로 돌아온다
 	if (m_pObj->m_fTick >=
-		(m_pObj->m_Scene.iLastFrame *
-			m_pObj->m_Scene.iTickPerFrame))
+		(m_pObj->m_Scene.iLastFrame * m_pObj->m_Scene.iTickPerFrame))
 	{
-		m_pObj->m_fTick = 3 * 160;
+		m_pObj->m_fTick = m_pObj->m_Scene.iFirstFrame * 160;
 	}
 
 	for (int iNode = 0; iNode < m_pObj->m_sNodeList.size(); iNode++)
@@ -165,24 +220,10 @@ bool Sample::Frame()
 				pModelObject->m_matAnim = matScale * matRotate * matTrans *matParent;
 				//pModelObject->m_matAnim = pModelObject->animlist[iTick].mat;
 
-				m_pObj->m_pMatrixList[iNode] = matBiped * pModelObject->m_matAnim;
+				m_pObj->m_pMatrixList[iNode] = /*matBiped **/ pModelObject->m_matAnim;
 				break;
 			}
 		}
-	}
-	// 상수버퍼 업데이트
-	Matrix* pMatrices;
-	HRESULT hr = S_OK;
-	D3D11_MAPPED_SUBRESOURCE MappedFaceDest;
-	if (SUCCEEDED(g_pImmediateContext->Map((ID3D11Resource*)m_pObj->m_pBoneBuffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &MappedFaceDest)))
-	{
-		pMatrices = (Matrix*)MappedFaceDest.pData;
-		for (int dwObject = 0; dwObject < m_pObj->m_sNodeList.size(); dwObject++)
-		{
-			Matrix matAnim = m_pObj->m_pMatrixList[dwObject].Transpose();
-			pMatrices[dwObject] = matAnim;
-		}
-		g_pImmediateContext->Unmap(m_pObj->m_pBoneBuffer.Get(), 0);
 	}
 	return true;
 }
@@ -211,6 +252,34 @@ bool Sample::Render()
 	{
 		Matrix matWorld = Matrix::Identity;
 		SModelObj* pObject = m_pObj->m_sNodeList[iNode];
+		if (pObject->m_dxMatrixBindPosMap.size() <= 0)
+		{
+			continue;
+		}
+
+		// 상수버퍼 업데이트
+		Matrix* pMatrices;
+		D3D11_MAPPED_SUBRESOURCE MappedFaceDest;
+		if (SUCCEEDED(g_pImmediateContext->Map((ID3D11Resource*)m_pObj->m_pBoneBuffer.Get(),
+					  0, D3D11_MAP_WRITE_DISCARD, 0, &MappedFaceDest)))
+		{
+			pMatrices = (Matrix*)MappedFaceDest.pData;
+			for (int sNode = 0; sNode < m_pObj->m_sNodeList.size(); sNode++)
+			{
+				SModelObj* bone = m_pObj->m_sNodeList[sNode];
+				std::string szName;
+				szName.assign(bone->m_szName.begin(), bone->m_szName.end());
+				Matrix matBiped = Matrix::Identity;
+				auto data = pObject->m_dxMatrixBindPosMap.find(szName);
+				if (data != pObject->m_dxMatrixBindPosMap.end())
+				{
+					matBiped = data->second;
+				}
+				Matrix matAnim = matBiped * m_pObj->m_pMatrixList[sNode];
+				pMatrices[sNode] = matAnim.Transpose();
+			}
+			g_pImmediateContext->Unmap(m_pObj->m_pBoneBuffer.Get(), 0);
+		}
 
 		for (int iSub = 0; iSub < pObject->subMesh.size(); iSub++)
 		{

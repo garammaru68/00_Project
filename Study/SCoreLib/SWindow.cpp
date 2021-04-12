@@ -82,7 +82,7 @@ LRESULT CALLBACK WndProc(
 		{
 			::SetFocus(g_hWnd);
 			g_bActive = true;
-			SetWindowText(g_hWnd, L"ACTIVE");
+			SetWindowText(g_hWnd, L"SSM");
 		}
 
 	}break;

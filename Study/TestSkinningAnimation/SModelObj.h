@@ -80,7 +80,7 @@ class SModelObj : public SObject
 public:
 	SModelObj*  m_pParentObject = nullptr;
 	Matrix    m_matAnim;
-
+	std::unordered_map<std::string, Matrix> m_dxMatrixBindPosMap;
 	std::vector<std::wstring>   fbxMaterialList;
 	std::vector<SSubMesh>		subMesh;
 	std::vector<SAnimTrack>     animlist;

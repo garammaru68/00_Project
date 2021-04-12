@@ -5,6 +5,8 @@
 class Sample : public SCore
 {
 	std::shared_ptr<SFbxObj>  m_pObj;
+	int iFirstFrame;
+	int iLastFrame;
 public:
 
 	bool Init() override;

@@ -43,7 +43,7 @@ void SFbxObj::AddKey(FbxNode* pNode, FbxAMatrix matGlobal,
 	}
 }
 bool SFbxObj::ParseMeshSkinningMap(const FbxMesh* pFbxMesh,
-	std::vector<SWeight>& skindata)
+	std::vector<SWeight>& skindata, SModelObj* pObj)
 {
 	// eSkin에 해당하는 인덱스(갯수) 가져오기
 	int iDeformerCount = pFbxMesh->GetDeformerCount(FbxDeformer::eSkin);
@@ -70,8 +70,9 @@ bool SFbxObj::ParseMeshSkinningMap(const FbxMesh* pFbxMesh,
 
 			Matrix matInvBindPos = DxConvertMatrix(ConvertMatrixA(matBindPose));
 			matInvBindPos = matInvBindPos.Invert();
-
-			m_dxMatrixBindPoseMap.insert(make_pair(pCluster->GetLink()->GetName(), matInvBindPos));
+			std::string name = pCluster->GetLink()->GetName();
+			m_dxMatrixBindPoseMap.insert(make_pair(name, matInvBindPos));
+			pObj->m_dxMatrixBindPosMap.insert(make_pair(name, matInvBindPos));
 
 			int  dwClusterSize = pCluster->GetControlPointIndicesCount();
 			auto data = m_pFbxNodeMap.find(pCluster->GetLink());

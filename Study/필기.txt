@@ -148,3 +148,5 @@ AnimationTrack {
 클릭한 곳을 중점으로 회전
 
 행렬 직접 접근 setMatrix가 아니라 직접만든 Matrix를 넘겨준다
+
+Index -> FaceNormal

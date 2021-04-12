@@ -160,6 +160,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Network", "Network", "{8529
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RecentlyFBXLoader", "RecentlyFBXLoader\RecentlyFBXLoader.vcxproj", "{CF20E96A-26BC-432E-B966-2985928DD940}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SampleQuadTree", "SampleQuadTree\SampleQuadTree.vcxproj", "{50DCC92C-9CB5-412A-BD50-DD6234283034}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -624,6 +626,14 @@ Global
 		{CF20E96A-26BC-432E-B966-2985928DD940}.Release|x64.Build.0 = Release|x64
 		{CF20E96A-26BC-432E-B966-2985928DD940}.Release|x86.ActiveCfg = Release|Win32
 		{CF20E96A-26BC-432E-B966-2985928DD940}.Release|x86.Build.0 = Release|Win32
+		{50DCC92C-9CB5-412A-BD50-DD6234283034}.Debug|x64.ActiveCfg = Debug|x64
+		{50DCC92C-9CB5-412A-BD50-DD6234283034}.Debug|x64.Build.0 = Debug|x64
+		{50DCC92C-9CB5-412A-BD50-DD6234283034}.Debug|x86.ActiveCfg = Debug|Win32
+		{50DCC92C-9CB5-412A-BD50-DD6234283034}.Debug|x86.Build.0 = Debug|Win32
+		{50DCC92C-9CB5-412A-BD50-DD6234283034}.Release|x64.ActiveCfg = Release|x64
+		{50DCC92C-9CB5-412A-BD50-DD6234283034}.Release|x64.Build.0 = Release|x64
+		{50DCC92C-9CB5-412A-BD50-DD6234283034}.Release|x86.ActiveCfg = Release|Win32
+		{50DCC92C-9CB5-412A-BD50-DD6234283034}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -695,9 +705,10 @@ Global
 		{38AB57C7-B731-4DD0-944B-4E7BCCB4FB89} = {153765A5-6CF1-453B-862B-9F42E3FD81A8}
 		{8529A83B-9B65-4EA9-A81E-D5BFD505E16A} = {153765A5-6CF1-453B-862B-9F42E3FD81A8}
 		{CF20E96A-26BC-432E-B966-2985928DD940} = {38AB57C7-B731-4DD0-944B-4E7BCCB4FB89}
+		{50DCC92C-9CB5-412A-BD50-DD6234283034} = {508C46DA-E4E1-45B5-AA06-6917609AAFF7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		VisualSVNWorkingCopyRoot = .
 		SolutionGuid = {8CA5F4F3-F11A-4339-87C9-38CD6690C71A}
+		VisualSVNWorkingCopyRoot = .
 	EndGlobalSection
 EndGlobal

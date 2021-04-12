@@ -66,7 +66,7 @@ public:
 	void ParseAnimation(FbxScene*	pFBXScene);
 	void ParseAnimStack(FbxScene* pFbxScene, FbxString* strAnimStackName);
 	void ParseNodeAnimation(FbxNode* pNode);
-	bool ParseMeshSkinningMap(const FbxMesh* pFbxMesh, std::vector<SWeight>& skindata);
+	bool ParseMeshSkinningMap(const FbxMesh* pFbxMesh, std::vector<SWeight>& skindata, SModelObj* pObj);
 
 	void AddKey(FbxNode* pNode, FbxAMatrix mat, float fCurentTime);
 	bool	CreateInputLayout() override;
