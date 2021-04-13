@@ -34,4 +34,3 @@ public:
 	~SInput();
 };
 #define g_Input SInput::GetInstance()
-

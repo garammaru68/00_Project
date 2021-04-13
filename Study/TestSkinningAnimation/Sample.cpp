@@ -116,11 +116,6 @@ bool Sample::Frame()
 		Vector3 vMove = m_pObj->m_vLook * g_fSecondPerFrame * m_pObj->m_fSpeed * 1.0f;
 		m_pObj->m_vPos += vMove;
 	}
-	else
-	{
-		m_pObj->m_Scene.iFirstFrame = 36;
-		m_pObj->m_Scene.iLastFrame = 101;
-	}
 	if (g_Input.GetKey(VK_DOWN) == KEY_HOLD)
 	{
 		m_pObj->m_Scene.iFirstFrame = 5;
@@ -128,22 +123,12 @@ bool Sample::Frame()
 		Vector3 vMove = m_pObj->m_vLook * g_fSecondPerFrame * m_pObj->m_fSpeed * -1.0f;
 		m_pObj->m_vPos += vMove;
 	}
-	else
-	{
-		m_pObj->m_Scene.iFirstFrame = 36;
-		m_pObj->m_Scene.iLastFrame = 101;
-	}
 	if (g_Input.GetKey(VK_LEFT) == KEY_HOLD)
 	{
 		m_pObj->m_Scene.iFirstFrame = 5;
 		m_pObj->m_Scene.iLastFrame = 35;
 		Vector3 vMove = m_pObj->m_vRight * g_fSecondPerFrame * m_pObj->m_fSpeed * -1.0f;
 		m_pObj->m_vPos += vMove;
-	}
-	else
-	{
-		m_pObj->m_Scene.iFirstFrame = 36;
-		m_pObj->m_Scene.iLastFrame = 101;
 	}
 	if (g_Input.GetKey(VK_RIGHT) == KEY_HOLD)
 	{
@@ -153,12 +138,14 @@ bool Sample::Frame()
 		m_pObj->m_vPos += vMove;
 		//Quaternion vRot = m_matRotation * g_fSecondPerFrame * m_fSpeed * 5.0f;
 	}
-	else
+	if (g_Input.GetKey(VK_UP) == KEY_UP ||
+		g_Input.GetKey(VK_DOWN) == KEY_UP ||
+		g_Input.GetKey(VK_RIGHT) == KEY_UP ||
+		g_Input.GetKey(VK_LEFT) == KEY_UP)
 	{
 		m_pObj->m_Scene.iFirstFrame = 36;
 		m_pObj->m_Scene.iLastFrame = 101;
 	}
-
 
 	// Tick 계산
 	m_pObj->m_fTick += g_fSecondPerFrame *
@@ -191,6 +178,7 @@ bool Sample::Frame()
 			matParent = pModelObject->m_pParentObject->m_matAnim;
 		}
 		//SAnimTrack sTrack = pModelObject->animlist[0];
+		// 보간
 		for (int iTick = 1; iTick < pModelObject->animlist.size() - 1; iTick++)
 		{
 			if (pModelObject->animlist[iTick].iTick >=
@@ -219,7 +207,7 @@ bool Sample::Frame()
 				Matrix matTrans = Matrix::CreateTranslation(vPos);
 				pModelObject->m_matAnim = matScale * matRotate * matTrans *matParent;
 				//pModelObject->m_matAnim = pModelObject->animlist[iTick].mat;
-
+				
 				m_pObj->m_pMatrixList[iNode] = /*matBiped **/ pModelObject->m_matAnim;
 				break;
 			}
@@ -321,5 +309,9 @@ bool Sample::Release()
 		delete pModelObject;
 	}
 	m_pObj->Release();
+	return true;
+}
+bool Sample::Movement(DWORD dwGetKey)
+{
 	return true;
 }

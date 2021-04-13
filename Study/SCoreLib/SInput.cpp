@@ -6,7 +6,7 @@ namespace SBASIS_CORE_LIB
 
 SInput::SInput()
 {
-	
+	m_bEnable = false;
 }
 SInput::~SInput()
 {

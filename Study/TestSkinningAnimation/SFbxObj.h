@@ -2,6 +2,15 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include "SModelObj.h"
 #include "STimer.h"
+
+enum CharacterState
+{
+	WALK_START	= 5,
+	WALK_END	= 35,
+	STAY_START	= 36,
+	STAY_END	= 101,
+	
+};
 using namespace DirectX::SimpleMath;
 static Matrix DxConvertMatrix(Matrix m)
 {
@@ -70,7 +79,6 @@ public:
 
 	void AddKey(FbxNode* pNode, FbxAMatrix mat, float fCurentTime);
 	bool	CreateInputLayout() override;
-	void Movement();
 public:
 	SFbxObj();
 };

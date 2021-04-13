@@ -5,13 +5,11 @@
 class Sample : public SCore
 {
 	std::shared_ptr<SFbxObj>  m_pObj;
-	int iFirstFrame;
-	int iLastFrame;
 public:
-
 	bool Init() override;
 	bool Frame() override;
 	bool Render() override;
 	bool Release() override;
+	bool Movement(DWORD dwGetKey);
 };
 SGAME_RUN;
