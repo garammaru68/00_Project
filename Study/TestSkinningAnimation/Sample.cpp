@@ -1,4 +1,15 @@
 #include "Sample.h"
+// WALK			3 ~ 35
+// SideStep		36 ~ 101
+// Stand		363 ~ 537
+// Sitdown		538 ~ 598
+// SitHold		599 ~ 783
+// Standup		780 ~ 837
+// Run			838 ~ 856
+// Lookaround	857 ~ 1105
+// WALK2		1106 ~ 1135
+// Run2			1166 ~ 1185
+// Jump			1386 ~ 1398
 bool Sample::Init()
 {
 	m_Camera.CreateViewMatrix(
@@ -101,43 +112,74 @@ bool Sample::Init()
 	m_pObj->m_Scene.iFirstFrame = 36;
 	m_pObj->m_Scene.iLastFrame = 101;
 	m_pObj->m_fTick = m_pObj->m_Scene.iFirstFrame * 160;
+
+	//dwKey = KEY_FREE;
+	vDirection = m_pObj->m_vLook;
+	fDistance = 1.0;
 	return true;
 }
 bool Sample::Frame()
 {
-	if (g_Input.GetKey(VK_UP) == KEY_HOLD)
+	//GetAsyncKeyState(dwKey);
+	if (g_Input.GetKey(VK_UP) == KEY_HOLD ||
+		g_Input.GetKey(VK_DOWN) == KEY_HOLD || 
+		g_Input.GetKey(VK_LEFT) == KEY_HOLD ||
+		g_Input.GetKey(VK_RIGHT) == KEY_HOLD)
 	{
-		//SAnimTrack track;
-		//Quaternion qRotation(0.0f, 10.0f, 0.0f, 1.0f);	
-		//track.q += qRotation;
-		//m_Scene.iFirstFrame = 3;
+		m_Input->SetEnable(true);
+		if (m_Input->GetEnable() == true)
 		m_pObj->m_Scene.iFirstFrame = 5;
 		m_pObj->m_Scene.iLastFrame = 35;
-		Vector3 vMove = m_pObj->m_vLook * g_fSecondPerFrame * m_pObj->m_fSpeed * 1.0f;
+
+		if (dwKey == VK_UP || dwKey == VK_DOWN) vDirection = m_pObj->m_vLook;
+		else if (dwKey == VK_LEFT || dwKey == VK_RIGHT) vDirection = m_pObj->m_vRight;
+
+		if (dwKey == VK_DOWN || dwKey == VK_LEFT) fDistance = -1.0f;
+		else fDistance = 1.0f;
+
+		Vector3 vMove = vDirection * g_fSecondPerFrame * m_pObj->m_fSpeed * fDistance;
 		m_pObj->m_vPos += vMove;
+
 	}
-	if (g_Input.GetKey(VK_DOWN) == KEY_HOLD)
-	{
-		m_pObj->m_Scene.iFirstFrame = 5;
-		m_pObj->m_Scene.iLastFrame = 35;
-		Vector3 vMove = m_pObj->m_vLook * g_fSecondPerFrame * m_pObj->m_fSpeed * -1.0f;
-		m_pObj->m_vPos += vMove;
-	}
-	if (g_Input.GetKey(VK_LEFT) == KEY_HOLD)
-	{
-		m_pObj->m_Scene.iFirstFrame = 5;
-		m_pObj->m_Scene.iLastFrame = 35;
-		Vector3 vMove = m_pObj->m_vRight * g_fSecondPerFrame * m_pObj->m_fSpeed * -1.0f;
-		m_pObj->m_vPos += vMove;
-	}
-	if (g_Input.GetKey(VK_RIGHT) == KEY_HOLD)
-	{
-		m_pObj->m_Scene.iFirstFrame = 5;
-		m_pObj->m_Scene.iLastFrame = 35;
-		Vector3 vMove = m_pObj->m_vRight * g_fSecondPerFrame * m_pObj->m_fSpeed * 1.0f;
-		m_pObj->m_vPos += vMove;
-		//Quaternion vRot = m_matRotation * g_fSecondPerFrame * m_fSpeed * 5.0f;
-	}
+	//if (g_Input.GetKey(dwKey) == KEY_UP)
+	//{
+	//	m_pObj->m_Scene.iFirstFrame = 36;
+	//	m_pObj->m_Scene.iLastFrame = 101;
+	//	dwKey = 0;
+	//}
+	//if (g_Input.GetKey(VK_UP) == KEY_HOLD)
+	//{
+	//	//SAnimTrack track;
+	//	//Quaternion qRotation(0.0f, 10.0f, 0.0f, 1.0f);	
+	//	//track.q += qRotation;
+	//	//m_Scene.iFirstFrame = 3;
+	//	m_pObj->m_Scene.iFirstFrame = 5;
+	//	m_pObj->m_Scene.iLastFrame = 35;
+	//	Vector3 vMove = m_pObj->m_vLook * g_fSecondPerFrame * m_pObj->m_fSpeed * 1.0f;
+	//	m_pObj->m_vPos += vMove;
+	//}
+	//if (g_Input.GetKey(VK_DOWN) == KEY_HOLD)
+	//{
+	//	m_pObj->m_Scene.iFirstFrame = 5;
+	//	m_pObj->m_Scene.iLastFrame = 35;
+	//	Vector3 vMove = m_pObj->m_vLook * g_fSecondPerFrame * m_pObj->m_fSpeed * -1.0f;
+	//	m_pObj->m_vPos += vMove;
+	//}
+	//if (g_Input.GetKey(VK_LEFT) == KEY_HOLD)
+	//{
+	//	m_pObj->m_Scene.iFirstFrame = 5;
+	//	m_pObj->m_Scene.iLastFrame = 35;
+	//	Vector3 vMove = m_pObj->m_vRight * g_fSecondPerFrame * m_pObj->m_fSpeed * -1.0f;
+	//	m_pObj->m_vPos += vMove;
+	//}
+	//if (g_Input.GetKey(VK_RIGHT) == KEY_HOLD)
+	//{
+	//	m_pObj->m_Scene.iFirstFrame = 5;
+	//	m_pObj->m_Scene.iLastFrame = 35;
+	//	Vector3 vMove = m_pObj->m_vRight * g_fSecondPerFrame * m_pObj->m_fSpeed * 1.0f;
+	//	m_pObj->m_vPos += vMove;
+	//	//Quaternion vRot = m_matRotation * g_fSecondPerFrame * m_fSpeed * 5.0f;
+	//}
 	if (g_Input.GetKey(VK_UP) == KEY_UP ||
 		g_Input.GetKey(VK_DOWN) == KEY_UP ||
 		g_Input.GetKey(VK_RIGHT) == KEY_UP ||
@@ -145,6 +187,8 @@ bool Sample::Frame()
 	{
 		m_pObj->m_Scene.iFirstFrame = 36;
 		m_pObj->m_Scene.iLastFrame = 101;
+
+		m_Input->SetEnable(false);
 	}
 
 	// Tick °è»ê

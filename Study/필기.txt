@@ -150,3 +150,8 @@ AnimationTrack {
 행렬 직접 접근 setMatrix가 아니라 직접만든 Matrix를 넘겨준다
 
 Index -> FaceNormal
+
+RimLight = 사물이 뚜렷하게 보임 ( 사물 뒤에서 조명 )
+포인터샘플링 - SkyBox 경계선 없애기
+FrontCulling
+z Buffer를 만들지 않거나 z를 최대치로

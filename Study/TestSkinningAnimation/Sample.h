@@ -5,6 +5,11 @@
 class Sample : public SCore
 {
 	std::shared_ptr<SFbxObj>  m_pObj;
+	DWORD	dwKey;
+	Vector3 vDirection;
+	float	fDistance;
+	SInput*	m_Input;
+
 public:
 	bool Init() override;
 	bool Frame() override;
