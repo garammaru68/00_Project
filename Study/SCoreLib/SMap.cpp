@@ -87,11 +87,15 @@ bool    SMap::CreateVertexData()
 			m_VertexList[iIndex].t.x = iCol * fOffsetU * 1;
 			m_VertexList[iIndex].t.y = iRow * fOffsetV * 1;
 
-			m_VertexList[iIndex].n = { 0,1,0 };
+			m_VertexList[iIndex].n = GetNormalOfVertex(iIndex);
 			m_VertexList[iIndex].c = { 1,1,1,1 };
 		}
 	}
 	return true;
+}
+Vector3 SMap::GetNormalOfVertex(UINT Index)
+{
+	return Vector3(0.0f, 1.0f, 0.0f);
 }
 bool    SMap::CreateIndexData()
 {
@@ -113,7 +117,84 @@ bool    SMap::CreateIndexData()
 		}
 	}
 	m_iNumFaces = m_IndexList.size() / 3;
+	GetVertexNormal();
+
 	return true;
+}
+void SMap::GetVertexNormal()
+{
+	InitFaceNormals();
+	GenNormalLookupTable();
+	CalcPerVertexNormalsFastLookup();
+}
+Vector3 SMap::ComputeFaceNormal(DWORD i0, DWORD i1, DWORD i2)
+{
+	Vector3 normal;
+	Vector3 v0 = m_VertexList[i1].p - m_VertexList[i0].p;
+	Vector3 v1 = m_VertexList[i2].p - m_VertexList[i0].p;
+	normal = v0.Cross(v1);
+	normal.Normalize();
+	return normal;
+}
+void SMap::CalcFaceNormals()
+{
+	int index = 0;
+	for (int i = 0; i < m_iNumFaces * 3; i += 3)
+	{
+		m_FaceNormals[index++] = ComputeFaceNormal(
+			m_IndexList[i],
+			m_IndexList[i + 1],
+			m_IndexList[i + 2]);
+	}
+}
+void SMap::InitFaceNormals()
+{
+	m_FaceNormals.resize(m_iNumFaces);
+	for (int i = 0; i < m_iNumFaces; i++)
+	{
+		m_FaceNormals[i] = Vector3::Zero;
+	}
+}
+void SMap::GenNormalLookupTable()
+{
+	m_LookupTable.resize(m_iNumVertices);
+	for (int iFace = 0; iFace < m_iNumFaces; iFace++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			for (int k = 0; k < 6; k++)
+			{
+				int id = m_IndexList[iFace * 3 + j];
+				if (m_LookupTable[id].index[k] == -1)
+				{
+					m_LookupTable[id].index[k] = iFace;
+					break;
+				}
+			}
+		}
+	}
+}
+void SMap::CalcPerVertexNormalsFastLookup()
+{
+	CalcFaceNormals();
+	for (int i = 0; i < m_iNumVertices; i++)
+	{
+		Vector3 avgNormal = { 0,0,0 };
+		for (int f = 0; f < 6; f++)
+		{
+			int index = m_LookupTable[i].index[f];
+			if (index != -1)
+			{
+				avgNormal += m_FaceNormals[index];
+			}
+			else
+			{
+				break;
+			}
+		}
+		m_VertexList[i].n = avgNormal;
+		m_VertexList[i].n.Normalize();
+	}
 }
 bool	SMap::Frame()
 {

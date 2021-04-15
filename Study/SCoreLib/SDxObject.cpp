@@ -880,9 +880,9 @@ namespace SBASIS_CORE_LIB
 		g_pd3dDevice = pDevice;
 
 		CreateVertexData();
+		CreateIndexData();
 		CreateConstantBuffer();
 		CreateVertexBuffer();
-		CreateIndexData();
 		CreateIndexBuffer();
 		LoadShader(szVS, szPS);
 		CreateInputLayout();
