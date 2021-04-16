@@ -5,6 +5,7 @@
 class Sample : public SCore
 {
 	std::shared_ptr<SFbxObj>  m_pObj;
+	DWORD	m_dwKey;
 	DWORD	dwKey;
 	Vector3 vDirection;
 	float	fDistance;

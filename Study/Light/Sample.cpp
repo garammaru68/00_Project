@@ -241,6 +241,7 @@ bool Sample::Frame()
 	m_pMainCamera->FrameFrustum(g_pImmediateContext);
 
 	m_UserShape.m_matRotation = m_pMainCamera->m_matWorld;
+
 	return true;
 }
 bool Sample::Render()
