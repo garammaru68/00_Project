@@ -5,6 +5,7 @@
 #include "SWrite.h"
 #include "SSoundManager.h"
 #include "SDebugCamera.h"
+#include "SSkyBox.h"
 
 class SCore : public SDevice
 {
@@ -13,6 +14,7 @@ public:
 	SDebugCamera	m_Camera;
 	SCamera*		m_pMainCamera;
 	SShapeLine		m_LineShape;
+	SSkyBox			m_Skybox;
 public:
 	virtual bool	PreInit();
 	virtual bool	Init();

@@ -218,7 +218,7 @@ bool SDevice::Init()
 		return false;
 	}
 
-	SDxState::Set(m_pd3dDevice.Get());
+	SDxState::SetState(m_pd3dDevice.Get());
 
 	if (FAILED(m_pGIFactory->MakeWindowAssociation(m_hWnd,
 		DXGI_MWA_NO_WINDOW_CHANGES |
@@ -243,9 +243,9 @@ bool SDevice::PreRender()
 		m_pImmediateContext->ClearDepthStencilView(m_pDSV.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1, 0);
 	}
 	m_pImmediateContext->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	m_pImmediateContext->RSSetState(SDxState::m_pRS);
-	m_pImmediateContext->PSSetSamplers(0, 1, &SDxState::m_pWrapLinear);
-	m_pImmediateContext->OMSetDepthStencilState(SDxState::m_pDSS, 0);
+	m_pImmediateContext->RSSetState(SDxState::g_pRSBackCullSolid);
+	m_pImmediateContext->PSSetSamplers(0, 1, &SDxState::g_pSSWrapLinear);
+	m_pImmediateContext->OMSetDepthStencilState(SDxState::g_pDSSDepthEnable, 0);
 	return true;
 }
 bool SDevice::Render()

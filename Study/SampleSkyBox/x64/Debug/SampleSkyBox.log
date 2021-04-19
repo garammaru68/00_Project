@@ -1,0 +1,4 @@
+﻿  Sample.cpp
+d:\00_project\study\sampleskybox\sample.cpp(53): warning C4018: '>=': signed 또는 unsigned가 일치하지 않습니다.
+d:\00_project\study\sampleskybox\sample.cpp(119): warning C4101: 'hr' :참조되지 않은 지역 변수입니다.
+  SampleSkyBox.vcxproj -> D:\00_Project\Study\x64\Debug\SampleSkyBox.exe

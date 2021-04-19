@@ -111,14 +111,15 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>../../fmod/inc;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../fmod/inc;../../fbxsdk/include;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalLibraryDirectories>../../fmod/lib/x64;</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>../../fmod/lib/x64;../../fbxsdk/lib/x64/debug;</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libfbxsdk-md.lib;libxml2-md.lib;zlib-md.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
     <PreBuildEvent>
       <Command>md "..\\..\\include\\dxtk"
@@ -127,7 +128,8 @@ copy "..\\..\\fmod\\lib\\x64\\*.dll" "..\\..\\output\\Debug"</Command>
     <PostBuildEvent>
       <Command>copy  "..\\..\\output\\Debug\\SCoreLib.lib" "..\\..\\lib\\SCoreLib_D.lib"
 copy "*.h" "..\\..\\include"
-copy "dxtk\\*.h" "..\\..\\include\\dxtk"</Command>
+copy "dxtk\\*.h" "..\\..\\include\\dxtk"
+copy "*.inl" "..\\..\\include"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -187,6 +189,7 @@ copy "dxtk\\*.h" "..\\..\\include\\dxtk"</Command>
     <ClInclude Include="SDxState.h" />
     <ClInclude Include="SEffect.h" />
     <ClInclude Include="SEnemyState.h" />
+    <ClInclude Include="SFbxObj.h" />
     <ClInclude Include="SFiniteState.h" />
     <ClInclude Include="SFiniteStateMachine.h" />
     <ClInclude Include="SFrustum.h" />
@@ -198,6 +201,7 @@ copy "dxtk\\*.h" "..\\..\\include\\dxtk"</Command>
     <ClInclude Include="SMath.h" />
     <ClInclude Include="SMatrix.h" />
     <ClInclude Include="SMiniMap.h" />
+    <ClInclude Include="SModelObj.h" />
     <ClInclude Include="SModelViewCamera.h" />
     <ClInclude Include="SMoveState.h" />
     <ClInclude Include="SNpcObject.h" />
@@ -207,6 +211,7 @@ copy "dxtk\\*.h" "..\\..\\include\\dxtk"</Command>
     <ClInclude Include="SProjectile.h" />
     <ClInclude Include="SScene.h" />
     <ClInclude Include="SShape.h" />
+    <ClInclude Include="SSkyBox.h" />
     <ClInclude Include="SSound.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>
@@ -239,6 +244,8 @@ copy "dxtk\\*.h" "..\\..\\include\\dxtk"</Command>
     <ClCompile Include="SDxState.cpp" />
     <ClCompile Include="SEffect.cpp" />
     <ClCompile Include="SEnemyState.cpp" />
+    <ClCompile Include="SFbxAnimation.cpp" />
+    <ClCompile Include="SFbxObj.cpp" />
     <ClCompile Include="SFiniteState.cpp" />
     <ClCompile Include="SFiniteStateMachine.cpp" />
     <ClCompile Include="SFrustum.cpp" />
@@ -250,6 +257,7 @@ copy "dxtk\\*.h" "..\\..\\include\\dxtk"</Command>
     <ClCompile Include="SMath.cpp" />
     <ClCompile Include="SMatrix.cpp" />
     <ClCompile Include="SMiniMap.cpp" />
+    <ClCompile Include="SModelObj.cpp" />
     <ClCompile Include="SModelViewCamera.cpp" />
     <ClCompile Include="SMoveState.cpp" />
     <ClCompile Include="SNpcObject.cpp" />
@@ -259,6 +267,7 @@ copy "dxtk\\*.h" "..\\..\\include\\dxtk"</Command>
     <ClCompile Include="SProjectile.cpp" />
     <ClCompile Include="SScene.cpp" />
     <ClCompile Include="SShape.cpp" />
+    <ClCompile Include="SSkyBox.cpp" />
     <ClCompile Include="SSound.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>

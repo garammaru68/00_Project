@@ -1,8 +1,7 @@
 #pragma once
-#include "SStd.h"
+#include "SCollision.h"
 #include "dxtk/WICTextureLoader.h" //../../include/DirectXTK
 #include "dxtk/DDSTextureLoader.h"
-#include "SimpleMath.h"
 #include "SDxState.h"
 #include "STextureManager.h"
 using namespace DirectX;
@@ -97,23 +96,6 @@ struct PNCTIW_VERTEX
 		w = Vector4(0.0f, 0.0f, 0.0f, 0.0f);
 	}
 };
-struct S_SPHERE
-{
-	Vector3		vCenter;
-	float		fRadius;
-};
-struct S_BOX
-{
-	// Common
-	Vector3		vCenter;
-	Vector3		vPos[8];
-	// AABB
-	Vector3		vMax;
-	Vector3		vMin;
-	// OBB
-	Vector3		vAxis[3];
-	float		fExtent[3];
-};
 struct S_TRIANGLE
 {
 	PNCT_VERTEX	vVertex[3];
@@ -160,7 +142,7 @@ namespace SBASIS_CORE_LIB
 	class SDxObject
 	{
 	public:
-		ID3D11Device* g_pd3dDevice;
+		ID3D11Device* m_pd3dDevice;
 		ID3DBlob*	  m_pVSObj;
 		UINT		  m_iTopology;
 		C_STR		  m_szVertexShader;

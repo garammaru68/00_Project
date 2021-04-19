@@ -10,6 +10,19 @@ struct SMapDesc
 	T_STR szVS;
 	T_STR szPS;
 };
+struct SNormalLookupTable
+{
+	int index[6];
+	SNormalLookupTable()
+	{
+		index[0] = -1;
+		index[1] = -1;
+		index[2] = -1;
+		index[3] = -1;
+		index[4] = -1;
+		index[5] = -1;
+	}
+};
 class SMap : public SObject
 {
 public:
@@ -29,11 +42,21 @@ public:
 	virtual float   Lerp(float fStart, float fEnd, float fTangent);
 	virtual float	GetHeightMap(float fPosX, float fPosZ);
 	virtual float   GetHeight(UINT index);
+	virtual Vector3	GetNormalOfVertex(UINT index);
 	virtual float   GetHeightmap(int row, int col);
 	virtual bool    CreateVertexData() override;
 	virtual bool    CreateIndexData()override;
 	virtual bool	Frame() override;
 	virtual bool	PostRender(ID3D11DeviceContext*	pd3dContext);
+public:
+	std::vector<Vector3> m_FaceNormals;
+	std::vector<SNormalLookupTable> m_LookupTable;
+	Vector3 ComputeFaceNormal(DWORD i0, DWORD i1, DWORD i2);
+	void CalcFaceNormals();
+	void GetVertexNormal();
+	void InitFaceNormals();
+	void GenNormalLookupTable();
+	void CalcPerVertexNormalsFastLookup();
 public:
 	SMap();
 	virtual ~SMap();

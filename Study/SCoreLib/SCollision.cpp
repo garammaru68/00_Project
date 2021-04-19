@@ -1,4 +1,13 @@
 #include "SCollision.h"
+bool SCollision::SphereToSphere(S_SPHERE rt1, S_SPHERE rt2)
+{
+	float fDistance = (rt1.vCenter - rt2.vCenter).Length();
+	if (rt1.fRadius + rt2.fRadius > fDistance)
+	{
+		return true;
+	}
+	return false;
+}
 bool SCollision::RectInPt(RECT rt, POINT pt)
 {
 	return (pt.x >= rt.left &&

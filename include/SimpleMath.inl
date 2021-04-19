@@ -924,6 +924,18 @@ inline float Vector3::Dot(const Vector3& V) const noexcept
     return XMVectorGetX(X);
 }
 
+//inline Vector3 Vector3::DotGetAll(const Vector3& V) const noexcept
+//{
+//	using namespace DirectX;
+//	XMVECTOR v1 = XMLoadFloat3(this);
+//	XMVECTOR v2 = XMLoadFloat3(&V);
+//	XMVECTOR R = XMVector3Dot(v1, v2);
+//
+//	Vector3 result;
+//	XMStoreFloat3(&result, R);
+//	return result;
+//}
+
 inline void Vector3::Cross(const Vector3& V, Vector3& result) const noexcept
 {
     using namespace DirectX;
@@ -2566,7 +2578,7 @@ inline Matrix Matrix::CreatePerspectiveFieldOfView(float fov, float aspectRatio,
 {
     using namespace DirectX;
     Matrix R;
-    XMStoreFloat4x4(&R, XMMatrixPerspectiveFovRH(fov, aspectRatio, nearPlane, farPlane));
+    XMStoreFloat4x4(&R, XMMatrixPerspectiveFovLH(fov, aspectRatio, nearPlane, farPlane));
     return R;
 }
 
@@ -2574,7 +2586,7 @@ inline Matrix Matrix::CreatePerspective(float width, float height, float nearPla
 {
     using namespace DirectX;
     Matrix R;
-    XMStoreFloat4x4(&R, XMMatrixPerspectiveRH(width, height, nearPlane, farPlane));
+    XMStoreFloat4x4(&R, XMMatrixPerspectiveLH(width, height, nearPlane, farPlane));
     return R;
 }
 
@@ -2582,7 +2594,7 @@ inline Matrix Matrix::CreatePerspectiveOffCenter(float left, float right, float 
 {
     using namespace DirectX;
     Matrix R;
-    XMStoreFloat4x4(&R, XMMatrixPerspectiveOffCenterRH(left, right, bottom, top, nearPlane, farPlane));
+    XMStoreFloat4x4(&R, XMMatrixPerspectiveOffCenterLH(left, right, bottom, top, nearPlane, farPlane));
     return R;
 }
 
@@ -2590,7 +2602,7 @@ inline Matrix Matrix::CreateOrthographic(float width, float height, float zNearP
 {
     using namespace DirectX;
     Matrix R;
-    XMStoreFloat4x4(&R, XMMatrixOrthographicRH(width, height, zNearPlane, zFarPlane));
+    XMStoreFloat4x4(&R, XMMatrixOrthographicLH(width, height, zNearPlane, zFarPlane));
     return R;
 }
 
@@ -2598,7 +2610,7 @@ inline Matrix Matrix::CreateOrthographicOffCenter(float left, float right, float
 {
     using namespace DirectX;
     Matrix R;
-    XMStoreFloat4x4(&R, XMMatrixOrthographicOffCenterRH(left, right, bottom, top, zNearPlane, zFarPlane));
+    XMStoreFloat4x4(&R, XMMatrixOrthographicOffCenterLH(left, right, bottom, top, zNearPlane, zFarPlane));
     return R;
 }
 
@@ -2609,7 +2621,7 @@ inline Matrix Matrix::CreateLookAt(const Vector3& eye, const Vector3& target, co
     XMVECTOR eyev = XMLoadFloat3(&eye);
     XMVECTOR targetv = XMLoadFloat3(&target);
     XMVECTOR upv = XMLoadFloat3(&up);
-    XMStoreFloat4x4(&R, XMMatrixLookAtRH(eyev, targetv, upv));
+    XMStoreFloat4x4(&R, XMMatrixLookAtLH(eyev, targetv, upv));
     return R;
 }
 

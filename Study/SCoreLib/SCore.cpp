@@ -52,9 +52,12 @@ bool SCore::GameInit()
 
 	m_Camera.CreateViewMatrix({ 0,10,-10 }, { 0,0,0 });
 	float fAspect = g_rtClient.right / (float)g_rtClient.bottom;
-	m_Camera.CreateProjMatrix(1, 1000, SBASIS_PI / 4.0f, fAspect);
+	m_Camera.CreateProjMatrix(1, 10000, SBASIS_PI / 4.0f, fAspect);
 	m_Camera.Init();
 	m_pMainCamera = &m_Camera;
+
+	m_Skybox.Create(g_pd3dDevice, L"../../data/shaer/skyVS.txt",
+		L"../../data/shader/skyPS.txt", L"");
 
 	if (!m_LineShape.Create(g_pd3dDevice, L"../../data/shader/VS.txt",
 		L"../../data/shader/PS.txt",
@@ -72,10 +75,11 @@ bool SCore::GameInit()
 bool SCore::GameRelease()
 {
 	m_LineShape.Release();
+	m_Skybox.Release();
 	Release();
 	g_Timer.Release();
 	g_Input.Release();
-	//g_SoundMgr.Release();
+	g_SoundMgr.Release();
 	g_ObjectMgr.Release();
 	g_dxWrite.Release();
 	SDevice::Release();
@@ -86,7 +90,8 @@ bool	SCore::GameFrame()
 	PreFrame();
 	g_Timer.Frame();
 	g_Input.Frame();
-	//g_SoundMgr.Frame();
+	g_SoundMgr.Frame();
+	m_Skybox.Frame();
 	Frame();
 	g_ObjectMgr.Frame();
 	CameraFrame();
@@ -133,6 +138,15 @@ void    SCore::CameraFrame()
 bool	SCore::PreRender()
 {
 	SDevice::PreRender();
+	g_pImmediateContext->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	m_Skybox.SetMatrix(NULL,
+		&m_pMainCamera->m_matView,
+		&m_pMainCamera->m_matProj);
+	m_Skybox.Render(g_pImmediateContext);
+	g_pImmediateContext->RSSetState(SDxState::g_pRSBackCullSolid);
+	g_pImmediateContext->PSSetSamplers(0, 1, &SDxState::g_pSSWrapLinear);
+	g_pImmediateContext->OMSetDepthStencilState(SDxState::g_pDSSDepthEnable, 0);
+
 	return true;
 }
 bool	SCore::PostRender()

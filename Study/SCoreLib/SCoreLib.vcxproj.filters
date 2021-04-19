@@ -40,6 +40,9 @@
     <Filter Include="shader">
       <UniqueIdentifier>{24b284fd-5da3-4348-8e49-a5b2ca34f445}</UniqueIdentifier>
     </Filter>
+    <Filter Include="fbx">
+      <UniqueIdentifier>{a3ad456f-b99d-4588-aede-da07602434e1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SStd.h">
@@ -201,6 +204,15 @@
     <ClInclude Include="SHeightMap.h">
       <Filter>map</Filter>
     </ClInclude>
+    <ClInclude Include="SModelObj.h">
+      <Filter>fbx</Filter>
+    </ClInclude>
+    <ClInclude Include="SSkyBox.h">
+      <Filter>fbx</Filter>
+    </ClInclude>
+    <ClInclude Include="SFbxObj.h">
+      <Filter>fbx</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SCore.cpp">
@@ -337,6 +349,18 @@
     </ClCompile>
     <ClCompile Include="SHeightMap.cpp">
       <Filter>map</Filter>
+    </ClCompile>
+    <ClCompile Include="SModelObj.cpp">
+      <Filter>fbx</Filter>
+    </ClCompile>
+    <ClCompile Include="SFbxAnimation.cpp">
+      <Filter>fbx</Filter>
+    </ClCompile>
+    <ClCompile Include="SSkyBox.cpp">
+      <Filter>fbx</Filter>
+    </ClCompile>
+    <ClCompile Include="SFbxObj.cpp">
+      <Filter>fbx</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
