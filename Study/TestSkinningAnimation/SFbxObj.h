@@ -3,14 +3,6 @@
 #include "SModelObj.h"
 #include "STimer.h"
 
-enum CharacterState
-{
-	WALK_START	= 5,
-	WALK_END	= 35,
-	STAY_START	= 36,
-	STAY_END	= 101,
-	
-};
 using namespace DirectX::SimpleMath;
 static Matrix DxConvertMatrix(Matrix m)
 {
@@ -82,4 +74,3 @@ public:
 public:
 	SFbxObj();
 };
-

@@ -56,7 +56,7 @@ bool SCore::GameInit()
 	m_Camera.Init();
 	m_pMainCamera = &m_Camera;
 
-	m_Skybox.Create(g_pd3dDevice, L"../../data/shaer/skyVS.txt",
+	m_Skybox.Create(g_pd3dDevice, L"../../data/shader/skyVS.txt",
 		L"../../data/shader/skyPS.txt", L"");
 
 	if (!m_LineShape.Create(g_pd3dDevice, L"../../data/shader/VS.txt",

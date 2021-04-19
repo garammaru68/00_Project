@@ -6,6 +6,17 @@
 #include <simpleMath.h>
 #include <SObject.h>
 #include <SInput.h>
+// WALK			3 ~ 35
+// SideStep		36 ~ 101
+// Stand		363 ~ 537
+// Sitdown		538 ~ 598
+// SitHold		599 ~ 783
+// Standup		780 ~ 837
+// Run			838 ~ 856
+// Lookaround	857 ~ 1105
+// WALK2		1106 ~ 1135
+// Run2			1166 ~ 1185
+// Jump			1386 ~ 1398
 struct SWeight
 {
 	std::vector<int>   Index;

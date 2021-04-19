@@ -325,32 +325,32 @@ bool Sample::Render()
 	g_pImmediateContext->RSSetState(SDxState::g_pRS[2]);
 	g_pImmediateContext->PSSetSamplers(0, 1, &SDxState::g_pSSWrapLinear);
 	g_pImmediateContext->OMSetDepthStencilState(SDxState::g_pDSSDepthDisable, 0);
-	if (m_MiniMap.Begin(g_pImmediateContext))
-	{
-		m_Map.SetMatrix(NULL,
-			&m_TopCamera.m_matView,
-			&m_TopCamera.m_matProj);
-		m_Map.Render(g_pImmediateContext);
+	//if (m_MiniMap.Begin(g_pImmediateContext))
+	//{
+	//	m_Map.SetMatrix(NULL,
+	//		&m_TopCamera.m_matView,
+	//		&m_TopCamera.m_matProj);
+	//	m_Map.Render(g_pImmediateContext);
 
-		Matrix matWorld;
-		matWorld._41 = m_TopCamera.m_vCameraPos.x;
-		matWorld._42 = m_TopCamera.m_vCameraPos.y;
-		matWorld._43 = m_TopCamera.m_vCameraPos.z;
+	//	Matrix matWorld;
+	//	matWorld._41 = m_TopCamera.m_vCameraPos.x;
+	//	matWorld._42 = m_TopCamera.m_vCameraPos.y;
+	//	matWorld._43 = m_TopCamera.m_vCameraPos.z;
 
-		m_UserShape.SetMatrix(NULL,
-			&m_TopCamera.m_matView,
-			&m_TopCamera.m_matProj);
-		m_UserShape.Render(g_pImmediateContext);
+	//	m_UserShape.SetMatrix(NULL,
+	//		&m_TopCamera.m_matView,
+	//		&m_TopCamera.m_matProj);
+	//	m_UserShape.Render(g_pImmediateContext);
 
-		m_BoxShape.SetMatrix(NULL,
-			&m_TopCamera.m_matView,
-			&m_TopCamera.m_matProj);
-		m_BoxShape.Render(g_pImmediateContext);
+	//	m_BoxShape.SetMatrix(NULL,
+	//		&m_TopCamera.m_matView,
+	//		&m_TopCamera.m_matProj);
+	//	m_BoxShape.Render(g_pImmediateContext);
 
-		DrawObject(&m_TopCamera.m_matView,
-			&m_TopCamera.m_matProj);
-		m_MiniMap.End(g_pImmediateContext);
-	}
+	//	DrawObject(&m_TopCamera.m_matView,
+	//		&m_TopCamera.m_matProj);
+	//	m_MiniMap.End(g_pImmediateContext);
+	//}
 
 	m_Map.SetMatrix(NULL,
 		&m_pMainCamera->m_matView,
@@ -365,10 +365,10 @@ bool Sample::Render()
 		&m_pMainCamera->m_matProj);
 	m_UserShape.Render(g_pImmediateContext);
 
-	m_MiniMap.SetMatrix(NULL,
-		NULL, //&m_pMainCamera->m_matView,
-		NULL); //&m_pMainCamera->m_matProj);
-	m_MiniMap.Render(g_pImmediateContext);
+	//m_MiniMap.SetMatrix(NULL,
+	//	NULL, //&m_pMainCamera->m_matView,
+	//	NULL); //&m_pMainCamera->m_matProj);
+	//m_MiniMap.Render(g_pImmediateContext);
 
 
 	DrawQuadLine(m_QuadTree.m_pRootNode);
