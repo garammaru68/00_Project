@@ -69,10 +69,10 @@ bool SModel::Init()
 			}*/
 		}
 		if (!m_pObj->Create(SBASIS_CORE_LIB::g_pd3dDevice,
-			L"../../data/shader/objectVS.txt",
-			L"../../data/shader/objectPS.txt",
-			//L"../../data/shader/VS.txt",
-			//L"../../data/shader/PS.txt",
+			//L"../../data/shader/objectVS.txt",
+			//L"../../data/shader/objectPS.txt",
+			L"../../data/shader/VS.txt",
+			L"../../data/shader/PS.txt",
 			L""))
 		{
 			return false;
