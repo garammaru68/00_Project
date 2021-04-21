@@ -14,6 +14,6 @@ public:
 	bool Release() override;
 public:
 	SModel() = default;
-	virtul ~SModel() = default;
+	virtual ~SModel() = default;
 };
 

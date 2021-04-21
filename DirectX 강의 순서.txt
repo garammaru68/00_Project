@@ -51,6 +51,10 @@
 	제 66강	Create SphereObject		All						640p
 	제 67강	SkyObject			All						651p
 	제 71강 Instancing -1-			All						676p
+04.21 - 제 56강	AlphaBlend -1-			All						593p
+	제 57강 AlphaBlend -2-			All						593p 
+	제 59강 Alpha Testting			All						587p
+	제 60강 AlphaBlend -3-			All						593p
 275p 표 수정
 309p 표 수정
 

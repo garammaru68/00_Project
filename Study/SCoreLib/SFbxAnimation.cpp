@@ -3,7 +3,7 @@ void SFbxObj::AddKey(FbxNode* pNode, FbxAMatrix matGlobal,
 	float fCurrentTime)
 {
 	auto anim = m_pFBXScene->GetAnimationEvaluator();
-	auto data = m_tNodeMap.find(pNode);
+	auto data = m_sNodeMap.find(pNode);
 	// matGlobal = 자식 * 부모
 	Matrix pChildGlobal = DxConvertMatrix(
 		ConvertMatrixA(matGlobal));
@@ -113,7 +113,7 @@ void SFbxObj::ParseNodeAnimation(FbxNode* pNode)
 #endif
 	CStopwatch stopwatch;
 	float fCurrentTime = 0.0f;
-	auto data = m_tNodeMap.find(pNode);
+	auto data = m_sNodeMap.find(pNode);
 	while (fCurrentTime <= m_Scene.fLastTime)
 	{
 		FbxTime t;

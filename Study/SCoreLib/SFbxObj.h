@@ -46,8 +46,8 @@ public:
 	std::unordered_map<FbxNode*, int> m_pFbxNodeMap;
 	std::vector<FbxNode*> m_pFbxNodeList;
 	std::vector<Matrix> m_pMatrixList;
-	sNodeList m_tNodeList;
-	sNodeMap  m_tNodeMap;
+	sNodeList m_sNodeList;
+	sNodeMap  m_sNodeMap;
 
 	ComPtr<ID3D11Buffer>     m_pBoneBuffer;
 public:

@@ -2,6 +2,11 @@
 #include "SStd.h"
 #include "SimpleMath.h"
 using namespace DirectX::SimpleMath;
+struct S_RAY
+{
+	Vector3 vDirection;
+	Vector3 vOrigin;
+};
 struct S_SPHERE
 {
 	Vector3		vCenter;

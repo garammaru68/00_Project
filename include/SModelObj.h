@@ -34,7 +34,7 @@ struct SWeight
 };
 struct SSubMesh
 {
-	std::vector<S_TRIANGLE>		m_TriangleList;
+	std::vector<S_TRIANGLE>			m_TriangleList;
 	std::vector<PNCT_VERTEX>	m_VertexList;
 	std::vector<IW_VERTEX>		m_VertexListIW;
 	ComPtr<ID3D11Buffer>	    m_pVertexBuffer;

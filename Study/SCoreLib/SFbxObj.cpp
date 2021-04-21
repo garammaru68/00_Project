@@ -193,9 +193,9 @@ bool SFbxObj::LoadFBX(std::string szFileName)
 		//shared_ptr<TObject> obj = make_shared<TObject>();	
 		SModelObj* obj = new SModelObj;
 		obj->m_szName = to_mw(pNode->GetName());
-		obj->m_pParentObject = m_tNodeMap[pNode->GetParent()];
-		m_tNodeMap[pNode] = obj;
-		m_tNodeList.push_back(obj);
+		obj->m_pParentObject = m_sNodeMap[pNode->GetParent()];
+		m_sNodeMap[pNode] = obj;
+		m_sNodeList.push_back(obj);
 		if (pNode->GetMesh() != nullptr)
 		{
 			ParseMesh(pNode, pNode->GetMesh(), obj);
@@ -216,7 +216,7 @@ bool SFbxObj::LoadFBX(std::string szFileName)
 		for (int iNode = 0; iNode < m_pFbxNodeList.size(); iNode++)
 		{
 			FbxNode* pNode = m_pFbxNodeList[iNode];
-			auto data = m_tNodeMap.find(pNode);
+			auto data = m_sNodeMap.find(pNode);
 			FbxAMatrix mat = anim->GetNodeGlobalTransform(pNode, t);
 			AddKey(pNode, mat, fCurrentTime);
 			/*TAnimTrack track;
@@ -246,8 +246,8 @@ void SFbxObj::PreProcess(FbxNode* pNode)
 	//SModelObj* obj = new SModelObj;
 	//obj->m_szName = to_mw(pNode->GetName());
 	//obj->m_pParentObject = pParentObj;
-	//m_tNodeMap[pNode] = obj;
-	//m_tNodeList.push_back(obj);
+	//m_sNodeMap[pNode] = obj;
+	//m_sNodeList.push_back(obj);
 	//if (pNode->GetMesh() != nullptr)
 	//{
 	//	ParseMesh(pNode, pNode->GetMesh(), obj);
@@ -551,8 +551,8 @@ void SFbxObj::ParseNode(
 	SModelObj* obj = new SModelObj;
 	obj->m_szName = to_mw(pNode->GetName());
 	obj->m_pParentObject = pParentObj;
-	m_tNodeMap[pNode] = obj;
-	m_tNodeList.push_back(obj);
+	m_sNodeMap[pNode] = obj;
+	m_sNodeList.push_back(obj);
 	Matrix matWorld = ParseTransform(pNode, matParent);
 	// world matrix
 	obj->m_matWorld = matWorld;
