@@ -20,9 +20,9 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{5584B6A6-324A-4C90-8484-381A4F2C1C6C}</ProjectGuid>
+    <ProjectGuid>{A5255E0D-FE19-48E4-8AF1-493CB21A84CF}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>TestInstancing</RootNamespace>
+    <RootNamespace>Instancing</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -73,7 +73,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>../../output/Debug/</OutDir>
-    <IntDir>../../output/Debug/TestInstancing</IntDir>
+    <IntDir>../../output/Debug/Instancing</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
@@ -96,10 +96,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <OutputFile>
-      </OutputFile>
       <AdditionalLibraryDirectories>../../lib;../../fmod/lib/x64;../../fbxsdk/lib/x64/debug</AdditionalLibraryDirectories>
-      <AdditionalDependencies>libfbxsdk-md.lib;libxml2-md.lib;zlib-md.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -150,14 +147,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <FxCompile Include="MapObject.hlsl">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
     <ClCompile Include="Sample.cpp" />
-    <ClCompile Include="SObject2D.cpp" />
-    <ClCompile Include="SParticle.cpp" />
+    <ClCompile Include="SModel.cpp" />
+    <ClCompile Include="SQuadtree.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Sample.h" />
-    <ClInclude Include="SObject2D.h" />
-    <ClInclude Include="SParticle.h" />
+    <ClInclude Include="SModel.h" />
+    <ClInclude Include="SQuadtree.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
