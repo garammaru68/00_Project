@@ -3,11 +3,6 @@
 #include "SMap.h"
 #include "SQuadtree.h"
 #include "SModel.h"
-struct S_RAY
-{
-	Vector3 vDirection;
-	Vector3 vOrigin;
-};
 class SHeightMap :public SMap
 {
 public:

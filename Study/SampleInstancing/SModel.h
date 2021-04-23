@@ -5,8 +5,8 @@
 class SModel : public SFbxObj
 {
 public:
-	std::shared_ptr<SFbxObj>	m_pObj;
-	SCamera*	m_pMainCamera;
+	std::shared_ptr<SFbxObj>  m_pObj;
+	SCamera* m_pMainCamera;
 public:
 	bool Init() override;
 	bool Frame() override;

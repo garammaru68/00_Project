@@ -1,23 +1,4 @@
 #include "Sample.h"
-bool    Sample::GetIntersection(
-	Vector3 vStart,
-	Vector3 vEnd,
-	Vector3 vNormal,
-	Vector3 v0,
-	Vector3 v1,
-	Vector3 v2)
-{
-	Vector3 vDirection = vEnd - vStart;
-	float D = vNormal.Dot(vDirection);
-	float a0 = vNormal.Dot(v0 - vStart);
-	float fT = a0 / D;
-	if (fT < 0.0f || fT > 1.0f)
-	{
-		return false;
-	}
-	m_vIntersection = vStart + vDirection * fT;
-	return true;
-}
 bool Sample::GetIntersection(SNode* pNode)
 {
 	// face list
@@ -116,6 +97,118 @@ bool Sample::IntersectRayToSphere(S_SPHERE* pSphere, S_RAY* pRay)
 	}
 	return false;
 }
+bool SHeightMap::CreateHeightMap(ID3D11Device* pDevice,
+	ID3D11DeviceContext* pContext, const TCHAR* pszFileName)
+{
+	HRESULT hr;
+	ID3D11Resource* pTexture;
+	size_t maxsize = 0;
+
+	if (FAILED(hr = CreateWICTextureFromFileEx(pDevice,
+		pszFileName,
+		maxsize,
+		D3D11_USAGE_STAGING,
+		0,
+		D3D11_CPU_ACCESS_WRITE | D3D11_CPU_ACCESS_READ,
+		0,
+		WIC_LOADER_DEFAULT,
+		&pTexture, nullptr)))
+	{
+		return false;
+	}
+	ID3D11Texture2D *pTexture2D = NULL;
+	if (FAILED(pTexture->QueryInterface(__uuidof(ID3D11Texture2D), (LPVOID*)&pTexture2D)))
+	{
+		return false;
+	}
+
+	D3D11_TEXTURE2D_DESC desc;
+	pTexture2D->GetDesc(&desc);
+
+	m_fHeightList.resize(
+		desc.Height*desc.Width);
+
+	if (pTexture2D)
+	{
+		D3D11_MAPPED_SUBRESOURCE MappedFaceDest;
+		if (SUCCEEDED(pContext->Map((ID3D11Resource*)pTexture2D, D3D11CalcSubresource(0, 0, 1), D3D11_MAP_READ, 0, &MappedFaceDest)))
+		{
+			UCHAR* pTexels = (UCHAR*)MappedFaceDest.pData;
+			PNCT_VERTEX	v;
+			for (UINT row = 0; row < desc.Height; row++)
+			{
+				UINT rowStart = row * MappedFaceDest.RowPitch;
+				for (UINT col = 0; col < desc.Width; col++)
+				{
+					UINT colStart = col * 4;
+					UINT uRed = pTexels[rowStart + colStart + 0];
+					m_fHeightList[row * desc.Width + col] = uRed;	/// DWORD이므로 pitch/4	
+				}
+			}
+			pContext->Unmap(pTexture2D, D3D11CalcSubresource(0, 0, 1));
+		}
+	}
+
+	m_iNumRows = desc.Height;
+	m_iNumCols = desc.Width;
+	pTexture2D->Release();
+	pTexture->Release();
+	return true;
+}
+float   SHeightMap::GetHeight(UINT index)
+{
+	//return 0;
+	return m_fHeightList[index] / m_MapDesc.fScaleHeight;
+}
+bool Sample::Init()
+{
+	m_pConstantBufferLight[0].Attach(SBASIS_CORE_LIB::CreateConstantBuffer(
+		g_pd3dDevice, &m_cbLight1, 1, sizeof(LIGHT_CONSTANT_BUFFER1)));
+	m_pConstantBufferLight[1].Attach(SBASIS_CORE_LIB::CreateConstantBuffer(
+		g_pd3dDevice, &m_cbLight2, 1, sizeof(LIGHT_CONSTANT_BUFFER2)));
+	m_pConstantBufferLight[2].Attach(SBASIS_CORE_LIB::CreateConstantBuffer(
+		g_pd3dDevice, &m_cbLight3, 1, sizeof(LIGHT_CONSTANT_BUFFER3)));
+
+
+	m_Camera.CreateViewMatrix({ 0,500,-500 }, { 0,0,0 });
+	m_pObj.Init();
+	m_pObj.m_pMainCamera = m_pMainCamera;
+	//m_Map.CreateHeightMap(g_pd3dDevice, g_pImmediateContext,
+	//	//L"../../data/map/heightMap513.bmp");
+	//	L"../../data/map/129.jpg");
+
+	SMapDesc desc;
+	desc.iNumCols = 257;// m_Map.m_iNumCols;
+	desc.iNumRows = 257; //m_Map.m_iNumRows;
+	desc.fCellDistance = 10;
+	desc.fScaleHeight = 10.0f;
+	desc.szTexFile = L"../../data/map/grass_2.jpg";
+	desc.szVS = L"MapObject.hlsl";
+	desc.szPS = L"MapObject.hlsl";
+
+	m_Map.CreateMap(g_pd3dDevice, g_pImmediateContext, desc);
+	m_Quadtree.CreateQuadtree(&m_Map);
+	return true;
+}
+bool    Sample::GetIntersection(
+	Vector3 vStart,
+	Vector3 vEnd,
+	Vector3 vNormal,
+	Vector3 v0,
+	Vector3 v1,
+	Vector3 v2)
+{
+	Vector3 vDirection = vEnd - vStart;
+	float D = vNormal.Dot(vDirection);
+	float a0 = vNormal.Dot(v0 - vStart);
+	float fT = a0 / D;
+	if (fT < 0.0f || fT > 1.0f)
+	{
+		return false;
+	}
+	m_vIntersection = vStart + vDirection * fT;
+	return true;
+}
 // 폴리곤안에 위치하는지 판단한다.
 bool    Sample::PointInPolygon(
 	Vector3 vert,
@@ -163,52 +256,38 @@ bool    Sample::PointInPolygon(
 	if (fDot < 0.0f) return false;
 	return true;
 };
-bool Sample::Init()
-{
-	m_pConstantBufferLight[0].Attach(SBASIS_CORE_LIB::CreateConstantBuffer(
-		g_pd3dDevice, &m_cbLight1, 1, sizeof(LIGHT_CONSTANT_BUFFER1)));
-	m_pConstantBufferLight[1].Attach(SBASIS_CORE_LIB::CreateConstantBuffer(
-		g_pd3dDevice, &m_cbLight2, 1, sizeof(LIGHT_CONSTANT_BUFFER2)));
 
-
-	m_Camera.CreateViewMatrix({ 0,500,-500 }, { 0,0,0 });
-	m_pObj.Init();
-	m_pObj.m_pMainCamera = m_pMainCamera;
-	//m_Map.CreateHeightMap(g_pd3dDevice, g_pImmediateContext,
-	//	//L"../../data/map/heightMap513.bmp");
-	//	L"../../data/map/129.jpg");
-
-	SMapDesc desc;
-	desc.iNumCols = 257;// m_Map.m_iNumCols;
-	desc.iNumRows = 257; //m_Map.m_iNumRows;
-	desc.fCellDistance = 10;
-	desc.fScaleHeight = 10.0f;
-	desc.szTexFile = L"../../data/map/grass_2.jpg";
-	desc.szVS = L"MapObject.hlsl";
-	desc.szPS = L"MapObject.hlsl";
-
-	m_Map.CreateMap(g_pd3dDevice, g_pImmediateContext, desc);
-	m_Quadtree.CreateQuadtree(&m_Map);
-	return true;
-}
 bool Sample::Frame()
 {
-	// Material
 	m_cbLight1.g_cAmbientMaterial[0] = Vector4(0.1f, 0.1f, 0.1f, 1);
 	m_cbLight1.g_cDiffuseMaterial[0] = Vector4(1, 1, 1, 1);
 	m_cbLight1.g_cSpecularMaterial[0] = Vector4(1, 1, 1, 1);
 	m_cbLight1.g_cEmissionMaterial[0] = Vector4(0, 0, 0, 1);
-	// Color
-	m_cbLight1.g_cAmbientLightColor[0] = Vector4(1.0f, 1.0f, 1.0f, 1);
+	m_cbLight1.g_cAmbientLightColor[0] = Vector4(0.5f, 0.0f, 0.0f, 1);
 	m_cbLight1.g_cSpecularLightColor[0] = Vector4(1, 1, 1, 1);
 	m_cbLight1.g_cDiffuseLightColor[0] = Vector4(1, 0, 0, 1.0f);
-	// Position
+	m_cbLight1.g_cAmbientLightColor[1] = Vector4(0.0f, 0.5f, 0.0f, 1);
+	m_cbLight1.g_cSpecularLightColor[1] = Vector4(1, 1, 1, 1);
+	m_cbLight1.g_cDiffuseLightColor[1] = Vector4(0, 1, 0, 1.0f);
+	m_cbLight1.g_cAmbientLightColor[2] = Vector4(0.0f, 0.0f, 0.5f, 1);
+	m_cbLight1.g_cSpecularLightColor[2] = Vector4(1, 1, 1, 1);
+	m_cbLight1.g_cDiffuseLightColor[2] = Vector4(0, 0, 1, 1.0f);
+
+	float fTime = 32.0f;// (cosf(g_fGameTimer*0.5f)*0.5f + 0.5f)*50.0f;
 	m_cbLight2.g_vLightPos[0] = Vector4(-300, 500, 300, 500);//범위
-	// Light Direction
+	m_cbLight2.g_vLightPos[1] = Vector4(300, 1000, -300, 500);//범위
+	m_cbLight2.g_vLightPos[2] = Vector4(0, 500, 0, 500);//범위
+
 	m_cbLight2.g_vLightDir[0] = -m_cbLight2.g_vLightPos[0];
 	m_cbLight2.g_vLightDir[0].w = 1.0f;
 	m_cbLight2.g_vLightDir[0].Normalize();
-	// Eyes Direction
+	m_cbLight2.g_vLightDir[1] = -m_cbLight2.g_vLightPos[1];
+	m_cbLight2.g_vLightDir[1].w = 1.0f;
+	m_cbLight2.g_vLightDir[1].Normalize();
+	m_cbLight2.g_vLightDir[2] = -m_cbLight2.g_vLightPos[2];
+	m_cbLight2.g_vLightDir[2].w = 1.0f;
+	m_cbLight2.g_vLightDir[2].Normalize();
+
 	for (int iLight = 0; iLight < g_iNumLight; iLight++)
 	{
 		Matrix matInvWorld;
@@ -219,13 +298,28 @@ bool Sample::Frame()
 		m_cbLight2.g_vEyeDir[iLight].w = 50.0f; // 강도
 	}
 
+	m_cbLight3.g_vSpotInfo[0].x = 20.0f;// 내부 콘의 각도 범위	
+	m_cbLight3.g_vSpotInfo[0].y = 30.0f;// 외부 콘의 각도 범위	
+	m_cbLight3.g_vSpotInfo[0].z = 4;	// 내부 콘과 외부 콘의 휘도( Luminance )	
+	m_cbLight3.g_vSpotInfo[0].w = 1000;// 범위	
+	m_cbLight3.g_vSpotInfo[1].x = 20.0f;// 내부 콘의 각도 범위	
+	m_cbLight3.g_vSpotInfo[1].y = 30.0f;// 외부 콘의 각도 범위	
+	m_cbLight3.g_vSpotInfo[1].z = 4;	// 내부 콘과 외부 콘의 휘도( Luminance )	
+	m_cbLight3.g_vSpotInfo[1].w = 1000;// 범위	
+	m_cbLight3.g_vSpotInfo[2].x = 60.0f;// 내부 콘의 각도 범위	
+	m_cbLight3.g_vSpotInfo[2].y = 90.0f;// 외부 콘의 각도 범위	
+	m_cbLight3.g_vSpotInfo[2].z = 4;	// 내부 콘과 외부 콘의 휘도( Luminance )	
+	m_cbLight3.g_vSpotInfo[2].w = 10000;// 범위	
+
 	m_pImmediateContext->UpdateSubresource(m_pConstantBufferLight[0].Get(), 0, NULL, &m_cbLight1, 0, 0);
 	m_pImmediateContext->UpdateSubresource(m_pConstantBufferLight[1].Get(), 0, NULL, &m_cbLight2, 0, 0);
+	m_pImmediateContext->UpdateSubresource(m_pConstantBufferLight[2].Get(), 0, NULL, &m_cbLight3, 0, 0);
 
-	ID3D11Buffer*               pBuffers[2];
+	ID3D11Buffer*               pBuffers[3];
 	pBuffers[0] = m_pConstantBufferLight[0].Get();
 	pBuffers[1] = m_pConstantBufferLight[1].Get();
-	m_pImmediateContext->PSSetConstantBuffers(1, 2, pBuffers);
+	pBuffers[2] = m_pConstantBufferLight[2].Get();
+	m_pImmediateContext->PSSetConstantBuffers(1, 3, pBuffers);
 
 	m_pObj.Frame();
 	m_bSelect = false;
@@ -253,6 +347,32 @@ bool Sample::Frame()
 
 		m_Ray.vDirection = vRayDir;
 		m_Ray.vOrigin = vRayOrigin;
+		//// face list
+		//Vector3 v0, v1, v2;
+		//for (int iFace = 0;
+		//	iFace < m_Map.m_IndexList.size() / 3;
+		//	iFace++)
+		//{
+		//	v0 = m_Map.m_VertexList[m_Map.m_IndexList[iFace * 3 + 0]].p;
+		//	v1 = m_Map.m_VertexList[m_Map.m_IndexList[iFace * 3 + 1]].p;
+		//	v2 = m_Map.m_VertexList[m_Map.m_IndexList[iFace * 3 + 2]].p;
+
+		//	Vector3 vEnd = vRayOrigin + vRayDir * 1000.0f;
+		//	Vector3 vNormal = (v1 - v0).Cross(v2 - v0);
+		//	vNormal.Normalize();
+		//	if (GetIntersection(vRayOrigin, vEnd,
+		//		vNormal, v0, v1, v2))
+		//	{
+		//		if (PointInPolygon(m_vIntersection,
+		//			vNormal, v0, v1, v2))
+		//		{
+		//			vList[0] = v0;
+		//			vList[1] = v1;
+		//			vList[2] = v2;
+		//			return true;
+		//		}
+		//	}
+		//}
 	}
 	return true;
 }
@@ -282,7 +402,8 @@ bool Sample::Render()
 	m_Map.SetMatrix(NULL,
 		&m_pMainCamera->m_matView,
 		&m_pMainCamera->m_matProj);
-
+	//m_Map.Render(g_pImmediateContext);
+	//m_Quadtree.Render(g_pImmediateContext);
 	m_SelectNode.clear();
 	if (m_bSelect)
 	{
@@ -292,7 +413,13 @@ bool Sample::Render()
 			if (IntersectBox(&pNode->m_Box, &m_Ray))
 			{
 				m_SelectNode.push_back(pNode);
+				//	//m_Quadtree.DrawNode(pNode, g_pImmediateContext);
 			}
+			//if (IntersectRayToSphere(&pNode->m_Sphere, &m_Ray))
+			//{
+			//	//m_SelectNode.push_back(pNode);
+			//	m_Quadtree.DrawNode(pNode, g_pImmediateContext);
+			//}
 		}
 
 		/// todo 교점계산
@@ -350,6 +477,7 @@ bool Sample::Render()
 					m_Map.m_VertexList[iID].p.y = v.y + 1.0f - sinf((fDist / fRadius));
 				}
 			}
+			//m_Map.CalcPerVertexNormalsFastLookup();
 		}
 		g_pImmediateContext->UpdateSubresource(
 			m_Map.m_pVertexBuffer, 0, NULL, &m_Map.m_VertexList.at(0), 0, 0);
@@ -371,6 +499,7 @@ bool Sample::Render()
 	m_LineShape.Draw(g_pImmediateContext, vList[2], vList[0]);
 	return true;
 }
+
 bool Sample::Release()
 {
 	m_pObj.Release();

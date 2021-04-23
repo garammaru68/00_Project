@@ -24,10 +24,26 @@ struct LIGHT_CONSTANT_BUFFER2
 	Vector4			g_vEyeDir[g_iNumLight];// w = light intensity : 강도
 	Vector4			g_vEyePos[g_iNumLight];// w = light radius		
 };
+struct LIGHT_CONSTANT_BUFFER3
+{
+	Vector4			g_vSpotInfo[g_iNumLight];
+	//float			g_fFalloff;		// 내부 콘과 외부 콘의 휘도( Luminance )
+	//float			g_fTheta;		// 내부 콘의 각도 범위		
+	//float			g_fPhi;			// 외부 콘의 각도 범위
+};
+class SHeightMap :public SMap
+{
+public:
+	float   GetHeight(UINT index) override;
+	bool	CreateHeightMap(ID3D11Device* pDevice,
+		ID3D11DeviceContext* pContext, const TCHAR* pszFileName);
+};
+
 class Sample : public SCore
 {
 	LIGHT_CONSTANT_BUFFER1   m_cbLight1;
 	LIGHT_CONSTANT_BUFFER2   m_cbLight2;
+	LIGHT_CONSTANT_BUFFER3   m_cbLight3;
 	ComPtr<ID3D11Buffer>	m_pConstantBufferLight[g_iNumLight];
 	std::vector<Matrix>  m_ModelList;
 public:

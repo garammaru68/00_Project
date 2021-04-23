@@ -38,7 +38,7 @@ cbuffer cb3 : register(b3)
 	float	g_fTheta[g_iNumLight] : packoffset(c0.x);		// 내부 콘의 각도 범위	
 	float	g_fPhi[g_iNumLight] : packoffset(c0.y);			// 외부 콘의 각도 범위
 	float	g_fFalloff[g_iNumLight] : packoffset(c0.z);		// 내부 콘과 외부 콘의 휘도( Luminance )
-	float	g_nNumLights[g_iNumLight] : packoffste(c0.w);	// 거리
+	float	g_nNumLights[g_iNumLight] : packoffset(c0.w);	// 거리
 }
 //////////////////////////////////////////////////////////////////////////
 struct VS_OUTPUT

@@ -8,7 +8,7 @@ bool SModel::Init()
 		//if (m_pObj->Load("../../data/object/Scifi_Model_L2_all_in_one.fbx"))	
 	{
 		CStopwatch stop;
-		for (auto data : m_pObj->m_tNodeList)
+		for (auto data : m_pObj->m_sNodeList)
 		{
 			SModelObj* pObject = data;
 			for (int iSub = 0; iSub < pObject->subMesh.size(); iSub++)
@@ -152,10 +152,10 @@ bool SModel::Frame()
 		//m_pObj->m_fTick = 3 * 160;
 		m_pObj->m_fTick = m_pObj->m_pCurrentScene->iFirstFrame * m_pObj->m_pCurrentScene->iTickPerFrame;
 	}
-	for (int iNode = 0; iNode < m_pObj->m_tNodeList.size(); iNode++)
+	for (int iNode = 0; iNode < m_pObj->m_sNodeList.size(); iNode++)
 	{
 		Matrix matWorld = Matrix::Identity;
-		SModelObj* pModelObject = m_pObj->m_tNodeList[iNode];
+		SModelObj* pModelObject = m_pObj->m_sNodeList[iNode];
 		// 바이패드공간 * global 
 		std::string szName;
 		szName.assign(pModelObject->m_szName.begin(), pModelObject->m_szName.end());
@@ -229,10 +229,10 @@ bool SModel::Render(ID3D11DeviceContext* pd3dContext)
 	g_pImmediateContext->PSSetShader(m_pObj->m_pPixelShader, NULL, 0);
 	g_pImmediateContext->IASetPrimitiveTopology((D3D11_PRIMITIVE_TOPOLOGY)m_pObj->m_iTopology);
 
-	for (int iNode = 0; iNode < m_pObj->m_tNodeList.size(); iNode++)
+	for (int iNode = 0; iNode < m_pObj->m_sNodeList.size(); iNode++)
 	{
 		Matrix matWorld = Matrix::Identity;
-		SModelObj* pObject = m_pObj->m_tNodeList[iNode];
+		SModelObj* pObject = m_pObj->m_sNodeList[iNode];
 		if (pObject->m_dxMatrixBindPoseMap.size() <= 0)
 		{
 			continue;
@@ -244,9 +244,9 @@ bool SModel::Render(ID3D11DeviceContext* pd3dContext)
 		if (SUCCEEDED(g_pImmediateContext->Map((ID3D11Resource*)m_pObj->m_pBoneBuffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &MappedFaceDest)))
 		{
 			pMatrices = (Matrix*)MappedFaceDest.pData;
-			for (int tNode = 0; tNode < m_pObj->m_tNodeList.size(); tNode++)
+			for (int tNode = 0; tNode < m_pObj->m_sNodeList.size(); tNode++)
 			{
-				SModelObj* bone = m_pObj->m_tNodeList[tNode];
+				SModelObj* bone = m_pObj->m_sNodeList[tNode];
 				std::string szName;
 				szName.assign(bone->m_szName.begin(), bone->m_szName.end());
 				Matrix matBiped = Matrix::Identity;
@@ -294,7 +294,7 @@ bool SModel::Render(ID3D11DeviceContext* pd3dContext)
 }
 bool SModel::Release()
 {
-	for (auto data : m_pObj->m_tNodeList)
+	for (auto data : m_pObj->m_sNodeList)
 	{
 		SModelObj* pModelObject = data;
 		pModelObject->Release();
