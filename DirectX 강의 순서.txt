@@ -80,3 +80,4 @@
 03.26	제 115강 Max Utility Plugin		2. 정점 블랜딩(Vertex Blending) ~ 4.스키닝(Skinning)	529p ~ 531p
 						6.Skin Modifier - Check				542p - Check
 04.08	제 90강 Cook-Trooance			All (2.프레넬 방정식 어려워서 안봄)		156p
+04.23	제 91강 Normal Mapping			All						164p
