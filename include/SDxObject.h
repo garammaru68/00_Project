@@ -50,10 +50,13 @@ struct PNCT_VERTEX
 };
 struct IW_VERTEX
 {
+	float t[4];
 	float	i1[4];
 	float	w1[4];
+
 	IW_VERTEX()
 	{
+		t[0]	= t[1]  = t[2]	 = 0.0f;
 		i1[0] = i1[1] = i1[2] = i1[3] = 0.0f;
 		w1[0] = w1[1] = w1[2] = w1[3] = 0;
 	}

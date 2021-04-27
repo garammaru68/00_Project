@@ -183,3 +183,6 @@ MRT - post effect 데이터 추출작업
 sobel 대각선으로 비교
 엣지 찾기 - 깊이
 
+3차 카디널 스프라인 = 캠멀론? 스프라인
+
+hull shader(입력) - 테셀레이션 - domain shader(출력)

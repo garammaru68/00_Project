@@ -58,6 +58,12 @@
 275p 표 수정
 309p 표 수정
 
+
+
+
+
+
+
 <제2권>
 26일차 -	제 93강 QuadTree -0-		All						196p
 	제 94강 QuadTree -1-			All						209p
@@ -81,3 +87,7 @@
 						6.Skin Modifier - Check				542p - Check
 04.08	제 90강 Cook-Trooance			All (2.프레넬 방정식 어려워서 안봄)		156p
 04.23	제 91강 Normal Mapping			All						164p
+04.26	제 105강 Curve & Spline			All						385p
+	제 106강 스플라인 곡선(Spline Curve)	All						395p
+	제 107강 베지어 곡선(Bezier Curve)	All						400p
+	제 108강 헤르미트 곡선(Cubic Hermite Curve)	All					404p
