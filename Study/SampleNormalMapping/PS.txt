@@ -35,12 +35,16 @@ PS_OUTPUT PS( VS_OUTPUT vIn)
 		   normal		=	normalize( (normal - 0.5f) * 2.0f );			
 	float  fDot			=	saturate( dot( normal.xyz, -vIn.l ));
 
-	//float3 vLight = normalize(vColor.xyz);
-	//float c = dot( vIn.n, -vLight );
-	//float4 vLightColor = float4(c,c,c,1);
+	// Ω∫∆Â≈ß∑Ø ¡∂∏Ì
+	float R		= reflect( -input.vLightDir, normal.xyz)
+
+	float3 vLight = normalize(vColor.xyz);
+	float c = dot( vIn.n, -vLight );
+	float4 vLightColor = float4(c,c,c,1);
 	float4 vAmbint = float4(0.3f,0.3f,0.3f,1.0f);
 	vTexture.a = 1.0f;
-	vOut.c =  vTexture* fDot;//vFinalColor * (vAmbint+vLightColor);
+	vOut.c = vFinalColor * (vAmbint + vLightColor);
+	//vOut.c =  vTexture* fDot;//vFinalColor * (vAmbint+vLightColor);
 	return vOut;
 }
 PS_OUTPUT PSLine( VS_OUTPUT vIn)

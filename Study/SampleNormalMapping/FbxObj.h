@@ -27,8 +27,8 @@ static Matrix ConvertMatrixA(const FbxMatrix& matrix)
 	return matResult;
 }
 
-typedef std::unordered_map<FbxNode*, ModelObj*>	tNodeMap;
-typedef std::vector<ModelObj*>	tNodeList;
+typedef std::unordered_map<FbxNode*, ModelObj*>	sNodeMap;
+typedef std::vector<ModelObj*>	sNodeList;
 class FbxObj : public SObject
 {
 public:
@@ -42,8 +42,8 @@ public:
 	std::unordered_map<FbxNode*, int> m_pFbxNodeMap;
 	std::vector<FbxNode*> m_pFbxNodeList;
 	std::vector<Matrix> m_pMatrixList;
-	tNodeList m_tNodeList;
-	tNodeMap  m_tNodeMap;
+	sNodeList m_sNodeList;
+	sNodeMap  m_sNodeMap;
 
 	ComPtr<ID3D11Buffer>     m_pBoneBuffer;
 public:

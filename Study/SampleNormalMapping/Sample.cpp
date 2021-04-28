@@ -1,7 +1,7 @@
 #include "Sample.h"
 bool Sample::Init()
 {
-	m_pNormalMap = g_TexMgr.Load(g_pd3dDevice, L"../../data/object/BackPackNormal.bmp");
+	m_pNormalMap = g_TexMgr.Load(g_pd3dDevice, L"../../data/object/T_Pack_01_N.dds");
 
 	m_Camera.CreateViewMatrix(
 		{ 100,100,-150 },
@@ -10,12 +10,12 @@ bool Sample::Init()
 	m_Camera.CreateProjMatrix(1, 5000, SBASIS_PI / 4.0f, fAspect);
 
 	m_pObj = make_shared<FbxObj>();
-	if (m_pObj->Load("../../data/object/SM_Barrel.fbx"))
+	if (m_pObj->Load("../../data/object/SM_Barrel2.fbx"))
 		//if (m_pObj->Load("../../data/object/Turret_Deploy1.fbx"))
 		//if (m_pObj->Load("../../data/object/Scifi_Model_L2_all_in_one.fbx"))	
 	{
 		CStopwatch stop;
-		for (auto data : m_pObj->m_tNodeList)
+		for (auto data : m_pObj->m_sNodeList)
 		{
 			ModelObj* pObject = data;
 			for (int iSub = 0; iSub < pObject->subMesh.size(); iSub++)
@@ -76,8 +76,12 @@ bool Sample::Init()
 			}*/
 		}
 		if (!m_pObj->Create(SBASIS_CORE_LIB::g_pd3dDevice,
-			L"vs.txt",
-			L"ps.txt",
+			L"NormalMapping.hlsl",
+			L"NormalMapping.hlsl",
+			//L"vs.txt",
+			//L"ps.txt",
+			//L"../../data/shader/objectVS.txt",
+			//L"../../data/shader/objectPS.txt",
 			L""))
 		{
 			return false;
@@ -111,10 +115,10 @@ bool Sample::Frame()
 	{
 		m_pObj->m_fTick = 3 * 160;
 	}
-	for (int iNode = 0; iNode < m_pObj->m_tNodeList.size(); iNode++)
+	for (int iNode = 0; iNode < m_pObj->m_sNodeList.size(); iNode++)
 	{
 		Matrix matWorld = Matrix::Identity;
-		ModelObj* pModelObject = m_pObj->m_tNodeList[iNode];
+		ModelObj* pModelObject = m_pObj->m_sNodeList[iNode];
 		// 바이패드공간 * global 
 		std::string szName;
 		szName.assign(pModelObject->m_szName.begin(), pModelObject->m_szName.end());
@@ -192,19 +196,19 @@ bool Sample::Render()
 	g_pImmediateContext->PSSetShader(m_pObj->m_pPixelShader, NULL, 0);
 	g_pImmediateContext->IASetPrimitiveTopology((D3D11_PRIMITIVE_TOPOLOGY)m_pObj->m_iTopology);
 
-	for (int iNode = 0; iNode < m_pObj->m_tNodeList.size(); iNode++)
+	for (int iNode = 0; iNode < m_pObj->m_sNodeList.size(); iNode++)
 	{
 		Matrix matWorld = Matrix::Identity;
-		ModelObj* pObject = m_pObj->m_tNodeList[iNode];
+		ModelObj* pObject = m_pObj->m_sNodeList[iNode];
 		// 상수버퍼 업데이트
 		Matrix* pMatrices;
 		D3D11_MAPPED_SUBRESOURCE MappedFaceDest;
 		if (SUCCEEDED(g_pImmediateContext->Map((ID3D11Resource*)m_pObj->m_pBoneBuffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &MappedFaceDest)))
 		{
 			pMatrices = (Matrix*)MappedFaceDest.pData;
-			for (int tNode = 0; tNode < m_pObj->m_tNodeList.size(); tNode++)
+			for (int tNode = 0; tNode < m_pObj->m_sNodeList.size(); tNode++)
 			{
-				ModelObj* bone = m_pObj->m_tNodeList[tNode];
+				ModelObj* bone = m_pObj->m_sNodeList[tNode];
 				std::string szName;
 				szName.assign(bone->m_szName.begin(), bone->m_szName.end());
 				Matrix matBiped = Matrix::Identity;
@@ -252,7 +256,7 @@ bool Sample::Render()
 }
 bool Sample::Release()
 {
-	for (auto data : m_pObj->m_tNodeList)
+	for (auto data : m_pObj->m_sNodeList)
 	{
 		ModelObj* pModelObject = data;
 		pModelObject->Release();
