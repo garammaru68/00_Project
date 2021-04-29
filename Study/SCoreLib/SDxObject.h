@@ -28,9 +28,10 @@ struct P_VERTEX
 struct PNCT_VERTEX
 {
 	Vector3		p;
-	Vector3 	n;
+	Vector3		n;
 	Vector4		c;
 	Vector2     t;
+
 	bool operator == (const PNCT_VERTEX & Vertex)
 	{
 		if (p == Vertex.p  && n == Vertex.n && 	c == Vertex.c  &&	t == Vertex.t)
@@ -48,6 +49,32 @@ struct PNCT_VERTEX
 		p = vp, n = vn, c = vc, t = vt;
 	}
 };
+struct PNCT2_VERTEX
+{
+	Vector3		p;
+	Vector3		n;
+	Vector4		c;
+	Vector2     t;
+	Vector3		vTangent;
+	bool operator == (const PNCT2_VERTEX & Vertex)
+	{
+		if (p == Vertex.p  && n == Vertex.n && 	c == Vertex.c  &&	vTangent == Vertex.vTangent)
+		{
+			return true;
+		}
+		return  false;
+	}
+	PNCT2_VERTEX() {}
+	PNCT2_VERTEX(Vector3		vp,
+		Vector3		vn,
+		Vector4		vc,
+		Vector2     vt,
+		Vector3		tangent)
+	{
+		p = vp, n = vn, c = vc, t = vt, vTangent = tangent;;
+	}
+};
+
 struct IW_VERTEX
 {
 	float t[4];

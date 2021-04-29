@@ -1,12 +1,5 @@
 #include "SNormalMap.h"
 
-DWORD SNormalMap::EncodeVectorAsDWORDColor(Vector3* vVector)
-{
-	DWORD dwRed		 = (DWORD)(127 * vVector->x + 128);
-	DWORD dwGreen	 = (DWORD)(127 * vVector->y + 128);
-	DWORD dwBlue	 = (DWORD)(127 * vVector->z + 128);
-	return (DWORD)(0xff000000 + (dwRed << 16) + (dwGreen << 8) + dwBlue);
-}
 void SNormalMap::CreateTangentSpaceVectors(
 	Vector3 *v0, Vector3 *v1, Vector3 *v2,
 	Vector2 uv0, Vector2 uv1, Vector2 uv2,
@@ -56,4 +49,61 @@ void SNormalMap::CreateTangentSpaceVectors(
 	float fEdge2_V = v3v - v1v;
 
 	float fDenominator = fEdge1_U * fEdge2_V - fEdge2_U * fEdge1_V;
+
+	if (fDenominator < 0.0001f && fDenominator > -0.0001f)
+	{
+		*vTangent = Vector3(1.0f, 0.0f, 0.0f);
+		*vBiNormal = Vector3(0.0f, 1.0f, 0.0f);
+		*vNormal = Vector3(0.0f, 0.0f, 1.0f);
+	}
+	else
+	{
+		float fScale1 = 1.0f / fDenominator;
+
+		Vector3 T;
+		Vector3 B;
+		Vector3 N;
+
+		// 접선벡터 계산
+		T = Vector3((fEdge2_V * vEdge1.x - fEdge1_V * vEdge2.x) * fScale1,
+		(fEdge2_V * vEdge1.y - fEdge1_V * vEdge2.y) * fScale1,
+		(fEdge2_V * vEdge1.z - fEdge1_V * vEdge2.z) * fScale1);
+		B = Vector3((-fEdge2_U * vEdge1.x + fEdge1_U * vEdge2.x) * fScale1,
+		(-fEdge2_U * vEdge1.y + fEdge1_U * vEdge2.y) * fScale1,
+		(-fEdge2_U * vEdge1.z + fEdge1_U * vEdge2.z) * fScale1);
+
+		N = T.Cross(B);
+
+		float fScale2 = 1.0f / ((T.x * B.y * N.z - T.z * B.y * N.x) +
+			(B.x * N.y * T.z - B.z * N.y * T.x) +
+			(N.x * T.y * B.z - N.z * T.y * B.x));
+
+		(*vTangent).x = B.Cross(N).x * fScale2;
+		(*vTangent).y = -(N.Cross(T).x * fScale2);
+		(*vTangent).y = T.Cross(B).x * fScale2;
+		(*vTangent).Normalize(*vTangent);
+
+		(*vBiNormal).x = -(B.Cross(N).y * fScale2);
+		(*vBiNormal).y = N.Cross(T).y * fScale2;
+		(*vBiNormal).z = -(T.Cross(B).y * fScale2);
+		(*vTangent).Normalize(*vTangent);
+
+		(*vNormal).x = B.Cross(N).z * fScale2;
+		(*vNormal).y = -(N.Cross(T).z * fScale2);
+		(*vNormal).z = T.Cross(B).z * fScale2;
+		(*vTangent).Normalize(*vTangent);
+		//*vBiNormal = *vBiNormal * -1.0f;
+	}
+}
+
+void SNormalMap::Release()
+{
+
+}
+
+SNormalMap::SNormalMap()
+{
+}
+SNormalMap::~SNormalMap()
+{
 }

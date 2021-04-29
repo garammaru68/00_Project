@@ -88,11 +88,13 @@ float PS( PCT4_PS_INPUT input ) : SV_Target
 	float3 LightColor = cb_DiffuseLightColor.rgb * fDot;
 
 	// Specular 조명
-	float3 R				= reflect( -input.vLightDir, normal.xyz);
+	float3 R				= reflect( -input.vLightDir, normal.xyz );
 	float3 SpecColor	= cb_SpecularLightColor.rgb * pow( saturate( dot( R, input.vEye ) ), cb_SpecularPower );
+	// float3 SpecColor = cb_SpecularLightColor.rgb * pow( saturate( dont( input.vHalf, normal.xyz )), cb_SpecularPower );
 
 	// 전체 컬러 조합
 	float4 vFinalColor = DiffuseColor * float4( LightColor + SpecColor, 1.0f);
+	// float4 vFinalColor = DiffuseColor;
 	return vFinalColor;
 }
 float4 DEFAULT_PS( PCT4_PS_INPUT input ) : SV_Target

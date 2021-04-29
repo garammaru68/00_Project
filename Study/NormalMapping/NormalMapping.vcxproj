@@ -148,10 +148,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="FbxAnimation.cpp" />
+    <ClCompile Include="FbxObj.cpp" />
+    <ClCompile Include="ModelObj.cpp" />
     <ClCompile Include="Sample.cpp" />
     <ClCompile Include="SNormalMap.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="FbxObj.h" />
+    <ClInclude Include="ModelObj.h" />
     <ClInclude Include="Sample.h" />
     <ClInclude Include="SNormalMap.h" />
   </ItemGroup>
