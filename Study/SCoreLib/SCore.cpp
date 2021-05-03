@@ -69,7 +69,7 @@ bool SCore::GameInit()
 
 	Init();
 	PostInit();
-	ShowWindow(m_hWnd, SW_SHOWNORMAL);
+	//ShowWindow(m_hWnd, SW_SHOWNORMAL);
 	return true;
 }
 bool SCore::GameRelease()
@@ -182,6 +182,27 @@ bool	SCore::GameRun()
 	if (GameRender() == false) return false;
 	return true;
 }
+bool SCore::InitTool(HWND hWnd, HINSTANCE hInstance)
+{
+	HRESULT hr = S_OK;
+	g_hWnd = m_hWnd = hWnd;
+	g_hInstance = m_hInstance = hInstance;
+
+	GetClientRect(m_hWnd, &m_rtClient);
+	g_rtClient = m_rtClient;
+	GetWindowRect(m_hWnd, &m_rtWindow);
+	//CoInitializeEx 는 COM 라이브러리를 사용하는 각 스레드에 대해 한 번 이상 호출해야  한다.
+
+	hr = CoInitializeEx(NULL, COINIT_APARTMENTTHREADED | COINIT_DISABLE_OLE1DDE);
+	GameInit();
+	return true;
+}
+bool SCore::ReleaseTool()
+{
+	GameRelease();
+	CoUninitialize();
+	return true;
+}
 bool SCore::Run()
 {
 	//HeapEnableTerminateOnCorruption 옵션을 설정하면 손상된 힙을 이용하는 보안 악용에 대한 애플리케이션의 노출을 줄일 수 있으므로 강력하게 권장.
@@ -190,7 +211,11 @@ bool SCore::Run()
 	HRESULT hr = S_OK;
 	//CoInitializeEx 는 COM 라이브러리를 사용하는 각 스레드에 대해 한 번 이상 호출해야  한다.
 	hr = CoInitializeEx(NULL, COINIT_APARTMENTTHREADED | COINIT_DISABLE_OLE1DDE);
-	GameInit();
+	if (GameInit())
+	{
+		ShowWindow(m_hWnd, SW_SHOWNORMAL);
+	}
+
 	while (m_bGameRun)
 	{
 		if (MsgProcess() == false)
@@ -209,7 +234,12 @@ bool SCore::Run()
 	CoUninitialize();
 	return true;
 }
-
+bool SCore::ToolRun()
+{
+	if (GameFrame() == false) return false;
+	if (GameRender() == false) return false;
+	return true;
+}
 SCore::SCore()
 {
 	m_pMainCamera = nullptr;

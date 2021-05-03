@@ -17,20 +17,36 @@ void SDevice::ResizeDevice(UINT w, UINT h)
 {
 	if (m_pd3dDevice.Get() == NULL)  return;
 
+	HRESULT hr = S_OK;
 	DeleteDXResource();
 
 	m_pImmediateContext->OMSetRenderTargets(0, NULL, NULL);
-	if (m_pRenderTargetView.Get()) m_pRenderTargetView->Release();
-	if (m_pDSV.Get()) m_pDSV->Release();
+	if (m_pRenderTargetView.Get())
+	{
+		m_pRenderTargetView->Release();
+	}
+	if (m_pDSV.Get())
+	{
+		m_pDSV->Release();
+	}
 
-	DXGI_SWAP_CHAIN_DESC pSwapChainDesc;
-	m_pSwapChain->GetDesc(&pSwapChainDesc);
-	m_pSwapChain->ResizeBuffers(
-		pSwapChainDesc.BufferCount,
+	m_pSwapChain->GetDesc(&m_pSwapChainDesc);
+
+	if (FAILED(hr =
+		m_pSwapChain->ResizeBuffers(
+		m_pSwapChainDesc.BufferCount,
 		w,
 		h,
-		pSwapChainDesc.BufferDesc.Format,
-		pSwapChainDesc.Flags);
+		m_pSwapChainDesc.BufferDesc.Format,
+		m_pSwapChainDesc.Flags)));
+	{
+
+	}
+
+	m_pSwapChain->GetDesc(&m_pSwapChainDesc);
+	m_rtClient.right = m_pSwapChainDesc.BufferDesc.Width;
+	m_rtClient.bottom = m_pSwapChainDesc.BufferDesc.Height;
+	g_rtClient = m_rtClient;
 
 	SetRenderTargetView();
 	SetDepthStencilView();
