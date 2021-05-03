@@ -10,9 +10,9 @@
 class SCore : public SDevice
 {
 public:
-	bool			m_bGameRun;
+	bool				m_bGameRun;
 	SDebugCamera	m_Camera;
-	SCamera*		m_pMainCamera;
+	SCamera*			m_pMainCamera;
 	SShapeLine		m_LineShape;
 	SSkyBox			m_Skybox;
 public:
@@ -21,7 +21,7 @@ public:
 	virtual bool	PostInit();
 
 	virtual bool	PreFrame() {return true;};
-	virtual void    CameraFrame();
+	virtual void   CameraFrame();
 	virtual bool	Frame() {return true;};
 	virtual bool	PostFrame() {return true;};
 	virtual bool	Render() {return true;};
@@ -30,12 +30,16 @@ public:
 	virtual bool	Release() {return true;};
 	virtual HRESULT DeleteDXResource();
 	virtual HRESULT CreateDXResource(UINT w, UINT h);
+	bool InitTool(HWND hWnd, HINSTANCE hInstance);
+	bool ReleaseTool();
 private:
 	bool GameInit();
 	bool GameFrame();
 	bool GameRender();
 	bool GameRelease();
 	bool GameRun();
+public:
+	bool ToolRun();
 public:
 	bool Run();
 public:

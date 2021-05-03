@@ -133,6 +133,13 @@ BOOL CDemoToolsApp::InitInstance()
 	if (!ProcessShellCommand(cmdInfo))
 		return FALSE;
 
+	CMainFrame* pFrame = (CMainFrame*)AfxGetMainWnd();
+	CDemoToolsView* pView = (CDemoToolsView*)pFrame->GetActiveView();
+
+	HWND hWnd = pView->m_hWnd;
+	HINSTANCE hInstance = AfxGetInstanceHandle();
+	m_Sample.InitTool(hWnd, hInstance);
+
 	// 창 하나만 초기화되었으므로 이를 표시하고 업데이트합니다.
 	m_pMainWnd->ShowWindow(SW_SHOW);
 	m_pMainWnd->UpdateWindow();
@@ -143,7 +150,7 @@ int CDemoToolsApp::ExitInstance()
 {
 	//TODO: 추가한 추가 리소스를 처리합니다.
 	AfxOleTerm(FALSE);
-
+	m_Sample.ReleaseTool();
 	return CWinAppEx::ExitInstance();
 }
 
@@ -212,3 +219,10 @@ void CDemoToolsApp::SaveCustomState()
 
 
 
+
+
+BOOL CDemoToolsApp::OnIdle(LONG lCount)
+{
+	m_Sample.ToolRun();
+	return TRUE; //CWinAppEx::OnIdle(lCount);
+}

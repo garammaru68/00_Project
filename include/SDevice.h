@@ -7,10 +7,11 @@ public:
 	Microsoft::WRL::ComPtr<IDXGIFactory>	m_pGIFactory;
 	Microsoft::WRL::ComPtr<ID3D11Device>	m_pd3dDevice;
 	ComPtr<ID3D11DeviceContext>				m_pImmediateContext;
-	ComPtr<IDXGISwapChain>					m_pSwapChain;
+	ComPtr<IDXGISwapChain>						m_pSwapChain;
 	ComPtr<ID3D11RenderTargetView>			m_pRenderTargetView;
 	ComPtr<ID3D11DepthStencilView>			m_pDSV;
-	D3D11_VIEWPORT							m_ViewPort;
+	D3D11_VIEWPORT									m_ViewPort;
+	DXGI_SWAP_CHAIN_DESC							m_pSwapChainDesc;
 public:
 	HRESULT		CreateGIFactory();
 	HRESULT		CreateDevice();
