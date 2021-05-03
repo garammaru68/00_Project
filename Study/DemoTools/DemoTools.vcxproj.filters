@@ -45,6 +45,12 @@
     <ClInclude Include="Sample.h">
       <Filter>SCore</Filter>
     </ClInclude>
+    <ClInclude Include="SToolCharacterDlg.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SToolMapDlg.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DemoTools.cpp">
@@ -64,6 +70,12 @@
     </ClCompile>
     <ClCompile Include="Sample.cpp">
       <Filter>SCore</Filter>
+    </ClCompile>
+    <ClCompile Include="SToolCharacterDlg.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SToolMapDlg.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

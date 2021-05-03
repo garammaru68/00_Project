@@ -13,7 +13,7 @@ public:
 
 // 대화 상자 데이터입니다.
 #ifdef AFX_DESIGN_TIME
-	enum { IDD = IDD_SToolMapDlg };
+	enum { IDD = IDD_MAP_DLG };
 #endif
 
 protected:
