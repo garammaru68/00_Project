@@ -217,10 +217,6 @@ void CDemoToolsApp::SaveCustomState()
 
 // CDemoToolsApp 메시지 처리기
 
-
-
-
-
 BOOL CDemoToolsApp::OnIdle(LONG lCount)
 {
 	m_Sample.ToolRun();

@@ -3,7 +3,8 @@
 //
 
 #pragma once
-
+#include "SToolMapDlg.h"
+#include "SToolCharacterDlg.h"
 class CMainFrame : public CFrameWndEx
 {
 	
@@ -13,7 +14,8 @@ protected: // serialization에서만 만들어집니다.
 
 // 특성입니다.
 public:
-
+	SToolMapDlg				m_MapDlg;
+	SToolCharacterDlg		m_CharacterDlg;
 // 작업입니다.
 public:
 
@@ -45,6 +47,9 @@ protected:
 	afx_msg void OnUpdateApplicationLook(CCmdUI* pCmdUI);
 	DECLARE_MESSAGE_MAP()
 
+public:
+	afx_msg void OnToolMap();
+	afx_msg void OnToolCharacter();
 };
 
 
