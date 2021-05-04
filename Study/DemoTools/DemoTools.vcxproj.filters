@@ -104,5 +104,6 @@
     <None Include="res\DemoTools.rc2">
       <Filter>리소스 파일</Filter>
     </None>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

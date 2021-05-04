@@ -12,4 +12,7 @@
 #include <afxcontrolbars.h>
 #include <afxcontrolbars.h>
 #include <afxcontrolbars.h>
+#include <afxext.h>
+#include <afxext.h>
+#include <afxcontrolbars.h>
 #endif //PCH_H
