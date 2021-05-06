@@ -191,4 +191,7 @@ hull shader(입력) - 테셀레이션 - domain shader(출력)
 추가된 제어점의 접선 벡터 - 뒤집은 노말 벡터
 
 Tool - 메뉴 툴바 단축키
-MFC
+<MFC>
+속성 - 메세지 - WM_CREATE - OnCreate & OnMouseActivate
+MA_NOACTIVATE - 상속 오류 처리
+Properties

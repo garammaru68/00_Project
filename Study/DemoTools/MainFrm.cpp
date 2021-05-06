@@ -100,7 +100,7 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndMenuBar.EnableDocking(CBRS_ALIGN_ANY);
 	m_wndToolBar.EnableDocking(CBRS_ALIGN_ANY);
 	EnableDocking(CBRS_ALIGN_ANY);
-	DockPane(&m_wndMenuBar);
+	DockPane(&m_wndMenuBar);\
 	DockPane(&m_wndToolBar);
 
 

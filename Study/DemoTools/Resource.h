@@ -31,17 +31,22 @@
 #define ID_VIEW_APPLOOK_WINDOWS_7       219
 #define IDS_EDIT_MENU                   306
 #define IDD_MAP_DLG                     310
-#define IDD_SToolCharacterDlg           311
 #define IDD_CHARACTER_DLG               312
-#define IDD_SToolMapDlg                 313
+#define IDC_BUTTON_FILE                 1000
+#define IDC_BUTTON_SAVE                 1001
+#define IDC_BUTTON_COLOR                1002
+#define IDC_BUTTON_FONT                 1003
+#define IDC_EDIT1                       1007
+#define IDC_LIST1                       1008
+#define IDC_EDIT2                       1009
+#define IDC_EDIT3                       1010
+#define IDC_COMBO1                      1011
+#define IDC_PROGRESS1                   1012
+#define IDC_EDIT4                       1013
+#define IDC_SPIN1                       1014
 #define ID_TOOL_MAPTOOL                 32771
 #define ID_TOOL_CHARACTERTOOL           32772
 #define ID_BUTTON32785                  32785
-#define ID_BUTTON32787                  32787
-#define ID_BUTTON32788                  32788
-#define ID_BUTTON32789                  32789
-#define ID_BUTTON32790                  32790
-#define ID_BUTTON32791                  32791
 #define ID_BUTTON32792                  32792
 #define ID_BUTTON32793                  32793
 #define ID_BUTTON32796                  32796
@@ -50,9 +55,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        330
+#define _APS_NEXT_RESOURCE_VALUE        335
 #define _APS_NEXT_COMMAND_VALUE         32797
-#define _APS_NEXT_CONTROL_VALUE         1000
-#define _APS_NEXT_SYMED_VALUE           315
+#define _APS_NEXT_CONTROL_VALUE         1015
+#define _APS_NEXT_SYMED_VALUE           316
 #endif
 #endif

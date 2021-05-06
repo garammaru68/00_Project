@@ -32,13 +32,12 @@ void SDevice::ResizeDevice(UINT w, UINT h)
 
 	m_pSwapChain->GetDesc(&m_pSwapChainDesc);
 
-	if (FAILED(hr =
-		m_pSwapChain->ResizeBuffers(
+	if (FAILED(hr = m_pSwapChain->ResizeBuffers(
 		m_pSwapChainDesc.BufferCount,
 		w,
 		h,
 		m_pSwapChainDesc.BufferDesc.Format,
-		m_pSwapChainDesc.Flags)));
+		m_pSwapChainDesc.Flags)))
 	{
 
 	}
