@@ -44,6 +44,28 @@
 #define IDC_PROGRESS1                   1012
 #define IDC_EDIT4                       1013
 #define IDC_SPIN1                       1014
+#define IDC_RADIO1                      1015
+#define IDC_RADIO2                      1016
+#define IDC_RADIO3                      1017
+#define IDC_RADIO4                      1018
+#define IDC_RADIO5                      1019
+#define IDC_RADIO6                      1020
+#define IDC_CHECK1                      1021
+#define IDC_STATIC1                     1022
+#define IDC_CHECK2                      1023
+#define IDC_CHECK3                      1024
+#define IDC_CHECK4                      1025
+#define IDC_CHECK5                      1026
+#define IDC_CHECK6                      1027
+#define IDC_STATIC2                     1028
+#define IDC_STATIC3                     1029
+#define IDC_STATIC4                     1030
+#define IDC_TREE1                       1031
+#define IDC_LIST4                       1035
+#define IDC_BUTTON1                     1037
+#define IDC_BUTTON2                     1042
+#define IDC_BUTTON3                     1043
+#define IDC_BUTTON4                     1044
 #define ID_TOOL_MAPTOOL                 32771
 #define ID_TOOL_CHARACTERTOOL           32772
 #define ID_BUTTON32785                  32785
@@ -57,7 +79,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        335
 #define _APS_NEXT_COMMAND_VALUE         32797
-#define _APS_NEXT_CONTROL_VALUE         1015
+#define _APS_NEXT_CONTROL_VALUE         1038
 #define _APS_NEXT_SYMED_VALUE           316
 #endif
 #endif

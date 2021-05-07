@@ -22,6 +22,25 @@ protected:
 
 	DECLARE_MESSAGE_MAP()
 public:
-	afx_msg void OnEnChangeEdit1();
-	afx_msg void OnEnChangeEdit2();
+	virtual BOOL OnInitDialog();
+
+	// 타일 개수
+	int m_iNumTile;
+
+	// 텍스쳐
+	CString m_szTexture;
+	CListBox m_TextureList;
+	afx_msg void SelectTextureList();
+
+	// 공간 분할
+	CComboBox m_SpaceDivision;
+	afx_msg void SpaceDivisionList();
+	
+	// Radio
+	afx_msg void SelectRadioButton();
+	int m_iRadio1;
+	int m_iRadio2;
+
+	// FileLocation
+	afx_msg void SearchFileLocation(NMHDR *pNMHDR, LRESULT *pResult);
 };
