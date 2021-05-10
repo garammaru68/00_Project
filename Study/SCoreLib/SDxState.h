@@ -73,7 +73,7 @@ namespace DX
 			D3D11_SAMPLER_DESC& sd,
 			UINT iSlot = 0,
 			UINT iArray = 1);
-		static HRESULT SetDipthStencilState(ID3D11Device* pd3dDevice,
+		static HRESULT SetDepthStencilState(ID3D11Device* pd3dDevice,
 			ID3D11DeviceContext* pContext,
 			D3D11_DEPTH_STENCIL_DESC& dsd,
 			UINT iRef = 1);

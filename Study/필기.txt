@@ -161,8 +161,6 @@ z Buffer를 만들지 않거나 z를 최대치로
 오브젝트 중심으로 범위를 잡아서 계산
 오브젝트 하나의 반사벡터를 모든 오브젝터에 적용
 
-
-
 뷰행렬 6개 정해주고 
 MRT - post effect 데이터 추출작업
 디퍼드 랜더링(지연 렌더링 - 후처리) - 이미지, 컬러, 정점노말, 라이트
@@ -195,3 +193,18 @@ Tool - 메뉴 툴바 단축키
 속성 - 메세지 - WM_CREATE - OnCreate & OnMouseActivate
 MA_NOACTIVATE - 상속 오류 처리
 Properties
+
+배리어 - 리소스, 펜스 - 프레임
+dx12 - 번들
+
+적은 데이터를 바꿀 경우(행렬만 다를 경우) - immediateContext 상수 버퍼 바꾸기
+Create(셋팅)에서 DefferdContext를 Update(적용) 시킬 경우 고정값이 되어 Data 변경불가
+- 값을 바꿀때 ImmediateContext를 사용하여 바꾸기
+
+<맵툴>
+커스텀 마이징 맵 + 쿼드트리 + 프로스텀 + LOD
+Tile		1 ~ 4
+Cell		1 ~ 64
+Cell Size	1 ~ 2n승
+2n승 + 1
+Texture File

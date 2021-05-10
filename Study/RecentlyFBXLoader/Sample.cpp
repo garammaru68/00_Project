@@ -116,26 +116,26 @@ bool Sample::Init()
 }
 bool Sample::Frame()
 {
-	if (g_Input.GetKey('0') == KEY_PUSH)
-	{
-		SDxState::m_FillMode = D3D11_FILL_WIREFRAME;
-		SDxState::SetRasterizerState(g_pd3dDevice);
-	}
-	if (g_Input.GetKey('9') == KEY_PUSH)
-	{
-		SDxState::m_FillMode = D3D11_FILL_SOLID;
-		SDxState::SetRasterizerState(g_pd3dDevice);
-	}
-	if (g_Input.GetKey('8') == KEY_PUSH)
-	{
-		SDxState::m_CullMode = D3D11_CULL_BACK;
-		SDxState::SetRasterizerState(g_pd3dDevice);
-	}
-	if (g_Input.GetKey('7') == KEY_PUSH)
-	{
-		SDxState::m_CullMode = D3D11_CULL_FRONT;
-		SDxState::SetRasterizerState(g_pd3dDevice);
-	}
+	//if (g_Input.GetKey('0') == KEY_PUSH)
+	//{
+	//	SDxState::m_FillMode = D3D11_FILL_WIREFRAME;
+	//	SDxState::SetRasterizerState(g_pd3dDevice);
+	//}
+	//if (g_Input.GetKey('9') == KEY_PUSH)
+	//{
+	//	SDxState::m_FillMode = D3D11_FILL_SOLID;
+	//	SDxState::SetRasterizerState(g_pd3dDevice);
+	//}
+	//if (g_Input.GetKey('8') == KEY_PUSH)
+	//{
+	//	SDxState::m_CullMode = D3D11_CULL_BACK;
+	//	SDxState::SetRasterizerState(g_pd3dDevice);
+	//}
+	//if (g_Input.GetKey('7') == KEY_PUSH)
+	//{
+	//	SDxState::m_CullMode = D3D11_CULL_FRONT;
+	//	SDxState::SetRasterizerState(g_pd3dDevice);
+	//}
 	return true;
 }
 bool Sample::Render()

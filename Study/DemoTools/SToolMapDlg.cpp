@@ -28,12 +28,15 @@ void SToolMapDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_LIST1, m_TextureList);
 	DDX_Radio(pDX, IDC_RADIO1, m_iRadio1);
 	DDX_Radio(pDX, IDC_RADIO4, m_iRadio2);
+	DDX_Control(pDX, IDC_TREE1, m_TreeCtrl);
+	DDX_Control(pDX, IDC_LIST4, m_ListCtrl);
 }
 
 BEGIN_MESSAGE_MAP(SToolMapDlg, CDialogEx)
 	ON_CBN_SELCHANGE(IDC_COMBO1, &SToolMapDlg::SpaceDivisionList)
 	ON_LBN_SELCHANGE(IDC_LIST1, &SToolMapDlg::SelectTextureList)
-	ON_NOTIFY(LVN_ITEMCHANGED, IDC_LIST4, &SToolMapDlg::SearchFileLocation)
+	ON_NOTIFY(LVN_ITEMCHANGED, IDC_LIST4, &SToolMapDlg::SearchFileLocation2)
+	ON_NOTIFY(TVN_SELCHANGED, IDC_TREE1, &SToolMapDlg::SearchFileLocation1)
 END_MESSAGE_MAP()
 
 BOOL SToolMapDlg::OnInitDialog()
@@ -79,9 +82,19 @@ void SToolMapDlg::SelectRadioButton()
 	CDialogEx::OnOK();
 }
 
-void SToolMapDlg::SearchFileLocation(NMHDR *pNMHDR, LRESULT *pResult)
+void SToolMapDlg::SearchFileLocation1(NMHDR *pNMHDR, LRESULT *pResult)
 {
-	LPNMLISTVIEW pNMLV = reinterpret_cast<LPNMLISTVIEW>(pNMHDR);
-	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	LPNMTREEVIEW pNMTreeView = reinterpret_cast<LPNMTREEVIEW>(pNMHDR);
+
+	CString name = m_TreeCtrl.GetItemText(pNMTreeView->itemNew.hItem);
+	AfxMessageBox(name);
 	*pResult = 0;
 }
+void SToolMapDlg::SearchFileLocation2(NMHDR *pNMHDR, LRESULT *pResult)
+{
+	LPNMLISTVIEW pNMLV = reinterpret_cast<LPNMLISTVIEW>(pNMHDR);
+
+	*pResult = 0;
+}
+
+

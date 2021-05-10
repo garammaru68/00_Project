@@ -2,16 +2,6 @@
 #include "SShape.h"
 #include "SCamera.h"
 
-struct S_RAY
-{
-	float	fExtent;
-	Vector3	vOrigin;
-	Vector3	vDirection;
-	S_RAY()
-	{
-		fExtent = -1;
-	}
-};
 class Pick
 {
 public:

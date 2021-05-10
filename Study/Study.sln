@@ -190,6 +190,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MFC", "MFC", "{2F926582-D22
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DemoTools", "DemoTools\DemoTools.vcxproj", "{E41926BA-F0C5-4043-95E9-1DE7AD72B15F}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestMultiThreading", "TestMultiThreading\TestMultiThreading.vcxproj", "{0405C7C3-7A69-4F4E-A4AE-2034CD8DC61C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -756,6 +758,14 @@ Global
 		{E41926BA-F0C5-4043-95E9-1DE7AD72B15F}.Release|x64.Build.0 = Release|x64
 		{E41926BA-F0C5-4043-95E9-1DE7AD72B15F}.Release|x86.ActiveCfg = Release|Win32
 		{E41926BA-F0C5-4043-95E9-1DE7AD72B15F}.Release|x86.Build.0 = Release|Win32
+		{0405C7C3-7A69-4F4E-A4AE-2034CD8DC61C}.Debug|x64.ActiveCfg = Debug|x64
+		{0405C7C3-7A69-4F4E-A4AE-2034CD8DC61C}.Debug|x64.Build.0 = Debug|x64
+		{0405C7C3-7A69-4F4E-A4AE-2034CD8DC61C}.Debug|x86.ActiveCfg = Debug|Win32
+		{0405C7C3-7A69-4F4E-A4AE-2034CD8DC61C}.Debug|x86.Build.0 = Debug|Win32
+		{0405C7C3-7A69-4F4E-A4AE-2034CD8DC61C}.Release|x64.ActiveCfg = Release|x64
+		{0405C7C3-7A69-4F4E-A4AE-2034CD8DC61C}.Release|x64.Build.0 = Release|x64
+		{0405C7C3-7A69-4F4E-A4AE-2034CD8DC61C}.Release|x86.ActiveCfg = Release|Win32
+		{0405C7C3-7A69-4F4E-A4AE-2034CD8DC61C}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -841,9 +851,10 @@ Global
 		{24097A02-205E-4574-8B01-6777437D0F70} = {6EB94D10-E5D6-4924-A4EB-4EC957A2537E}
 		{2F926582-D22C-4F0B-8989-ECC58E883452} = {153765A5-6CF1-453B-862B-9F42E3FD81A8}
 		{E41926BA-F0C5-4043-95E9-1DE7AD72B15F} = {2F926582-D22C-4F0B-8989-ECC58E883452}
+		{0405C7C3-7A69-4F4E-A4AE-2034CD8DC61C} = {3D96494E-817C-4CEE-9DB2-0769F15DE7A7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {8CA5F4F3-F11A-4339-87C9-38CD6690C71A}
 		VisualSVNWorkingCopyRoot = .
+		SolutionGuid = {8CA5F4F3-F11A-4339-87C9-38CD6690C71A}
 	EndGlobalSection
 EndGlobal

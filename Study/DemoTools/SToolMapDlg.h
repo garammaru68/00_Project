@@ -2,7 +2,12 @@
 
 
 // SToolMapDlg 대화 상자
-
+struct SMapInfo
+{
+	int iTileCnt;
+	int iCellCnt;
+	float fCellSize;
+};
 class SToolMapDlg : public CDialogEx
 {
 	DECLARE_DYNAMIC(SToolMapDlg)
@@ -26,7 +31,11 @@ public:
 
 	// 타일 개수
 	int m_iNumTile;
-
+	int m_iTileCount;
+	// 셀 개수
+	int m_iNumCell;
+	// 셀 크기
+	int m_iCellSize;
 	// 텍스쳐
 	CString m_szTexture;
 	CListBox m_TextureList;
@@ -42,5 +51,8 @@ public:
 	int m_iRadio2;
 
 	// FileLocation
-	afx_msg void SearchFileLocation(NMHDR *pNMHDR, LRESULT *pResult);
+	CTreeCtrl m_TreeCtrl;
+	CListCtrl m_ListCtrl;
+	afx_msg void SearchFileLocation1(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void SearchFileLocation2(NMHDR *pNMHDR, LRESULT *pResult);
 };

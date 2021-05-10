@@ -52,7 +52,7 @@ bool SCore::GameInit()
 
 	m_Camera.CreateViewMatrix({ 0,10,-10 }, { 0,0,0 });
 	float fAspect = g_rtClient.right / (float)g_rtClient.bottom;
-	m_Camera.CreateProjMatrix(1, 10000, SBASIS_PI / 4.0f, fAspect);
+	m_Camera.CreateProjMatrix(1, 1000, SBASIS_PI / 4.0f, fAspect);
 	m_Camera.Init();
 	m_pMainCamera = &m_Camera;
 

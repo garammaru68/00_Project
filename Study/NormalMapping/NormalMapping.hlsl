@@ -52,8 +52,8 @@ struct PCT4_PS_INPUT
 PCT4_PS_INPUT VS( PNCT2_VS_INPUT input )
 {
 	PCT4_PS_INPUT output = (PCT4_PS_INPUT)0;
-	float4 vWorldPos		= mul( intput.p, g_matWorld );
-	float4 ViewPos			= mul( vWorldPos, g_matView );
+	float4 vWorldPos		= mul( input.p, g_matWorld );
+	float4 vViewPos			= mul( vWorldPos, g_matView );
 	output.p					= mul( vViewPos, g_matProj );
 	output.t					= input.t;
 	output.c					= input.c;

@@ -115,7 +115,7 @@ namespace DX
 		}
 		return hr;
 	}
-	HRESULT SDxState::SetDipthStencilState(ID3D11Device* pd3dDevice,
+	HRESULT SDxState::SetDepthStencilState(ID3D11Device* pd3dDevice,
 		ID3D11DeviceContext* pContext,
 		D3D11_DEPTH_STENCIL_DESC& dsd,
 		UINT iRef)
