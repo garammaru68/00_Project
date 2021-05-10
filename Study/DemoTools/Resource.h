@@ -32,6 +32,7 @@
 #define IDS_EDIT_MENU                   306
 #define IDD_MAP_DLG                     310
 #define IDD_CHARACTER_DLG               312
+#define IDD_SMapToolForm                316
 #define IDC_BUTTON_FILE                 1000
 #define IDC_BUTTON_SAVE                 1001
 #define IDC_BUTTON_COLOR                1002
@@ -61,6 +62,7 @@
 #define IDC_STATIC3                     1029
 #define IDC_STATIC4                     1030
 #define IDC_TREE1                       1031
+#define IDC_EDIT5                       1032
 #define IDC_LIST4                       1035
 #define IDC_BUTTON1                     1037
 #define IDC_BUTTON2                     1042
@@ -77,9 +79,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        335
+#define _APS_NEXT_RESOURCE_VALUE        336
 #define _APS_NEXT_COMMAND_VALUE         32797
 #define _APS_NEXT_CONTROL_VALUE         1038
-#define _APS_NEXT_SYMED_VALUE           316
+#define _APS_NEXT_SYMED_VALUE           317
 #endif
 #endif

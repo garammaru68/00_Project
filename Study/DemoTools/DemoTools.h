@@ -18,12 +18,13 @@ class CDemoToolsApp : public CWinAppEx
 {
 public:
 	CDemoToolsApp() noexcept;
-	Sample	m_Sample;
-
+	Sample			m_Sample;
+	vector<T_STR>	m_objList;
 // 재정의입니다.
 public:
 	virtual BOOL InitInstance();
 	virtual int ExitInstance();
+	void LoadResource();
 
 // 구현입니다.
 	UINT  m_nAppLook;

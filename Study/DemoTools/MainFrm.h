@@ -3,6 +3,7 @@
 //
 
 #pragma once
+#include "SMapToolPane.h"
 #include "SToolMapDlg.h"
 #include "SToolCharacterDlg.h"
 class CMainFrame : public CFrameWndEx
@@ -14,11 +15,14 @@ protected: // serialization에서만 만들어집니다.
 
 // 특성입니다.
 public:
-	SToolMapDlg				m_MapDlg;
-	SToolCharacterDlg		m_CharacterDlg;
+	CTabbedPane				m_TabbedPane;
+	SMapToolPane			m_wndMapToolCtrl;
+	//SToolMapDlg				m_MapDlg;
+	//SToolCharacterDlg		m_CharacterDlg;
 // 작업입니다.
 public:
-
+	void Recurse(LPCTSTR pstr);
+	void CreatePaneWindow(CDockablePane& pane, const TCHAR* title, DWORD id);
 // 재정의입니다.
 public:
 	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
@@ -47,9 +51,9 @@ protected:
 	afx_msg void OnUpdateApplicationLook(CCmdUI* pCmdUI);
 	DECLARE_MESSAGE_MAP()
 
-public:
-	afx_msg void OnToolMap();
-	afx_msg void OnToolCharacter();
+//public:
+//	afx_msg void OnToolMap();
+//	afx_msg void OnToolCharacter();
 };
 
 

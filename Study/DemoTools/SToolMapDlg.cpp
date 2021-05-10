@@ -9,10 +9,15 @@ IMPLEMENT_DYNAMIC(SToolMapDlg, CDialogEx)
 SToolMapDlg::SToolMapDlg(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_MAP_DLG, pParent)
 	, m_iNumTile(0)
+	, m_iNumCell(0)
+	, m_iCellSize(0)
 	, m_szTexture(_T(""))
 	, m_iRadio1(0)
 	, m_iRadio2(0)
 {
+	m_iNumTile = 100;
+	m_iNumCell = 10;
+	m_iCellSize = 1;
 }
 SToolMapDlg::~SToolMapDlg()
 {
@@ -22,7 +27,11 @@ void SToolMapDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Text(pDX, IDC_EDIT1, m_iNumTile);
-	DDV_MinMaxInt(pDX, m_iNumTile, 0, 4096);
+	DDV_MinMaxInt(pDX, m_iNumTile, 1, 1025);
+	DDX_Text(pDX, IDC_EDIT2, m_iNumCell);
+	DDV_MinMaxInt(pDX, m_iNumCell, 1, 65);
+	DDX_Text(pDX, IDC_EDIT5, m_iCellSize);
+	DDV_MinMaxInt(pDX, m_iCellSize, 1, 100);
 	DDX_Control(pDX, IDC_COMBO1, m_SpaceDivision);
 	DDX_Text(pDX, IDC_EDIT3, m_szTexture);
 	DDX_Control(pDX, IDC_LIST1, m_TextureList);
@@ -37,8 +46,18 @@ BEGIN_MESSAGE_MAP(SToolMapDlg, CDialogEx)
 	ON_LBN_SELCHANGE(IDC_LIST1, &SToolMapDlg::SelectTextureList)
 	ON_NOTIFY(LVN_ITEMCHANGED, IDC_LIST4, &SToolMapDlg::SearchFileLocation2)
 	ON_NOTIFY(TVN_SELCHANGED, IDC_TREE1, &SToolMapDlg::SearchFileLocation1)
+	ON_BN_CLICKED(IDOK, &SToolMapDlg::OnBnClickedOk)
 END_MESSAGE_MAP()
 
+void SToolMapDlg::OnBnClickedOk()
+{
+	UpdateData(TRUE);
+	m_MapInfo.iNumTile = m_iNumTile;
+	m_MapInfo.iNumCell = m_iNumCell;
+	m_MapInfo.fCellSize = m_iCellSize;
+
+	CDialogEx::OnOK();
+}
 BOOL SToolMapDlg::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
@@ -60,14 +79,16 @@ void SToolMapDlg::SelectTextureList()
 {
 	CString name;
 	int iSel = m_TextureList.GetCurSel();
-	m_TextureList.GetText(iSel, m_szTexture);
+	m_TextureList.GetText(iSel, name);
+	m_szTexture = name;
 	UpdateData(FALSE);
 }
 void SToolMapDlg::SpaceDivisionList()
 {
 	CString name;
 	int iSel = m_SpaceDivision.GetCurSel();
-	m_TextureList.GetText(iSel, m_szTexture);
+	m_TextureList.GetText(iSel, name);
+	m_szTexture = name;
 	UpdateData(FALSE);
 }
 void SToolMapDlg::SelectRadioButton()
@@ -96,5 +117,4 @@ void SToolMapDlg::SearchFileLocation2(NMHDR *pNMHDR, LRESULT *pResult)
 
 	*pResult = 0;
 }
-
 

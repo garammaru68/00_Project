@@ -46,10 +46,16 @@
       <Filter>SCore</Filter>
     </ClInclude>
     <ClInclude Include="SToolCharacterDlg.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>SCore</Filter>
     </ClInclude>
     <ClInclude Include="SToolMapDlg.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>SCore</Filter>
+    </ClInclude>
+    <ClInclude Include="SMapToolPane.h">
+      <Filter>SCore</Filter>
+    </ClInclude>
+    <ClInclude Include="SMapToolForm.h">
+      <Filter>SCore</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -72,10 +78,16 @@
       <Filter>SCore</Filter>
     </ClCompile>
     <ClCompile Include="SToolCharacterDlg.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>SCore</Filter>
     </ClCompile>
     <ClCompile Include="SToolMapDlg.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>SCore</Filter>
+    </ClCompile>
+    <ClCompile Include="SMapToolPane.cpp">
+      <Filter>SCore</Filter>
+    </ClCompile>
+    <ClCompile Include="SMapToolForm.cpp">
+      <Filter>SCore</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

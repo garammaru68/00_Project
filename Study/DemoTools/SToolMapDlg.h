@@ -4,18 +4,18 @@
 // SToolMapDlg 대화 상자
 struct SMapInfo
 {
-	int iTileCnt;
-	int iCellCnt;
+	int iNumTile;
+	int iNumCell;
 	float fCellSize;
 };
 class SToolMapDlg : public CDialogEx
 {
 	DECLARE_DYNAMIC(SToolMapDlg)
-
+public:
+	SMapInfo m_MapInfo;
 public:
 	SToolMapDlg(CWnd* pParent = nullptr);   // 표준 생성자입니다.
 	virtual ~SToolMapDlg();
-	void LoadFile();
 
 // 대화 상자 데이터입니다.
 #ifdef AFX_DESIGN_TIME
@@ -31,20 +31,18 @@ public:
 
 	// 타일 개수
 	int m_iNumTile;
-	int m_iTileCount;
 	// 셀 개수
 	int m_iNumCell;
 	// 셀 크기
 	int m_iCellSize;
+	// 공간 분할
+	CComboBox m_SpaceDivision;
+	afx_msg void SpaceDivisionList();
 	// 텍스쳐
 	CString m_szTexture;
 	CListBox m_TextureList;
 	afx_msg void SelectTextureList();
 
-	// 공간 분할
-	CComboBox m_SpaceDivision;
-	afx_msg void SpaceDivisionList();
-	
 	// Radio
 	afx_msg void SelectRadioButton();
 	int m_iRadio1;
@@ -55,4 +53,7 @@ public:
 	CListCtrl m_ListCtrl;
 	afx_msg void SearchFileLocation1(NMHDR *pNMHDR, LRESULT *pResult);
 	afx_msg void SearchFileLocation2(NMHDR *pNMHDR, LRESULT *pResult);
+
+	// 확인
+	afx_msg void OnBnClickedOk();
 };

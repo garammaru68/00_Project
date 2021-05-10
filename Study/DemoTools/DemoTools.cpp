@@ -145,7 +145,26 @@ BOOL CDemoToolsApp::InitInstance()
 	m_pMainWnd->UpdateWindow();
 	return TRUE;
 }
-
+void CDemoToolsApp::LoadResource()
+{
+	CFileFind cfile;
+	CString strFileName = _T("");
+	CString strFilePath = _T("../../data/*.*");
+	BOOL bFind;
+	bFind = cfile.FindFile(strFilePath);
+	while (bFind)
+	{
+		bFind = cfile.FindNextFile();
+		if (!cfile.IsDots() && !cfile.IsDirectory())
+		{
+			strFileName = cfile.GetFileName();
+			LPTSTR strName = strFileName.GetBuffer();
+			//UseObject->AddItem(strName);
+			m_objList.push_back(strName);
+		}
+	}
+	cfile.Close();
+}
 int CDemoToolsApp::ExitInstance()
 {
 	//TODO: 추가한 추가 리소스를 처리합니다.

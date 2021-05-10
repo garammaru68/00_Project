@@ -87,18 +87,18 @@ bool Sample::Render()
 {
 	if (g_Input.GetKey('0') == KEY_PUSH)
 	{
-		SDxState::m_FillMode = D3D11_FILL_WIREFRAME;
-		SDxState::SetRasterizerState(g_pd3dDevice);
+		SDxState::g_RasterizerDesc.FillMode = D3D11_FILL_WIREFRAME;
+		SDxState::SetRasterizerState(g_pd3dDevice, g_pImmediateContext, SDxState::g_RasterizerDesc);
 	}
 	if (g_Input.GetKey('9') == KEY_PUSH)
 	{
-		SDxState::m_FillMode = D3D11_FILL_SOLID;
-		SDxState::SetRasterizerState(g_pd3dDevice);
+		SDxState::g_RasterizerDesc.FillMode = D3D11_FILL_SOLID;
+		SDxState::SetRasterizerState(g_pd3dDevice, g_pImmediateContext, SDxState::g_RasterizerDesc);
 	}
 	g_pImmediateContext->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	g_pImmediateContext->RSSetState(SDxState::m_pRS);
-	g_pImmediateContext->PSSetSamplers(0, 1, &SDxState::m_pWrapLinear);
-	g_pImmediateContext->OMSetDepthStencilState(SDxState::m_pDSS, 0);
+	g_pImmediateContext->RSSetState(SDxState::g_pRS[2]);
+	g_pImmediateContext->PSSetSamplers(0, 1, &SDxState::g_pSSWrapLinear);
+	g_pImmediateContext->OMSetDepthStencilState(SDxState::g_pDSS[0], 0);
 	m_Map.SetMatrix(NULL,
 		&m_pMainCamera->m_matView,
 		&m_pMainCamera->m_matProj);

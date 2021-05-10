@@ -5,7 +5,6 @@
 #include "pch.h"
 #include "framework.h"
 #include "DemoTools.h"
-
 #include "MainFrm.h"
 
 #ifdef _DEBUG
@@ -26,8 +25,8 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWndEx)
 	ON_REGISTERED_MESSAGE(AFX_WM_CREATETOOLBAR, &CMainFrame::OnToolbarCreateNew)
 	ON_COMMAND_RANGE(ID_VIEW_APPLOOK_WIN_2000, ID_VIEW_APPLOOK_WINDOWS_7, &CMainFrame::OnApplicationLook)
 	ON_UPDATE_COMMAND_UI_RANGE(ID_VIEW_APPLOOK_WIN_2000, ID_VIEW_APPLOOK_WINDOWS_7, &CMainFrame::OnUpdateApplicationLook)
-	ON_COMMAND(ID_TOOL_MAPTOOL, &CMainFrame::OnToolMap)
-	ON_COMMAND(ID_TOOL_CHARACTERTOOL, &CMainFrame::OnToolCharacter)
+	//ON_COMMAND(ID_TOOL_MAPTOOL, &CMainFrame::OnToolMap)
+	//ON_COMMAND(ID_TOOL_CHARACTERTOOL, &CMainFrame::OnToolCharacter)
 
 END_MESSAGE_MAP()
 
@@ -151,7 +150,24 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	CMFCToolBar::SetBasicCommands(lstBasicCommands);
 
+	CreatePaneWindow(m_TabbedPane, L"TAB", -1);
+	CreatePaneWindow(m_wndMapToolCtrl, L"MapTool", 1234);
+
+	m_TabbedPane.AddTab(&m_wndMapToolCtrl);
+
 	return 0;
+}
+void CMainFrame::CreatePaneWindow(CDockablePane& pane,
+	const TCHAR* title, DWORD id)
+{
+	DWORD dwStyle = WS_CHILD | WS_VISIBLE |
+		WS_CLIPSIBLINGS | WS_CLIPCHILDREN |
+		CBRS_LEFT | CBRS_FLOAT_MULTI;
+	pane.CreateEx(NULL, title, this,
+		CRect(0, 0, 100, 100), TRUE,
+		id, dwStyle);
+	pane.EnableDocking(CBRS_ALIGN_ANY);
+	DockPane(&pane);
 }
 
 BOOL CMainFrame::PreCreateWindow(CREATESTRUCT& cs)
@@ -160,7 +176,7 @@ BOOL CMainFrame::PreCreateWindow(CREATESTRUCT& cs)
 		return FALSE;
 	// TODO: CREATESTRUCT cs를 수정하여 여기에서
 	//  Window 클래스 또는 스타일을 수정합니다.
-
+	cs.style &= ~FWS_ADDTOTITLE;
 	return TRUE;
 }
 
@@ -273,7 +289,7 @@ void CMainFrame::OnApplicationLook(UINT id)
 		CDockingManager::SetDockingMode(DT_SMART);
 	}
 
-	RedrawWindow(nullptr, nullptr, RDW_ALLCHILDREN | RDW_INVALIDATE | RDW_UPDATENOW | RDW_FRAME | RDW_ERASE);
+	RedrawWindow(NULL, NULL, RDW_ALLCHILDREN | RDW_INVALIDATE | RDW_UPDATENOW | RDW_FRAME | RDW_ERASE);
 
 	theApp.WriteInt(_T("ApplicationLook"), theApp.m_nAppLook);
 }
@@ -303,7 +319,7 @@ BOOL CMainFrame::LoadFrame(UINT nIDResource, DWORD dwDefaultStyle, CWnd* pParent
 	for (int i = 0; i < iMaxUserToolbars; i ++)
 	{
 		CMFCToolBar* pUserToolbar = GetUserToolBarByIndex(i);
-		if (pUserToolbar != nullptr)
+		if (pUserToolbar != NULL)
 		{
 			pUserToolbar->EnableCustomizeButton(TRUE, ID_VIEW_CUSTOMIZE, strCustomize);
 		}
@@ -312,15 +328,35 @@ BOOL CMainFrame::LoadFrame(UINT nIDResource, DWORD dwDefaultStyle, CWnd* pParent
 	return TRUE;
 }
 
-void CMainFrame::OnToolMap()
+void CMainFrame::Recurse(LPCTSTR pstr)
 {
-	m_MapDlg.DoModal();
-}
-void CMainFrame::OnToolCharacter()
-{
-	if (m_CharacterDlg.GetSafeHwnd() == NULL)
+	CFileFind finder;
+	CString strWildcard(pstr);
+	strWildcard += _T("\\*.*");
+	BOOL bWorking = finder.FindFile(strWildcard);
+	while (bWorking)
 	{
-		m_CharacterDlg.Create(IDD_CHARACTER_DLG);
+		bWorking = finder.FindNextFile();
+		if (finder.IsDots())
+			continue;
+		if (finder.IsDirectory())
+		{
+			CString str = finder.GetFilePath();
+			TRACE(_T("%s\n"), (LPCTSTR)str);
+			Recurse(str);
+		}
 	}
-	m_CharacterDlg.ShowWindow(SW_SHOW);
+	finder.Close();
 }
+//void CMainFrame::OnToolMap()
+//{
+//	m_MapDlg.DoModal();
+//}
+//void CMainFrame::OnToolCharacter()
+//{
+//	if (m_CharacterDlg.GetSafeHwnd() == NULL)
+//	{
+//		m_CharacterDlg.Create(IDD_CHARACTER_DLG);
+//	}
+//	m_CharacterDlg.ShowWindow(SW_SHOW);
+//}

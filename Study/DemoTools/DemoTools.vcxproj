@@ -200,6 +200,8 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Sample.h" />
+    <ClInclude Include="SMapToolForm.h" />
+    <ClInclude Include="SMapToolPane.h" />
     <ClInclude Include="SToolCharacterDlg.h" />
     <ClInclude Include="SToolMapDlg.h" />
     <ClInclude Include="targetver.h" />
@@ -216,6 +218,8 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Sample.cpp" />
+    <ClCompile Include="SMapToolForm.cpp" />
+    <ClCompile Include="SMapToolPane.cpp" />
     <ClCompile Include="SToolCharacterDlg.cpp" />
     <ClCompile Include="SToolMapDlg.cpp" />
   </ItemGroup>
