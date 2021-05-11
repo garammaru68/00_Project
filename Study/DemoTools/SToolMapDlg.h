@@ -2,12 +2,12 @@
 
 
 // SToolMapDlg 대화 상자
-struct SMapInfo
-{
-	int iNumTile;
-	int iNumCell;
-	float fCellSize;
-};
+//struct SMapInfo
+//{
+//	int iNumTile;
+//	int iNumTile;
+//	float fCellSize;
+//};
 class SToolMapDlg : public CDialogEx
 {
 	DECLARE_DYNAMIC(SToolMapDlg)

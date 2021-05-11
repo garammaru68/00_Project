@@ -209,6 +209,7 @@ copy "*.inl" "..\\..\\include"</Command>
     <ClInclude Include="SObjectManager.h" />
     <ClInclude Include="SPlayerState.h" />
     <ClInclude Include="SProjectile.h" />
+    <ClInclude Include="SQuadTree.h" />
     <ClInclude Include="SScene.h" />
     <ClInclude Include="SShape.h" />
     <ClInclude Include="SSkyBox.h" />
@@ -265,6 +266,7 @@ copy "*.inl" "..\\..\\include"</Command>
     <ClCompile Include="SObjectManager.cpp" />
     <ClCompile Include="SPlayerState.cpp" />
     <ClCompile Include="SProjectile.cpp" />
+    <ClCompile Include="SQuadTree.cpp" />
     <ClCompile Include="SScene.cpp" />
     <ClCompile Include="SShape.cpp" />
     <ClCompile Include="SSkyBox.cpp" />

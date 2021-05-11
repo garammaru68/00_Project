@@ -118,4 +118,7 @@
     </None>
     <None Include="ClassDiagram.cd" />
   </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="..\..\data\shader\CustomizeMap.hlsl" />
+  </ItemGroup>
 </Project>

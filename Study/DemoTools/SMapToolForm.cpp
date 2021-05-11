@@ -70,7 +70,7 @@ void SMapToolForm::OnBnClickedOk()
 	UpdateData(TRUE);
 
 	m_MapInfo.iNumTile = m_iNumTile;
-	m_MapInfo.iNumCell = m_iNumCell;
+	m_MapInfo.iNumTile = m_iNumCell;
 	m_MapInfo.fCellSize = m_fCellSize;
 
 	((CDemoToolsApp*)AfxGetApp())->m_Sample.CreateMap(m_MapInfo);

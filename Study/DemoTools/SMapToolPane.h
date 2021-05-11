@@ -2,12 +2,13 @@
 
 
 // SMapToolPane
+#include "SMapToolForm.h"
 
 class SMapToolPane : public CDockablePane
 {
 	DECLARE_DYNAMIC(SMapToolPane)
 public:
-	
+	SMapToolForm* m_wndForm;
 public:
 	SMapToolPane();
 	virtual ~SMapToolPane();

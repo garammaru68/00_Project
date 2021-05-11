@@ -25,6 +25,25 @@ struct P_VERTEX
 		this->t = t;
 	}
 };
+struct PC_VERTEX
+{
+	Vector3 p;
+	Vector4 c;
+	bool operator == (const PC_VERTEX & Vertex)
+	{
+		if (p == Vertex.p  && c == Vertex.c)
+		{
+			return true;
+		}
+		return  false;
+	}
+	PC_VERTEX() {}
+	PC_VERTEX(Vector3		vp,
+		Vector4		vc)
+	{
+		p = vp, c = vc;
+	}
+};
 struct PNCT_VERTEX
 {
 	Vector3		p;
@@ -219,11 +238,11 @@ namespace SBASIS_CORE_LIB
 		virtual bool    CreateIndexBuffer();
 		virtual bool    CreateConstantBuffer();
 		virtual bool	LoadShader(T_STR szVS, T_STR szPS);
+		virtual bool	LoadShader(T_STR szShaderFile);
 		virtual bool	CreateInputLayout();
 		virtual bool	LoadTexture(T_STR szTex);
-		virtual bool	Create(ID3D11Device* pDevice,
-			T_STR szVS, T_STR szPS,
-			T_STR	szTex);
+		virtual bool	Create(ID3D11Device* pDevice, T_STR szVS, T_STR szPS, T_STR	szTex);
+		virtual bool	Create(ID3D11Device* pDevice, T_STR szShaderFile, T_STR szTex);
 		void	CompilerCheck(ID3DBlob* pErrorMsgs);
 	public:
 		SDxObject();

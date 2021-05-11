@@ -99,70 +99,70 @@ SShapePlane::~SShapePlane()
 {
 }
 
-HRESULT SShapeLine::SetInputLayout()
-{
-	HRESULT hr = S_OK;
-
-	D3D11_INPUT_ELEMENT_DESC layout[] =
-	{
-		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-	};
-	UINT numElements = sizeof(layout) / sizeof(layout[0]);
-	m_dxobj.g_pInputlayout.Attach(DX::CreateInputlayout(m_pd3dDevice, m_dxobj.g_pVSBlob.Get()->GetBufferSize(),
-		m_dxobj.g_pVSBlob.Get()->GetBufferPointer(), layout, numElements));
-	return hr;
-}
-bool SShapeLine::CreateVertexData()
-{
-	m_LineVertexList.resize(2);
-	m_LineVertexList[0].p = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	m_LineVertexList[0].c = D3DXVECTOR4(1.0f, 0.0f, 0.0f, 1.0f);
-	m_LineVertexList[1].p = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
-	m_LineVertexList[1].c = D3DXVECTOR4(1.0f, 0.0f, 0.0f, 1.0f);
-
-	m_dxobj.m_iVertexSize = sizeof(PC_VERTEX);
-	m_dxobj.m_iNumVertex = (UINT)m_LineVertexList.size();
-	return true;
-}
-bool SShapeLine::CreateIndexData()
-{
-	m_IndexList.resize(2);
-	m_IndexList[0] = 0;
-	m_IndexList[1] = 1;
-
-	m_dxobj.m_iNumIndex = (UINT)m_IndexList.size();
-	m_dxobj.m_iIndexSize = sizeof(DWORD);
-	return true;
-}
-HRESULT SShapeLine::CreateVertexBuffer()
-{
-	if (m_dxobj.m_iNumVertex <= 0) return S_OK;
-	m_dxobj.g_pVertexBuffer.Attach(DX::CreateVertexBuffer(m_pd3dDevice,
-		&m_LineVertexList.at(0),
-		m_dxobj.m_iNumVertex,
-		m_dxobj.m_iVertexSize));
-	return S_OK;
-}
-bool SShapeLine::Draw(ID3D11DeviceContext* pContext, D3DXVECTOR3 vStart, D3DXVECTOR3 vEnd, D3DXVECTOR4 vColor)
-{
-	PC_VERTEX vertices[2];
-	vertices[0].p = vStart;
-	vertices[0].c = vColor;
-	vertices[1].p = vEnd;
-	vertices[1].c = vColor;
-	// 동적 리소스 갱신 방법 1 : D3D11_USAGE_DEFAULT 사용
-	pContext->UpdateSubresource(GetVB(), 0, NULL, &vertices, 0, 0);
-	return Render(pContext);
-}
-//--------------------------------------------------------------------------------------
-// 
-//--------------------------------------------------------------------------------------
-HRESULT SShapeLine::CreateResource()
-{
-	m_dxobj.m_iPrimitiveType = D3D10_PRIMITIVE_TOPOLOGY_LINELIST;
-	return S_OK;
-}
+//HRESULT SShapeLine::SetInputLayout()
+//{
+//	HRESULT hr = S_OK;
+//
+//	D3D11_INPUT_ELEMENT_DESC layout[] =
+//	{
+//		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+//		{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+//	};
+//	UINT numElements = sizeof(layout) / sizeof(layout[0]);
+//	m_dxobj.g_pInputlayout.Attach(DX::CreateInputlayout(m_pd3dDevice, m_dxobj.g_pVSBlob.Get()->GetBufferSize(),
+//		m_dxobj.g_pVSBlob.Get()->GetBufferPointer(), layout, numElements));
+//	return hr;
+//}
+//bool SShapeLine::CreateVertexData()
+//{
+//	m_LineVertexList.resize(2);
+//	m_LineVertexList[0].p = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+//	m_LineVertexList[0].c = D3DXVECTOR4(1.0f, 0.0f, 0.0f, 1.0f);
+//	m_LineVertexList[1].p = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
+//	m_LineVertexList[1].c = D3DXVECTOR4(1.0f, 0.0f, 0.0f, 1.0f);
+//
+//	m_dxobj.m_iVertexSize = sizeof(PC_VERTEX);
+//	m_dxobj.m_iNumVertex = (UINT)m_LineVertexList.size();
+//	return true;
+//}
+//bool SShapeLine::CreateIndexData()
+//{
+//	m_IndexList.resize(2);
+//	m_IndexList[0] = 0;
+//	m_IndexList[1] = 1;
+//
+//	m_dxobj.m_iNumIndex = (UINT)m_IndexList.size();
+//	m_dxobj.m_iIndexSize = sizeof(DWORD);
+//	return true;
+//}
+//HRESULT SShapeLine::CreateVertexBuffer()
+//{
+//	if (m_dxobj.m_iNumVertex <= 0) return S_OK;
+//	m_dxobj.g_pVertexBuffer.Attach(DX::CreateVertexBuffer(m_pd3dDevice,
+//		&m_LineVertexList.at(0),
+//		m_dxobj.m_iNumVertex,
+//		m_dxobj.m_iVertexSize));
+//	return S_OK;
+//}
+//bool SShapeLine::Draw(ID3D11DeviceContext* pContext, D3DXVECTOR3 vStart, D3DXVECTOR3 vEnd, D3DXVECTOR4 vColor)
+//{
+//	PC_VERTEX vertices[2];
+//	vertices[0].p = vStart;
+//	vertices[0].c = vColor;
+//	vertices[1].p = vEnd;
+//	vertices[1].c = vColor;
+//	// 동적 리소스 갱신 방법 1 : D3D11_USAGE_DEFAULT 사용
+//	pContext->UpdateSubresource(GetVB(), 0, NULL, &vertices, 0, 0);
+//	return Render(pContext);
+//}
+////--------------------------------------------------------------------------------------
+//// 
+////--------------------------------------------------------------------------------------
+//HRESULT SShapeLine::CreateResource()
+//{
+//	m_dxobj.m_iPrimitiveType = D3D10_PRIMITIVE_TOPOLOGY_LINELIST;
+//	return S_OK;
+//}
 ////////////////////////////////////////////
 bool SShapeLine::Draw(ID3D11DeviceContext* pd3dContext,
 	Vector3 p, Vector3 e, Vector4 c)

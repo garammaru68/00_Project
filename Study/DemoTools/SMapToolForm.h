@@ -1,13 +1,6 @@
 ﻿#pragma once
 // SMapToolForm 폼 보기
 
-struct SMapInfo
-{
-	int iNumTile;
-	int iNumCell;
-	float fCellSize;
-};
-
 class SMapToolForm : public CFormView
 {
 	DECLARE_DYNCREATE(SMapToolForm)

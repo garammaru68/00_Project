@@ -208,3 +208,8 @@ Cell		1 ~ 64
 Cell Size	1 ~ 2n승
 2n승 + 1
 Texture File
+
+PaneWindow 사용할때 - OnInitialUpdate()에서 초기화 해주기 
+타일당 텍스쳐 다르게
+
+화면 마우스 위치에 면을 뿌리고

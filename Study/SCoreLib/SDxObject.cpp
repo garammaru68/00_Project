@@ -853,6 +853,33 @@ namespace SBASIS_CORE_LIB
 		if (m_pTexture == nullptr) return false;
 		return true;
 	}
+	bool SDxObject::LoadShader(T_STR szShaderFile)
+	{
+		ID3DBlob* pPSObj;
+		ID3DBlob* pErrorMsgs;
+		HRESULT hr = D3DCompileFromFile(szShaderFile.c_str(), NULL, NULL,
+			m_szVertexShader.c_str(), "vs_5_0", 0, 0, &m_pVSObj, &pErrorMsgs);
+		if (FAILED(hr))
+		{
+			CompilerCheck(pErrorMsgs);
+			return false;
+		}
+		hr = g_pd3dDevice->CreateVertexShader(m_pVSObj->GetBufferPointer(), m_pVSObj->GetBufferSize(), NULL, &m_pVertexShader);
+		if (FAILED(hr)) return false;
+
+		hr = D3DCompileFromFile(szShaderFile.c_str(), NULL, NULL,
+			m_szPixelShader.c_str(), "ps_5_0", 0, 0, &pPSObj, &pErrorMsgs);
+		if (FAILED(hr))
+		{
+			CompilerCheck(pErrorMsgs);
+			return false;
+		}
+		hr = g_pd3dDevice->CreatePixelShader(pPSObj->GetBufferPointer(), pPSObj->GetBufferSize(), NULL, &m_pPixelShader);
+		if (FAILED(hr)) return false;
+
+		if (pPSObj)	pPSObj->Release();
+		return true;
+	}
 	bool	SDxObject::CreateInputLayout()
 	{
 		const D3D11_INPUT_ELEMENT_DESC layout[] =
@@ -890,4 +917,18 @@ namespace SBASIS_CORE_LIB
 		return true;
 	}
 
+}
+bool SDxObject::Create(ID3D11Device* pDevice, T_STR szShaderFile, T_STR szTex)
+{
+	g_pd3dDevice = pDevice;
+
+	CreateVertexData();
+	CreateIndexData();
+	CreateConstantBuffer();
+	CreateVertexBuffer();
+	CreateIndexBuffer();
+	LoadShader(szShaderFile);
+	CreateInputLayout();
+	LoadTexture(szTex);
+	return true;
 }

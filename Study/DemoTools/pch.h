@@ -19,3 +19,10 @@
 #include <afxcontrolbars.h>
 #include <afxext.h>
 #endif //PCH_H
+
+struct SMapInfo
+{
+	int iNumTile;
+	int iNumCell;
+	float fCellSize;
+};

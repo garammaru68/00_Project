@@ -2,10 +2,15 @@
 #include "SCore.h"
 #include "SCamera.h"
 #include "SMap.h"
+#include "SQuadTree.h"
+#include "SHeightMap.h"
+
 class Sample : public SCore
 {
 public:
-	SMap		m_CustomMap;
+	SHeightMap  m_CustomMap;
+	SQuadtree	m_Quadtree;
+	//SMap		m_CustomMap;
 	SCamera*	m_pMainCamera;
 	SShapeLine	m_LineDraw;
 	bool		m_bCreateMap;

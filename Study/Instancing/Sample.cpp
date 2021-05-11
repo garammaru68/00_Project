@@ -278,6 +278,10 @@ bool Sample::Render()
 			SDxState::g_RasterizerDesc);
 		ApplyRS(g_pImmediateContext, SDxState::g_pRSEdit.Get());
 	}
+	g_pImmediateContext->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	g_pImmediateContext->RSSetState(SDxState::g_pRS[2]);
+	g_pImmediateContext->PSSetSamplers(0, 1, &SDxState::g_pSSWrapLinear);
+	g_pImmediateContext->OMSetDepthStencilState(SDxState::g_pDSS[0], 0);
 
 	m_Map.SetMatrix(NULL,
 		&m_pMainCamera->m_matView,
