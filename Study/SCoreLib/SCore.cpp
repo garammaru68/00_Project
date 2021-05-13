@@ -56,8 +56,8 @@ bool SCore::GameInit()
 	m_Camera.Init();
 	m_pMainCamera = &m_Camera;
 
-	m_Skybox.Create(g_pd3dDevice, L"../../data/shader/skyVS.txt",
-		L"../../data/shader/skyPS.txt", L"");
+	//m_Skybox.Create(g_pd3dDevice, L"../../data/shader/skyVS.txt",
+	//	L"../../data/shader/skyPS.txt", L"");
 
 	if (!m_LineShape.Create(g_pd3dDevice, L"../../data/shader/VS.txt",
 		L"../../data/shader/PS.txt",
@@ -75,7 +75,7 @@ bool SCore::GameInit()
 bool SCore::GameRelease()
 {
 	m_LineShape.Release();
-	m_Skybox.Release();
+	//m_Skybox.Release();
 	Release();
 	g_Timer.Release();
 	g_Input.Release();
@@ -91,7 +91,7 @@ bool	SCore::GameFrame()
 	g_Timer.Frame();
 	g_Input.Frame();
 	g_SoundMgr.Frame();
-	m_Skybox.Frame();
+	//m_Skybox.Frame();
 	Frame();
 	g_ObjectMgr.Frame();
 	CameraFrame();
@@ -139,10 +139,10 @@ bool	SCore::PreRender()
 {
 	SDevice::PreRender();
 	g_pImmediateContext->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-	m_Skybox.SetMatrix(NULL,
-		&m_pMainCamera->m_matView,
-		&m_pMainCamera->m_matProj);
-	m_Skybox.Render(g_pImmediateContext);
+	//m_Skybox.SetMatrix(NULL,
+	//	&m_pMainCamera->m_matView,
+	//	&m_pMainCamera->m_matProj);
+	//m_Skybox.Render(g_pImmediateContext);
 	g_pImmediateContext->RSSetState(SDxState::g_pRSBackCullSolid);
 	g_pImmediateContext->PSSetSamplers(0, 1, &SDxState::g_pSSWrapLinear);
 	g_pImmediateContext->OMSetDepthStencilState(SDxState::g_pDSSDepthEnable, 0);

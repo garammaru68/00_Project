@@ -3,12 +3,12 @@ bool Sample::PreRender()
 {
 	SCore::PreRender();
 	ID3D11RenderTargetView* pNullRTV = NULL;
-	m_pd3dContext->OMSetRenderTargets(1, &pNullRTV, NULL);
+	m_pImmediateContext->OMSetRenderTargets(1, &pNullRTV, NULL);
 
-	m_pd3dContext->OMSetRenderTargets(
+	m_pImmediateContext->OMSetRenderTargets(
 		1, &m_pRenderTargetView,
 		m_pDSV);
-	m_pd3dContext->ClearDepthStencilView(
+	m_pImmediateContext->ClearDepthStencilView(
 		m_pDSV, D3D11_CLEAR_DEPTH |
 		D3D11_CLEAR_STENCIL, 1, 0);
 	return true;

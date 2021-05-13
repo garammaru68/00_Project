@@ -214,7 +214,7 @@
       <Filter>fbx</Filter>
     </ClInclude>
     <ClInclude Include="SQuadTree.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>map</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -366,7 +366,7 @@
       <Filter>fbx</Filter>
     </ClCompile>
     <ClCompile Include="SQuadTree.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>map</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

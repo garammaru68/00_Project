@@ -44,6 +44,27 @@ struct PC_VERTEX
 		p = vp, c = vc;
 	}
 };
+struct PCT_VERTEX
+{
+	Vector3 p;
+	Vector4 c;
+	Vector2 t;
+	bool operator == (const PCT_VERTEX & Vertex)
+	{
+		if (p == Vertex.p  && c == Vertex.c    && t == Vertex.t)
+		{
+			return true;
+		}
+		return  false;
+	}
+	PCT_VERTEX() {}
+	PCT_VERTEX(Vector3		vp,
+		Vector4		vc,
+		Vector2     vt)
+	{
+		p = vp, c = vc, t = vt;
+	}
+};
 struct PNCT_VERTEX
 {
 	Vector3		p;

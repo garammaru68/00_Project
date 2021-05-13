@@ -33,7 +33,7 @@ namespace SBASIS_CORE_LIB
 		bool	m_bCapsLock;
 		bool	m_bNumLock;
 	};
-
+	typedef basic_string<TCHAR>::iterator	S_ITOR;
 	extern ID3D11Device*		g_pd3dDevice;
 	extern ID3D11DeviceContext*	g_pImmediateContext;
 	extern SKeyMap				g_KeyMap;

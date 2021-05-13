@@ -1,9 +1,9 @@
 #pragma once
 #include "SCore.h"
-#include "SVector.h"
+//#include "SVector.h"
 #include <d3dcompiler.h>
 #include "WICTextureLoader.h"//../../include/DirectXTK
-#include "SMatrix.h"
+//#include "SMatrix.h"
 #pragma comment(lib, "d3dcompiler.lib")
 #pragma comment(lib, "directxtk.lib")
 struct P_VERTEX
@@ -26,18 +26,18 @@ struct P_VERTEX
 };
 struct SDataCB
 {
-	xMatrix  matWorld;
-	xMatrix  matView;
-	xMatrix  matProject;
+	Matrix  matWorld;
+	Matrix  matView;
+	Matrix  matProject;
 	float vColor[4];
 	float vTime[4];
 };
 class Sample : public SCore
 {
 public:
-	xMatrix    m_matWorld;
-	xMatrix    m_matView;
-	xMatrix    m_matProj;
+	Matrix    m_matWorld;
+	Matrix    m_matView;
+	Matrix    m_matProj;
 	Vector3	   m_vCameraPos = { 0,0,-10 };
 	Vector3	   m_vCameraTarget = { 0,0,0 };
 public:

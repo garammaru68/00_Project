@@ -45,6 +45,9 @@
     <ClInclude Include="Sample.h">
       <Filter>SCore</Filter>
     </ClInclude>
+    <ClInclude Include="ObjectUI.h">
+      <Filter>SCore</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="UITool.cpp">
@@ -63,6 +66,9 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Sample.cpp">
+      <Filter>SCore</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectUI.cpp">
       <Filter>SCore</Filter>
     </ClCompile>
   </ItemGroup>
