@@ -43,6 +43,9 @@
     <Filter Include="fbx">
       <UniqueIdentifier>{a3ad456f-b99d-4588-aede-da07602434e1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="mfc">
+      <UniqueIdentifier>{5930ad60-6393-4f2b-8e87-970af7fe4b6f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SStd.h">

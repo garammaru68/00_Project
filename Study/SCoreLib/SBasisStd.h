@@ -30,6 +30,7 @@ namespace SBASIS_CORE_LIB
 	typedef std::basic_string<TCHAR>	T_STR;
 	typedef std::basic_string<CHAR>		C_STR;
 	typedef std::vector<T_STR>			T_STR_VECTOR;
+	typedef basic_string<TCHAR>::iterator	T_ITOR;
 
 	template<class S>
 	class SSingleton

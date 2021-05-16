@@ -116,10 +116,10 @@ SShapePlane::~SShapePlane()
 //bool SShapeLine::CreateVertexData()
 //{
 //	m_LineVertexList.resize(2);
-//	m_LineVertexList[0].p = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-//	m_LineVertexList[0].c = D3DXVECTOR4(1.0f, 0.0f, 0.0f, 1.0f);
-//	m_LineVertexList[1].p = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
-//	m_LineVertexList[1].c = D3DXVECTOR4(1.0f, 0.0f, 0.0f, 1.0f);
+//	m_LineVertexList[0].p = Vector3(0.0f, 0.0f, 0.0f);
+//	m_LineVertexList[0].c = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
+//	m_LineVertexList[1].p = Vector3(1.0f, 0.0f, 0.0f);
+//	m_LineVertexList[1].c = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
 //
 //	m_dxobj.m_iVertexSize = sizeof(PC_VERTEX);
 //	m_dxobj.m_iNumVertex = (UINT)m_LineVertexList.size();
@@ -144,7 +144,7 @@ SShapePlane::~SShapePlane()
 //		m_dxobj.m_iVertexSize));
 //	return S_OK;
 //}
-//bool SShapeLine::Draw(ID3D11DeviceContext* pContext, D3DXVECTOR3 vStart, D3DXVECTOR3 vEnd, D3DXVECTOR4 vColor)
+//bool SShapeLine::Draw(ID3D11DeviceContext* pContext, Vector3 vStart, Vector3 vEnd, Vector4 vColor)
 //{
 //	PC_VERTEX vertices[2];
 //	vertices[0].p = vStart;
